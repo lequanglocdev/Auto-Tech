@@ -1,0 +1,48 @@
+.header-top {
+    height: 20px;
+    width: 100%;
+    background-color: var(--background-primary);
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.calender,
+.phone,
+.info {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+}
+
+.info .icon {
+    font-size: 1.25rem;
+}
+
+.calender .icon,
+.phone .icon {
+    color: var(--text-second);
+    font-size: 1.25rem;
+}
+
+.calender span,
+.phone span,
+.info .icon {
+    color: var(--text-primary);
+}
+
+@media (max-width: 768px) {
+    .header-top {
+        height: auto;
+        display: block;
+    }
+    .calender,
+    .phone,
+    .info {
+        display: flex;
+        justify-content: flex-start;
+        margin-bottom: 10px;
+        padding: 0 10px;
+    }
+}
