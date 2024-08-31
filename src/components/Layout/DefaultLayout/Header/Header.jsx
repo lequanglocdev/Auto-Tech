@@ -9,10 +9,10 @@ const Header = () => {
         <Navbar bg="dark" variant="dark" expand="lg" className={`navbar ${isScrolled ? 'navbar-fixed' : ''}`}>
             <Container>
                 <Navbar.Brand href="#home" className="navbar-brand">
-                    <Image src="./logo.png" alt="logo" className="logo" />
+                    <Image src="./logo.png" alt="logo" className="nav-logo" />
                 </Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
-                <Navbar.Collapse id="basic-navbar-nav">
+                <Navbar.Collapse id="basic-navbar-nav" className="justify-content-end">
                     <Nav>
                         <Nav.Link href="#home" className="nav-text">
                             TRANG CHỦ
@@ -28,6 +28,9 @@ const Header = () => {
                         </Nav.Link>
                         <Nav.Link href="#link" className="nav-text">
                             TIN TỨC
+                        </Nav.Link>
+                        <Nav.Link href="#link" className="nav-text">
+                            ĐĂNG NHẬP
                         </Nav.Link>
                     </Nav>
                 </Navbar.Collapse>

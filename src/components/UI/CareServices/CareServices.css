@@ -1,0 +1,36 @@
+.care-services {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 40px;
+}
+
+.care-services h4 {
+    font-size: 2rem;
+    color: var(--text-second);
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.care-services p {
+    font-size: 1.6rem;
+    color: var(--text-primary);
+    font-style: italic;
+    margin-bottom: 30px;
+}
+
+.care-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.care-card {
+    border-radius: var(--border-radius);
+    width: 200px;
+    height: 200px;
+    background-color: var(--grey-background);
+}

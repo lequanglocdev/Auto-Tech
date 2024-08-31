@@ -1,8 +1,7 @@
 .navbar {
-    height: 40px;
+    height: 60px;
     transition: all 0.3s ease-in-out;
     position: relative;
-    width: 100%;
 }
 
 .navbar-fixed {
@@ -23,22 +22,16 @@
     flex-grow: 0;
 }
 
-.logo {
-    width: 100px;
-    height: 100px;
+.nav-logo {
+    width: 160px;
+    height: 160px;
     object-fit: contain;
     overflow: hidden;
 }
 
-.navbar-nav {
-    flex-grow: 1;
-    display: flex;
-    justify-content: flex-end;
-}
-
 .nav-text {
     color: var(--text-primary) !important;
-    font-size: 1.563rem;
+    font-size: 1.5rem !important;
     font-weight: bold !important;
 }
 
@@ -51,6 +44,7 @@
         height: auto;
     }
 }
+
 @media (max-width: 987px) {
     .navbar {
         height: auto;

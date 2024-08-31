@@ -1,9 +1,4 @@
-.wrapper{
-  width:100%;
-  height: 100vh;
-  background-color:var(--background-primary);
-}
-
-.main{
-  width: var(--max-width);
+.wrapper {
+    min-height: 1000vh;
+    background-color: var(--background-primary);
 }

@@ -1,0 +1,35 @@
+.banner {
+    width: 100%;
+    height: 200px;
+    background-color: #e02f33;
+}
+
+.banner-contenr{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 200px;
+}
+
+.banner-text{
+  font-size: 1.6rem;
+  color: var(--text-primary);
+  font-weight: bold;
+}
+
+.banner-btn{
+  width: 240px;
+  height: 40px;
+  font-size: 1.6rem;
+}
+
+@media (max-width: 987px) {
+  .banner {
+     width: 100%;
+  }
+  
+  .banner-btn{
+    width: 140px;
+  height: 40px;
+  }
+}

@@ -1,5 +1,5 @@
 .header-top {
-    height: 20px;
+    height: 30px;
     width: 100%;
     background-color: var(--background-primary);
     display: flex;
@@ -17,19 +17,20 @@
 }
 
 .info .icon {
-    font-size: 1.25rem;
+    font-size: 1.6rem;
 }
 
 .calender .icon,
 .phone .icon {
     color: var(--text-second);
-    font-size: 1.25rem;
+    font-size: 1.6rem;
 }
 
 .calender span,
 .phone span,
 .info .icon {
     color: var(--text-primary);
+    font-size: 1.4rem;
 }
 
 @media (max-width: 768px) {
@@ -37,6 +38,7 @@
         height: auto;
         display: block;
     }
+
     .calender,
     .phone,
     .info {
