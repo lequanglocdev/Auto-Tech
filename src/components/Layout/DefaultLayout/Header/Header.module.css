@@ -34,6 +34,9 @@
     font-size: 1.5rem !important;
     font-weight: bold !important;
 }
+.nav-icon {
+    margin-left: 20px;
+}
 
 .nav-text:hover {
     color: var(--text-second) !important;
@@ -43,10 +46,16 @@
     .navbar {
         height: auto;
     }
+    .nav-icon {
+        margin-left: 0px;
+    }
 }
 
 @media (max-width: 987px) {
     .navbar {
         height: auto;
+    }
+    .nav-icon {
+        margin-left: 0px;
     }
 }

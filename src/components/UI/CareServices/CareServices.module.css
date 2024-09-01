@@ -1,0 +1,83 @@
+.care-services {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 40px;
+}
+
+.care-services h4 {
+    font-size: 2rem;
+    color: var(--text-second);
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.care-services p {
+    font-size: 1.6rem;
+    color: var(--text-primary);
+    font-style: italic;
+    margin-bottom: 30px;
+}
+
+.care-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.care-card {
+    width: 200px;
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    font-size: 1.6rem;
+    font-weight: bold;
+    border-radius: var(--border-radius);
+    background-color: var(--grey-background);
+    position: relative;
+}
+
+.image-wrapper {
+    position: relative;
+    width: 100px;
+    height: 100px;
+}
+
+.image-default {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transition: opacity 0.3s ease;
+}
+
+.image-hover {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.care-card:hover .image-default {
+    opacity: 0;
+}
+
+.care-card:hover .image-hover {
+    opacity: 1;
+}
+
+.care-card:hover {
+    cursor: pointer;
+    background-color: var(--text-primary);
+    color: var(--text-second);
+}

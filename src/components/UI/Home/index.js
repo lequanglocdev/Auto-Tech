@@ -1,0 +1,7 @@
+export {default as Specification} from './Specification/Specification'
+export {default as Banner} from './Banner/Banner'
+export {default as Intro} from './Intro/Intro'
+export {default as Sidebar} from './Sidebar/Sidebar'
+export {default as Services} from './Services/Services'
+export {default as Staff} from './Staff/Staff'
+export {default as FeedBack} from './FeedBack/FeedBack'

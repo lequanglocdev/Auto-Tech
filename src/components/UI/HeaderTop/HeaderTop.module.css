@@ -16,19 +16,19 @@
     align-items: center;
 }
 
-.info .icon {
-    font-size: 1.6rem;
-}
-
 .calender .icon,
 .phone .icon {
     color: var(--text-second);
     font-size: 1.6rem;
 }
 
+.info .icon{
+    color: var(--text-primary);
+    font-size: 1.8rem;
+}
+
 .calender span,
-.phone span,
-.info .icon {
+.phone span {
     color: var(--text-primary);
     font-size: 1.4rem;
 }

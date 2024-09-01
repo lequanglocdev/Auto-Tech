@@ -1,10 +1,7 @@
 import React from 'react';
-import './Home.css';
-import Sidebar from '@/components/UI/Sidebar/Sidebar';
-import Intro from '@/components/UI/Intro/Intro';
-import Services from '@/components/UI/Services/Services';
-import Banner from '@/components/UI/Banner/Banner';
+import './Home.module.css';
 import CareServices from '@/components/UI/CareServices/CareServices';
+import { Specification, Banner,Intro,Services,Sidebar,Staff, FeedBack} from '@/components/UI/Home';
 const Home = () => {
     return (
         <div className="home">
@@ -13,6 +10,9 @@ const Home = () => {
             <Services/>
             <Banner/>
             <CareServices/>
+            <Specification/>
+            <Staff/>
+            <FeedBack/>
         </div>
     );
 };
