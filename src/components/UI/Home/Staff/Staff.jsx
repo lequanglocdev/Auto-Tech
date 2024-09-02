@@ -3,7 +3,7 @@ import { Container } from 'react-bootstrap';
 import styles from './Staff.module.css';
 const Staff = () => {
     return (
-        <Container>
+        <Container id='gara'>
             <div className={styles['staff-content']}>
                 <div className={styles['staff-head']}>
                     <h4>Nhân viên kỹ thuật chuyên nghiệp</h4>

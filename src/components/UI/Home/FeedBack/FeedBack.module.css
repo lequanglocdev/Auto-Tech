@@ -1,9 +1,8 @@
 .feedback {
     margin-top: 40px;
     height: 400px;
-    width: 100vw;
     position: relative;
-    background-image: url('../../../../../public/sidebar.png'); /* Đường dẫn hình ảnh nền */
+    background-image: url('../../../../../public/sidebar.png');
     background-size: cover;
     background-position: center;
 }
@@ -14,8 +13,8 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: rgba(0, 0, 0, 0.5); /* Màu nền với độ mờ */
-    z-index: 0; /* Đảm bảo lớp phủ nằm phía dưới nội dung */
+    background-color: rgba(0, 0, 0, 0.8); 
+    z-index: 0;
 }
 
 .content {
@@ -24,9 +23,22 @@
 }
 
 .feedback-header h4 {
-    margin-top: 40px;
+    position: relative;
     text-align: center;
     color: var(--text-second); /* Màu sắc của văn bản */
     font-weight: bold;
-    position: relative;
+    font-size: 2rem;
+    text-transform: uppercase;
+}
+.feedback-body {
+    display: flex;
+    height: 360px;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.feedback-content{
+    width: 400px;
+    height: 100px;
+    background-color: var(--text-second);
 }

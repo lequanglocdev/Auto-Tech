@@ -4,7 +4,7 @@ import styles from  './CareServices.module.css';
 import {services} from '@/utils/data'
 const CareServices = () => {
     return (
-        <Container>
+        <Container id='services'>
             <div className={styles['care-services']}>
                 <h4>Dịch vụ chăm sóc</h4>
                 <p>Đây là một trong số những dịch vụ sửa chữa ô tô mà Auto Tech chúng tôi cung cấp.</p>

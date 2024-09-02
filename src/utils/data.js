@@ -61,3 +61,30 @@ export const services = [
         title: 'Dịch vụ sơn xe',
     },
 ];
+
+export const blogData = [
+    {
+        id: 1,
+        image: './blog1.png',
+        author: 'Admin',
+        date: '01/09/2024',
+        comments: '3 comments',
+        content: 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Officiis, laudantium atque...',
+    },
+    {
+        id: 2,
+        image: './blog1.png',
+        author: 'User123',
+        date: '02/09/2024',
+        comments: '5 comments',
+        content: 'Ullam tempora ea aspernatur sit cumque doloremque rem exercitationem fuga debitis...',
+    },
+    {
+        id: 3,
+        image: './blog1.png',
+        author: 'Guest',
+        date: '03/09/2024',
+        comments: '10 comments',
+        content: 'Omnis, molestias veritatis voluptatem eos accusantium maxime...',
+    },
+];

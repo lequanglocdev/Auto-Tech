@@ -1,0 +1,36 @@
+.blog-head h4{
+  margin-top: 40px;
+  text-align: center;
+  color: var(--text-second);
+  font-size: 2rem;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.blog-body{
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap:10px;
+}
+.blog-card{
+  width: 352px;
+  height: 484px;
+  background-color: var(--grey-background);
+  border-radius: var(--border-radius);
+}
+
+.blog-info{
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.blog-user{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}

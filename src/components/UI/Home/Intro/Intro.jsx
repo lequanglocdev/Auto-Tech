@@ -1,74 +1,55 @@
 import React from 'react';
-import { Button, Col, Container, Form, FormControl, Row } from 'react-bootstrap';
 import styles from './Intro.module.css';
+import { Container } from 'react-bootstrap';
 const Intro = () => {
     return (
-        <Container className={styles['intro-container']}>
-            <Row className={styles['intro-row']}>
-                <Col>
-                    <div className={styles['intro-info']}>
-                        <div className={styles['info-content']}>
-                            <h4>Thông tin liên hệ</h4>
-                            <div className={styles['info-center']}>
-                                <div className={styles['content-call']}>
-                                    <p>Gọi cho chúng tôi:</p>
-                                    <p>+78 201 236</p>
-                                </div>
-                                <div className={styles['content-location']}>
-                                    <p>Vị trí:</p>
-                                    <p>Việt Nam, TPHCM</p>
-                                </div>
-                                <div className={styles['content-time']}>
-                                    <p>Giờ làm việc</p>
-                                    <p>Từ thứ hai - thứ bảy 8;00h - 20:00h</p>
-                                </div>
-                            </div>
-                        </div>
+        <Container id='intro'>
+            <div className={styles['intro']}>
+                <div className={styles['intro-head']}>
+                    <h4>Giới thiệu AUTO TECH</h4>
+                </div>
+                <div className={styles['intro-body']}>
+                    <h6>Auto Tech đối tác tin cậy cho xế yêu của bạn:</h6>
+                    <p>
+                        Được thành lập vào năm 2021, Auto Tech đã nhanh chóng khẳng định vị thế là một trong những công
+                        ty phụ kiện ô tô hàng đầu tại Việt Nam. Với đội ngũ nhân viên giàu kinh nghiệm và hệ thống phân
+                        phối rộng khắp, Auto Tech cung cấp đa dạng các sản phẩm và dịch vụ chăm sóc xe ô tô, từ nâng cấp
+                        âm thanh, dán phim cách nhiệt, phủ ceramic đến lắp đặt các phụ kiện nội thất cao cấp.
+                    </p>
+                    <h6>Điểm nổi bật của Auto Tech:</h6>
+                    <p>
+                        Sản phẩm chất lượng: Phân phối độc quyền các thương hiệu nổi tiếng thế giới như Limousine
+                        Hongyi, Silent Pro, PPF SAP, phim cách nhiệt ASWF, âm thanh Venom, Mosconi...
+                    </p>
+                    <p>
+                        Dịch vụ chuyên nghiệp: Đội ngũ kỹ thuật viên giàu kinh nghiệm, quy trình làm việc bài bản, đảm
+                        bảo chất lượng dịch vụ tốt nhất.
+                    </p>
+                    <p>
+                        Dịch vụ chuyên nghiệp: Đội ngũ kỹ thuật viên giàu kinh nghiệm, quy trình làm việc bài bản, đảm
+                        bảo chất lượng dịch vụ tốt nhất.
+                    </p>
+                    <p>
+                        Cơ sở vật chất hiện đại: Hệ thống phòng trưng bày, xưởng thi công được trang bị đầy đủ thiết bị
+                        hiện đại.
+                    </p>
+                    <p>
+                        Giá cả hợp lý: Cam kết mang đến cho khách hàng những sản phẩm và dịch vụ chất lượng với giá cả
+                        cạnh tranh.
+                    </p>
+                    <p>Uy tín: Được khách hàng tin tưởng và đánh giá cao về chất lượng sản phẩm và dịch vụ.</p>
+                    <h6>Kết luận</h6>
+                    <p>
+                        Auto Tech là một địa chỉ tin cậy để bạn chăm sóc và nâng cấp xế yêu của mình. Với đội ngũ chuyên
+                        nghiệp, sản phẩm chất lượng và dịch vụ tận tâm, Auto Tech sẽ mang đến cho bạn những trải nghiệm
+                        tuyệt vời nhất.
+                    </p>
+                    <div className={styles['intro-img']}>
+                        <img src="./intro1.png" alt="" width={660} height={200} />
+                        <img src="./intro2.png" alt="" width={660} height={200} />
                     </div>
-                </Col>
-                <Col>
-                    <div className={styles['intro-info']}>
-                        <div className={styles['info-content']}>
-                            <h4>Gửi tin nhắn cho chúng tôi</h4>
-                            <Form>
-                                <FormControl type="text" placeholder="Email" className={styles['content-input']} size="lg" />
-                                <br />
-                                <FormControl
-                                    type="text"
-                                    placeholder="Số điện thoại "
-                                    className={styles['content-input']}
-                                    size="lg"
-                                />
-                                <br />
-                                <FormControl
-                                    type="text"
-                                    placeholder="Nhập tin nhăn"
-                                    className={styles['content-input']}
-                                    size="lg"
-                                />
-                            </Form>
-                            <br />
-                            <Button className={styles['content-btn']} variant="danger" size="lg">
-                                Gửi
-                            </Button>
-                        </div>
-                    </div>
-                </Col>
-                <Col>
-                    <div className={styles['intro-info']}>
-                        <div className={styles['info-content']}>
-                            <h4>Dịch vụ chăm sóc</h4>
-                            <p>
-                                Auto Tech - Không chỉ là dịch vụ, mà còn là trải nghiệm. Chúng tôi hiểu rằng chiếc xe
-                                không chỉ là phương tiện di chuyển mà còn là người bạn đồng hành của bạn. Vì vậy, chúng
-                                tôi luôn đặt sự hài lòng của khách hàng lên hàng đầu. Với không gian thoải mái, dịch vụ
-                                chuyên nghiệp và giá cả hợp lý. Auto Tech sẽ mang đến cho bạn những trải nghiệm tuyệt
-                                vời nhất."
-                            </p>
-                        </div>
-                    </div>
-                </Col>
-            </Row>
+                </div>
+            </div>
         </Container>
     );
 };

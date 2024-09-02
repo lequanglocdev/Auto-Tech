@@ -23,16 +23,16 @@ const Header = () => {
                         <Nav.Link href="#home" className={styles['nav-text']}>
                             TRANG CHỦ
                         </Nav.Link>
-                        <Nav.Link href="#link" className={styles['nav-text']}>
+                        <Nav.Link href="#services" className={styles['nav-text']}>
                             DỊCH VỤ
                         </Nav.Link>
-                        <Nav.Link href="#link" className={styles['nav-text']}>
+                        <Nav.Link href="#gara" className={styles['nav-text']}>
                             GARA
                         </Nav.Link>
-                        <Nav.Link href="#link" className={styles['nav-text']}>
+                        <Nav.Link href="#intro" className={styles['nav-text']}>
                             AUTO TECH
                         </Nav.Link>
-                        <Nav.Link href="#link" className={styles['nav-text']}>
+                        <Nav.Link href="#blog" className={styles['nav-text']}>
                             TIN TỨC
                         </Nav.Link>
                         <Nav.Link href="#link" className={styles['nav-icon']}>

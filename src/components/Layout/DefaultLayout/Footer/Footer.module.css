@@ -1,0 +1,51 @@
+.footer{
+  margin-top: 40px;
+  width: 100%;
+  height: 400px;
+  border-top: 4px solid var(--text-second);
+}
+
+.footer-content{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.footer-center {
+  color: #FFFFFF; /* Màu chữ trắng */
+  font-size: 16px; /* Kích thước chữ */
+}
+
+.footer-center h6 {
+  font-size: 20px; /* Kích thước tiêu đề */
+  margin-bottom: 10px; /* Khoảng cách dưới tiêu đề */
+}
+
+.footer-center ul {
+  list-style: none; /* Bỏ dấu chấm trước mỗi mục trong danh sách */
+  padding: 0; /* Bỏ padding của danh sách */
+}
+
+.footer-center li {
+  display: flex;
+  align-items: center;
+  margin-bottom: 5px; /* Khoảng cách dưới mỗi mục */
+  color: #d3d3d3; /* Màu chữ */
+}
+
+.footer-center li svg {
+  margin-right: 8px; /* Khoảng cách giữa icon và text */
+}
+
+.footer-left p{
+    font-size: 1.4rem;
+    color: var(--text-primary);
+    font-style: italic;
+}
+
+.footer-icon {
+  cursor: pointer;
+  font-size: 4rem;
+  margin-right: 10px;
+  color: var(--text-second);
+  background-color: var(--text-primary);
+}
