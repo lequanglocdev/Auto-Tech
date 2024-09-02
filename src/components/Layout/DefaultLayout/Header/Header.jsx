@@ -35,7 +35,7 @@ const Header = () => {
                         <Nav.Link href="#blog" className={styles['nav-text']}>
                             TIN TỨC
                         </Nav.Link>
-                        <Nav.Link href="#link" className={styles['nav-icon']}>
+                        <Nav.Link href='/auth' className={styles['nav-icon']}>
                             <FaRegUserCircle size={24} />
                         </Nav.Link>
                     </Nav>

@@ -1,13 +1,13 @@
-import { ContactTop } from "@/pages/Contact"
-import { Home } from "@/pages/Home"
-import  Upload  from "@/pages/Upload/Upload"
 
+import { Home } from "@/pages/Home"
+import Auth from "@/pages/Auth/Auth"
+import Login from "@/pages/Login/Login"
+import Register from "@/pages/Register/Register"
 export const publicRoute = [
     {path:'/',component: Home},
-    {path:'/contact',component: ContactTop},
-    {path:'/upload',component: Upload,layout:null}
-    
-
+    {path:'/auth',component: Auth,layout:null},
+    {path:'/login',component: Login,layout:null},
+    {path:'/register',component: Register,layout:null}
 ]
 
 export const privateRoute = [

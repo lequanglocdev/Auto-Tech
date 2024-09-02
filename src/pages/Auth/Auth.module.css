@@ -1,0 +1,49 @@
+.auth {
+    height: 100vh;
+    background-image: url('../../../public/backgroundAuth.png');
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.auth-container {
+    width: 460px;
+    height: 400px;
+    background-color: var(--background-third);
+    overflow: hidden;
+    border-radius: var(--border-radius);
+}
+
+.auth-image{
+  width: 100%;
+  height: 50%;
+  background-color: var(--text-primary);
+}
+
+.auth-image img{
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  object-fit: contain;
+}
+
+.auth-btn {
+  height: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 40px;
+}
+
+.btn{
+  width: 200px;
+  height: 40px;
+  border-radius: var(--border-radius);
+  font-size: 1.6rem !important;
+  font-weight: bold !important;
+  background-color: var( --background-second) !important;
+  color: var(--text-primary) !important;
+}
