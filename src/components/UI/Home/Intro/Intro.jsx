@@ -5,10 +5,10 @@ const Intro = () => {
     return (
         <Container id='intro'>
             <div className={styles['intro']}>
-                <div className={styles['intro-head']}>
+                <div className={styles.introHead}>
                     <h4>Giới thiệu AUTO TECH</h4>
                 </div>
-                <div className={styles['intro-body']}>
+                <div className={styles.introBody}>
                     <h6>Auto Tech đối tác tin cậy cho xế yêu của bạn:</h6>
                     <p>
                         Được thành lập vào năm 2021, Auto Tech đã nhanh chóng khẳng định vị thế là một trong những công
@@ -44,9 +44,9 @@ const Intro = () => {
                         nghiệp, sản phẩm chất lượng và dịch vụ tận tâm, Auto Tech sẽ mang đến cho bạn những trải nghiệm
                         tuyệt vời nhất.
                     </p>
-                    <div className={styles['intro-img']}>
-                        <img src="./intro1.png" alt="" width={660} height={200} />
-                        <img src="./intro2.png" alt="" width={660} height={200} />
+                    <div className={styles.introImg}>
+                        <img src="./intro1.png" alt="intro" width={660} height={200} />
+                        <img src="./intro2.png" alt="intro" width={660} height={200} />
                     </div>
                 </div>
             </div>

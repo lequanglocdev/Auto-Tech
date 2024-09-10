@@ -5,17 +5,17 @@
     gap: 10px;
 }
 
-.services-image,
-.services-content {
+.servicesImage,
+.servicesContent {
     flex: 1;
 }
 
-.services-image {
+.servicesImage {
     margin-top: 20px;
     max-width: 100%;
 }
 
-.services-content h4 {
+.servicesContent h4 {
     text-align: center;
     color: var(--text-second);
     text-transform: uppercase;
@@ -23,12 +23,12 @@
     font-weight: bold;
 }
 
-.services-content p {
+.servicesContent p {
     font-size: 1.6rem;
     color: var(--text-second);
 }
 
-.services-center {
+.servicesCenter {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -36,7 +36,7 @@
     gap: 10px;
 }
 
-.services-why {
+.servicesWhy {
     width: 48%;
     height: 180px;
     background-color: var(--grey-background);
@@ -47,20 +47,20 @@
     align-items: center;
 }
 
-.services-why h6 {
+.servicesWhy h6 {
     font-size: 1.6rem;
     color: var(--text-second);
     font-style: italic;
 }
 
-.services-why p {
+.servicesWhy p {
     font-size: 1.4rem;
     color: var(--text-primary);
     font-style: italic;
 }
 
 @media (max-width: 987px) {
-    .services-image {
+    .servicesImage {
         display: none;
     }
 }

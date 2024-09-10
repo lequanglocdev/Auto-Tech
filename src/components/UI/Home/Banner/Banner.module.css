@@ -4,20 +4,20 @@
     background-color: #e02f33;
 }
 
-.banner-contenr{
+.bannerContenr{
   display: flex;
   justify-content: space-between;
   align-items: center;
   height: 200px;
 }
 
-.banner-text{
+.bannerText{
   font-size: 1.6rem;
   color: var(--text-primary);
   font-weight: bold;
 }
 
-.banner-btn{
+.bannerBtn{
   width: 240px;
   height: 40px;
   font-size: 1.6rem;
@@ -28,7 +28,7 @@
      width: 100%;
   }
   
-  .banner-btn{
+  .bannerBtn{
     width: 140px;
   height: 40px;
   }

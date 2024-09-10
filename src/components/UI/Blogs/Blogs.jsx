@@ -6,28 +6,28 @@ const Blogs = () => {
     return (
         <Container id='blog'>
         <div className="blog">
-            <div className={styles['blog-head']}>
+            <div className={styles.blogHead}>
                 <h4>Bài viết mới nhất</h4>
             </div>
-            <div className={styles['blog-body']}>
+            <div className={styles.blogBody}>
                 {blogData.map((blog) => (
-                    <div key={blog.id} className={styles['blog-card']}>
+                    <div key={blog.id} className={styles.blogCard}>
                         <img src={blog.image} alt="" />
-                        <div className={styles['blog-info']}>
-                            <div className={styles['blog-user']}>
+                        <div className={styles.blogInfo}>
+                            <div className={styles.blogUser}>
                                 <p>icon</p>
                                 <p>{blog.author}</p>
                             </div>
-                            <div className={styles['blog-user']}>
+                            <div className={styles.blogUser}>
                                 <p>icon</p>
                                 <p>{blog.date}</p>
                             </div>
-                            <div className={styles['blog-user']}>
+                            <div className={styles.blogUser}>
                                 <p>icon</p>
                                 <p>{blog.comments}</p>
                             </div>
                         </div>
-                        <div className={styles['blog-content']}>
+                        <div className={styles.blogContent}>
                             <p>{blog.content}</p>
                         </div>
                     </div>

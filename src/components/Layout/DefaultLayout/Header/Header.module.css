@@ -4,7 +4,7 @@
     position: relative;
 }
 
-.navbar-fixed {
+.navbarFixed {
     position: fixed !important;
     top: 0;
     left: 0;
@@ -17,28 +17,28 @@
     padding: 0 20px;
 }
 
-.navbar-brand {
+.navbarBrand {
     position: relative;
     flex-grow: 0;
 }
 
-.nav-logo {
+.navLogo {
     width: 160px;
     height: 160px;
     object-fit: contain;
     overflow: hidden;
 }
 
-.nav-text {
+.navText {
     color: var(--text-primary) !important;
     font-size: 1.5rem !important;
     font-weight: bold !important;
 }
-.nav-icon {
+.navIcon {
     margin-left: 20px;
 }
 
-.nav-text:hover {
+.navText:hover {
     color: var(--text-second) !important;
 }
 
@@ -46,7 +46,7 @@
     .navbar {
         height: auto;
     }
-    .nav-icon {
+    .navIcon {
         margin-left: 0px;
     }
 }
@@ -55,7 +55,7 @@
     .navbar {
         height: auto;
     }
-    .nav-icon {
+    .navIcon {
         margin-left: 0px;
     }
 }

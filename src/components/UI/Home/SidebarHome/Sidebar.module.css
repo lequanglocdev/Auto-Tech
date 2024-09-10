@@ -1,10 +1,10 @@
-.sidebar-image{
+.sidebarImage{
   width: 100%;
   height: 600px;
 }
 
 @media (max-width: 987px) {
-  .sidebar-image{
+  .sidebarImage{
       width: 100%;
       height: auto;
   }

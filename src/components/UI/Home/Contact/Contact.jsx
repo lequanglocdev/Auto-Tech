@@ -3,22 +3,22 @@ import { Button, Col, Container, Form, FormControl, Row } from 'react-bootstrap'
 import styles from './Contact.module.css';
 const Contact = () => {
     return (
-        <Container className={styles['contact-container']}>
-            <Row className={styles['contact-row']}>
+        <Container className={styles.contactContainer}>
+            <Row className={styles.contactRow}>
                 <Col>
-                    <div className={styles['contact-info']}>
-                        <div className={styles['info-content']}>
+                    <div className={styles.contactInfo}>
+                        <div className={styles.infoContent}>
                             <h4>Thông tin liên hệ</h4>
-                            <div className={styles['info-center']}>
-                                <div className={styles['content-call']}>
+                            <div className={styles.infoCenter}>
+                                <div className={styles.contentCall}>
                                     <p>Gọi cho chúng tôi:</p>
                                     <p>+78 201 236</p>
                                 </div>
-                                <div className={styles['content-location']}>
+                                <div className={styles.contentLocation}>
                                     <p>Vị trí:</p>
                                     <p>Việt Nam, TPHCM</p>
                                 </div>
-                                <div className={styles['content-time']}>
+                                <div className={styles.contentTime}>
                                     <p>Giờ làm việc</p>
                                     <p>Từ thứ hai - thứ bảy 8;00h - 20:00h</p>
                                 </div>
@@ -27,36 +27,36 @@ const Contact = () => {
                     </div>
                 </Col>
                 <Col>
-                    <div className={styles['contact-info']}>
-                        <div className={styles['info-content']}>
+                    <div className={styles.contactInfo}>
+                        <div className={styles.infoContent}>
                             <h4>Gửi tin nhắn cho chúng tôi</h4>
                             <Form>
-                                <FormControl type="text" placeholder="Email" className={styles['content-input']} size="lg" />
+                                <FormControl type="text" placeholder="Email" className={styles.contentInput} size="lg" />
                                 <br />
                                 <FormControl
                                     type="text"
                                     placeholder="Số điện thoại "
-                                    className={styles['content-input']}
+                                    className={styles.contentInput}
                                     size="lg"
                                 />
                                 <br />
                                 <FormControl
                                     type="text"
                                     placeholder="Nhập tin nhăn"
-                                    className={styles['content-input']}
+                                    className={styles.contentInput}
                                     size="lg"
                                 />
                             </Form>
                             <br />
-                            <Button className={styles['content-btn']} variant="danger" size="lg">
+                            <Button className={styles.contentBtn} variant="danger" size="lg">
                                 Gửi
                             </Button>
                         </div>
                     </div>
                 </Col>
                 <Col>
-                    <div className={styles['contact-info']}>
-                        <div className={styles['info-content']}>
+                    <div className={styles.contactInfo}>
+                        <div className={styles.infoContent}>
                             <h4>Dịch vụ chăm sóc</h4>
                             <p>
                                 Auto Tech - Không chỉ là dịch vụ, mà còn là trải nghiệm. Chúng tôi hiểu rằng chiếc xe

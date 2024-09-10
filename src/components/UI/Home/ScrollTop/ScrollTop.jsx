@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import './ScrollTop.css'; // Đừng quên tạo file CSS
+import styles from  './ScrollTop.css';
 import icons from '@/utils/icon';
 const { IoIosArrowUp } = icons;
 const ScrollTop = () => {
@@ -28,10 +28,10 @@ const ScrollTop = () => {
     }, []);
 
     return (
-        <div className="scroll-to-top">
+        <div className={styles.scrollToTop}>
             {isVisible && (
                 <div onClick={scrollToTop}>
-                    <IoIosArrowUp className='scroll-icon' />
+                    <IoIosArrowUp className={styles.scrollIcon} />
                 </div>
             )}
         </div>

@@ -8,9 +8,11 @@
     --background-second:#130F40;
     --background-third:#9B1330;
     --grey-background: #95A5A6;
+    --white-background:#fff;
     
     --text-primary: #fff;
     --text-second: #e02f33;
+    --text-third:#303338;
 }
 
 * {

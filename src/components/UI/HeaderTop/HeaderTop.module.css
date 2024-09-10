@@ -1,4 +1,4 @@
-.header-top {
+.headerTop {
     height: 30px;
     width: 100%;
     background-color: var(--background-primary);
@@ -34,7 +34,7 @@
 }
 
 @media (max-width: 768px) {
-    .header-top {
+    .headerTop {
         height: auto;
         display: block;
     }

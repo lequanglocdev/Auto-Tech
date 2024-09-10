@@ -1,51 +1,72 @@
-.footer{
-  margin-top: 40px;
-  width: 100%;
-  height: 400px;
-  border-top: 4px solid var(--text-second);
+.footer {
+    margin-top: 40px;
+    width: 100%;
+    border-top: 4px solid var(--text-second);
 }
 
-.footer-content{
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-}
-.footer-center {
-  color: #FFFFFF; /* Màu chữ trắng */
-  font-size: 16px; /* Kích thước chữ */
+.footerContent{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
-.footer-center h6 {
-  font-size: 20px; /* Kích thước tiêu đề */
-  margin-bottom: 10px; /* Khoảng cách dưới tiêu đề */
+.footerLeft, 
+.footerCenter {
+    flex: 1;
+    margin: 0 20px;
 }
 
-.footer-center ul {
-  list-style: none; /* Bỏ dấu chấm trước mỗi mục trong danh sách */
-  padding: 0; /* Bỏ padding của danh sách */
+.footerCenter {
+    color: var(--text-primary);
+    font-size: 16px;
 }
 
-.footer-center li {
-  display: flex;
-  align-items: center;
-  margin-bottom: 5px; /* Khoảng cách dưới mỗi mục */
-  color: #d3d3d3; /* Màu chữ */
+.footerCenter h6 {
+    font-size: 20px;
+    margin-bottom: 10px;
 }
 
-.footer-center li svg {
-  margin-right: 8px; /* Khoảng cách giữa icon và text */
+.footerCenter ul {
+    list-style: none;
+    padding: 0;
 }
 
-.footer-left p{
+.footerCenter li {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+    color: #d3d3d3;
+}
+
+.footerCenter li svg {
+    margin-right: 8px;
+}
+
+.footerLeft p {
     font-size: 1.4rem;
     color: var(--text-primary);
     font-style: italic;
 }
 
-.footer-icon {
-  cursor: pointer;
-  font-size: 4rem;
-  margin-right: 10px;
-  color: var(--text-second);
-  background-color: var(--text-primary);
+.footerIcon {
+    cursor: pointer;
+    font-size: 4rem;
+    margin-right: 10px;
+    color: var(--text-second);
+    background-color: var(--white-background);
+}
+
+@media (max-width: 987px) {
+    .footerContent {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    .footerLeft, 
+    .footerCenter {
+        flex: 1 1 100%;
+        text-align: center;
+        margin-bottom: 20px;
+    }
 }

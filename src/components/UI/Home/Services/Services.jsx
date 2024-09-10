@@ -4,13 +4,13 @@ import styles from './Services.module.css';
 const Services = () => {
     return (
         <Container>
-            <div className={styles['services']}>
-                <Image src="./people.png" className={styles['services-image']} />
-                <div className={styles['services-content']}>
+            <div className={styles.services}>
+                <Image src="./people.png" className={styles.servicesImage} />
+                <div className={styles.servicesContent}>
                     <h4>Dịch vụ</h4>
                     <p>Tại sao bạn lại lựa chọn chúng tôi?</p>
-                    <div className={styles['services-center']}>
-                        <div className={styles['services-why']}>
+                    <div className={styles.servicesCenter}>
+                        <div className={styles.servicesWhy}>
                             <h6>Chuyên gia tận tâm</h6>
                             <p>
                                 Đội ngũ kỹ thuật viên của chúng tôi với nhiều năm kinh nghiệm sẽ chăm sóc chiếc xe của
@@ -18,7 +18,7 @@ const Services = () => {
                             </p>
                         </div>
 
-                        <div className={styles['services-why']}>
+                        <div className={styles.servicesWhy}>
                             <h6>Công nghệ hiện đại:</h6>
                             <p>
                                 Chúng tôi trang bị những thiết bị và công nghệ tiên tiến nhất để mang đến dịch vụ tốt
@@ -26,7 +26,7 @@ const Services = () => {
                             </p>
                         </div>
 
-                        <div className={styles['services-why']}>
+                        <div className={styles.servicesWhy}>
                             <h6>Sản phẩm chất lượng cao</h6>
                             <p>
                                 Đội ngũ kỹ thuật viên của chúng tôi với nhiều năm kinh nghiệm sẽ chăm sóc chiếc xe của
@@ -34,7 +34,7 @@ const Services = () => {
                             </p>
                         </div>
 
-                        <div className={styles['services-why']}>
+                        <div className={styles.servicesWhy}>
                             <h6>Giá cả cạnh tranh</h6>
                             <p>
                                 Chúng tôi cam kết mang đến dịch vụ chất lượng cao với giá cả hợp lý, cạnh tranh trên thị

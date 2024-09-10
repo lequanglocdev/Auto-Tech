@@ -1,8 +1,16 @@
 import React from 'react';
 import { Container } from 'react-bootstrap';
 import styles from  './CareServices.module.css';
-import {services} from '@/utils/data'
+import {services} from '@/utils/data';
+import { useNavigate } from 'react-router-dom';
+
 const CareServices = () => {
+    const navigate = useNavigate();
+
+    const handleService = (serviceId) =>{
+        navigate(`/services/${serviceId}`);
+    }
+
     return (
         <Container id='services'>
             <div className={styles['care-services']}>
@@ -11,7 +19,8 @@ const CareServices = () => {
             </div>
             <div className={styles['care-content']}>
                 {services.map((service,index)=>(
-                    <div className={styles['care-card']} key={index}>
+                <div className={styles['care-card']} key={service.id} 
+                onClick={() => handleService(service.id)}>
                     <div className={styles['image-wrapper']}>
                         <img
                             src={service.defaultImage}

@@ -1,4 +1,4 @@
-.intro-head h4 {
+.introHead h4 {
     margin-top: 40px;
     font-size: 2rem;
     font-weight: bold;
@@ -7,22 +7,30 @@
     text-transform: uppercase;
 }
 
-.intro-body h6{
+.introBody h6{
   margin-top: 20px;
   font-size: 1.6rem;
   color: var(--text-primary);
   font-weight: bold;
 }
 
-.intro-body p{
+.introBody p{
   font-size: 1.4rem;
   color: var(--text-primary);
   font-style: italic;
   font-weight: 200;
 }
 
-.intro-img{
+.introImg{
   display: flex;
   justify-content: space-around;
   align-items: center;
+}
+
+@media (max-width: 987px) {
+  .introImg{
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+  }
 }

@@ -3,7 +3,7 @@
     width: 100%;
 }
 
-.specification-content {
+.specificationContent {
     display: flex;
     justify-content: center;
     flex-direction: column;
@@ -13,14 +13,14 @@
     background-color: #e02f33;
 }
 
-.specification-head h4 {
+.specificationHead h4 {
     color: var(--text-primary);
     font-size: 2rem;
     font-weight: bold;
     text-transform: uppercase;
 }
 
-.specification-body {
+.specificationBody {
     margin-top: 20px;
     width: 100%;
     display: flex;
@@ -28,14 +28,14 @@
     align-items: center; 
 }
 
-.body-text {
+.bodyText {
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 10px;
 }
 
-.body-text span {
+.bodyText span {
     font-size: 1.6rem;
     color: var(--text-primary);
     font-weight: bold;

@@ -2,7 +2,7 @@
     margin-top: 40px;
     height: 400px;
     position: relative;
-    background-image: url('../../../../../public/sidebar.png');
+    background-image: url('../../../../assets/sidebar/sidebar.png');
     background-size: cover;
     background-position: center;
 }
@@ -22,7 +22,7 @@
     z-index: 1; /* Đảm bảo nội dung nằm trên lớp phủ */
 }
 
-.feedback-header h4 {
+.feedbackHeader h4 {
     position: relative;
     text-align: center;
     color: var(--text-second); /* Màu sắc của văn bản */
@@ -30,14 +30,14 @@
     font-size: 2rem;
     text-transform: uppercase;
 }
-.feedback-body {
+.feedbackBody {
     display: flex;
     height: 360px;
     justify-content: space-around;
     align-items: center;
 }
 
-.feedback-content{
+.feedbackContent{
     width: 400px;
     height: 100px;
     background-color: var(--text-second);
