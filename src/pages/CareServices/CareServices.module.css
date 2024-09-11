@@ -1,4 +1,4 @@
-.care-services {
+.careServices {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -6,21 +6,21 @@
     margin-top: 40px;
 }
 
-.care-services h4 {
+.careServices h4 {
     font-size: 2rem;
     color: var(--text-second);
     font-weight: bold;
     text-transform: uppercase;
 }
 
-.care-services p {
+.careServices p {
     font-size: 1.6rem;
     color: var(--text-primary);
     font-style: italic;
     margin-bottom: 30px;
 }
 
-.care-content {
+.careContent {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -28,7 +28,7 @@
     flex-wrap: wrap;
 }
 
-.care-card {
+.careCard {
     width: 200px;
     height: 200px;
     display: flex;
@@ -43,13 +43,13 @@
     position: relative;
 }
 
-.image-wrapper {
+.imageWrapper {
     position: relative;
     width: 100px;
     height: 100px;
 }
 
-.image-default {
+.imageDefault {
     position: absolute;
     top: 0;
     left: 0;
@@ -58,7 +58,7 @@
     transition: opacity 0.3s ease;
 }
 
-.image-hover {
+.imageHover {
     position: absolute;
     top: 0;
     left: 0;
@@ -68,15 +68,15 @@
     transition: opacity 0.3s ease;
 }
 
-.care-card:hover .image-default {
+.careCard:hover .imageDefault {
     opacity: 0;
 }
 
-.care-card:hover .image-hover {
+.careCard:hover .imageHover {
     opacity: 1;
 }
 
-.care-card:hover {
+.careCard:hover {
     cursor: pointer;
     background-color: var(--text-primary);
     color: var(--text-second);

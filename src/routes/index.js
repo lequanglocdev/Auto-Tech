@@ -1,5 +1,5 @@
 
-import { Home } from "@/pages/Home"
+import Home from "@/pages/Home/Home"
 import Auth from "@/pages/Auth/Auth"
 import Login from "@/pages/Login/Login"
 import Register from "@/pages/Register/Register"

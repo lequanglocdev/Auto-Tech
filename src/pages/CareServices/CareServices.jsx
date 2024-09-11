@@ -13,26 +13,26 @@ const CareServices = () => {
 
     return (
         <Container id='services'>
-            <div className={styles['care-services']}>
+            <div className={styles.careServices}>
                 <h4>Dịch vụ chăm sóc</h4>
                 <p>Đây là một trong số những dịch vụ sửa chữa ô tô mà Auto Tech chúng tôi cung cấp.</p>
             </div>
-            <div className={styles['care-content']}>
+            <div className={styles.careContent}>
                 {services.map((service,index)=>(
-                <div className={styles['care-card']} key={service.id} 
-                onClick={() => handleService(service.id)}>
-                    <div className={styles['image-wrapper']}>
+                <div className={styles.careCard} key={service.id} 
+                    onClick={() => handleService(service.id)}>
+                    <div className={styles.imageWrapper}>
                         <img
                             src={service.defaultImage}
                             alt={service.title}
-                            className={styles['image-default']}
+                            className={styles.imageDefault}
                             width={100}
                             height={100}
                         />
                         <img
                             src={service.hoverImage}
                             alt={service.title}
-                            className={styles['image-hover']}
+                            className={styles.imageHover}
                             width={100}
                             height={100}
                         />

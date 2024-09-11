@@ -15,16 +15,16 @@ const Auth = () => {
     };
 
     return (
-        <div className={styles['auth']}>
-            <div className={styles['auth-container']}>
-                <div className={styles['auth-image']}>
+        <div className={styles.auth}>
+            <div className={styles.authContainer}>
+                <div className={styles.authImage}>
                     <img src="./logo.png" alt="Logo" />
                 </div>
-                <div className={styles['auth-btn']}>
-                    <Button variant="light" className={styles['btn']} onClick={handleLogin}>
+                <div className={styles.authBtn}>
+                    <Button variant="light" className={styles.Btn} onClick={handleLogin}>
                         Đăng nhập
                     </Button>
-                    <Button variant="light" className={styles['btn']} onClick={handleRegister}>
+                    <Button variant="light" className={styles.Btn} onClick={handleRegister}>
                         Đăng ký
                     </Button>
                 </div>
