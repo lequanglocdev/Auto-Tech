@@ -1,7 +1,7 @@
 import { FaCalendarDays, FaSquareTwitter } from 'react-icons/fa6';
-import { FaPhoneAlt, FaFacebookSquare, FaGooglePlusSquare, FaLinkedin, FaRegUserCircle,FaRegUser,FaMailBulk,FaPhone } from 'react-icons/fa';
+import { FaPhoneAlt, FaFacebookSquare, FaGooglePlusSquare, FaLinkedin, FaRegUserCircle,FaRegUser,FaMailBulk,FaPhone,FaPlus } from 'react-icons/fa';
 import { MdOutlineArrowForwardIos } from "react-icons/md";
-import { IoIosArrowUp,IoMdEye,IoMdEyeOff} from "react-icons/io";
+import { IoIosArrowUp,IoMdEye,IoMdEyeOff,IoMdRemove} from "react-icons/io";
 import { CiLocationOn } from "react-icons/ci";
 import { IoMailOutline } from "react-icons/io5";
 const icons = {
@@ -20,7 +20,9 @@ const icons = {
     IoMdEye,
     IoMdEyeOff,
     FaMailBulk,
-    FaPhone
+    FaPhone,
+    FaPlus,
+    IoMdRemove
 };
 
 export default icons;

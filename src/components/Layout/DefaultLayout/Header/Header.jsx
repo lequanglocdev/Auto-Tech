@@ -15,25 +15,22 @@ const Header = () => {
             className={`${styles.navbar} ${isScrolled ? styles.navbarFixed : ''}`}
         >
             <Container>
-                <Navbar.Brand href="#home" className={styles.navbarBrand}>
+                <Navbar.Brand href="/" className={styles.navbarBrand}>
                     <Image src={logo} alt="logo" className={styles.navLogo} />
                 </Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav" className="justify-content-end">
                     <Nav>
-                        <Nav.Link href="#" className={styles.navText}>
+                        <Nav.Link href="/" className={styles.navText}>
                             TRANG CHỦ
                         </Nav.Link>
-                        <Nav.Link href="#" className={styles.navText}>
+                        <Nav.Link href="/services" className={styles.navText}>
                             DỊCH VỤ
                         </Nav.Link>
-                        <Nav.Link href="#" className={styles.navText}>
-                            THÔNG TIN
-                        </Nav.Link>
-                        <Nav.Link href="#" className={styles.navText}>
+                        <Nav.Link href="/intro" className={styles.navText}>
                             AUTO TECH
                         </Nav.Link>
-                        <Nav.Link href="#" className={styles.navText}>
+                        <Nav.Link href="/blog" className={styles.navText}>
                             TIN TỨC
                         </Nav.Link>
                         <Nav.Link href='/auth' className={styles.navIcon}>

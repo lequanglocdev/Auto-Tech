@@ -15,12 +15,13 @@
 
 .detailText h3{
   font-size: 3rem;
-  color: var(--text-primary);
+  color: var(--text-third);
 }
 
 .detailText p{
   font-size: 1.4rem;
-  color: var(--text-primary);
+  color: var(--text-third);
+  font-weight: bold;
 }
 
 .detailContent{
@@ -38,27 +39,20 @@
   display: flex;
 }
 
-.detailBenafitImg,
-.detailBenafitcontent{
-  flex: 1;
-  margin: 0 10px;
-}
-
 .detailBenafitImg{
-  height: 600px;
+  height: 500px;
+  margin-right: 20px;
 }
 
-.detailBenafitcontent{
-  text-align: left;
-}
-
-.detailBenafitcontent h4{
+.detailBenafitContentHead{
   font-size: 2rem;
+  text-align: left;
   color: var(--text-second);
 }
 
-.detailBenafitcontent p{
+.detailBenafitContentDes{
   font-size: 1.6rem;
+  text-align: left;
   color: var(--text-primary);
 }
 
@@ -72,23 +66,37 @@
 .detailProcedure h4{
   font-size: 2rem;
   color: var(--text-third);
+  font-weight: bold;
 }
 
 .stepsContainer {
-  display: grid;
-  grid-template-columns: 1fr 1fr; /* Tạo layout 2 cột */
-  gap: 20px; /* Khoảng cách giữa các cột */
   display: flex;
-  justify-content: space-around;
+  flex-wrap: wrap;
+  justify-content: center;
   align-items: center;
+  padding-left: 20px;
+  gap: 16px; /* Khoảng cách giữa các phần tử */
 }
 
-.stepGroup {
+.stepsContainer > div {
+  flex: 1 1 calc(50% - 16px); /* Chiếm 50% chiều rộng trừ khoảng cách */
+}
+
+.stepHead,
+.stepDes{
   text-align: left;
-  background-color: #f9f9f9; /* Màu nền nhạt */
-  padding: 15px;
-  border-radius: 8px;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Đổ bóng */
+}
+
+.stepHead{
+  font-size: 1.6rem;
+  color: var(--text-second);
+  font-weight: bold;
+}
+
+.stepDes{
+  font-size: 1.4rem;
+  color: var( --text-third);
+  font-weight: 400;
 }
 
 .faqList li {
@@ -99,4 +107,5 @@
   margin-bottom: 10px;
   text-align: left;
   cursor: pointer;
+  transition: 1s ease-in;
 }

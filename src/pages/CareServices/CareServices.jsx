@@ -12,7 +12,7 @@ const CareServices = () => {
     }
 
     return (
-        <Container id='services'>
+        <Container>
             <div className={styles.careServices}>
                 <h4>Dịch vụ chăm sóc</h4>
                 <p>Đây là một trong số những dịch vụ sửa chữa ô tô mà Auto Tech chúng tôi cung cấp.</p>
@@ -37,7 +37,7 @@ const CareServices = () => {
                             height={100}
                         />
                     </div>
-                    <p>{service.title}</p>
+                    <p className={styles.serviceText}>{service.title}</p>
                 </div>
                 ))}
             </div>

@@ -68,6 +68,10 @@
     transition: opacity 0.3s ease;
 }
 
+.serviceText{
+    text-align: center;
+}
+
 .careCard:hover .imageDefault {
     opacity: 0;
 }
