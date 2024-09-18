@@ -1,0 +1,20 @@
+.adminHeadImage {
+    width: 200px;
+    height: 100px;
+    object-fit: contain;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.listGroup a:hover {
+    background-color: var(--white-background);
+    color: var(--text-third);
+}
+
+.listGroupItem{
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+}

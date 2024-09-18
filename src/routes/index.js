@@ -7,6 +7,8 @@ import CareServices from "@/pages/CareServices/CareServices"
 import ServicesDetail from "@/components/UI/ServicesDetail/ServicesDetail"
 import Intro from "@/pages/Intro/Intro"
 import Blogs from "@/pages/Blogs/Blogs"
+
+import Dashboard from "@/pageAdmin/Dashboard/Dashboard"
 export const publicRoute = [
     {path:'/',component: Home},
     {path:'/auth',component: Auth,layout:null},
@@ -20,5 +22,5 @@ export const publicRoute = [
 ]
 
 export const privateRoute = [
-  
+    {path:'/admin',component:Dashboard}
 ]
