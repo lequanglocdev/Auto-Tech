@@ -1,3 +1,16 @@
+.adminWrapper{
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
 .adminSidebar{
+  width: 290px;
   background-color: var(--background-primary);
+}
+.adminContainer{
+  flex: 1;
+}
+.contentWrapper {
+  flex: 1; /* Chiếm hết chiều cao còn lại */
+  overflow: auto; /* Thêm thanh cuộn nếu nội dung vượt quá chiều cao */
 }

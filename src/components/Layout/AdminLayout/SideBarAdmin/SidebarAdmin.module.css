@@ -1,20 +1,24 @@
-.adminHeadImage {
-    width: 200px;
-    height: 100px;
-    object-fit: contain;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.sideBarAdmin {
+    width: 250px;
+    background-color: var(--background-primary);
+    height: 100%;
+    overflow-y: auto; 
+    position: fixed; /* Đặt sidebar ở vị trí cố định */
+    top: 40; /* Đảm bảo sidebar nằm ở phía trên cùng */
+    left: 0; /* Đảm bảo sidebar nằm bên trái */
+    z-index: 1000; /* Đảm bảo sidebar nằm trên các phần tử khác */
 }
+
 .listGroup a:hover {
     background-color: var(--white-background);
     color: var(--text-third);
+    overflow: hidden;
 }
 
-.listGroupItem{
-  height: 40px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 6px;
+.listGroupItem {
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
 }

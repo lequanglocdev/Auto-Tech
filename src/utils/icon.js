@@ -1,4 +1,4 @@
-import { FaCalendarDays, FaSquareTwitter,FaBarsStaggered  } from 'react-icons/fa6';
+import { FaCalendarDays, FaSquareTwitter,FaBarsStaggered,FaRegBell   } from 'react-icons/fa6';
 import { FaPhoneAlt, FaFacebookSquare, FaGooglePlusSquare, FaLinkedin, FaRegUserCircle,FaRegUser,FaMailBulk,FaPhone,FaPlus } from 'react-icons/fa';
 import { MdOutlineArrowForwardIos } from "react-icons/md";
 import { IoIosArrowUp,IoMdEye,IoMdEyeOff,IoMdRemove} from "react-icons/io";
@@ -23,7 +23,8 @@ const icons = {
     FaPhone,
     FaPlus,
     IoMdRemove,
-    FaBarsStaggered 
+    FaBarsStaggered,
+    FaRegBell 
 };
 
 export default icons;

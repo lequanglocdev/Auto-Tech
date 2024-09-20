@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Navigate } from 'react-router-dom';
-import SidebarAdmin from './SideBarAdmin/SidebarAdmin';
 import styles from './AdminLayout.module.css';
 import NavAdmin from './Nav/NavAdmin';
 const AdminLayout = ({ children }) => {
@@ -10,17 +9,10 @@ const AdminLayout = ({ children }) => {
         setToggle(!toggle);
     };
     return isAuthenticated ? (
-        <div className="container-fluid bg-secondary min-vh-100">
-            <div className="row">
-                {toggle && (
-                    <div className={`${styles.adminSidebar} col-2  vh-100 p-0`}>
-                        <SidebarAdmin />
-                    </div>
-                )}
-                <div className="col p-0">
-                    <NavAdmin Toggle={handleToggle}/>
-                    {children}
-                </div>
+        <div className={styles.adminWrapper}>
+            <NavAdmin Toggle={handleToggle} />
+            <div className={styles.contentWrapper}>
+                {React.cloneElement(children, { toggle, handleToggle })}
             </div>
         </div>
     ) : (

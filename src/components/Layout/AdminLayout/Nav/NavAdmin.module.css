@@ -1,0 +1,54 @@
+.navAdmin{
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  border: 1px solid var(--background-primary);
+  height: 50px;
+}
+
+.navAdminImage{
+  width: 200px;
+  height: 40px;
+  object-fit: contain;
+}
+
+.navAdminIcon,
+.navAdminIconBell{
+  font-size: 1.6rem;
+  cursor: pointer;
+}
+.navAdminAvatar{
+  width: 50px;
+  height: 30px;
+  border-radius: 50%;
+  object-fit: contain;
+}
+.navAdminInput {
+  width: 200px !important;
+  font-size: 1.4rem;
+
+}
+.navAdminLeft {
+  flex-grow: 1;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+/* Center section chiếm 5 phần */
+.navAdminCenter {
+  flex-grow: 4;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+/* Right section chiếm 7 phần */
+.navAdminRight {
+  flex-grow: 7;
+  display: flex;
+  gap: 30px;
+  justify-content: flex-end;
+  align-items: center;
+}
