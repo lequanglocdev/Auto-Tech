@@ -1,31 +1,24 @@
-.dashboardWrapper {
-  display: flex;
-  height: calc(100vh - 50px); 
-}
 
-/* Sidebar khi toggle là true */
-.dashSidebar {
-  width: 250px; /* Chiều rộng của Sidebar */
-  background-color: var(--background-primary);
-  height: 100%;
-  overflow: hidden;
-}
-
-/* Dashboard content khi có Sidebar */
 .dashContentWithSidebar {
-  flex: 1;
-  height: 1000px;
-  background-color: red;
-  padding: 20px;
-  padding-left: 270px;
-  overflow: auto;
+    flex: 1;
+    height: 1000px;
+    padding: 20px;
+    padding-left: 270px;
+    overflow: auto;
+    margin-left: 0px;
+    transition: margin-left 4s ease-in-out;
 }
 
 /* Dashboard content khi không có Sidebar (chiếm toàn bộ màn hình) */
 .dashContentFull {
-  flex: 1; /* Khi không có sidebar, nội dung vẫn chiếm hết chiều rộng */
-  padding: 20px;
-  height: 1000px;
-  background-color: red;
-  overflow-y: auto;
+    flex: 1; /* Khi không có sidebar, nội dung vẫn chiếm hết chiều rộng */
+    padding: 20px;
+    height: 1000px;
+    overflow-y: auto;
+    margin-left: 0;
+    transition: margin-left 4s ease-in-out;
+}
+
+.dashHeader {
+    border: 1px solid #3333;
 }

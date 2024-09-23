@@ -4,7 +4,6 @@ import { services } from '@/utils/data';
 import { Button, Container } from 'react-bootstrap';
 import Carousel from 'react-bootstrap/Carousel';
 import sidebar from '@/assets/sidebar/sidebar.png';
-import benafit from '@/assets/benafit.png';
 import styles from './ServicesDetail.module.css';
 import icons from '@/utils/icon';
 const ServicesDetail = () => {

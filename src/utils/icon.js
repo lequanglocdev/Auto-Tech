@@ -1,9 +1,33 @@
-import { FaCalendarDays, FaSquareTwitter,FaBarsStaggered,FaRegBell   } from 'react-icons/fa6';
-import { FaPhoneAlt, FaFacebookSquare, FaGooglePlusSquare, FaLinkedin, FaRegUserCircle,FaRegUser,FaMailBulk,FaPhone,FaPlus } from 'react-icons/fa';
-import { MdOutlineArrowForwardIos } from "react-icons/md";
-import { IoIosArrowUp,IoMdEye,IoMdEyeOff,IoMdRemove} from "react-icons/io";
-import { CiLocationOn } from "react-icons/ci";
-import { IoMailOutline } from "react-icons/io5";
+import {
+    FaCalendarDays,
+    FaSquareTwitter,
+    FaBarsStaggered,
+    FaRegBell,
+    FaCartShopping,
+    FaMoneyBillTrendUp,
+} from 'react-icons/fa6';
+import {
+    FaPhoneAlt,
+    FaFacebookSquare,
+    FaGooglePlusSquare,
+    FaLinkedin,
+    FaRegUserCircle,
+    FaRegUser,
+    FaMailBulk,
+    FaPhone,
+    FaPlus,
+    FaUser,
+    FaUsers,
+    FaCar,
+    FaCalendarAlt,
+    FaRegStar,
+    FaRegComment 
+} from 'react-icons/fa';
+import { MdOutlineArrowForwardIos, MdDashboard, MdHomeRepairService, MdManageAccounts, MdKeyboardDoubleArrowRight } from 'react-icons/md';
+import { IoIosArrowUp, IoMdEye, IoMdEyeOff, IoMdRemove, IoIosArrowForward, IoIosArrowDown } from 'react-icons/io';
+import { CiLocationOn } from 'react-icons/ci';
+import { IoMailOutline, IoTicket } from 'react-icons/io5';
+import { HiMiniBars3CenterLeft, HiMiniBars3 } from 'react-icons/hi2';
 const icons = {
     FaCalendarDays,
     FaPhoneAlt,
@@ -24,7 +48,24 @@ const icons = {
     FaPlus,
     IoMdRemove,
     FaBarsStaggered,
-    FaRegBell 
+    FaRegBell,
+    HiMiniBars3CenterLeft,
+    HiMiniBars3,
+    IoIosArrowForward,
+    IoIosArrowDown,
+    FaCartShopping,
+    MdDashboard,
+    FaUser,
+    FaUsers,
+    FaCar,
+    FaCalendarAlt,
+    MdHomeRepairService,
+    IoTicket,
+    FaMoneyBillTrendUp,
+    MdManageAccounts,
+    FaRegStar,
+    FaRegComment,
+    MdKeyboardDoubleArrowRight 
 };
 
 export default icons;

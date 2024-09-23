@@ -1,45 +1,34 @@
-import React from 'react';
-import Navbar from 'react-bootstrap/Navbar';
-import NavDropdown from 'react-bootstrap/NavDropdown';
-import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
+import React, { useState } from 'react';
 import icons from '@/utils/icon';
 import styles from './NavAdmin.module.css';
 import logo from '@/assets/logoAdmin.png';
-import staff from '@/assets/staff1.jpg';
+import Avartar from '@/components/UI/Avatar/Avartar';
+import { useNavigate } from 'react-router-dom';
 const NavAdmin = ({ Toggle }) => {
-    const { FaBarsStaggered, FaRegBell } = icons;
+    const {HiMiniBars3CenterLeft, HiMiniBars3 } = icons;
+    const naviagte = useNavigate()
+    const [isToggled, setIsToggled] = useState(false);
+    const handleToggle = () => {
+        setIsToggled(!isToggled);
+        Toggle(); 
+    };
+    const handlePageAdmin = () =>{
+        naviagte('/admin')
+    }
     return (
         <div className={styles.navAdmin}>
-            <div className={styles.navAdminLeft}>
+            <div className={styles.navAdminLeft} onClick={handlePageAdmin}>
                 <img src={logo} alt="loggo" className={styles.navAdminImage} />
             </div>
             <div className={styles.navAdminCenter}>
-                <FaBarsStaggered onClick={Toggle} className={styles.navAdminIcon} />
-                <Form className="d-flex">
-                    <Form.Control
-                        type="search"
-                        placeholder="Search"
-                        className={`${styles.navAdminInput} me-2`}
-                        size="lg"
-                        aria-label="Search"
-                    />
-                    <Button variant="outline-success">Search</Button>
-                </Form>
+                {isToggled ? (
+                    <HiMiniBars3 onClick={handleToggle} className={`${styles.navAdminIcon} ${styles.iconActive}`} />
+                ) : (
+                    <HiMiniBars3CenterLeft onClick={handleToggle} className={styles.navAdminIcon} />
+                )}
             </div>
             <div className={styles.navAdminRight}>
-                <FaRegBell className={styles.navAdminIconBell}  />
-                <div></div>
-                <Navbar expand="lg" className="bg-body-tertiary p-0">
-                    <img src={staff} alt="" className={styles.navAdminAvatar} />
-                    <NavDropdown title="Dropdown" id="basic-nav-dropdown" align="end">
-                        <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
-                        <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>
-                        <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
-                        <NavDropdown.Divider />
-                        <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item>
-                    </NavDropdown>
-                </Navbar>
+                <Avartar />
             </div>
         </div>
     );

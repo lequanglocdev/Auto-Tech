@@ -11,6 +11,16 @@
   flex: 1;
 }
 .contentWrapper {
-  flex: 1; /* Chiếm hết chiều cao còn lại */
-  overflow: auto; /* Thêm thanh cuộn nếu nội dung vượt quá chiều cao */
+  flex: 1; 
+  overflow: auto;
+}
+
+.withSidebar {
+  margin-left: 250px;
+  margin-top: 60px;
+}
+
+.fullContent {
+  margin-top: 60px;
+  margin-left: 0;
 }

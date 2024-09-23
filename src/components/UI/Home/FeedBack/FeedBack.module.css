@@ -19,26 +19,68 @@
 
 .content {
     position: relative;
-    z-index: 1; /* Đảm bảo nội dung nằm trên lớp phủ */
+    z-index: 1;
 }
 
 .feedbackHeader h4 {
+    margin-top: 20px;
     position: relative;
     text-align: center;
-    color: var(--text-second); /* Màu sắc của văn bản */
+    color: var(--text-second);
     font-weight: bold;
     font-size: 2rem;
     text-transform: uppercase;
 }
 .feedbackBody {
-    display: flex;
-    height: 360px;
-    justify-content: space-around;
-    align-items: center;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    gap: 10 !important;
+    height: 300px;
+    margin-left: 40px;
+    margin-top: auto;
 }
 
 .feedbackContent{
-    width: 400px;
+    position: relative;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding:0 4px ;
+    width: 300px;
     height: 100px;
     background-color: var(--text-second);
+}
+.feedbackContent::before{
+    content: "";
+    position: absolute;
+    bottom: -18px;
+    left: 24px;
+    width: 0;
+    height: 0;
+    border-left: 20px solid transparent;
+    border-right: 20px solid transparent;
+    border-top: 20px solid var(--text-second);
+}
+
+.feedbackIcon{
+    font-size: 1.6rem;
+    margin: 0 10px;
+    color: #F1C40F;
+}
+
+.quoteIcon{
+    font-size: 40px;
+    position: absolute;
+    top: -24px;
+    left: 10px;
+    font-weight: bold;
+    color: var(--text-primary);
+}
+
+.feedbackText{
+    font-size: 1rem;
+    color: var(--text-primary);
+    font-style: italic;
 }

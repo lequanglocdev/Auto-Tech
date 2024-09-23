@@ -9,6 +9,8 @@ import Intro from "@/pages/Intro/Intro"
 import Blogs from "@/pages/Blogs/Blogs"
 
 import Dashboard from "@/pageAdmin/Dashboard/Dashboard"
+import Reports from "@/pageAdmin/Resports/Reports"
+import Trafic from "@/pageAdmin/Trafic/Trafic"
 export const publicRoute = [
     {path:'/',component: Home},
     {path:'/auth',component: Auth,layout:null},
@@ -22,5 +24,7 @@ export const publicRoute = [
 ]
 
 export const privateRoute = [
-    {path:'/admin',component:Dashboard}
+    {path:'/admin',component:Dashboard},
+    {path: '/report/sale',component:Reports},
+    {path: '/report/trafic',component:Trafic}
 ]
