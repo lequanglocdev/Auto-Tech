@@ -6,17 +6,17 @@ const Intro = () => {
         <Container id='intro'>
             <div className={styles['intro']}>
                 <div className={styles.introHead}>
-                    <h4>Giới thiệu AUTO TECH</h4>
+                    <h4>Giới thiệu L&K TECH</h4>
                 </div>
                 <div className={styles.introBody}>
-                    <h6>Auto Tech đối tác tin cậy cho xế yêu của bạn:</h6>
+                    <h6>L&K TECH đối tác tin cậy cho xế yêu của bạn:</h6>
                     <p>
-                        Được thành lập vào năm 2021, Auto Tech đã nhanh chóng khẳng định vị thế là một trong những công
+                        Được thành lập vào năm 2021, L&K TECH đã nhanh chóng khẳng định vị thế là một trong những công
                         ty phụ kiện ô tô hàng đầu tại Việt Nam. Với đội ngũ nhân viên giàu kinh nghiệm và hệ thống phân
-                        phối rộng khắp, Auto Tech cung cấp đa dạng các sản phẩm và dịch vụ chăm sóc xe ô tô, từ nâng cấp
+                        phối rộng khắp, L&K TECH cung cấp đa dạng các sản phẩm và dịch vụ chăm sóc xe ô tô, từ nâng cấp
                         âm thanh, dán phim cách nhiệt, phủ ceramic đến lắp đặt các phụ kiện nội thất cao cấp.
                     </p>
-                    <h6>Điểm nổi bật của Auto Tech:</h6>
+                    <h6>Điểm nổi bật của L&K Tech:</h6>
                     <p>
                         Sản phẩm chất lượng: Phân phối độc quyền các thương hiệu nổi tiếng thế giới như Limousine
                         Hongyi, Silent Pro, PPF SAP, phim cách nhiệt ASWF, âm thanh Venom, Mosconi...
@@ -40,8 +40,8 @@ const Intro = () => {
                     <p>Uy tín: Được khách hàng tin tưởng và đánh giá cao về chất lượng sản phẩm và dịch vụ.</p>
                     <h6>Kết luận</h6>
                     <p>
-                        Auto Tech là một địa chỉ tin cậy để bạn chăm sóc và nâng cấp xế yêu của mình. Với đội ngũ chuyên
-                        nghiệp, sản phẩm chất lượng và dịch vụ tận tâm, Auto Tech sẽ mang đến cho bạn những trải nghiệm
+                        L&K TECH là một địa chỉ tin cậy để bạn chăm sóc và nâng cấp xế yêu của mình. Với đội ngũ chuyên
+                        nghiệp, sản phẩm chất lượng và dịch vụ tận tâm, L&K TECH sẽ mang đến cho bạn những trải nghiệm
                         tuyệt vời nhất.
                     </p>
                     <div className={styles.introImg}>

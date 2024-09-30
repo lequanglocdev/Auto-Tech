@@ -1,0 +1,6 @@
+.dashBoardTotalCalender {
+  width: 350px;
+  height: 200px;
+  background-image: linear-gradient(to right, rgb(29, 162, 86), rgb(72, 212, 131));
+  border-radius: 10px;
+}

@@ -27,11 +27,11 @@ const ServicesDetail = () => {
             <div>
                 <Carousel data-bs-theme="dark" className={styles.detailBanner}>
                     <Carousel.Item>
-                        <img className="d-block w-100" src={sidebar} alt="First slide" />
+                        <img className="d-block w-100" src={service.bannerServices} alt="First slide" width={600} height={450} />
                         <Carousel.Caption className={styles.detailText}>
                             <h3>{service.title}</h3>
                             <p>
-                                Tại Auto Tech, chúng tôi mang đến nhiều phương pháp giúp khách hàng giải quyết mọi vấn
+                                Tại L&K TECH, chúng tôi mang đến nhiều phương pháp giúp khách hàng giải quyết mọi vấn
                                 đề khi dọn nội thất xe hơi bao gồm làm sạch, loại bỏ bụi bẩn, mùi hôi, chống thấm nước,
                                 dưỡng nội thất,… Trải nghiệm dịch vụ vệ sinh nội thất ô tô Quận 7 TP HCM chất lượng nhất
                                 hiện nay!
@@ -42,12 +42,12 @@ const ServicesDetail = () => {
                             <Button variant="danger">BÁO GIÁ MIỄN PHÍ</Button>
                         </Carousel.Caption>
                     </Carousel.Item>
-                    <Carousel.Item>
+                    {/* <Carousel.Item>
                         <img className="d-block w-100" src={sidebar} alt="Second slide" />
                         <Carousel.Caption className={styles.detailText}>
                             <h3>{service.title}</h3>
                             <p>
-                                Tại Auto Tech, chúng tôi mang đến nhiều phương pháp giúp khách hàng giải quyết mọi vấn
+                                Tại L&K TECH, chúng tôi mang đến nhiều phương pháp giúp khách hàng giải quyết mọi vấn
                                 đề khi dọn nội thất xe hơi bao gồm làm sạch, loại bỏ bụi bẩn, mùi hôi, chống thấm nước,
                                 dưỡng nội thất,… Trải nghiệm dịch vụ vệ sinh nội thất ô tô Quận 7 TP HCM chất lượng nhất
                                 hiện nay!
@@ -57,7 +57,7 @@ const ServicesDetail = () => {
                             <Button variant="danger">LIÊN HỆ NGAY</Button>
                             <Button variant="danger">BÁO GIÁ MIỄN PHÍ</Button>
                         </Carousel.Caption>
-                    </Carousel.Item>
+                    </Carousel.Item> */}
                 </Carousel>
                 <div className={styles.detailContent}>
                     <h4>Lợi ích khi dọn {service.benefit} ô tô thường xuyên</h4>
@@ -73,7 +73,7 @@ const ServicesDetail = () => {
                         </div>
                     </div>
                     <div className={styles.detailProcedure}>
-                        <h4>Quy trình {service.benefit} ô tô chuyên nghiệp tại Auto Tech</h4>
+                        <h4>Quy trình {service.benefit} ô tô chuyên nghiệp tại L&K TECH</h4>
                         <div className={styles.stepsContainer}>
                             {service.step.map((item, index) => (
                                 <div key={index}>

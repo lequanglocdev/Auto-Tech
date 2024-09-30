@@ -1,8 +1,12 @@
 import React from 'react';
 import { Container } from 'react-bootstrap';
 import styles from './Blogs.module.css';
-import {blogData} from '@/utils/data'
+import {blogData} from '@/utils/data';
+import icons  from '@/utils/icon'
 const Blogs = () => {
+    const { FaUser, FaCalendarAlt, FaRegComment } = icons;
+    
+
     return (
         <Container id='blog'>
         <div className="blog">
@@ -12,18 +16,18 @@ const Blogs = () => {
             <div className={styles.blogBody}>
                 {blogData.map((blog) => (
                     <div key={blog.id} className={styles.blogCard}>
-                        <img src={blog.image} alt="" />
+                        <img src={blog.image} alt="" className={styles.blogImage} />
                         <div className={styles.blogInfo}>
                             <div className={styles.blogUser}>
-                                <p>icon</p>
+                                <FaUser className={styles.blogUserIcon}/>
                                 <p>{blog.author}</p>
                             </div>
                             <div className={styles.blogUser}>
-                                <p>icon</p>
+                                <FaCalendarAlt className={styles.blogUserIcon}/>
                                 <p>{blog.date}</p>
                             </div>
                             <div className={styles.blogUser}>
-                                <p>icon</p>
+                                <FaRegComment className={styles.blogUserIcon}/>
                                 <p>{blog.comments}</p>
                             </div>
                         </div>

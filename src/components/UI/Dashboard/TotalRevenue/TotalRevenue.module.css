@@ -1,0 +1,6 @@
+.dashBoardTotalRevenue{
+  width: 350px;
+  height: 200px;
+  background-image: linear-gradient(to right, rgb(225, 149, 14), rgb(243, 205, 41));
+  border-radius: 10px;
+}

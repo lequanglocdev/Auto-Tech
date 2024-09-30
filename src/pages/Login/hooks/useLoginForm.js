@@ -25,11 +25,7 @@ export const useLoginForm = () => {
     const validateForm = () => {
         let errors = { name: '', password: '', phone: '' };
         let hasError = false;
-
-        if (formData.name.trim() === '') {
-            errors.name = 'Tên không được để trống';
-            hasError = true;
-        }
+        
         if (formData.password.trim() === '') {
             errors.password = 'Mật khẩu không được để trống';
             hasError = true;
@@ -38,16 +34,14 @@ export const useLoginForm = () => {
             errors.email = 'Email ko được để trống';
             hasError = true;
         }
-        if (formData.phone.trim() === '') {
-            errors.phone = 'Số điện thoại ko được để trống';
-            hasError = true;
-        }
+     
         setErrorMessage(errors);
         return !hasError;
     };
 
     return {
         formData,
+        setFormData,
         errorMessage,
         handleInputChange,
         validateForm,

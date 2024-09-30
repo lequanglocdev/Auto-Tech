@@ -1,0 +1,6 @@
+.dashBoardTotalCar {
+    width: 350px;
+    height: 200px;
+    background-image: linear-gradient(to right, rgb(192, 18, 226), rgb(235, 100, 254));
+    border-radius: 10px;
+}

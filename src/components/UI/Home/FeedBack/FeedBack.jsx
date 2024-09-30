@@ -24,7 +24,7 @@ const FeedBack = () => {
                 <Slider {...settings}>
                     <div className={styles.feedbackBody}>
                         <div className={styles.feedbackContent}>
-                            <div class={styles.quoteIcon}>❝</div>
+                            <div className={styles.quoteIcon}>❝</div>
                             <img src={userFeedback} alt="userFeedback" width={50} height={50} />
                             <div>
                                 <p  className={styles.feedbackText}>
@@ -42,7 +42,7 @@ const FeedBack = () => {
                     </div>
                     <div className={styles.feedbackBody}>
                         <div className={styles.feedbackContent}>
-                            <div class={styles.quoteIcon}>❝</div>
+                            <div className={styles.quoteIcon}>❝</div>
                             <img src={userFeedback} alt="userFeedback" width={50} height={50} />
                             <div>
                                 <p  className={styles.feedbackText}>
@@ -60,7 +60,7 @@ const FeedBack = () => {
                     </div>
                     <div className={styles.feedbackBody}>
                         <div className={styles.feedbackContent}>
-                            <div class={styles.quoteIcon}>❝</div>
+                            <div className={styles.quoteIcon}>❝</div>
                             <img src={userFeedback} alt="userFeedback" width={50} height={50} />
                             <div>
                                 <p className={styles.feedbackText}>

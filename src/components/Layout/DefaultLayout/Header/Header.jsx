@@ -28,7 +28,7 @@ const Header = () => {
                             DỊCH VỤ
                         </Nav.Link>
                         <Nav.Link href="/intro" className={styles.navText}>
-                            AUTO TECH
+                            VỀ CHÚNG TÔI
                         </Nav.Link>
                         <Nav.Link href="/blog" className={styles.navText}>
                             TIN TỨC

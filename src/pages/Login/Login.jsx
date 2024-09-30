@@ -3,17 +3,35 @@ import styles from './Login.module.css';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import icons from '@/utils/icon';
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { useLoginForm, usePasswordToggle } from './hooks/useLoginForm';
+import { loginAdminApi } from '@/utils/api';
 
 const Login = () => {
     const { FaRegUser, IoMdEye, IoMdEyeOff} = icons;
-    const { formData, errorMessage, handleInputChange, validateForm } = useLoginForm();
+    const { formData, setFormData, errorMessage, handleInputChange, validateForm } = useLoginForm();
     const [showPassword, togglePasswordVisibility] = usePasswordToggle();
-    const handleSubmit = (e) => {
-        e.preventDefault();
+   
+    const handleSubmitButon = async(e) => {
+        e.preventDefault();    
         if (validateForm()) {
-            console.log('Đăng ký thành công!');
+          
+            try {
+                const response = await loginAdminApi(formData.email, formData.password);
+                console.log('Đăng nhập thành công:', response.data);
+                localStorage.setItem("access_token",response.token)
+                toast.success('Đăng ký thành công!', { autoClose: 3000 });
+                setFormData({
+                    email: '',
+                    password: '',
+                  
+                });
+                console.log('formData after reset:', formData);
+            } catch (error) {
+                console.error('Lỗi đăng nhập:', error);
+              
+            } 
         }
     };
     return (
@@ -24,20 +42,20 @@ const Login = () => {
             </div>
             <div className={styles.loginForm}>
                 <p>Đăng nhập </p>
-                <Form onSubmit={handleSubmit}>
+                <Form onSubmit={handleSubmitButon}>
                     <Form.Group controlId="formName">
                         <div className={styles.loginGroup}>
                             <FaRegUser className={styles.loginIcon} />
                             <Form.Control
                                 size="lg"
                                 type="text"
-                                placeholder="Nhập tên"
+                                placeholder="Nhập email"
                                 className={styles.loginInput}
-                                value={formData.name}
-                                onChange={(e) => handleInputChange('name', e.target.value)}
+                                value={formData.email}
+                                onChange={(e) => handleInputChange('email', e.target.value)}
                             />
                         </div>
-                        {errorMessage.name && <div className={styles.errorMessage}>{errorMessage.name}</div>}
+                        {errorMessage.email && <div className={styles.errorMessage}>{errorMessage.email}</div>}
                     </Form.Group>
                     <Form.Group controlId="formPassword">
                         <div className={styles.loginGroup}>
@@ -68,6 +86,7 @@ const Login = () => {
                 </div>
             </div>
         </div>
+        <ToastContainer />
     </div>
     );
 };

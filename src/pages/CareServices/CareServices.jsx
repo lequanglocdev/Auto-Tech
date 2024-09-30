@@ -15,7 +15,7 @@ const CareServices = () => {
         <Container>
             <div className={styles.careServices}>
                 <h4>Dịch vụ chăm sóc</h4>
-                <p>Đây là một trong số những dịch vụ sửa chữa ô tô mà Auto Tech chúng tôi cung cấp.</p>
+                <p>Đây là một trong số những dịch vụ sửa chữa ô tô mà L&K TECH chúng tôi cung cấp.</p>
             </div>
             <div className={styles.careContent}>
                 {services.map((service,index)=>(

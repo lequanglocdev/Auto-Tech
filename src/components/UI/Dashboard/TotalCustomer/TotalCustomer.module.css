@@ -1,0 +1,6 @@
+.dashBoardTotalCustomer{
+  width: 350px;
+  height: 200px;
+  background-image: linear-gradient(to right, rgb(44, 120, 229), rgb(96, 175, 245));
+  border-radius: 10px;
+}

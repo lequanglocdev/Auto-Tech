@@ -21,7 +21,10 @@ import {
     FaCar,
     FaCalendarAlt,
     FaRegStar,
-    FaRegComment 
+    FaRegComment,
+    FaEye,
+    FaPen,
+    FaTrash
 } from 'react-icons/fa';
 import { MdOutlineArrowForwardIos, MdDashboard, MdHomeRepairService, MdManageAccounts, MdKeyboardDoubleArrowRight } from 'react-icons/md';
 import { IoIosArrowUp, IoMdEye, IoMdEyeOff, IoMdRemove, IoIosArrowForward, IoIosArrowDown } from 'react-icons/io';
@@ -65,7 +68,10 @@ const icons = {
     MdManageAccounts,
     FaRegStar,
     FaRegComment,
-    MdKeyboardDoubleArrowRight 
+    MdKeyboardDoubleArrowRight,
+    FaEye,
+    FaPen,
+    FaTrash
 };
 
 export default icons;

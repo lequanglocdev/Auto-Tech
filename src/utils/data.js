@@ -1,6 +1,7 @@
 export const services = [
     {
         id: 1,
+        bannerServices: require('../assets/services/service1.jpg'),
         defaultImage: './services1.png',
         hoverImage: './services1_1.png',
         title: 'Dịch vụ vệ sinh nội thất',
@@ -209,63 +210,69 @@ export const services = [
         id: 3,
         defaultImage: './services3.png',
         hoverImage: './services3_3.png',
-        title: 'Dịch vụ sơn xe',
+        title: 'Dịch vụ dán PPF ô tô',
+        benefit: 'dán PPF',
         benefitImage: require('../assets/benafit.png'),
         benefitContent: [
             {
-                benefitHead: 'Tăng độ sáng bóng, thêm lớp bảo vệ',
+                benefitHead: 'Chống trầy xước, bảo vệ lớp sơn',
                 benefixDescription:
-                    'Bằng tác động của máy đánh bóng và xi đánh bóng, bề mặt sơn xe được tăng cường độ sáng bóng hơn ban đầu và thêm một lớp phủ bảo vệ bề mặt cơ bản.',
+                    'Lớp màng phim PPF dày 7,5 mil mang đến khả năng chống trầy xước hoàn hảo. Không giống như PPF PVC hay TPH, phim bảo vệ sơn TPU của chúng tôi không làm ảnh hưởng đến lớp sơn xe bên dưới.',
             },
             {
-                benefitHead: 'Loại bỏ hoàn toàn khiếm khuyết sơn xe',
+                benefitHead: 'Chịu nhiệt cao',
                 benefixDescription:
-                    'Ngoài các vết trầy xước, các khiếm khuyết sơn khác thường xuất hiện trên bề mặt như vết xoáy mạng nhện, đốm nước ăn mòn lâu ngày, vết sơn chảy, sơn vỏ cam, mắt cá, bụi sơn,... đều được loại bỏ hoàn toàn, tái tạo lại một bề mặt phẳng mịn như ban đầu.',
+                    'Công nghệ phim PPF ô tô của APEAX có thể chịu được nhiệt độ cao, không bị ố vàng nhanh theo thời gian như những loại phim PPF trôi nổi khác trên thị trường. Với thời gian bảo hành 10 năm, bạn sẽ an tâm khi dán PPF ô tô tại Vietnam Car Care.',
             },
             {
-                benefitHead: 'Tạo bề mặt thích hợp để phủ Ceramic, dán PPF ô tô',
+                benefitHead: 'Tự phục hồi vết xước',
                 benefixDescription:
-                    'Trước khi phủ Ceramic hoặc dán PPF ô tô, bề mặt sơn xe đều phải được vệ sinh, loại bỏ sạch sẽ các vết cặn bẩn bám. Hiệu chỉnh sơn là quá trình bắt buộc phải thực hiện trước khi phủ các lớp bảo vệ sơn. Nếu không, bề mặt sau khi thi công sẽ không đạt tính thẩm mỹ.',
+                    'Trong số rất nhiều loại phim bảo vệ sơn được quảng cáo với khả năng tự phục hồi nhanh chóng, dòng phim APEAX PPF đã khẳng định được chất lượng TOP đầu hiện nay. Công nghệ vật liệu TPU tiên tiến nhất, có thể tự phục hồi nhanh các vết trầy xước.',
             },
+            {
+                benefitHead:'Dễ dàng vệ sinh',
+                benefixDescription:'Tương tự như phủ Ceramic ô tô, dán PPF xe hơi cũng giúp chủ xe dễ dàng vệ sinh bởi đặc tính chống bám nước của lớp màng phim. Nhờ đó, vẻ ngoài xe sẽ luôn mới, tránh bám bẩn, hóa chất gây hại theo thời gian.'
+            },
+            {
+                benefitHead:'Tăng tính thẩm mỹ',
+                benefixDescription:'Với dịch vụ dán phim PPF cao cấp tại Vietnam Car Care, vẻ ngoài xe được nâng tầm đáng kể bằng 3 gói tùy chọn PPF có độ bóng sáng vừa phải, bóng mờ hoặc kết hợp với lớp phủ Ceramic. Màng phim mỏng, trong suốt, rất khó phát hiện bằng mắt thường.'
+            },
+
         ],
         step: [
             {
-                stepHead: 'Bước 1: Rửa xe và làm sạch bề mặt sơn',
+                stepHead: 'Bước 1: Vệ sinh, đánh giá tình trạng bề mặt sơn',
                 stepDescription:
-                    'Kỹ thuật viên thực hiện rửa xe và làm sạch toàn bộ bề mặt sơn giúp các khuyết điểm sơn xuất hiện rõ ràng hơn. Chúng tôi sử dụng nước rửa xe chuyên dụng, có độ PH trung tính, các vết bẩn tại mọi ngóc ngách đều được loại bỏ hoàn toàn.',
+                    'Trước tiên, kỹ thuật viên sẽ khử khuẩn bề mặt, rửa sạch xe đúng cách bắt đầu đánh giá sơ bộ những khiếm khuyết lỗi sơn trên bề mặt.',
             },
             {
-                stepHead: 'Bước 2: Kiểm tra tình trạng sơn',
+                stepHead: 'Bước 2: Chuẩn bị kỹ bề mặt dán PPF',
                 stepDescription:
-                    'Kỹ thuật viên sẽ kiểm tra, đánh giá các khiếm khuyết trên bề mặt sơn và đưa ra phương án hiệu chỉnh sơn phù hợp. Tiến hành đánh dấu lại các vị trí cần xử lý và dán lớp bảo vệ ở những khu vực không hiệu chỉnh, để tránh làm hỏng lớp sơn.',
+                    'Trước khi dán phim PPF, bề mặt sơn xe cần phải được loại bỏ những khuyết điểm sơn hiện có. Đánh bóng và hiệu chỉnh sơn các bước giúp mang lại bề mặt sơn láng mịn, sẵn sàng để dán PPF.',
             },
             {
-                stepHead: 'Bước 3: Đánh bóng làm phẳng bề mặt sơn xe',
+                stepHead: 'Bước 3: Cắt phim PPF ô tô thành từng phần riêng biệt',
                 stepDescription:
-                    'Dựa vào độ dày mỏng khác nhau của sơn cũng như tình trạng khiếm khuyết sơn, kỹ thuật viên sẽ sử dụng kết hợp máy đánh bóng và xi đánh bóng xe ô tô để làm mịn và phẳng các vết xước, vết xoáy,…',
+                    'Tùy theo gói PPF mà khách hàng lựa chọn, kỹ thuật viên sẽ cắt theo kích thước của từng vị trí cần dán như đèn pha, gương chiếu hậu, thân xe, nắp capo, cản xe,…',
             },
             {
-                stepHead: 'Bước 4: Hoàn thiện bề mặt',
+                stepHead: 'Bước 4: Dán màng phim PPF lên bề mặt',
                 stepDescription:
-                    'Để lớp sơn bề mặt sau khi loại bỏ các khiếm khuyết đạt được độ bóng hoàn hảo, có chiều sâu, láng mịn, cần được đánh bóng hoàn thiện với máy đánh bóng lệch tâm kết hợp pad đánh bóng hoàn thiện.',
+                    'Tiến hành dán PPF ô tô theo đúng kỹ thuật chuẩn Detailing giúp kỹ thuật viên có thể dễ dàng điều chỉnh màng phim vào đúng vị trí. Bao gồm một loạt các thao tác phức tạp như phun dung dịch bôi trơn, gạt dung dịch và di chuyển màng phim PPF,…',
             },
             {
-                stepHead: 'Bước 5: Vệ sinh sạch sẽ',
+                stepHead: 'Bước 5: Kiểm tra lại bề mặt sau khi dán PPF ô tô',
                 stepDescription:
-                    'Xe sẽ được vệ sinh một lần nữa để đảm bảo không còn bất kỳ cặn xi đánh bóng dư thừa nào đọng lại. Đặc biệt, các vị trí như kẽ cửa xe, logo hay tại các khe hở luôn được kiểm tra và làm sạch tỉ mỉ.',
+                    'Kiểm tra lần cuối bề mặt sau khi dán PPF, trước khi bàn giao xe cho khách hàng. Đảm bảo bề mặt phim không bị bong bóng, nổi bọt khí, có nếp gấp phim'
             },
-            {
-                stepHead: 'Bước 6:Phủ lớp bảo vệ sơn',
-                stepDescription:
-                    'Tùy vào nhu cầu của khách hàng, chúng tôi sẽ sử dụng các biện pháp bảo vệ sơn tối ưu nhất như phủ ceramic hoặc dán PPF. Lớp bảo vệ này giúp bề mặt sơn bền đẹp, giảm thiểu tối đa các bụi bẩn, trầy xước, vết ố,… tăng độ bền cho các chi tiết khác.',
-            },
+           
         ],
         question: [
             {
                 id: 1,
-                text: 'Dịch vụ vệ sinh nội thất ô tô bao gồm những công đoạn gì?',
+                text: 'Dán PPF ô tô tại Vietnam Car Care mất bao lâu?',
                 description:
-                    'Theo khuyến cáo, thời gian dọn vệ sinh toàn bộ nội thất xe hơi tại trung tâm chăm sóc xe từ 2-3 tháng/lần. Nếu tình trạng xe bám bẩn, nhiều nấm mốc hoặc vô tình để các chất bẩn thấm bên trong, thời gian vệ sinh nội thất sẽ đến nhanh hơn. Ngoài ra, bạn có thể tự vệ sinh nội thất ô tô tại nhà sau mỗi lần sử dụng xe. Duy trì bề mặt sạch sẽ trước khi thực hiện vệ sinh nội thất xe hơi toàn diện là cách hữu hiệu nhất.',
+                    'Thời gian dán PPF ô tô tại trung tâm chăm sóc xe Vietnam Car Care khoảng 2 ngày cho toàn bộ xe. Phim PPF phải được cắt dán đúng kỹ thuật, vệ sinh, hiệu chỉnh bề mặt kỹ lưỡng trước khi thực hiện. Nếu xe của bạn xuất hiện nhiều vết xước xoáy, vết trầy, ăn mòn,… thời gian dán PPF xe hơi sẽ lâu hơn đôi chút nhưng không quá 3 ngày.',
             },
             {
                 id: 2,
@@ -1115,7 +1122,8 @@ export const blogData = [
         author: 'Admin',
         date: '01/09/2024',
         comments: '3 comments',
-        content: 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Officiis, laudantium atque...',
+        content:
+            '"Bạn có biết rằng chỉ cần một vài mẹo nhỏ, chiếc xe yêu quý của bạn sẽ luôn sáng bóng như mới? Không chỉ vậy, việc chăm sóc xe đúng cách còn giúp kéo dài tuổi thọ và tăng giá trị của xe. Hãy cùng khám phá những bí quyết chăm sóc xe đơn giản nhưng hiệu quả ngay tại nhà!"',
     },
     {
         id: 2,
@@ -1123,7 +1131,7 @@ export const blogData = [
         author: 'User123',
         date: '02/09/2024',
         comments: '5 comments',
-        content: 'Ullam tempora ea aspernatur sit cumque doloremque rem exercitationem fuga debitis...',
+        content: 'Bạn đã bao giờ nghe nói đến việc phủ ceramic cho xe chưa? Công nghệ này không chỉ giúp bảo vệ lớp sơn xe khỏi các tác động từ môi trường mà còn mang đến độ bóng loáng vượt trội. Hãy cùng tìm hiểu xem phủ ceramic có gì đặc biệt và tại sao nó lại trở thành xu hướng được nhiều người ưa chuộng',
     },
     {
         id: 3,
@@ -1131,6 +1139,6 @@ export const blogData = [
         author: 'Guest',
         date: '03/09/2024',
         comments: '10 comments',
-        content: 'Omnis, molestias veritatis voluptatem eos accusantium maxime...',
+        content: 'Hồi trước, tôi từng rất lo lắng về những vết xước nhỏ trên chiếc xe mới tậu. Nhưng sau khi tìm hiểu và áp dụng một số mẹo nhỏ, chiếc xe của tôi lại trở nên bóng loáng như mới. Nếu bạn cũng đang gặp phải tình trạng tương tự, hãy đọc ngay bài viết này để tìm ra giải pháp nhé!',
     },
 ];

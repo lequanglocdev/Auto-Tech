@@ -59,10 +59,10 @@ const Contact = () => {
                         <div className={styles.infoContent}>
                             <h4>Dịch vụ chăm sóc</h4>
                             <p>
-                                Auto Tech - Không chỉ là dịch vụ, mà còn là trải nghiệm. Chúng tôi hiểu rằng chiếc xe
+                               L&K TECH - Không chỉ là dịch vụ, mà còn là trải nghiệm. Chúng tôi hiểu rằng chiếc xe
                                 không chỉ là phương tiện di chuyển mà còn là người bạn đồng hành của bạn. Vì vậy, chúng
                                 tôi luôn đặt sự hài lòng của khách hàng lên hàng đầu. Với không gian thoải mái, dịch vụ
-                                chuyên nghiệp và giá cả hợp lý. Auto Tech sẽ mang đến cho bạn những trải nghiệm tuyệt
+                                chuyên nghiệp và giá cả hợp lý.L&K TECH sẽ mang đến cho bạn những trải nghiệm tuyệt
                                 vời nhất."
                             </p>
                         </div>

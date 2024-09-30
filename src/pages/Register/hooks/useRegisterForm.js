@@ -48,6 +48,7 @@ export const useRegisterForm = () => {
 
     return {
         formData,
+        setFormData,
         errorMessage,
         handleInputChange,
         validateForm,

@@ -21,7 +21,7 @@ const Footer = () => {
                     <div className={styles.footerLeft}>
                         <img src={logo} alt="" width={200} height={200} />
                         <p>
-                            Với Autotech, niềm đam mê xe hơi của bạn sẽ được thỏa mãn trọn vẹn. Chúng tôi không chỉ là
+                            Với L&K TECH, niềm đam mê xe hơi của bạn sẽ được thỏa mãn trọn vẹn. Chúng tôi không chỉ là
                             một nhà cung cấp dịch vụ, mà còn là những người bạn đồng hành cùng bạn khám phá thế giới của
                             những chiếc xe.
                         </p>
@@ -65,7 +65,7 @@ const Footer = () => {
                                 <FaPhoneAlt /> 078 201 236
                             </li>
                             <li>
-                                <IoMailOutline /> dịch vụ chăm sóc xe
+                                <IoMailOutline /> dichvul&k@gmail.com
                             </li>
                         </ul>
                     </div>

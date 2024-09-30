@@ -19,8 +19,8 @@ export const publicRoute = [
     {path:'/services',component:CareServices},
     {path:'/services/:serviceId',component:ServicesDetail},
     {path:'/intro',component:Intro},
-    {path:'/blog',component:Blogs}
-
+    {path:'/blog',component:Blogs},
+   
 ]
 
 export const privateRoute = [

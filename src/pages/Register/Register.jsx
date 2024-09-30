@@ -1,21 +1,48 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './Register.module.css';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import icons from '@/utils/icon';
 import { useRegisterForm, usePasswordToggle } from './hooks/useRegisterForm';
-
+import { createAdminApi } from '@/utils/api';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { useNavigate } from 'react-router-dom';
 const Register = () => {
     const { FaRegUser, IoMdEye, IoMdEyeOff, FaMailBulk, FaPhone } = icons;
-    const { formData, errorMessage, handleInputChange, validateForm } = useRegisterForm();
+    const { formData,setFormData, errorMessage, handleInputChange, validateForm } = useRegisterForm();
     const [showPassword, togglePasswordVisibility] = usePasswordToggle();
-    const handleSubmit = (e) => {
+    const [apiError, setApiError] = useState('');
+    const [successMessage, setSuccessMessage] = useState('');
+    const naviagte = useNavigate()
+    
+    const handleSubmit = async (e) => {
         e.preventDefault();
+        setApiError(''); // Clear previous errors
+        setSuccessMessage(''); // Clear previous success message
+
         if (validateForm()) {
-            console.log('Đăng ký thành công!');
+            try {
+                const response = await createAdminApi(formData.name, formData.email, formData.password);
+                setSuccessMessage('Đăng ký thành công!');
+                toast.success('Đăng ký thành công!', { autoClose: 3000 });
+                setFormData({
+                    name: '',
+                    password: '',
+                    confirmpassword: '',
+                    email: '',
+                    phone: '',
+                });
+    
+                setTimeout(() => {
+                    naviagte('/login');
+                }, 4000);
+            } catch (error) {
+                setApiError('Đăng ký thất bại. Vui lòng thử lại.');
+                toast.error('Đăng ký thất bại. Vui lòng thử lại!', { autoClose: 3000 });
+            }
         }
     };
-
     return (
         <div className={styles.register}>
             <div className={styles.registerContainer}>
@@ -113,6 +140,7 @@ const Register = () => {
                     </div>
                 </div>
             </div>
+            <ToastContainer />
         </div>
     );
 };
