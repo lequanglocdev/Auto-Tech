@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import styles from './Login.module.css';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
@@ -7,19 +7,20 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useLoginForm, usePasswordToggle } from './hooks/useLoginForm';
 import { loginAdminApi } from '@/utils/api';
+import { AuthContext } from '@/components/context/auth.context';
 
 const Login = () => {
     const { FaRegUser, IoMdEye, IoMdEyeOff} = icons;
     const { formData, setFormData, errorMessage, handleInputChange, validateForm } = useLoginForm();
     const [showPassword, togglePasswordVisibility] = usePasswordToggle();
-   
+    const {setAuth} = useContext(AuthContext)
     const handleSubmitButon = async(e) => {
         e.preventDefault();    
         if (validateForm()) {
           
             try {
                 const response = await loginAdminApi(formData.email, formData.password);
-                console.log('Đăng nhập thành công:', response.data);
+                console.log('Đăng nhập thành công:', response);
                 localStorage.setItem("access_token",response.token)
                 toast.success('Đăng ký thành công!', { autoClose: 3000 });
                 setFormData({
@@ -27,6 +28,13 @@ const Login = () => {
                     password: '',
                   
                 });
+                setAuth({
+                    isAuthenticated: true,
+                    user: {
+                        email: '',
+                        name: '',
+                    },
+                })
                 console.log('formData after reset:', formData);
             } catch (error) {
                 console.error('Lỗi đăng nhập:', error);

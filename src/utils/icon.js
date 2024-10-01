@@ -5,6 +5,7 @@ import {
     FaRegBell,
     FaCartShopping,
     FaMoneyBillTrendUp,
+    FaLocationDot ,
 } from 'react-icons/fa6';
 import {
     FaPhoneAlt,
@@ -71,7 +72,8 @@ const icons = {
     MdKeyboardDoubleArrowRight,
     FaEye,
     FaPen,
-    FaTrash
+    FaTrash,
+    FaLocationDot 
 };
 
 export default icons;

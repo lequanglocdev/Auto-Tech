@@ -1,12 +1,15 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Image, Container, Nav, Navbar } from 'react-bootstrap';
 import styles from './Header.module.css';
 import { useScroll } from '../hooks/useScroolTop';
 import icons from '@/utils/icon';
 import logo from "@/assets/logo.png"
+import { AuthContext } from '@/components/context/auth.context';
 const Header = () => {
     const isScrolled = useScroll(50);
     const { FaRegUserCircle } = icons;
+    const {auth} = useContext(AuthContext)
+    console.log(">> Checkout",auth)
     return (
         <Navbar
             bg="dark"

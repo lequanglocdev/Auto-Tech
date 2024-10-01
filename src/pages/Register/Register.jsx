@@ -1,45 +1,55 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import styles from './Register.module.css';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import icons from '@/utils/icon';
 import { useRegisterForm, usePasswordToggle } from './hooks/useRegisterForm';
-import { createAdminApi } from '@/utils/api';
+import { createCustomerApi } from '@/utils/api';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from 'react-router-dom';
 const Register = () => {
-    const { FaRegUser, IoMdEye, IoMdEyeOff, FaMailBulk, FaPhone } = icons;
-    const { formData,setFormData, errorMessage, handleInputChange, validateForm } = useRegisterForm();
+    const { FaRegUser, IoMdEye, IoMdEyeOff, FaMailBulk, FaPhone, FaLocationDot  } = icons;
+    const { formData, setFormData, errorMessage, handleInputChange, validateForm } = useRegisterForm();
     const [showPassword, togglePasswordVisibility] = usePasswordToggle();
-    const [apiError, setApiError] = useState('');
-    const [successMessage, setSuccessMessage] = useState('');
-    const naviagte = useNavigate()
-    
+    const naviagte = useNavigate();
+
     const handleSubmit = async (e) => {
         e.preventDefault();
-        setApiError(''); // Clear previous errors
-        setSuccessMessage(''); // Clear previous success message
-
         if (validateForm()) {
             try {
-                const response = await createAdminApi(formData.name, formData.email, formData.password);
-                setSuccessMessage('Đăng ký thành công!');
+                const response = await createCustomerApi(
+                    formData.username,
+                    formData.password,
+                    formData.email,
+                    formData.name,
+                    formData.address,
+                    formData.phone_number,
+                );
+                console.log(response);
                 toast.success('Đăng ký thành công!', { autoClose: 3000 });
                 setFormData({
-                    name: '',
+                    username: '',
                     password: '',
-                    confirmpassword: '',
                     email: '',
-                    phone: '',
+                    name: '',
+                    address:'',
+                    phone_number: '',
                 });
-    
+
                 setTimeout(() => {
                     naviagte('/login');
                 }, 4000);
             } catch (error) {
-                setApiError('Đăng ký thất bại. Vui lòng thử lại.');
                 toast.error('Đăng ký thất bại. Vui lòng thử lại!', { autoClose: 3000 });
+                setFormData({
+                    username: '',
+                    name: '',
+                    password: '',
+                    email: '',
+                    phone_number: '',
+                    address:''
+                });
             }
         }
     };
@@ -52,13 +62,29 @@ const Register = () => {
                 <div className={styles.registerForm}>
                     <p>Đăng ký</p>
                     <Form onSubmit={handleSubmit}>
+                        <Form.Group controlId="formUserName">
+                            <div className={styles.registerGroup}>
+                                <FaRegUser className={styles.registerIcon} />
+                                <Form.Control
+                                    size="lg"
+                                    type="text"
+                                    placeholder="Nhập tên tài khoản"
+                                    className={styles.registerInput}
+                                    value={formData.username}
+                                    onChange={(e) => handleInputChange('username', e.target.value)}
+                                />
+                            </div>
+                            {errorMessage.username && (
+                                <div className={styles.errorMessage}>{errorMessage.username}</div>
+                            )}
+                        </Form.Group>
                         <Form.Group controlId="formName">
                             <div className={styles.registerGroup}>
                                 <FaRegUser className={styles.registerIcon} />
                                 <Form.Control
                                     size="lg"
                                     type="text"
-                                    placeholder="Nhập tên"
+                                    placeholder="Nhập tên người dùng"
                                     className={styles.registerInput}
                                     value={formData.name}
                                     onChange={(e) => handleInputChange('name', e.target.value)}
@@ -84,24 +110,6 @@ const Register = () => {
                                 <div className={styles.errorMessage}>{errorMessage.password}</div>
                             )}
                         </Form.Group>
-                        <Form.Group controlId="formConfirmPassword">
-                            <div className={styles.registerGroup}>
-                                <span onClick={togglePasswordVisibility} className={styles.registerIcon}>
-                                    {showPassword ? <IoMdEye /> : <IoMdEyeOff />}
-                                </span>
-                                <Form.Control
-                                    size="lg"
-                                    type="password"
-                                    placeholder="Nhập lại mật khẩu"
-                                    className={styles.registerInput}
-                                    value={formData.confirmpassword}
-                                    onChange={(e) => handleInputChange('confirmpassword', e.target.value)}
-                                />
-                            </div>
-                            {errorMessage.confirmpassword && (
-                                <div className={styles.errorMessage}>{errorMessage.confirmpassword}</div>
-                            )}
-                        </Form.Group>
                         <Form.Group controlId="formEmail">
                             <div className={styles.registerGroup}>
                                 <FaMailBulk className={styles.registerIcon} />
@@ -121,14 +129,32 @@ const Register = () => {
                                 <FaPhone className={styles.registerIcon} />
                                 <Form.Control
                                     size="lg"
-                                    type="text"
+                                    type="number"
                                     placeholder="Nhập số điện thoại"
                                     className={styles.registerInput}
-                                    value={formData.phone}
-                                    onChange={(e) => handleInputChange('phone', e.target.value)}
+                                    value={formData.phone_number}
+                                    onChange={(e) => handleInputChange('phone_number', e.target.value)}
                                 />
                             </div>
-                            {errorMessage.phone && <div className={styles.errorMessage}>{errorMessage.phone}</div>}
+                            {errorMessage.phone_number && (
+                                <div className={styles.errorMessage}>{errorMessage.phone_number}</div>
+                            )}
+                        </Form.Group>
+                        <Form.Group controlId="formAddress">
+                            <div className={styles.registerGroup}>
+                                <FaLocationDot  className={styles.registerIcon} />
+                                <Form.Control
+                                    size="lg"
+                                    type="text"
+                                    placeholder="Nhập địa chỉ"
+                                    className={styles.registerInput}
+                                    value={formData.address}
+                                    onChange={(e) => handleInputChange('address', e.target.value)}
+                                />
+                            </div>
+                            {errorMessage.address && (
+                                <div className={styles.address}>{errorMessage.address}</div>
+                            )}
                         </Form.Group>
                         <Button variant="danger" type="submit" size="lg" className={styles.registerButton}>
                             Đăng ký
@@ -139,8 +165,8 @@ const Register = () => {
                         <a href="/login">Đăng nhập</a>
                     </div>
                 </div>
-            </div>
             <ToastContainer />
+            </div>
         </div>
     );
 };

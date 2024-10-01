@@ -9,20 +9,25 @@ import TotalRevenue from '@/components/UI/Dashboard/TotalRevenue/TotalRevenue';
 import TotalUser from '@/components/UI/Dashboard/TotalUser/TotalUser';
 import DataTable from '@/components/UI/Table/DataTable';
 import { getUserApi } from '@/utils/api';
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 const Dashboard = ({ toggle }) => {
-    
-    const [userData,setUserData] = useState([])
+    const [userData, setUserData] = useState([]);
     const [loading, setLoading] = useState(true);
     useEffect(() => {
         const fetchData = async () => {
             try {
                 const response = await getUserApi();
-                console.log('dataTable',response)
+                console.log('dataTable', response);
                 setUserData(response);
                 setLoading(false);
             } catch (error) {
-                console.error('Lỗi khi lấy dữ liệu người dùng:', error);
+                if (error.response && error.response.status === 401) {
+                    toast.error('Token đã hết hạn, vui lòng đăng nhập lại.');
+                } else {
+                    toast.error('Đã xảy ra lỗi khi lấy dữ liệu người dùng.');
+                }
+
                 setLoading(false);
             }
         };
@@ -34,7 +39,6 @@ const Dashboard = ({ toggle }) => {
         return <p>Loading...</p>;
     }
 
-    
     return (
         <div>
             <div className={styles.dashboardWrapper}>
@@ -53,6 +57,7 @@ const Dashboard = ({ toggle }) => {
                         <DataTable data={userData} itemsPerPage={5} />
                     </div>
                 </div>
+                <ToastContainer />
             </div>
         </div>
     );
