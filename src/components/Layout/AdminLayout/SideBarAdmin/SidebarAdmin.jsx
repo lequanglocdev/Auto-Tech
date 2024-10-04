@@ -81,6 +81,18 @@ const SidebarAdmin = ({ isVisible, onSelectMenu }) => {
         if (item === 'Traffic') {
             navigate('/report/trafic');
         }
+        if(item === 'Danh sách nhân viên'){
+            navigate("/employees/list")
+        }
+        if(item === 'Thêm mới nhân viên'){
+            navigate("/employees/create")
+        }
+        if(item === 'Danh sách khách hàng'){
+            navigate("/customer/list")
+        }
+        if(item === 'Thêm mới khách hàng'){
+            navigate("/customer/create")
+        }
     };
 
     return (

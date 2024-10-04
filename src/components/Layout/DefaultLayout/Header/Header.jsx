@@ -3,13 +3,24 @@ import { Image, Container, Nav, Navbar } from 'react-bootstrap';
 import styles from './Header.module.css';
 import { useScroll } from '../hooks/useScroolTop';
 import icons from '@/utils/icon';
-import logo from "@/assets/logo.png"
+import logo from '@/assets/logo.png';
 import { AuthContext } from '@/components/context/auth.context';
+import { useNavigate } from 'react-router-dom';
 const Header = () => {
     const isScrolled = useScroll(50);
-    const { FaRegUserCircle } = icons;
-    const {auth} = useContext(AuthContext)
-    console.log(">> Checkout",auth)
+    const { FaRegUserCircle, IoMdLogOut } = icons;
+    const { auth, setAuth } = useContext(AuthContext);
+    const navigate = useNavigate();
+    console.log('>> Checkoutấdadadad', auth);
+
+    const handleLogout = () => {
+        localStorage.removeItem("access_token");
+        setAuth({
+            isAuthenticated: false,
+            user: null,
+        });
+        navigate('/'); 
+    };
     return (
         <Navbar
             bg="dark"
@@ -36,9 +47,20 @@ const Header = () => {
                         <Nav.Link href="/blog" className={styles.navText}>
                             TIN TỨC
                         </Nav.Link>
-                        <Nav.Link href='/auth' className={styles.navIcon}>
-                            <FaRegUserCircle size={24} />
-                        </Nav.Link>
+                        {auth.isAuthenticated ? (
+                            <>
+                                <Nav.Link href="/profile" className={styles.navText}>
+                                    <p>{auth?.user?.email}</p>
+                                </Nav.Link>
+                                <Nav.Link onClick={handleLogout} className={styles.navIcon}>
+                                    <IoMdLogOut size={24} /> 
+                                </Nav.Link>
+                            </>
+                        ) : (
+                            <Nav.Link href="/auth" className={styles.navIcon}>
+                                <FaRegUserCircle size={24} />
+                            </Nav.Link>
+                        )}
                     </Nav>
                 </Navbar.Collapse>
             </Container>

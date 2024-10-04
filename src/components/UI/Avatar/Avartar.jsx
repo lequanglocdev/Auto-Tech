@@ -7,16 +7,34 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
 import Logout from '@mui/icons-material/Logout';
+import LoginIcon from '@mui/icons-material/Login';
+import { useNavigate } from 'react-router-dom';
+import { AuthContext } from '@/components/context/auth.context';
 
 const Avartar = () => {
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const open = Boolean(anchorEl);
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
+    const [anchorEl, setAnchorEl] = React.useState(null);
+    const open = Boolean(anchorEl);
+    const { auth, setAuth } = React.useContext(AuthContext);
+    const navigate = useNavigate();
+
+    const handleClick = (event) => {
+        setAnchorEl(event.currentTarget);
+    };
+    const handleClose = () => {
+        setAnchorEl(null);
+    };
+
+    const handleLogout = () => {
+        localStorage.removeItem('access_token'); // Xóa token khi đăng xuất
+        setAuth({ isAuthenticated: false, user: null });
+        navigate('/auth'); // Điều hướng về trang đăng nhập
+    };
+
+    // Xử lý khi người dùng bấm nút Login
+    const handleLogin = () => {
+        navigate('/admin'); // Điều hướng về trang đăng nhập
+    };
+
     return (
         <React.Fragment>
             <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
@@ -29,7 +47,9 @@ const Avartar = () => {
                         aria-haspopup="true"
                         aria-expanded={open ? 'true' : undefined}
                     >
-                        <Avatar sx={{ width: 32, height: 32 }}>M</Avatar>
+                        <Avatar sx={{ width: 32, height: 32 }}>
+                            {auth.isAuthenticated && auth.user && auth.user.name ? auth.user.name[0] : 'A'}
+                        </Avatar>
                     </IconButton>
                 </Tooltip>
             </Box>
@@ -70,18 +90,29 @@ const Avartar = () => {
                 transformOrigin={{ horizontal: 'right', vertical: 'top' }}
                 anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
             >
-                <MenuItem sx={{fontSize:'1.6rem',fontWeight:'400'}}>
-                  Thông tin cá nhân
-                </MenuItem>
-                <MenuItem sx={{fontSize:'1.4rem',fontWeight:'600'}}>
-                    Lê Quang Lộc
-                </MenuItem>
-                <MenuItem onClick={handleClose} sx={{fontSize:'1.4rem',fontWeight:'600'}}>
-                    <ListItemIcon>
-                        <Logout fontSize="large" />
-                    </ListItemIcon>
-                    Logout
-                </MenuItem>
+                {auth.isAuthenticated ? (
+                    // Hiển thị thông tin khi đã đăng nhập
+                    <>
+                        <MenuItem sx={{ fontSize: '1.6rem', fontWeight: '400' }}>Thông tin cá nhân</MenuItem>
+                        <MenuItem sx={{ fontSize: '1.4rem', fontWeight: '600' }}>
+                            {auth.user.name} {/* Tên người dùng */}
+                        </MenuItem>
+                        <MenuItem onClick={handleLogout} sx={{ fontSize: '1.4rem', fontWeight: '600' }}>
+                            <ListItemIcon>
+                                <Logout fontSize="large" />
+                            </ListItemIcon>
+                            Logout
+                        </MenuItem>
+                    </>
+                ) : (
+                    // Hiển thị nút đăng nhập khi chưa đăng nhập
+                    <MenuItem onClick={handleLogin} sx={{ fontSize: '1.4rem', fontWeight: '600' }}>
+                        <ListItemIcon>
+                            <LoginIcon fontSize="large" />
+                        </ListItemIcon>
+                        Login
+                    </MenuItem>
+                )}
             </Menu>
         </React.Fragment>
     );

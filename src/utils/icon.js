@@ -28,7 +28,7 @@ import {
     FaTrash
 } from 'react-icons/fa';
 import { MdOutlineArrowForwardIos, MdDashboard, MdHomeRepairService, MdManageAccounts, MdKeyboardDoubleArrowRight } from 'react-icons/md';
-import { IoIosArrowUp, IoMdEye, IoMdEyeOff, IoMdRemove, IoIosArrowForward, IoIosArrowDown } from 'react-icons/io';
+import { IoIosArrowUp, IoMdEye, IoMdEyeOff, IoMdRemove, IoIosArrowForward, IoIosArrowDown, IoMdLogOut } from 'react-icons/io';
 import { CiLocationOn } from 'react-icons/ci';
 import { IoMailOutline, IoTicket } from 'react-icons/io5';
 import { HiMiniBars3CenterLeft, HiMiniBars3 } from 'react-icons/hi2';
@@ -73,7 +73,8 @@ const icons = {
     FaEye,
     FaPen,
     FaTrash,
-    FaLocationDot 
+    FaLocationDot,
+    IoMdLogOut 
 };
 
 export default icons;

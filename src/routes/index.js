@@ -11,6 +11,8 @@ import Blogs from "@/pages/Blogs/Blogs"
 import Dashboard from "@/pageAdmin/Dashboard/Dashboard"
 import Reports from "@/pageAdmin/Resports/Reports"
 import Trafic from "@/pageAdmin/Trafic/Trafic"
+import {CreateCustomer, ListsCustomer} from "@/pageAdmin/Customer/index"
+import {CreateEmployees, ListsEmployees} from '@/pageAdmin/Employees/index'
 export const publicRoute = [
     {path:'/',component: Home},
     {path:'/auth',component: Auth,layout:null},
@@ -24,7 +26,11 @@ export const publicRoute = [
 ]
 
 export const privateRoute = [
-    {path:'/admin',component:Dashboard},
+    {path: '/admin',component:Dashboard},
     {path: '/report/sale',component:Reports},
-    {path: '/report/trafic',component:Trafic}
+    {path: '/report/trafic',component:Trafic},
+    {path: '/employees/list',component:ListsEmployees},
+    {path: '/employees/create',component:CreateEmployees},
+    {path: '/customer/list',component:ListsCustomer},
+    {path: '/customer/create',component:CreateCustomer}
 ]

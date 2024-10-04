@@ -4,7 +4,7 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import icons from '@/utils/icon';
 import { useRegisterForm, usePasswordToggle } from './hooks/useRegisterForm';
-import { createCustomerApi } from '@/utils/api';
+import { registerCustomerApi } from '@/utils/api';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from 'react-router-dom';
@@ -18,7 +18,7 @@ const Register = () => {
         e.preventDefault();
         if (validateForm()) {
             try {
-                const response = await createCustomerApi(
+                const response = await registerCustomerApi(
                     formData.username,
                     formData.password,
                     formData.email,
@@ -161,7 +161,7 @@ const Register = () => {
                         </Button>
                     </Form>
                     <div className={styles.registerFooter}>
-                        <a href="/">Quay lại</a>
+                        <a href="/auth">Quay lại</a>
                         <a href="/login">Đăng nhập</a>
                     </div>
                 </div>

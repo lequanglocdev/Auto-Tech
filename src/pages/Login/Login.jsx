@@ -3,99 +3,109 @@ import styles from './Login.module.css';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import icons from '@/utils/icon';
+import { useLoginForm, usePasswordToggle } from './hooks/useLoginForm';
+import { loginAdminApi} from '@/utils/api';
+import { AuthContext } from '@/components/context/auth.context';
+import { useNavigate } from 'react-router-dom';
+import { FaMailBulk } from 'react-icons/fa';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { useLoginForm, usePasswordToggle } from './hooks/useLoginForm';
-import { loginAdminApi } from '@/utils/api';
-import { AuthContext } from '@/components/context/auth.context';
 
 const Login = () => {
-    const { FaRegUser, IoMdEye, IoMdEyeOff} = icons;
+    const { IoMdEye, IoMdEyeOff } = icons;
     const { formData, setFormData, errorMessage, handleInputChange, validateForm } = useLoginForm();
     const [showPassword, togglePasswordVisibility] = usePasswordToggle();
-    const {setAuth} = useContext(AuthContext)
-    const handleSubmitButon = async(e) => {
-        e.preventDefault();    
+    const { setAuth } = useContext(AuthContext);
+    const navigate = useNavigate();
+
+    const handleSubmitButon = async (e) => {
+        e.preventDefault();
         if (validateForm()) {
-          
             try {
                 const response = await loginAdminApi(formData.email, formData.password);
-                console.log('Đăng nhập thành công:', response);
-                localStorage.setItem("access_token",response.token)
-                toast.success('Đăng ký thành công!', { autoClose: 3000 });
+                localStorage.setItem('access_token', response.token);
+                toast.success(response.msg, { autoClose: 3000 });
+                if (response?.user?.role === 'customer') {
+                    setTimeout(() => {
+                        navigate('/');
+                    }, 3000); 
+                } else if (response?.user?.role === 'employee' || response?.user?.role === 'admin') {
+                    setTimeout(() => {
+                        navigate('/admin');
+                    }, 3000); 
+                }
                 setFormData({
                     email: '',
                     password: '',
-                  
                 });
                 setAuth({
                     isAuthenticated: true,
                     user: {
-                        email: '',
-                        name: '',
+                        email: response?.user?.email,
+                        name: response?.user?.username,
+                        role: response?.user?.role
                     },
-                })
-                console.log('formData after reset:', formData);
+                });
             } catch (error) {
-                console.error('Lỗi đăng nhập:', error);
-              
-            } 
+                toast.error('Email hoặc password không hợp lệ Vui lòng thử lại!', { autoClose: 3000 });
+            }
         }
     };
+
     return (
         <div className={styles.login}>
-        <div className={styles.loginContainer}>
-            <div className={styles.loginImage}>
-                <img src="./logo.png" alt="Logo" />
-            </div>
-            <div className={styles.loginForm}>
-                <p>Đăng nhập </p>
-                <Form onSubmit={handleSubmitButon}>
-                    <Form.Group controlId="formName">
-                        <div className={styles.loginGroup}>
-                            <FaRegUser className={styles.loginIcon} />
-                            <Form.Control
-                                size="lg"
-                                type="text"
-                                placeholder="Nhập email"
-                                className={styles.loginInput}
-                                value={formData.email}
-                                onChange={(e) => handleInputChange('email', e.target.value)}
-                            />
-                        </div>
-                        {errorMessage.email && <div className={styles.errorMessage}>{errorMessage.email}</div>}
-                    </Form.Group>
-                    <Form.Group controlId="formPassword">
-                        <div className={styles.loginGroup}>
-                            <span onClick={togglePasswordVisibility} className={styles.loginIcon}>
-                                {showPassword ? <IoMdEye /> : <IoMdEyeOff />}
-                            </span>
-                            <Form.Control
-                                size="lg"
-                                type={showPassword ? 'text' : 'password'}
-                                placeholder="Nhập mật khẩu"
-                                className={styles.loginInput}
-                                value={formData.password}
-                                onChange={(e) => handleInputChange('password', e.target.value)}
-                            />
-                        </div>
-                        {errorMessage.password && (
-                            <div className={styles.errorMessage}>{errorMessage.password}</div>
-                        )}
-                    </Form.Group>
-                 
-                    <Button variant="danger" type="submit" size="lg" className={styles.loginButton}>
-                        Đăng nhập
-                    </Button>
-                </Form>
-                <div className={styles.loginFooter}>
-                    <a href="/">Quay lại</a>
-                    <a href="/login">Đăng ký</a>
+            <div className={styles.loginContainer}>
+                <div className={styles.loginImage}>
+                    <img src="./logo.png" alt="Logo" />
+                </div>
+                <div className={styles.loginForm}>
+                    <p>Đăng nhập </p>
+                    <Form onSubmit={handleSubmitButon}>
+                        <Form.Group controlId="formName">
+                            <div className={styles.loginGroup}>
+                                <FaMailBulk className={styles.loginIcon} />
+                                <Form.Control
+                                    size="lg"
+                                    type="text"
+                                    placeholder="Nhập email"
+                                    className={styles.loginInput}
+                                    value={formData.email}
+                                    onChange={(e) => handleInputChange('email', e.target.value)}
+                                />
+                            </div>
+                            {errorMessage.email && <div className={styles.errorMessage}>{errorMessage.email}</div>}
+                        </Form.Group>
+                        <Form.Group controlId="formPassword">
+                            <div className={styles.loginGroup}>
+                                <span onClick={togglePasswordVisibility} className={styles.loginIcon}>
+                                    {showPassword ? <IoMdEye /> : <IoMdEyeOff />}
+                                </span>
+                                <Form.Control
+                                    size="lg"
+                                    type={showPassword ? 'text' : 'password'}
+                                    placeholder="Nhập mật khẩu"
+                                    className={styles.loginInput}
+                                    value={formData.password}
+                                    onChange={(e) => handleInputChange('password', e.target.value)}
+                                />
+                            </div>
+                            {errorMessage.password && (
+                                <div className={styles.errorMessage}>{errorMessage.password}</div>
+                            )}
+                        </Form.Group>
+
+                        <Button variant="danger" type="submit" size="lg" className={styles.loginButton}>
+                            Đăng nhập
+                        </Button>
+                    </Form>
+                    <div className={styles.loginFooter}>
+                        <a href="/auth">Quay lại</a>
+                        <a href="/register">Đăng ký</a>
+                    </div>
+                    <ToastContainer />
                 </div>
             </div>
         </div>
-        <ToastContainer />
-    </div>
     );
 };
 

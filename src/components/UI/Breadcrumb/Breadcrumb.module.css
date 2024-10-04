@@ -1,5 +1,9 @@
 .breadcrumbText{
-  font-size: 2rem;
+  display: inline;
+  font-size: 1.4rem;
   font-weight: 500;
   margin-bottom: 0;
+}
+.active {
+  color: red; /* Đổi màu chữ cho mục hiện tại, có thể thay bằng màu bạn muốn */
 }

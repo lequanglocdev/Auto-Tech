@@ -1,20 +1,20 @@
 import React, { useState } from 'react';
 import { Table, Pagination } from 'react-bootstrap';
-import styles from './DataTable.module.css';
+import styles from './TableEmployees.module.css';
 import icons from '@/utils/icon';
-const DataTable = ({ data = [], itemsPerPage }) => {
-    console.log("Dữ liệu nhận được:", data); // Kiểm tra dữ liệu đầu vào
+import { deleteUserApi, getDetailUser } from '@/utils/api';
+
+const TableEmployees = ({ data = [], itemsPerPage }) => {
     const [currentPage, setCurrentPage] = useState(1);
     const { FaEye, FaPen, FaTrash } = icons;
     const totalPages = Math.ceil(data.length / itemsPerPage);
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    const currentData = data.slice(startIndex, startIndex + itemsPerPage);
 
     const handlePageChange = (pageNumber) => {
         setCurrentPage(pageNumber);
     };
-
-    // Lấy dữ liệu theo trang hiện tại
-    const startIndex = (currentPage - 1) * itemsPerPage;
-    const currentData = data.slice(startIndex, startIndex + itemsPerPage);
+  
     return (
         <div className={styles.dataTableWrapper}>
             <Table striped bordered hover className={styles.dataTable}>
@@ -24,7 +24,6 @@ const DataTable = ({ data = [], itemsPerPage }) => {
                         <th className={styles.dataTableHead}>Name</th>
                         <th className={styles.dataTableHead}>Email</th>
                         <th className={styles.dataTableHead}>Phone</th>
-                        <th className={styles.dataTableHead}>Đia chỉ</th>
                         <th className={styles.dataTableHead}>Hành động</th>
                     </tr>
                 </thead>
@@ -35,7 +34,6 @@ const DataTable = ({ data = [], itemsPerPage }) => {
                             <td className={styles.dataTableItem}>{item.name}</td>
                             <td className={styles.dataTableItem}>{item.email}</td>
                             <td className={styles.dataTableItem}>{item.phone_number}</td>
-                            <td className={styles.dataTableItem}>{item.address}</td>
                             <td className={styles.dataTableItemAction}>
                                 <div className={styles.dataTableIconEye}>
                                     <FaEye />
@@ -52,7 +50,7 @@ const DataTable = ({ data = [], itemsPerPage }) => {
                 </tbody>
             </Table>
 
-            <Pagination>
+            <Pagination className={styles.pagination}>
                 <Pagination.First onClick={() => handlePageChange(1)} disabled={currentPage === 1} />
                 <Pagination.Prev onClick={() => handlePageChange(currentPage - 1)} disabled={currentPage === 1} />
                 {[...Array(totalPages).keys()].map((pageNumber) => (
@@ -74,4 +72,4 @@ const DataTable = ({ data = [], itemsPerPage }) => {
     );
 };
 
-export default DataTable;
+export default TableEmployees;

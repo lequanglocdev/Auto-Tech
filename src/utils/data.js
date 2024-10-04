@@ -119,6 +119,7 @@ export const services = [
     },
     {
         id: 2,
+        bannerServices: require('../assets/services/service2.jpg'),
         defaultImage: './services2.png',
         hoverImage: './services2_2.png',
         title: 'Dịch vụ đánh bóng xe',
@@ -208,6 +209,7 @@ export const services = [
     },
     {
         id: 3,
+        bannerServices: require('../assets/services/service3.jpg'),
         defaultImage: './services3.png',
         hoverImage: './services3_3.png',
         title: 'Dịch vụ dán PPF ô tô',
@@ -297,6 +299,7 @@ export const services = [
 
     {
         id: 4,
+        bannerServices: require('../assets/services/service4.jpg'),
         defaultImage: './services4.png',
         hoverImage: './services4_4.png',
         title: 'Dịch vụ phủ ceramic',
@@ -389,9 +392,10 @@ export const services = [
     },
     {
         id: 5,
+        bannerServices: require('../assets/services/service5.jpg'),
         defaultImage: './services5.png',
         hoverImage: './services5_5.png',
-        title: 'Dịch vụ sơn xe',
+        title: 'Dịch vụ dán phim cách nhiệt APEAX',
         benefitImage: require('../assets/benafit.png'),
         benefitContent: [
             {
@@ -471,6 +475,7 @@ export const services = [
     },
     {
         id: 6,
+        bannerServices: require('../assets/services/service6.jpg'),
         defaultImage: './services6.png',
         hoverImage: './services6_6.png',
         title: 'Dịch vụ phủ gầm',
@@ -558,6 +563,7 @@ export const services = [
     },
     {
         id: 7,
+        bannerServices: require('../assets/services/service7.jpg'),
         defaultImage: './services7.png',
         hoverImage: './services7_7.png',
         title: 'Dịch vụ vệ sinh khoang máy',
@@ -670,6 +676,7 @@ export const services = [
     },
     {
         id: 8,
+        bannerServices: require('../assets/services/service8.jpg'),
         defaultImage: './services8.png',
         hoverImage: './services8_8.png',
         title: 'Dịch vụ kiểm tra chẩn đoán',
@@ -749,9 +756,10 @@ export const services = [
     },
     {
         id: 9,
+        bannerServices: require('../assets/services/service9.jpg'),
         defaultImage: './services9.png',
         hoverImage: './services9_9.png',
-        title: 'Dịch vụ sơn xe',
+        title: 'Dịch vụ thay dầu nhớt',
         benefitImage: require('../assets/benafit.png'),
         benefitContent: [
             {
@@ -831,9 +839,10 @@ export const services = [
     },
     {
         id: 10,
+        bannerServices: require('../assets/services/service10.jpg'),
         defaultImage: './services10.png',
         hoverImage: './services10_10.png',
-        title: 'Dịch vụ sơn xe',
+        title: 'Dịch vụ rửa xe',
         benefitImage: require('../assets/benafit.png'),
         benefitContent: [
             {
@@ -913,9 +922,10 @@ export const services = [
     },
     {
         id: 11,
+        bannerServices: require('../assets/services/service11.jpg'),
         defaultImage: './services11.png',
         hoverImage: './services11_11.png',
-        title: 'Dịch vụ chăm sóc toàn diện',
+        title: 'Dịch vụ bảo dưỡng nhanh',
         benefitImage: require('../assets/benafit.png'),
         benefitContent: [
             {
@@ -1018,9 +1028,108 @@ Vì vậy, bạn nên chọn và tham khảo những cơ sở trung tâm uy tín
     },
     {
         id: 12,
+        bannerServices: require('../assets/services/service12.jpg'),
         defaultImage: './services12.png',
         hoverImage: './services12_12.png',
         title: 'Dịch vụ độ màn hình android',
+        benefitImage: require('../assets/benafit.png'),
+        benefitContent: [
+            {
+                benefitHead: 'Tăng tính hiện đại, sang trọng cho nội thất',
+                benefixDescription:
+                    'Thiết kế của màn hình android ô tô thế hệ mới tương thích với nhiều dòng xe, hợp thời trang, khớp với phần ốp sẵn của xe. Kích thước màn hình cảm ứng rộng từ 7-10 inch, được cải tiến với mặt kính cường lực tăng thêm phần chắc chắn.',
+            },
+            {
+                benefitHead: 'Cấu hình DVD Android mạnh mẽ',
+                benefixDescription:
+                    'Ngoài các vết trầy xước, các khiếm khuyết sơn khác thường xuất hiện trên bề mặt như vết xoáy mạng nhện, đốm nước ăn mòn lâu ngày, vết sơn chảy, sơn vỏ cam, mắt cá, bụi sơn,... đều được loại bỏ hoàn toàn, tái tạo lại một bề mặt phẳng mịn như ban đầu.',
+            },
+            {
+                benefitHead: 'Cung cấp tính năng hỗ trợ lái xe an toàn',
+                benefixDescription:
+                    'Hỗ trợ lái xe an toàn bằng cách điều khiển thông qua giọng nói hoặc qua nút bấm khởi động trên vô lăng để mở nhạc, youtube, nghe gọi, tìm kiếm trên google,… Nâng cao khả năng tập trung lái xe và tránh bị xao nhãng.',
+            },
+            {
+                benefitHead: 'Tối ưu hóa không gian nội thất ô tô',
+                benefixDescription:
+                    'Trang bị màn hình Android ô tô giúp tối ưu hóa không gian bên trong xe. Thay vì lắp thêm nhiều thiết bị riêng biệt như đầu CD, máy nghe nhạc, màn hình này đã tích hợp các chức năng cần thiết và chiếm ít không gian hơn.',
+            },
+            {
+                benefitHead: 'Ứng dụng chỉ đường thông minh',
+                benefixDescription:
+                    'Với tính năng GPS tích hợp, màn hình Android ô tô cho phép người lái sử dụng các ứng dụng chỉ đường thông minh như Google Maps, Navitel, Vietmap,... để tìm kiếm và lập kế hoạch tuyến đường, cập nhật tình trạng giao thông trực t iếp hoặc đề xuất các tuyến đường tối ưu,.',
+            },
+            {
+                benefitHead: 'Hỗ trợ kết nối nhiều thiết bị',
+                benefixDescription:
+                    'Màn hình Android ô tô không chỉ phục vụ như một thiết bị giải trí, mà còn hỗ trợ kết nối thông minh với các thiết bị khác như máy tính bảng, loa bluetooth, loa công suất cao, camera hành trình, camera 360,... hoặc các thiết bị khác để truyền và nhận dữ liệu.',
+            },
+        ],
+        step: [
+            {
+                stepHead: 'Bước 1: Rửa xe và làm sạch bề mặt sơn',
+                stepDescription:
+                    'Kỹ thuật viên thực hiện rửa xe và làm sạch toàn bộ bề mặt sơn giúp các khuyết điểm sơn xuất hiện rõ ràng hơn. Chúng tôi sử dụng nước rửa xe chuyên dụng, có độ PH trung tính, các vết bẩn tại mọi ngóc ngách đều được loại bỏ hoàn toàn.',
+            },
+            {
+                stepHead: 'Bước 2: Kiểm tra tình trạng sơn',
+                stepDescription:
+                    'Kỹ thuật viên sẽ kiểm tra, đánh giá các khiếm khuyết trên bề mặt sơn và đưa ra phương án hiệu chỉnh sơn phù hợp. Tiến hành đánh dấu lại các vị trí cần xử lý và dán lớp bảo vệ ở những khu vực không hiệu chỉnh, để tránh làm hỏng lớp sơn.',
+            },
+            {
+                stepHead: 'Bước 3: Đánh bóng làm phẳng bề mặt sơn xe',
+                stepDescription:
+                    'Dựa vào độ dày mỏng khác nhau của sơn cũng như tình trạng khiếm khuyết sơn, kỹ thuật viên sẽ sử dụng kết hợp máy đánh bóng và xi đánh bóng xe ô tô để làm mịn và phẳng các vết xước, vết xoáy,…',
+            },
+            {
+                stepHead: 'Bước 4: Hoàn thiện bề mặt',
+                stepDescription:
+                    'Để lớp sơn bề mặt sau khi loại bỏ các khiếm khuyết đạt được độ bóng hoàn hảo, có chiều sâu, láng mịn, cần được đánh bóng hoàn thiện với máy đánh bóng lệch tâm kết hợp pad đánh bóng hoàn thiện.',
+            },
+            {
+                stepHead: 'Bước 5: Vệ sinh sạch sẽ',
+                stepDescription:
+                    'Xe sẽ được vệ sinh một lần nữa để đảm bảo không còn bất kỳ cặn xi đánh bóng dư thừa nào đọng lại. Đặc biệt, các vị trí như kẽ cửa xe, logo hay tại các khe hở luôn được kiểm tra và làm sạch tỉ mỉ.',
+            },
+            {
+                stepHead: 'Bước 6:Phủ lớp bảo vệ sơn',
+                stepDescription:
+                    'Tùy vào nhu cầu của khách hàng, chúng tôi sẽ sử dụng các biện pháp bảo vệ sơn tối ưu nhất như phủ ceramic hoặc dán PPF. Lớp bảo vệ này giúp bề mặt sơn bền đẹp, giảm thiểu tối đa các bụi bẩn, trầy xước, vết ố,… tăng độ bền cho các chi tiết khác.',
+            },
+        ],
+        question: [
+            {
+                id: 1,
+                text: 'Dịch vụ vệ sinh nội thất ô tô bao gồm những công đoạn gì?',
+                description:
+                    'Theo khuyến cáo, thời gian dọn vệ sinh toàn bộ nội thất xe hơi tại trung tâm chăm sóc xe từ 2-3 tháng/lần. Nếu tình trạng xe bám bẩn, nhiều nấm mốc hoặc vô tình để các chất bẩn thấm bên trong, thời gian vệ sinh nội thất sẽ đến nhanh hơn. Ngoài ra, bạn có thể tự vệ sinh nội thất ô tô tại nhà sau mỗi lần sử dụng xe. Duy trì bề mặt sạch sẽ trước khi thực hiện vệ sinh nội thất xe hơi toàn diện là cách hữu hiệu nhất.',
+            },
+            {
+                id: 2,
+                text: 'Xe mới lấy có mùi nhựa mới nên vệ sinh nội thất ô tô không?',
+                description:
+                    'Dù chiếc xe của bạn có mùi hay không, bạn cũng nên lập ra kế hoạch chăm sóc và vệ sinh nội thất thường xuyên. Điều này giúp không gian bên trong xe luôn trong tình trạng sạch sẽ, bảo vệ sức khỏe, tăng độ bền chi tiết.',
+            },
+            {
+                id: 3,
+                text: 'Cần lưu ý đến vị trí nào khi vệ sinh nội thất ô tô?',
+                description:
+                    'Có rất nhiều vị trí cần lưu ý khi vệ sinh nội thất ô tô, dù lại tại nhà hay tại trung tâm chăm sóc xe. Một số vị trí cần lưu ý bao gồm nấm mốc bên dưới ghế ngồi, khe gió điều hòa, ron cửa sổ, dây đai, hộc đựng đồ, vải lót đựng đồ sau ghế, trần nỉ, thảm lót cốp,…',
+            },
+            {
+                id: 4,
+                text: 'Dọn vệ sinh nội thất xe hơi giá bao nhiêu?',
+                description:
+                    'Tùy vào từng trung tâm chăm sóc xe sẽ có mức giá dọn vệ sinh nội thất xe hơi được quy định khác nhau. Chi phí thực hiện còn phụ thuộc vào nhiều yếu tố từ chất lượng dịch vụ, mặt bằng, quy trình thực hiện, gói dịch vụ, tình trạng cần vệ sinh,… Bạn có thể tham khảo giá vệ sinh nội thất ô tô chung tại Vietnam Car Care, chi phí dao động từ 1.000.000 VNĐ – 2.000.000 VNĐ/lần. Tại đây, chúng tôi được khách hàng đánh giá cao về chất lượng dịch vụ bởi không sử dụng sản phẩm chứa hóa chất độc hại, kỹ thuật viên dày dặn kinh nghiệm, thao tác vệ sinh chi tiết, kỹ lưỡng',
+            },
+        ],
+    },
+    {
+        id: 13,
+        bannerServices: require('../assets/services/service12.jpg'),
+        defaultImage: './services13.png',
+        hoverImage: './services13_13.png',
+        title: 'Dịch vụ camera hành trình',
         benefitImage: require('../assets/benafit.png'),
         benefitContent: [
             {

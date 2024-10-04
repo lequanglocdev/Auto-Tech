@@ -1,6 +1,6 @@
 import axios from './aixos.custiomzie';
 
-const createAdminApi = (username, email, password) => {
+const registerAdminApi = (username, email, password) => {
     const URL_API = '/api/admins/register';
     const data = {
         username,
@@ -11,20 +11,20 @@ const createAdminApi = (username, email, password) => {
     return axios.post(URL_API, data);
 };
 
-const createManagerApi = (username, password, email, name, phone_number) => {
+const registerManagerApi = (username, password, email, name, phone_number) => {
     const URL_API = 'api/employees/register';
     const data = {
         username,
         email,
         name,
         password,
-        phone_number
+        phone_number,
     };
     console.log('Sending data:', data);
     return axios.post(URL_API, data);
 };
 
-const createCustomerApi = (username, password, email, name, address, phone_number) => {
+const registerCustomerApi = (username, password, email, name, address, phone_number) => {
     const URL_API = 'api/users/register';
     const data = {
         username,
@@ -32,7 +32,7 @@ const createCustomerApi = (username, password, email, name, address, phone_numbe
         email,
         name,
         address,
-        phone_number
+        phone_number,
     };
     console.log('Sending data:', data);
     return axios.post(URL_API, data);
@@ -47,26 +47,52 @@ const loginAdminApi = (email, password) => {
     return axios.post(URL_API, data);
 };
 
-const loginManagerApi = (email,password) =>{
+const loginManagerApi = (email, password) => {
     const URL_API = '/api/auth/loginEmployee';
     const data = {
         email,
         password,
     };
     return axios.post(URL_API, data);
-}   
+};
 
-const loginCustomerApi = (email,password) =>{
+const loginCustomerApi = (email, password) => {
     const URL_API = '/api/auth/loginCustomer';
     const data = {
         email,
         password,
     };
     return axios.post(URL_API, data);
-}   
+};
+
 const getUserApi = () => {
     const URL_API = '/api/users';
     return axios.get(URL_API);
 };
 
-export { createAdminApi, loginAdminApi, getUserApi, createManagerApi, createCustomerApi, loginCustomerApi, loginManagerApi };
+const geEmployeesApi = () => {
+    const URL_API = '/api/employees';
+    return axios.get(URL_API);
+};
+
+const getDetailUser = (user) => {
+    const URL_API = `/api/users/${user._id}`;
+    return axios.get(URL_API);
+};
+
+const deleteUserApi = (user) => {
+    const URL_API = `/api/users/${user._id}`;
+    return axios.delete(URL_API);
+};
+export {
+    registerAdminApi,
+    loginAdminApi,
+    getUserApi,
+    registerManagerApi,
+    registerCustomerApi,
+    loginCustomerApi,
+    loginManagerApi,
+    deleteUserApi,
+    getDetailUser,
+    geEmployeesApi
+};
