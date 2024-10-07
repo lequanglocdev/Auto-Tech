@@ -15,14 +15,16 @@ const SidebarAdmin = ({ isVisible, onSelectMenu }) => {
         MdHomeRepairService,
         IoTicket,
         FaMoneyBillTrendUp,
-        MdManageAccounts 
+        MdManageAccounts,
+        FaRankingStar,
+        IoPricetag  
     } = icons;
     const navigate = useNavigate();
     const menus = [
         {
             title: 'Tổng quan',
             icon: MdDashboard,
-            items: ['Sales', 'Traffic', 'Revenue'],
+            items: ['Danh sách doanh thu'],
         },
         {
             title: 'Quản lý nhân viên',
@@ -32,12 +34,17 @@ const SidebarAdmin = ({ isVisible, onSelectMenu }) => {
         {
             title: 'Quản lý khách hàng',
             icon: FaUsers,
-            items: ['Danh sách khách hàng', 'Thêm mới khách hàng', 'Nhóm khách hàng'],
+            items: ['Danh sách khách hàng', 'Thêm mới khách hàng',]
+        },
+        {
+            title: 'Quản lý hạng của khách hàng',
+            icon: FaRankingStar ,
+            items: ['Danh sách hạng khách hàng', 'Thêm hạng khách hàng',]
         },
         {
             title: 'Quản lý xe ',
             icon: FaCar,
-            items: ['Danh sách xe', 'Loại xe'],
+            items: ['Danh sách xe','Thêm xe',],
         },
         {
             title: 'Quản lý lịch chăm sóc',
@@ -53,6 +60,11 @@ const SidebarAdmin = ({ isVisible, onSelectMenu }) => {
             title: 'Quản lý chương trình khuyến mãi',
             icon: IoTicket,
             items: ['Danh sách khuyến mãi', 'Thêm mới khuyến mãi', 'Gói khuyến mãi'],
+        },
+        {
+            title: 'Quản lý bảng giá ',
+            icon: IoPricetag,
+            items: ['Danh sách bảng giá', 'Thêm mới bảng giá'],
         },
         {
             title: 'Quản lý hóa đơn',
@@ -93,6 +105,37 @@ const SidebarAdmin = ({ isVisible, onSelectMenu }) => {
         if(item === 'Thêm mới khách hàng'){
             navigate("/customer/create")
         }
+        if(item === 'Danh sách hạng khách hàng'){
+            navigate("/rank/list")
+        }
+        if(item === 'Thêm hạng khách hàng'){
+            navigate("/rank/create")
+        }
+        if(item === 'Danh sách xe'){
+            navigate("/car/list")
+        }
+        if(item === 'Thêm xe'){
+            navigate("/car/create")
+        }
+        if(item === 'Danh sách dịch vụ'){
+            navigate('/service/list')
+        }
+        if(item === 'Thêm mới dịch vụ'){
+            navigate('/service/create')
+        }
+        if(item === 'Danh sách khuyến mãi'){
+            navigate('/promotion/list')
+        }
+        if(item === 'Thêm mới khuyến mãi'){
+            navigate('/promotion/create')
+        }
+        if(item === 'Danh sách bảng giá'){
+            navigate('/price/list')
+        }
+        if(item === 'Thêm mới bảng giá'){
+            navigate('/price/create')
+        }
+
     };
 
     return (

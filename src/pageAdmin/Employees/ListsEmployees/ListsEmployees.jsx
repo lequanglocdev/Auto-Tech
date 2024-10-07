@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import styles from './ListsEmployees.module.css';
 import Breadcrumb from '@/components/UI/Breadcrumb/Breadcrumb';
-import DataTable from './TableEmployees/TableEmployees';
+import TableEmployees from './TableEmployees/TableEmployees';
 import { useState } from 'react';
 import {  geEmployeesApi } from '@/utils/api';
 import { ToastContainer, toast } from 'react-toastify';
@@ -38,8 +38,9 @@ const ListsEmployees = () => {
                 <Breadcrumb items={['Quản lý nhân viên', 'danh sách nhân viên']} activeItem="danh sách nhân viên" />
             </div>
             <div>
-                <DataTable data={employeeData} itemsPerPage={5} />
+                <TableEmployees data={employeeData} itemsPerPage={5} />
             </div>
+            <ToastContainer/>
         </div>
     );
 };

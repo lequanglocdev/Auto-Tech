@@ -1,26 +1,22 @@
 import React, { useState } from 'react';
 import { Table, Pagination } from 'react-bootstrap';
-import styles from './DataTable.module.css';
 import icons from '@/utils/icon';
-import ReactPaginate from 'react-paginate';
-import { deleteUserApi, getDetailUser } from '@/utils/api';
-import ModalWatch from '../Modal/ModalWatch';
-const DataTable = ({ data = [], itemsPerPage }) => {
-    const [currentPage, setCurrentPage] = useState(1);
+import styles from './TableServices.module.css'
+import { deleteUserApi, getDetailServices, getDetailUser } from '@/utils/api';
+import ModalServices from '../Modal/ModalServices';
+const TableServices = ({ data = [], itemsPerPage }) => {
     const { FaEye, FaPen, FaTrash } = icons;
+    
+    const [currentPage, setCurrentPage] = useState(1);
     const totalPages = Math.ceil(data.length / itemsPerPage);
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    const currentData = data.slice(startIndex, startIndex + itemsPerPage);
     const [modalShow, setModalShow] = React.useState(false);
     const [selectedUser, setSelectedUser] = useState(null);
 
     const handlePageChange = (pageNumber) => {
         setCurrentPage(pageNumber);
     };
-
-    // const handlePageClick = (event) => {
-
-    //   };
-    const startIndex = (currentPage - 1) * itemsPerPage;
-    const currentData = data.slice(startIndex, startIndex + itemsPerPage);
 
     const handleDeleteUser = async (user) => {
         console.log('Check user delete', user);
@@ -32,12 +28,12 @@ const DataTable = ({ data = [], itemsPerPage }) => {
         }
     };
 
-    const handleShowUserDetail = async (user) => {
+    const handleShowUserDetail = async (services) => {
         try {
-            const response = await getDetailUser(user); // Gọi API lấy chi tiết người dùng
-            setSelectedUser(response); // Lưu thông tin người dùng
-            console.log(">> check detail response",response)
-            setModalShow(true); // Hiển thị modal
+            const response = await getDetailServices(services); 
+            setSelectedUser(response); 
+            console.log(">> check detail response user",response)
+            setModalShow(true);
         } catch (error) {
             console.error('Error fetching user details:', error);
         }
@@ -49,10 +45,9 @@ const DataTable = ({ data = [], itemsPerPage }) => {
                 <thead>
                     <tr className="">
                         <th className={styles.dataTableHead}>#</th>
-                        <th className={styles.dataTableHead}>Name</th>
-                        <th className={styles.dataTableHead}>Email</th>
-                        <th className={styles.dataTableHead}>Phone</th>
-                        <th className={styles.dataTableHead}>Đia chỉ</th>
+                        <th className={styles.dataTableHead}>Loại dịch vụ</th>
+                        <th className={styles.dataTableHead}>Tên dịch vụ</th>
+                        <th className={styles.dataTableHead}>Mô tả</th>
                         <th className={styles.dataTableHead}>Hành động</th>
                     </tr>
                 </thead>
@@ -60,10 +55,9 @@ const DataTable = ({ data = [], itemsPerPage }) => {
                     {currentData.map((item, index) => (
                         <tr key={item._id}>
                             <td>{startIndex + index + 1}</td>
+                            <td className={styles.dataTableItem}>{item.service_code}</td>
                             <td className={styles.dataTableItem}>{item.name}</td>
-                            <td className={styles.dataTableItem}>{item.email}</td>
-                            <td className={styles.dataTableItem}>{item.phone_number}</td>
-                            <td className={styles.dataTableItem}>{item.address}</td>
+                            <td className={styles.dataTableItem}>{item.description}</td>
                             <td className={styles.dataTableItemAction}>
                                 <div className={styles.dataTableIconEye} onClick={() => handleShowUserDetail(item)}>
                                     <FaEye />
@@ -98,31 +92,10 @@ const DataTable = ({ data = [], itemsPerPage }) => {
                 />
                 <Pagination.Last onClick={() => handlePageChange(totalPages)} disabled={currentPage === totalPages} />
             </Pagination>
-            {/* <div>
-                <ReactPaginate
-                    nextLabel=">"
-                    onPageChange={handlePageClick}
-                    pageRangeDisplayed={3}
-                    marginPagesDisplayed={2}
-                    pageCount={20}
-                    previousLabel="<"
-                    pageClassName="page-item"
-                    pageLinkClassName="page-link"
-                    previousClassName="page-item"
-                    previousLinkClassName="page-link"
-                    nextClassName="page-item"
-                    nextLinkClassName="page-link"
-                    breakLabel="..."
-                    breakClassName="page-item"
-                    breakLinkClassName="page-link"
-                    containerClassName="pagination"
-                    activeClassName="active"
-                    renderOnZeroPageCount={null}
-                />
-            </div> */}
-            <ModalWatch show={modalShow} onHide={() => setModalShow(false)} user={selectedUser} />
+          
+            <ModalServices show={modalShow} onHide={() => setModalShow(false)} services={selectedUser} />
         </div>
     );
 };
 
-export default DataTable;
+export default TableServices;

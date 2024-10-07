@@ -1,10 +1,11 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import styles from './Login.module.css';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
+import Spinner from 'react-bootstrap/Spinner';
 import icons from '@/utils/icon';
 import { useLoginForm, usePasswordToggle } from './hooks/useLoginForm';
-import { loginAdminApi} from '@/utils/api';
+import { loginAdminApi } from '@/utils/api';
 import { AuthContext } from '@/components/context/auth.context';
 import { useNavigate } from 'react-router-dom';
 import { FaMailBulk } from 'react-icons/fa';
@@ -15,12 +16,14 @@ const Login = () => {
     const { IoMdEye, IoMdEyeOff } = icons;
     const { formData, setFormData, errorMessage, handleInputChange, validateForm } = useLoginForm();
     const [showPassword, togglePasswordVisibility] = usePasswordToggle();
+    const [isLoading, setIsLoading] = useState(false);
     const { setAuth } = useContext(AuthContext);
     const navigate = useNavigate();
 
     const handleSubmitButon = async (e) => {
         e.preventDefault();
         if (validateForm()) {
+            setIsLoading(true);
             try {
                 const response = await loginAdminApi(formData.email, formData.password);
                 localStorage.setItem('access_token', response.token);
@@ -28,11 +31,11 @@ const Login = () => {
                 if (response?.user?.role === 'customer') {
                     setTimeout(() => {
                         navigate('/');
-                    }, 3000); 
+                    }, 3000);
                 } else if (response?.user?.role === 'employee' || response?.user?.role === 'admin') {
                     setTimeout(() => {
                         navigate('/admin');
-                    }, 3000); 
+                    }, 3000);
                 }
                 setFormData({
                     email: '',
@@ -43,17 +46,26 @@ const Login = () => {
                     user: {
                         email: response?.user?.email,
                         name: response?.user?.username,
-                        role: response?.user?.role
+                        role: response?.user?.role,
                     },
                 });
             } catch (error) {
-                toast.error('Email hoặc password không hợp lệ Vui lòng thử lại!', { autoClose: 3000 });
+                toast.error(error.msg, { autoClose: 3000 });
+            } finally {
+                setIsLoading(false); 
             }
         }
     };
 
     return (
         <div className={styles.login}>
+            {isLoading && (
+                <div className={styles.spinnerOverlay}>
+                    <Spinner animation="border" role="status" className={styles.customSpinner}>
+                        <span className="visually-hidden">Loading...</span>
+                    </Spinner>
+                </div>
+            )}
             <div className={styles.loginContainer}>
                 <div className={styles.loginImage}>
                     <img src="./logo.png" alt="Logo" />

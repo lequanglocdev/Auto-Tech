@@ -6,7 +6,7 @@ export const services = [
         hoverImage: './services1_1.png',
         title: 'Dịch vụ vệ sinh nội thất',
         benefit: 'vệ sinh nội thất',
-        benefitImage: require('../assets/benafit.png'),
+        benefitImage: require('../assets/benafit/benafit.png'),
         benefitContent: [
             {
                 benefitHead: 'Loại bỏ vết bẩn nhanh chóng',
@@ -124,7 +124,7 @@ export const services = [
         hoverImage: './services2_2.png',
         title: 'Dịch vụ đánh bóng xe',
         benefit: 'đánh bóng xe',
-        benefitImage: require('../assets/benafit.png'),
+        benefitImage: require('../assets/benafit/benafit2.png'),
         benefitContent: [
             {
                 benefitHead: 'Tăng độ sáng bóng, thêm lớp bảo vệ',
@@ -214,7 +214,7 @@ export const services = [
         hoverImage: './services3_3.png',
         title: 'Dịch vụ dán PPF ô tô',
         benefit: 'dán PPF',
-        benefitImage: require('../assets/benafit.png'),
+        benefitImage: require('../assets/benafit/benafit3.png'),
         benefitContent: [
             {
                 benefitHead: 'Chống trầy xước, bảo vệ lớp sơn',
@@ -232,14 +232,15 @@ export const services = [
                     'Trong số rất nhiều loại phim bảo vệ sơn được quảng cáo với khả năng tự phục hồi nhanh chóng, dòng phim APEAX PPF đã khẳng định được chất lượng TOP đầu hiện nay. Công nghệ vật liệu TPU tiên tiến nhất, có thể tự phục hồi nhanh các vết trầy xước.',
             },
             {
-                benefitHead:'Dễ dàng vệ sinh',
-                benefixDescription:'Tương tự như phủ Ceramic ô tô, dán PPF xe hơi cũng giúp chủ xe dễ dàng vệ sinh bởi đặc tính chống bám nước của lớp màng phim. Nhờ đó, vẻ ngoài xe sẽ luôn mới, tránh bám bẩn, hóa chất gây hại theo thời gian.'
+                benefitHead: 'Dễ dàng vệ sinh',
+                benefixDescription:
+                    'Tương tự như phủ Ceramic ô tô, dán PPF xe hơi cũng giúp chủ xe dễ dàng vệ sinh bởi đặc tính chống bám nước của lớp màng phim. Nhờ đó, vẻ ngoài xe sẽ luôn mới, tránh bám bẩn, hóa chất gây hại theo thời gian.',
             },
             {
-                benefitHead:'Tăng tính thẩm mỹ',
-                benefixDescription:'Với dịch vụ dán phim PPF cao cấp tại Vietnam Car Care, vẻ ngoài xe được nâng tầm đáng kể bằng 3 gói tùy chọn PPF có độ bóng sáng vừa phải, bóng mờ hoặc kết hợp với lớp phủ Ceramic. Màng phim mỏng, trong suốt, rất khó phát hiện bằng mắt thường.'
+                benefitHead: 'Tăng tính thẩm mỹ',
+                benefixDescription:
+                    'Với dịch vụ dán phim PPF cao cấp tại Vietnam Car Care, vẻ ngoài xe được nâng tầm đáng kể bằng 3 gói tùy chọn PPF có độ bóng sáng vừa phải, bóng mờ hoặc kết hợp với lớp phủ Ceramic. Màng phim mỏng, trong suốt, rất khó phát hiện bằng mắt thường.',
             },
-
         ],
         step: [
             {
@@ -265,9 +266,8 @@ export const services = [
             {
                 stepHead: 'Bước 5: Kiểm tra lại bề mặt sau khi dán PPF ô tô',
                 stepDescription:
-                    'Kiểm tra lần cuối bề mặt sau khi dán PPF, trước khi bàn giao xe cho khách hàng. Đảm bảo bề mặt phim không bị bong bóng, nổi bọt khí, có nếp gấp phim'
+                    'Kiểm tra lần cuối bề mặt sau khi dán PPF, trước khi bàn giao xe cho khách hàng. Đảm bảo bề mặt phim không bị bong bóng, nổi bọt khí, có nếp gấp phim',
             },
-           
         ],
         question: [
             {
@@ -303,7 +303,8 @@ export const services = [
         defaultImage: './services4.png',
         hoverImage: './services4_4.png',
         title: 'Dịch vụ phủ ceramic',
-        benefitImage: require('../assets/benafit.png'),
+        benefit: 'phủ ceramic',
+        benefitImage: require('../assets/benafit/benafit4.png'),
         benefitContent: [
             {
                 benefitHead: 'Chịu nhiệt, chống tia UV có hại',
@@ -396,68 +397,84 @@ export const services = [
         defaultImage: './services5.png',
         hoverImage: './services5_5.png',
         title: 'Dịch vụ dán phim cách nhiệt APEAX',
-        benefitImage: require('../assets/benafit.png'),
+        benefit: 'dán phim cách nhiệt APEAX',
+        benefitImage: require('../assets/benafit/benafit5.png'),
         benefitContent: [
             {
-                benefitHead: 'Tăng độ sáng bóng, thêm lớp bảo vệ',
+                benefitHead: 'Chống nóng vượt trội',
                 benefixDescription:
-                    'Bằng tác động của máy đánh bóng và xi đánh bóng, bề mặt sơn xe được tăng cường độ sáng bóng hơn ban đầu và thêm một lớp phủ bảo vệ bề mặt cơ bản.',
+                    'Với cấu tạo gồm hàng triệu hạt gốm sứ siêu nhỏ, dòng phim cách nhiệt của APEAX có khả năng phản xạ hấp thụ tia hồng ngoại hiệu quả. Qua đó, nhiệt độ nóng bức bên trong xe được giảm đáng kể.',
             },
             {
-                benefitHead: 'Loại bỏ hoàn toàn khiếm khuyết sơn xe',
+                benefitHead: 'Đa lớp Nano Ceramic',
                 benefixDescription:
-                    'Ngoài các vết trầy xước, các khiếm khuyết sơn khác thường xuất hiện trên bề mặt như vết xoáy mạng nhện, đốm nước ăn mòn lâu ngày, vết sơn chảy, sơn vỏ cam, mắt cá, bụi sơn,... đều được loại bỏ hoàn toàn, tái tạo lại một bề mặt phẳng mịn như ban đầu.',
+                    'Công nghệ ép lớp màng phim áp lực cao thành nhiều lớp nano Ceramic siêu mỏng, siêu mịn giúp tăng hiệu năng của phim cách nhiệt APEAX một cách đáng kể.',
             },
             {
-                benefitHead: 'Tạo bề mặt thích hợp để phủ Ceramic, dán PPF ô tô',
+                benefitHead: 'Bảo vệ nội thất xe',
                 benefixDescription:
-                    'Trước khi phủ Ceramic hoặc dán PPF ô tô, bề mặt sơn xe đều phải được vệ sinh, loại bỏ sạch sẽ các vết cặn bẩn bám. Hiệu chỉnh sơn là quá trình bắt buộc phải thực hiện trước khi phủ các lớp bảo vệ sơn. Nếu không, bề mặt sau khi thi công sẽ không đạt tính thẩm mỹ.',
+                    'Nhờ đa lớp Nano Ceramic, khả năng cách nhiệt được nâng cao đáng kể. Giảm lượng nhiệt truyền từ mặt trời vào bên trong xe, bảo vệ nội thất tránh phai màu, lưu hóa cao su, nhựa nhám,…',
+            },
+            {
+                benefitHead: 'Loại bỏ 99% tia UV',
+                benefixDescription:
+                    'Ngăn cản 99%+ tia UV cực tím (tia UVA, UVB, UVC) gây ung thư da và các vấn đề sức khỏe khác cũng như làm hỏng nội thất xe.',
+            },
+            {
+                benefitHead: 'Duy trì màu phim ổn định',
+                benefixDescription:
+                    'Quá trình sản xuất đúng cách chỉ sử dụng vật liệu nền cao cấp để tạo ra lớp màu phim trong suốt, ít bị ố vàng hơn so với các sản phẩm cùng phân khúc và hạn chế cong vênh màng phim.',
             },
         ],
         step: [
             {
-                stepHead: 'Bước 1: Rửa xe và làm sạch bề mặt sơn',
+                stepHead: 'Bước 1:  Vệ sinh toàn bộ xe, bao gồm tẩy ố kính cửa sổ',
                 stepDescription:
-                    'Kỹ thuật viên thực hiện rửa xe và làm sạch toàn bộ bề mặt sơn giúp các khuyết điểm sơn xuất hiện rõ ràng hơn. Chúng tôi sử dụng nước rửa xe chuyên dụng, có độ PH trung tính, các vết bẩn tại mọi ngóc ngách đều được loại bỏ hoàn toàn.',
+                    'Trước khi tiến hành dán phim cách nhiệt kính lái cửa sổ ô tô, bắt buộc phải rửa xe sạch sẽ. Tẩy ố kính (nếu xe cũ). Đưa xe vào phòng dán phim cách nhiệt tiêu chuẩn. ',
             },
             {
-                stepHead: 'Bước 2: Kiểm tra tình trạng sơn',
+                stepHead: 'Bước 2: Lột bỏ phim cách nhiệt cũ (nếu có)',
                 stepDescription:
-                    'Kỹ thuật viên sẽ kiểm tra, đánh giá các khiếm khuyết trên bề mặt sơn và đưa ra phương án hiệu chỉnh sơn phù hợp. Tiến hành đánh dấu lại các vị trí cần xử lý và dán lớp bảo vệ ở những khu vực không hiệu chỉnh, để tránh làm hỏng lớp sơn.',
+                    'Nếu xe có dán phim cách nhiệt cũ, tiến hành lột bỏ ngay lớp màng cũ ố vàng, bong tróc bằng dụng cụ và dung dịch chuyên dụng. Cam kết không gây bể, trầy xước kính khi gỡ bỏ.',
             },
             {
-                stepHead: 'Bước 3: Đánh bóng làm phẳng bề mặt sơn xe',
+                stepHead: 'Bước 3: Chuẩn bị và cắt phom phim cách nhiệt lên xe',
                 stepDescription:
-                    'Dựa vào độ dày mỏng khác nhau của sơn cũng như tình trạng khiếm khuyết sơn, kỹ thuật viên sẽ sử dụng kết hợp máy đánh bóng và xi đánh bóng xe ô tô để làm mịn và phẳng các vết xước, vết xoáy,…',
+                    'Chuẩn bị sản phẩm và tiến hành cắt sẵn phom đối với các cửa sổ, kính lái, kính hậu tương ứng.',
             },
             {
-                stepHead: 'Bước 4: Hoàn thiện bề mặt',
+                stepHead: 'Bước 4: Đặt màng phim đã chuẩn bị vào bề mặt kính',
                 stepDescription:
-                    'Để lớp sơn bề mặt sau khi loại bỏ các khiếm khuyết đạt được độ bóng hoàn hảo, có chiều sâu, láng mịn, cần được đánh bóng hoàn thiện với máy đánh bóng lệch tâm kết hợp pad đánh bóng hoàn thiện.',
+                    'Lắp đặt màng phim vào bề mặt cần dán, lưu ý khi dán cần đảm bảo điều kiện ánh sáng đủ. Phim được cái dư 1 vài cm để vừa với cửa sổ sau khi cắt, tránh trầy kính.',
             },
             {
-                stepHead: 'Bước 5: Vệ sinh sạch sẽ',
+                stepHead: 'Bước 5: Tiến hành dán, gạt nước và cố định phim',
                 stepDescription:
-                    'Xe sẽ được vệ sinh một lần nữa để đảm bảo không còn bất kỳ cặn xi đánh bóng dư thừa nào đọng lại. Đặc biệt, các vị trí như kẽ cửa xe, logo hay tại các khe hở luôn được kiểm tra và làm sạch tỉ mỉ.',
+                    'Tiến hành dán phim cách nhiệt APEAX bằng thao tác xịt dung dịch, ép chặt màng phim bằng miếng gạt bọt nước, gạt bọt khí. Làm đến đâu gạt đến đó.',
             },
             {
-                stepHead: 'Bước 6:Phủ lớp bảo vệ sơn',
+                stepHead: 'Bước 6:Kiểm tra chất lượng sau khi dán phim cách nhiệt APEAX',
                 stepDescription:
-                    'Tùy vào nhu cầu của khách hàng, chúng tôi sẽ sử dụng các biện pháp bảo vệ sơn tối ưu nhất như phủ ceramic hoặc dán PPF. Lớp bảo vệ này giúp bề mặt sơn bền đẹp, giảm thiểu tối đa các bụi bẩn, trầy xước, vết ố,… tăng độ bền cho các chi tiết khác.',
+                    'Kiếm tra màng phim sau khi dán: Không bong tróc, không nổi bọt khí, dán thẩm mỹ phim, không cắt thừa hoặc thiếu màng phim, không có vết trầy trên kính,…',
+            },
+            {
+                stepHead: 'Bước 7: Hướng dẫn chủ xe chăm sóc kính sau khi dán',
+                stepDescription:
+                    'Bàn giao xe hướng dẫn khách hàng cách chăm sóc kính cửa sổ xe sau khi dán phim cách nhiệt. Hạn chế nâng hạ kính sau khi dán.',
             },
         ],
         question: [
             {
                 id: 1,
-                text: 'Dịch vụ vệ sinh nội thất ô tô bao gồm những công đoạn gì?',
+                text: 'Thời gian dán phim cách nhiệt Apeax bao lâu?',
                 description:
-                    'Theo khuyến cáo, thời gian dọn vệ sinh toàn bộ nội thất xe hơi tại trung tâm chăm sóc xe từ 2-3 tháng/lần. Nếu tình trạng xe bám bẩn, nhiều nấm mốc hoặc vô tình để các chất bẩn thấm bên trong, thời gian vệ sinh nội thất sẽ đến nhanh hơn. Ngoài ra, bạn có thể tự vệ sinh nội thất ô tô tại nhà sau mỗi lần sử dụng xe. Duy trì bề mặt sạch sẽ trước khi thực hiện vệ sinh nội thất xe hơi toàn diện là cách hữu hiệu nhất.',
+                    'Thời gian dán phim cách nhiệt Apeax phụ thuộc vào nhiều yếu tố: Kích thước xe, tình trạng xe, số lượng kính cửa sổ cần dán, độ phức tạp của kính, tay nghề thợ dán phim cách nhiệt,… Tại Vietnam Car Care, thời gian dán phim cách nhiệt cho xe ô tô 4 chỗ khoảng 2-4 tiếng theo quy trình chuẩn Mỹ. Nếu tình trạng xe xấu hơn (đã dán phim cách nhiệt cũ), thời gian dán sẽ tăng lên do kỹ thuật viên phải mất thời gian loại bỏ các mảng phim cách nhiệt hư hỏng.',
             },
             {
                 id: 2,
-                text: 'Xe mới lấy có mùi nhựa mới nên vệ sinh nội thất ô tô không?',
+                text: 'Phim cách nhiệt Apeax có bị ố vàng không?',
                 description:
-                    'Dù chiếc xe của bạn có mùi hay không, bạn cũng nên lập ra kế hoạch chăm sóc và vệ sinh nội thất thường xuyên. Điều này giúp không gian bên trong xe luôn trong tình trạng sạch sẽ, bảo vệ sức khỏe, tăng độ bền chi tiết.',
+                    'Bất kỳ loại phim cách nhiệt nào cũng gặp phải tình trạng ố vàng màng phim sau nhiều năm sử dụng. Với dòng phim cách nhiệt Apeax Nano Ceramic PRO, tình trạng ố vàng phim ở mức 5% đến 15% sau 5 năm.',
             },
             {
                 id: 3,
@@ -467,9 +484,10 @@ export const services = [
             },
             {
                 id: 4,
-                text: 'Dọn vệ sinh nội thất xe hơi giá bao nhiêu?',
-                description:
-                    'Tùy vào từng trung tâm chăm sóc xe sẽ có mức giá dọn vệ sinh nội thất xe hơi được quy định khác nhau. Chi phí thực hiện còn phụ thuộc vào nhiều yếu tố từ chất lượng dịch vụ, mặt bằng, quy trình thực hiện, gói dịch vụ, tình trạng cần vệ sinh,… Bạn có thể tham khảo giá vệ sinh nội thất ô tô chung tại Vietnam Car Care, chi phí dao động từ 1.000.000 VNĐ – 2.000.000 VNĐ/lần. Tại đây, chúng tôi được khách hàng đánh giá cao về chất lượng dịch vụ bởi không sử dụng sản phẩm chứa hóa chất độc hại, kỹ thuật viên dày dặn kinh nghiệm, thao tác vệ sinh chi tiết, kỹ lưỡng',
+                text: 'Nên dán phim cách nhiệt Apeax hay 3M?',
+                description: `Cả hai thương hiệu phim cách nhiệt ô tô Apeax và 3M đều xứng đáng với số tiền bỏ ra. Vì vậy, dù dán loại phim nào, bạn cũng có thể an tâm hài lòng với chất lượng mà chúng mang đến:
+                Nếu ưu tiên chọn loại phim cách nhiệt Ceramic vì hiệu suất, hãy chọn Apeax Nano Ceramic PRO có giá tốt hơn 3M Ceramic IR.
+                Nếu chọn vì thương hiệu, 3M là hãng lcó uy tín âu năm nhưng giá sẽ cao hơn gấp nhiều lần so với Apeax.`,
             },
         ],
     },
@@ -479,7 +497,8 @@ export const services = [
         defaultImage: './services6.png',
         hoverImage: './services6_6.png',
         title: 'Dịch vụ phủ gầm',
-        benefitImage: require('../assets/benafit.png'),
+        benefitImage: require('../assets/benafit/benafit6.png'),
+        benefit: 'phủ gầm',
         benefitContent: [
             {
                 benefitHead: 'Chống rỉ sét và ăn mòn',
@@ -567,7 +586,8 @@ export const services = [
         defaultImage: './services7.png',
         hoverImage: './services7_7.png',
         title: 'Dịch vụ vệ sinh khoang máy',
-        benefitImage: require('../assets/benafit.png'),
+        benefit: 'vệ sinh khoang máy',
+        benefitImage: require('../assets/benafit/benafit7.png'),
         benefitContent: [
             {
                 benefitHead: 'Hạn chế động vật, côn trùng gây hại',
@@ -680,7 +700,8 @@ export const services = [
         defaultImage: './services8.png',
         hoverImage: './services8_8.png',
         title: 'Dịch vụ kiểm tra chẩn đoán',
-        benefitImage: require('../assets/benafit.png'),
+        benefit: 'kiểm tra chẩn đoán sự cố điện',
+        benefitImage: require('../assets/benafit/benafit8.png'),
         benefitContent: [
             {
                 benefitHead: 'Hỗ trợ thợ sửa chữa điện ô tô tối đa',
@@ -760,7 +781,8 @@ export const services = [
         defaultImage: './services9.png',
         hoverImage: './services9_9.png',
         title: 'Dịch vụ thay dầu nhớt',
-        benefitImage: require('../assets/benafit.png'),
+        benefit: 'thay dầu nhớt',
+        benefitImage: require('../assets/benafit/benafit9.png'),
         benefitContent: [
             {
                 benefitHead: 'Tăng độ sáng bóng, thêm lớp bảo vệ',
@@ -843,80 +865,101 @@ export const services = [
         defaultImage: './services10.png',
         hoverImage: './services10_10.png',
         title: 'Dịch vụ rửa xe',
-        benefitImage: require('../assets/benafit.png'),
+        benefit: 'rửa xe',
+        benefitImage: require('../assets/benafit/benafit10.png'),
         benefitContent: [
             {
-                benefitHead: 'Tăng độ sáng bóng, thêm lớp bảo vệ',
+                benefitHead: ' Bảo vệ sơn xe',
                 benefixDescription:
-                    'Bằng tác động của máy đánh bóng và xi đánh bóng, bề mặt sơn xe được tăng cường độ sáng bóng hơn ban đầu và thêm một lớp phủ bảo vệ bề mặt cơ bản.',
+                    'Dọn rửa xe thường xuyên giúp loại bỏ bụi bẩn, cặn bã, nhựa cây, và các chất ô nhiễm khác bám trên bề mặt xe, ngăn ngừa chúng ăn mòn lớp sơn và làm hỏng bề mặt xe. Điều này giúp duy trì độ bóng và màu sắc của sơn xe lâu hơn.',
             },
             {
-                benefitHead: 'Loại bỏ hoàn toàn khiếm khuyết sơn xe',
+                benefitHead: 'Ngăn ngừa rỉ sét:',
                 benefixDescription:
-                    'Ngoài các vết trầy xước, các khiếm khuyết sơn khác thường xuất hiện trên bề mặt như vết xoáy mạng nhện, đốm nước ăn mòn lâu ngày, vết sơn chảy, sơn vỏ cam, mắt cá, bụi sơn,... đều được loại bỏ hoàn toàn, tái tạo lại một bề mặt phẳng mịn như ban đầu.',
+                    'Các chất bẩn, muối đường và hóa chất có thể tích tụ trên các chi tiết kim loại của xe, đặc biệt là gầm xe, gây ra hiện tượng ăn mòn và rỉ sét. Việc dọn rửa xe kỹ lưỡng giúp loại bỏ các yếu tố gây hại này, bảo vệ các chi tiết kim loại.',
             },
             {
-                benefitHead: 'Tạo bề mặt thích hợp để phủ Ceramic, dán PPF ô tô',
+                benefitHead: 'Tăng giá trị xe',
                 benefixDescription:
-                    'Trước khi phủ Ceramic hoặc dán PPF ô tô, bề mặt sơn xe đều phải được vệ sinh, loại bỏ sạch sẽ các vết cặn bẩn bám. Hiệu chỉnh sơn là quá trình bắt buộc phải thực hiện trước khi phủ các lớp bảo vệ sơn. Nếu không, bề mặt sau khi thi công sẽ không đạt tính thẩm mỹ.',
+                    'Một chiếc xe được giữ gìn và bảo quản tốt, cả về ngoại thất lẫn nội thất, sẽ giữ giá trị cao hơn khi bán lại. Xe sạch sẽ và bóng bẩy thường thu hút người mua hơn, cho thấy chủ xe quan tâm và chăm sóc tốt cho xe.',
+            },
+            {
+                benefitHead: 'Tạo cảm giác thoải mái',
+                benefixDescription:
+                    ' Một chiếc xe sạch sẽ không chỉ mang lại cảm giác thoải mái cho người lái mà còn cho hành khách, tạo nên một môi trường lái xe dễ chịu và thoải mái hơn. Việc dọn dẹp thường xuyên giúp duy trì mùi thơm và không gian thoáng mát bên trong xe.',
+            },
+            {
+                benefitHead: 'Phát hiện sớm các vấn đề kỹ thuật',
+                benefixDescription:
+                    'Khi dọn rửa xe, bạn có cơ hội kiểm tra các chi tiết bên ngoài như lốp xe, kính chắn gió, gương, và các chi tiết khác để phát hiện sớm các vết nứt, trầy xước hoặc các dấu hiệu bất thường cần khắc phục.',
             },
         ],
         step: [
             {
-                stepHead: 'Bước 1: Rửa xe và làm sạch bề mặt sơn',
+                stepHead: 'Bước 1: Chuẩn bị dụng cụ và xe',
                 stepDescription:
-                    'Kỹ thuật viên thực hiện rửa xe và làm sạch toàn bộ bề mặt sơn giúp các khuyết điểm sơn xuất hiện rõ ràng hơn. Chúng tôi sử dụng nước rửa xe chuyên dụng, có độ PH trung tính, các vết bẩn tại mọi ngóc ngách đều được loại bỏ hoàn toàn.',
+                    'Trước khi bắt đầu, chuẩn bị các dụng cụ cần thiết như xô nước, khăn mềm, bọt biển, chất tẩy rửa chuyên dụng cho xe, và máy phun nước áp lực. Kiểm tra và đảm bảo xe đã nguội để tránh làm hỏng sơn khi rửa.',
             },
             {
-                stepHead: 'Bước 2: Kiểm tra tình trạng sơn',
+                stepHead: 'Bước 2: Phun nước loại bỏ bụi bẩn ban đầu:',
                 stepDescription:
-                    'Kỹ thuật viên sẽ kiểm tra, đánh giá các khiếm khuyết trên bề mặt sơn và đưa ra phương án hiệu chỉnh sơn phù hợp. Tiến hành đánh dấu lại các vị trí cần xử lý và dán lớp bảo vệ ở những khu vực không hiệu chỉnh, để tránh làm hỏng lớp sơn.',
+                    ' Sử dụng máy phun nước áp lực nhẹ để phun toàn bộ bề mặt xe, giúp loại bỏ bụi bẩn và cặn bã lớn bám trên xe. Bước này giúp làm mềm các chất bẩn, ngăn ngừa trầy xước khi rửa.',
             },
             {
-                stepHead: 'Bước 3: Đánh bóng làm phẳng bề mặt sơn xe',
+                stepHead: 'Bước 3: Sử dụng dung dịch rửa xe',
                 stepDescription:
-                    'Dựa vào độ dày mỏng khác nhau của sơn cũng như tình trạng khiếm khuyết sơn, kỹ thuật viên sẽ sử dụng kết hợp máy đánh bóng và xi đánh bóng xe ô tô để làm mịn và phẳng các vết xước, vết xoáy,…',
+                    'Pha dung dịch rửa xe chuyên dụng vào xô nước và dùng bọt biển hoặc khăn mềm nhúng vào, sau đó rửa từng phần của xe theo thứ tự từ trên xuống dưới để tránh vết bẩn lan xuống phần đã làm sạch.',
             },
             {
-                stepHead: 'Bước 4: Hoàn thiện bề mặt',
+                stepHead: 'Bước 4: Rửa kỹ các chi tiết:',
                 stepDescription:
-                    'Để lớp sơn bề mặt sau khi loại bỏ các khiếm khuyết đạt được độ bóng hoàn hảo, có chiều sâu, láng mịn, cần được đánh bóng hoàn thiện với máy đánh bóng lệch tâm kết hợp pad đánh bóng hoàn thiện.',
+                    'Chú ý làm sạch các khu vực khó tiếp cận như bánh xe, gương, khe cửa, và cản xe. Sử dụng bàn chải mềm để cọ rửa bánh xe và các khe hở để đảm bảo loại bỏ hết cặn bẩn bám vào.',
             },
             {
-                stepHead: 'Bước 5: Vệ sinh sạch sẽ',
+                stepHead: 'Bước 5: Rửa lại bằng nước sạch',
                 stepDescription:
-                    'Xe sẽ được vệ sinh một lần nữa để đảm bảo không còn bất kỳ cặn xi đánh bóng dư thừa nào đọng lại. Đặc biệt, các vị trí như kẽ cửa xe, logo hay tại các khe hở luôn được kiểm tra và làm sạch tỉ mỉ.',
+                    'Sau khi dùng dung dịch rửa xe, phun nước sạch để loại bỏ toàn bộ xà phòng và chất bẩn còn lại. Hãy đảm bảo không để lại xà phòng trên xe vì có thể làm mất độ bóng của sơn.',
             },
             {
-                stepHead: 'Bước 6:Phủ lớp bảo vệ sơn',
+                stepHead: 'Bước 6: Lau khô xe:',
                 stepDescription:
-                    'Tùy vào nhu cầu của khách hàng, chúng tôi sẽ sử dụng các biện pháp bảo vệ sơn tối ưu nhất như phủ ceramic hoặc dán PPF. Lớp bảo vệ này giúp bề mặt sơn bền đẹp, giảm thiểu tối đa các bụi bẩn, trầy xước, vết ố,… tăng độ bền cho các chi tiết khác.',
+                    'Sử dụng khăn sợi mềm để lau khô toàn bộ bề mặt xe. Bắt đầu từ nóc xe và lau xuống dưới để đảm bảo không để lại vệt nước và giúp xe bóng đẹp hơn.',
+            },
+            {
+                stepHead: 'Bước 7: Sử dụng dung dịch bảo vệ sơn',
+                stepDescription:
+                    'Sau khi xe đã khô, có thể dùng dung dịch bảo vệ sơn hoặc sáp xe để tạo lớp bảo vệ, giúp duy trì độ bóng và bảo vệ bề mặt khỏi tác nhân gây hại từ môi trường.',
+            },
+            {
+                stepHead: 'Bước 8: Kiểm tra lần cuối',
+                stepDescription:
+                    ' Kiểm tra toàn bộ bề mặt xe để đảm bảo không bỏ sót bất kỳ vết bẩn nào. Đồng thời, kiểm tra các chi tiết như gương, kính chắn gió, và lốp xe để đảm bảo mọi thứ sạch sẽ.',
             },
         ],
         question: [
             {
                 id: 1,
-                text: 'Dịch vụ vệ sinh nội thất ô tô bao gồm những công đoạn gì?',
+                text: ' Bao lâu nên rửa xe một lần?',
                 description:
-                    'Theo khuyến cáo, thời gian dọn vệ sinh toàn bộ nội thất xe hơi tại trung tâm chăm sóc xe từ 2-3 tháng/lần. Nếu tình trạng xe bám bẩn, nhiều nấm mốc hoặc vô tình để các chất bẩn thấm bên trong, thời gian vệ sinh nội thất sẽ đến nhanh hơn. Ngoài ra, bạn có thể tự vệ sinh nội thất ô tô tại nhà sau mỗi lần sử dụng xe. Duy trì bề mặt sạch sẽ trước khi thực hiện vệ sinh nội thất xe hơi toàn diện là cách hữu hiệu nhất.',
+                    'Nên rửa xe ít nhất mỗi tuần một lần hoặc khi xe bám bụi bẩn nhiều. Tuy nhiên, tần suất này có thể thay đổi tùy thuộc vào điều kiện môi trường và mức độ sử dụng xe của bạn. Rửa xe thường xuyên giúp bảo vệ lớp sơn và duy trì vẻ ngoài sạch đẹp.',
             },
             {
                 id: 2,
-                text: 'Xe mới lấy có mùi nhựa mới nên vệ sinh nội thất ô tô không?',
+                text: 'Rửa xe tại nhà hay đến tiệm rửa xe chuyên nghiệp?',
                 description:
-                    'Dù chiếc xe của bạn có mùi hay không, bạn cũng nên lập ra kế hoạch chăm sóc và vệ sinh nội thất thường xuyên. Điều này giúp không gian bên trong xe luôn trong tình trạng sạch sẽ, bảo vệ sức khỏe, tăng độ bền chi tiết.',
+                    'Rửa xe tại nhà có thể tiết kiệm chi phí, nhưng nếu không sử dụng đúng sản phẩm và kỹ thuật, bạn có thể làm hỏng lớp sơn. Rửa xe tại tiệm chuyên nghiệp đảm bảo xe được làm sạch kỹ lưỡng và bảo vệ tốt nhất với các dụng cụ và dung dịch chuyên dụng.',
             },
             {
                 id: 3,
-                text: 'Cần lưu ý đến vị trí nào khi vệ sinh nội thất ô tô?',
+                text: 'Rửa xe bằng nước thông thường có tốt không?',
                 description:
-                    'Có rất nhiều vị trí cần lưu ý khi vệ sinh nội thất ô tô, dù lại tại nhà hay tại trung tâm chăm sóc xe. Một số vị trí cần lưu ý bao gồm nấm mốc bên dưới ghế ngồi, khe gió điều hòa, ron cửa sổ, dây đai, hộc đựng đồ, vải lót đựng đồ sau ghế, trần nỉ, thảm lót cốp,…',
+                    'Không nên rửa xe chỉ bằng nước thông thường vì không thể loại bỏ hoàn toàn các chất bẩn và dầu mỡ bám trên xe. Sử dụng dung dịch rửa xe chuyên dụng giúp làm sạch hiệu quả hơn và bảo vệ lớp sơn xe.',
             },
             {
                 id: 4,
-                text: 'Dọn vệ sinh nội thất xe hơi giá bao nhiêu?',
+                text: 'Nên rửa xe khi trời nắng hay trời râm?',
                 description:
-                    'Tùy vào từng trung tâm chăm sóc xe sẽ có mức giá dọn vệ sinh nội thất xe hơi được quy định khác nhau. Chi phí thực hiện còn phụ thuộc vào nhiều yếu tố từ chất lượng dịch vụ, mặt bằng, quy trình thực hiện, gói dịch vụ, tình trạng cần vệ sinh,… Bạn có thể tham khảo giá vệ sinh nội thất ô tô chung tại Vietnam Car Care, chi phí dao động từ 1.000.000 VNĐ – 2.000.000 VNĐ/lần. Tại đây, chúng tôi được khách hàng đánh giá cao về chất lượng dịch vụ bởi không sử dụng sản phẩm chứa hóa chất độc hại, kỹ thuật viên dày dặn kinh nghiệm, thao tác vệ sinh chi tiết, kỹ lưỡng',
+                    'Tốt nhất nên rửa xe khi trời râm hoặc trong bóng mát vì dưới ánh nắng, nước và xà phòng sẽ khô nhanh, gây ra các vệt nước và làm hỏng sơn. Rửa xe trong điều kiện mát mẻ giúp đảm bảo xe được làm sạch hiệu quả mà không để lại dấu vết.',
             },
         ],
     },
@@ -926,7 +969,8 @@ export const services = [
         defaultImage: './services11.png',
         hoverImage: './services11_11.png',
         title: 'Dịch vụ bảo dưỡng nhanh',
-        benefitImage: require('../assets/benafit.png'),
+        benefit: 'bảo dưỡng nhanh',
+        benefitImage: require('../assets/benafit/benafit11.png'),
         benefitContent: [
             {
                 benefitHead: 'Bảo vệ sức khỏe',
@@ -1032,7 +1076,8 @@ Vì vậy, bạn nên chọn và tham khảo những cơ sở trung tâm uy tín
         defaultImage: './services12.png',
         hoverImage: './services12_12.png',
         title: 'Dịch vụ độ màn hình android',
-        benefitImage: require('../assets/benafit.png'),
+        benefit: 'độ màn hình android',
+        benefitImage: require('../assets/benafit/benafit12.png'),
         benefitContent: [
             {
                 benefitHead: 'Tăng tính hiện đại, sang trọng cho nội thất',
@@ -1059,166 +1104,161 @@ Vì vậy, bạn nên chọn và tham khảo những cơ sở trung tâm uy tín
                 benefixDescription:
                     'Với tính năng GPS tích hợp, màn hình Android ô tô cho phép người lái sử dụng các ứng dụng chỉ đường thông minh như Google Maps, Navitel, Vietmap,... để tìm kiếm và lập kế hoạch tuyến đường, cập nhật tình trạng giao thông trực t iếp hoặc đề xuất các tuyến đường tối ưu,.',
             },
-            {
-                benefitHead: 'Hỗ trợ kết nối nhiều thiết bị',
-                benefixDescription:
-                    'Màn hình Android ô tô không chỉ phục vụ như một thiết bị giải trí, mà còn hỗ trợ kết nối thông minh với các thiết bị khác như máy tính bảng, loa bluetooth, loa công suất cao, camera hành trình, camera 360,... hoặc các thiết bị khác để truyền và nhận dữ liệu.',
-            },
         ],
         step: [
             {
-                stepHead: 'Bước 1: Rửa xe và làm sạch bề mặt sơn',
-                stepDescription:
-                    'Kỹ thuật viên thực hiện rửa xe và làm sạch toàn bộ bề mặt sơn giúp các khuyết điểm sơn xuất hiện rõ ràng hơn. Chúng tôi sử dụng nước rửa xe chuyên dụng, có độ PH trung tính, các vết bẩn tại mọi ngóc ngách đều được loại bỏ hoàn toàn.',
+                stepHead: 'Bước 1: Chuẩn bị thiết bị và dụng cụ',
+                stepDescription: ' Lựa chọn màn hình phù hợp với dòng xe, kích thước và tính năng yêu cầu.',
             },
             {
-                stepHead: 'Bước 2: Kiểm tra tình trạng sơn',
+                stepHead: 'Bước 2: Kiểm tra và chuẩn bị hệ thống hiện tại:',
                 stepDescription:
-                    'Kỹ thuật viên sẽ kiểm tra, đánh giá các khiếm khuyết trên bề mặt sơn và đưa ra phương án hiệu chỉnh sơn phù hợp. Tiến hành đánh dấu lại các vị trí cần xử lý và dán lớp bảo vệ ở những khu vực không hiệu chỉnh, để tránh làm hỏng lớp sơn.',
+                    'Ngắt kết nối ắc quy xe để đảm bảo an toàn trong quá trình lắp đặt. Tháo màn hình hoặc hệ thống giải trí cũ trên xe. Đảm bảo tháo nhẹ nhàng để tránh làm hỏng các phần nhựa hay dây điện.',
             },
             {
-                stepHead: 'Bước 3: Đánh bóng làm phẳng bề mặt sơn xe',
+                stepHead: 'Bước 3: Lắp đặt màn hình Android',
                 stepDescription:
-                    'Dựa vào độ dày mỏng khác nhau của sơn cũng như tình trạng khiếm khuyết sơn, kỹ thuật viên sẽ sử dụng kết hợp máy đánh bóng và xi đánh bóng xe ô tô để làm mịn và phẳng các vết xước, vết xoáy,…',
+                    'Kết nối dây nguồn và dây tín hiệu: Kết nối dây nguồn từ màn hình mới vào nguồn của xe (có thể qua giắc cắm có sẵn hoặc đấu nối thủ công). Kết nối dây loa và dây tín hiệu (âm thanh, video) nếu cần thiết. Gắn màn hình vào vị trí: Đặt màn hình Android vào chỗ lắp của màn hình cũ, đảm bảo khớp với các ngàm và vị trí cố định.',
             },
             {
-                stepHead: 'Bước 4: Hoàn thiện bề mặt',
+                stepHead: 'Bước 4: Cài đặt phần mềm và cấu hình hệ thống',
                 stepDescription:
-                    'Để lớp sơn bề mặt sau khi loại bỏ các khiếm khuyết đạt được độ bóng hoàn hảo, có chiều sâu, láng mịn, cần được đánh bóng hoàn thiện với máy đánh bóng lệch tâm kết hợp pad đánh bóng hoàn thiện.',
+                    'Khởi động xe và kiểm tra xem màn hình mới có hoạt động không. Cài đặt phần mềm: Thiết lập các ứng dụng cần thiết như bản đồ, trình nghe nhạc, ứng dụng kết nối điện thoại. Cấu hình kết nối Bluetooth/Wi-Fi: Đảm bảo kết nối điện thoại và các thiết bị khác hoạt động tốt. Cài đặt các tính năng an toàn: Nếu màn hình có camera lùi hoặc cảm biến, cần cấu hình để hiển thị chính xác.',
             },
             {
-                stepHead: 'Bước 5: Vệ sinh sạch sẽ',
+                stepHead: 'Bước 5: Kiểm tra và hoàn thiện',
                 stepDescription:
-                    'Xe sẽ được vệ sinh một lần nữa để đảm bảo không còn bất kỳ cặn xi đánh bóng dư thừa nào đọng lại. Đặc biệt, các vị trí như kẽ cửa xe, logo hay tại các khe hở luôn được kiểm tra và làm sạch tỉ mỉ.',
+                    'Kiểm tra các chức năng: Đảm bảo tất cả các chức năng như GPS, âm thanh, video, Bluetooth, camera lùi đều hoạt động bình thường. Kiểm tra các kết nối điện: Đảm bảo không có dây điện lỏng lẻo hoặc vấn đề liên quan đến nguồn. Lắp lại các chi tiết nội thất: Sau khi kiểm tra xong, lắp lại các chi tiết nội thất đã tháo ra ban đầu.',
             },
             {
-                stepHead: 'Bước 6:Phủ lớp bảo vệ sơn',
+                stepHead: 'Bước 6: Hướng dẫn sử dụng cho khách hàng',
                 stepDescription:
-                    'Tùy vào nhu cầu của khách hàng, chúng tôi sẽ sử dụng các biện pháp bảo vệ sơn tối ưu nhất như phủ ceramic hoặc dán PPF. Lớp bảo vệ này giúp bề mặt sơn bền đẹp, giảm thiểu tối đa các bụi bẩn, trầy xước, vết ố,… tăng độ bền cho các chi tiết khác.',
+                    'Hướng dẫn khách hàng cách sử dụng các chức năng cơ bản như kết nối Bluetooth, sử dụng GPS, và điều khiển âm thanh/video. Khuyến cáo khách hàng về việc bảo trì và sử dụng màn hình một cách an toàn.',
             },
         ],
         question: [
             {
                 id: 1,
-                text: 'Dịch vụ vệ sinh nội thất ô tô bao gồm những công đoạn gì?',
+                text: 'Thay thế màn hình zin bằng màn hình android thông minh có tốt không?',
                 description:
-                    'Theo khuyến cáo, thời gian dọn vệ sinh toàn bộ nội thất xe hơi tại trung tâm chăm sóc xe từ 2-3 tháng/lần. Nếu tình trạng xe bám bẩn, nhiều nấm mốc hoặc vô tình để các chất bẩn thấm bên trong, thời gian vệ sinh nội thất sẽ đến nhanh hơn. Ngoài ra, bạn có thể tự vệ sinh nội thất ô tô tại nhà sau mỗi lần sử dụng xe. Duy trì bề mặt sạch sẽ trước khi thực hiện vệ sinh nội thất xe hơi toàn diện là cách hữu hiệu nhất.',
+                    'Với màn hình zin thông thường trên ô tô chỉ cung cấp các tính năng cơ bản như nghe radio, nghe nhạc qua USB, không có hình ảnh, không kết nối Internet, bluetooth, camera và thường có kích thước nhỏ,… gây một số bất tiện cho chủ xe. Màn hình android cho ô tô được phát triển và bổ sung thêm rất nhiều tiện ích, nâng cao khả năng lái xe an toàn và tăng tính thẩm mỹ cho chiếc xe.',
             },
             {
                 id: 2,
-                text: 'Xe mới lấy có mùi nhựa mới nên vệ sinh nội thất ô tô không?',
-                description:
-                    'Dù chiếc xe của bạn có mùi hay không, bạn cũng nên lập ra kế hoạch chăm sóc và vệ sinh nội thất thường xuyên. Điều này giúp không gian bên trong xe luôn trong tình trạng sạch sẽ, bảo vệ sức khỏe, tăng độ bền chi tiết.',
+                text: 'Cách chọn màn hình android chất lượng',
+                description: `Tùy vào mỗi dòng xe cũng như nhu cầu của khách hàng, màn hình andoid ô tô thông minh hiện nay phải đáp ứng được các điều kiện sau:
+                    + Kích cỡ màn hình chuẩn, phù hợp với xe.
+                    + Độ phân giải màn hình cao như loại Full HD, 2K, 4K,…
+                    + Dung lượng, bộ nhớ RAM đủ lớn.
+                    + Bộ chip CPU thế hệ mới cho tốc độ lướt mượt, nhanh, không đơ, giật lag,…
+                    + Tích hợp định vị, kết nối đa cổng, điều khiển giọng nói, lưu lịch trình, dẫn đường, xem video,…`,
             },
             {
                 id: 3,
-                text: 'Cần lưu ý đến vị trí nào khi vệ sinh nội thất ô tô?',
+                text: 'Có nên tự lắp màn hình android tại nhà không?',
                 description:
-                    'Có rất nhiều vị trí cần lưu ý khi vệ sinh nội thất ô tô, dù lại tại nhà hay tại trung tâm chăm sóc xe. Một số vị trí cần lưu ý bao gồm nấm mốc bên dưới ghế ngồi, khe gió điều hòa, ron cửa sổ, dây đai, hộc đựng đồ, vải lót đựng đồ sau ghế, trần nỉ, thảm lót cốp,…',
+                    'Bạn sẽ rất dễ bắt gặp nhiều video hướng dẫn lắp màn hình tại nhà vô cùng đơn giản. Nhưng thực tế, kỹ thuật này phức tạp hơn bạn nghĩ, người lắp phải có kiến thức chuyên môn về hệ thống điện, đường dây,… trên từng dòng xe ô tô. Nếu thực hiện sai cách, hệ thống điện toàn bộ sẽ gặp vấn đề, gây hỏng mạch, gây cháy,…',
             },
             {
                 id: 4,
-                text: 'Dọn vệ sinh nội thất xe hơi giá bao nhiêu?',
-                description:
-                    'Tùy vào từng trung tâm chăm sóc xe sẽ có mức giá dọn vệ sinh nội thất xe hơi được quy định khác nhau. Chi phí thực hiện còn phụ thuộc vào nhiều yếu tố từ chất lượng dịch vụ, mặt bằng, quy trình thực hiện, gói dịch vụ, tình trạng cần vệ sinh,… Bạn có thể tham khảo giá vệ sinh nội thất ô tô chung tại Vietnam Car Care, chi phí dao động từ 1.000.000 VNĐ – 2.000.000 VNĐ/lần. Tại đây, chúng tôi được khách hàng đánh giá cao về chất lượng dịch vụ bởi không sử dụng sản phẩm chứa hóa chất độc hại, kỹ thuật viên dày dặn kinh nghiệm, thao tác vệ sinh chi tiết, kỹ lưỡng',
+                text: 'Giá lắp màn hình Android cho ô tô bao nhiêu?',
+                description: `Thị trường màn hình Android ô tô hiện nay rất đa dạng các sản phẩm, thương hiệu chất lượng. Tùy thuộc vào từng phân khúc, nhu cầu trải nghiệm của khách hàng, giá độ màn hình DVD Android cho ô tô sẽ khác nhau. Đội ngũ tư vấn của Vietnam Car Care đã khảo sát mức giá chung của Top 5 thương hiệu màn hình DVD Android ô tô mới như sau:
+                + Màn hình Android T’EYE: Từ 9.000.000 – 13.000.000 VNĐ
+                + Màn hình ICAR: Từ 6.000.000 – 26.000.000 VNĐ
+                + Màn hình ZESTECH: Từ 8.000.000 – 25.000.000 VNĐ
+                + Màn hình PIONEER: Từ 6.500.000 – 18.000.000 VNĐ
+                + Màn hình OLED: Từ 5.000.000 – 14.000.000 VNĐ`,
             },
         ],
     },
     {
         id: 13,
-        bannerServices: require('../assets/services/service12.jpg'),
+        bannerServices: require('../assets/services/service13.jpg'),
         defaultImage: './services13.png',
         hoverImage: './services13_13.png',
         title: 'Dịch vụ camera hành trình',
-        benefitImage: require('../assets/benafit.png'),
+        benefit: 'camera hành trình',
+        benefitImage: require('../assets/benafit/benafit13.png'),
         benefitContent: [
             {
-                benefitHead: 'Tăng tính hiện đại, sang trọng cho nội thất',
+                benefitHead: 'Bảo vệ người lái',
                 benefixDescription:
-                    'Thiết kế của màn hình android ô tô thế hệ mới tương thích với nhiều dòng xe, hợp thời trang, khớp với phần ốp sẵn của xe. Kích thước màn hình cảm ứng rộng từ 7-10 inch, được cải tiến với mặt kính cường lực tăng thêm phần chắc chắn.',
+                    'Trang bị camera hành trình sẽ giúp cho chủ phương tiện có thể chứng minh được quá trình lái xe của mình nếu gặp phải tai nạn giao thông hoặc tranh chấp về vi phạm luật.',
             },
             {
-                benefitHead: 'Cấu hình DVD Android mạnh mẽ',
+                benefitHead: 'Định vị, chỉ đường chính xác',
                 benefixDescription:
-                    'Ngoài các vết trầy xước, các khiếm khuyết sơn khác thường xuất hiện trên bề mặt như vết xoáy mạng nhện, đốm nước ăn mòn lâu ngày, vết sơn chảy, sơn vỏ cam, mắt cá, bụi sơn,... đều được loại bỏ hoàn toàn, tái tạo lại một bề mặt phẳng mịn như ban đầu.',
+                    'Định vị và chỉ đường là hai tính năng quan trọng của camera hành trình ô tô, giúp người lái biết được vị trí hiện tại của mình và cách để đến được địa điểm mong muốn chính xác nhất.',
             },
             {
-                benefitHead: 'Cung cấp tính năng hỗ trợ lái xe an toàn',
+                benefitHead: 'Tăng cường khả năng lái xe',
                 benefixDescription:
-                    'Hỗ trợ lái xe an toàn bằng cách điều khiển thông qua giọng nói hoặc qua nút bấm khởi động trên vô lăng để mở nhạc, youtube, nghe gọi, tìm kiếm trên google,… Nâng cao khả năng tập trung lái xe và tránh bị xao nhãng.',
+                    'Nhờ Camera hành trình, tài xế có thể dễ dàng phân tích tình huống và phản ứng kịp thời với những tình huống nguy hiểm trên đường, giúp tăng cường khả năng quan sát, giám sát an toàn khi lái xe.',
             },
             {
-                benefitHead: 'Tối ưu hóa không gian nội thất ô tô',
+                benefitHead: 'Phát hiện biển báo giao thông',
                 benefixDescription:
-                    'Trang bị màn hình Android ô tô giúp tối ưu hóa không gian bên trong xe. Thay vì lắp thêm nhiều thiết bị riêng biệt như đầu CD, máy nghe nhạc, màn hình này đã tích hợp các chức năng cần thiết và chiếm ít không gian hơn.',
+                    'Với dữ liệu được tích hợp trong hệ thống dẫn đường của camera hành trình, người lái dễ dàng nhận biết được những biển báo giao thông nằm ở vị trí khó nhận biết, thông qua cảnh báo bằng giọng nói.',
             },
             {
-                benefitHead: 'Ứng dụng chỉ đường thông minh',
+                benefitHead: 'Ghi lại sự cố',
                 benefixDescription:
-                    'Với tính năng GPS tích hợp, màn hình Android ô tô cho phép người lái sử dụng các ứng dụng chỉ đường thông minh như Google Maps, Navitel, Vietmap,... để tìm kiếm và lập kế hoạch tuyến đường, cập nhật tình trạng giao thông trực t iếp hoặc đề xuất các tuyến đường tối ưu,.',
-            },
-            {
-                benefitHead: 'Hỗ trợ kết nối nhiều thiết bị',
-                benefixDescription:
-                    'Màn hình Android ô tô không chỉ phục vụ như một thiết bị giải trí, mà còn hỗ trợ kết nối thông minh với các thiết bị khác như máy tính bảng, loa bluetooth, loa công suất cao, camera hành trình, camera 360,... hoặc các thiết bị khác để truyền và nhận dữ liệu.',
+                    'Ngoài chỉ đường và cảnh báo giao thông, gắn camera hành trình trên xe ô tô còn giúp người lái ghi lại cảnh vật trên những cung đường đẹp với chuẩn video 2K, 4K, dễ dàng xuất ra những hình ảnh rõ nét.',
             },
         ],
         step: [
             {
-                stepHead: 'Bước 1: Rửa xe và làm sạch bề mặt sơn',
+                stepHead: 'Bước 1:Tư vấn về camera hành trình ô tô',
                 stepDescription:
-                    'Kỹ thuật viên thực hiện rửa xe và làm sạch toàn bộ bề mặt sơn giúp các khuyết điểm sơn xuất hiện rõ ràng hơn. Chúng tôi sử dụng nước rửa xe chuyên dụng, có độ PH trung tính, các vết bẩn tại mọi ngóc ngách đều được loại bỏ hoàn toàn.',
+                    'Kỹ thuật viên thực hiện khảo sát nhu cầu của khách hàng và tư vấn các loại camera hành trình xe ô tô phù hợp.',
             },
             {
-                stepHead: 'Bước 2: Kiểm tra tình trạng sơn',
+                stepHead: 'Bước 2: Quyết định vị trí của camera hành trình',
                 stepDescription:
-                    'Kỹ thuật viên sẽ kiểm tra, đánh giá các khiếm khuyết trên bề mặt sơn và đưa ra phương án hiệu chỉnh sơn phù hợp. Tiến hành đánh dấu lại các vị trí cần xử lý và dán lớp bảo vệ ở những khu vực không hiệu chỉnh, để tránh làm hỏng lớp sơn.',
+                    'Kỹ thuật viên ngồi ở ghế lái và thử các vị trí khác nhau cho camera hành trình, đặt camera trong tầm tay với chỗ ngồi nhưng không gây cản trở tầm nhìn hoặc sẽ dựa trên yêu cầu thực tế của khách hàng.',
             },
             {
-                stepHead: 'Bước 3: Đánh bóng làm phẳng bề mặt sơn xe',
+                stepHead: 'Bước 3: Lắp đặt camera hành trình chi tiết',
                 stepDescription:
-                    'Dựa vào độ dày mỏng khác nhau của sơn cũng như tình trạng khiếm khuyết sơn, kỹ thuật viên sẽ sử dụng kết hợp máy đánh bóng và xi đánh bóng xe ô tô để làm mịn và phẳng các vết xước, vết xoáy,…',
+                    'Kỹ thuật viên xác định vị trí hộp cầu chì và bắt đầu các công đoạn kiểm tra mạch điện, đấu nối các dây, hệ thống tiếp đất,… đảm bảo camera hành trình hoạt động tốt',
             },
             {
-                stepHead: 'Bước 4: Hoàn thiện bề mặt',
+                stepHead: 'Bước 4: Kiểm tra lại các cài đặt',
                 stepDescription:
-                    'Để lớp sơn bề mặt sau khi loại bỏ các khiếm khuyết đạt được độ bóng hoàn hảo, có chiều sâu, láng mịn, cần được đánh bóng hoàn thiện với máy đánh bóng lệch tâm kết hợp pad đánh bóng hoàn thiện.',
+                    'Sau khi lắp đặt và kết nối điện, nhân viên sẽ khởi động xe để kiểm tra lại camera hành trình. Đảm bảo rằng chúng hoạt động đúng cách.',
             },
             {
-                stepHead: 'Bước 5: Vệ sinh sạch sẽ',
+                stepHead: 'Bước 5: Hướng dẫn sử dụng và bàn giao',
                 stepDescription:
-                    'Xe sẽ được vệ sinh một lần nữa để đảm bảo không còn bất kỳ cặn xi đánh bóng dư thừa nào đọng lại. Đặc biệt, các vị trí như kẽ cửa xe, logo hay tại các khe hở luôn được kiểm tra và làm sạch tỉ mỉ.',
-            },
-            {
-                stepHead: 'Bước 6:Phủ lớp bảo vệ sơn',
-                stepDescription:
-                    'Tùy vào nhu cầu của khách hàng, chúng tôi sẽ sử dụng các biện pháp bảo vệ sơn tối ưu nhất như phủ ceramic hoặc dán PPF. Lớp bảo vệ này giúp bề mặt sơn bền đẹp, giảm thiểu tối đa các bụi bẩn, trầy xước, vết ố,… tăng độ bền cho các chi tiết khác.',
+                    'Cuối cùng, nhân viên Vietnam Car Care sẽ hướng dẫn cách sử dụng camera hành trình ô tô và các tính năng sau khi lắp đặt.',
             },
         ],
         question: [
             {
                 id: 1,
-                text: 'Dịch vụ vệ sinh nội thất ô tô bao gồm những công đoạn gì?',
+                text: 'Lắp Camera hành trình ô tô có bắt buộc hay không?',
                 description:
-                    'Theo khuyến cáo, thời gian dọn vệ sinh toàn bộ nội thất xe hơi tại trung tâm chăm sóc xe từ 2-3 tháng/lần. Nếu tình trạng xe bám bẩn, nhiều nấm mốc hoặc vô tình để các chất bẩn thấm bên trong, thời gian vệ sinh nội thất sẽ đến nhanh hơn. Ngoài ra, bạn có thể tự vệ sinh nội thất ô tô tại nhà sau mỗi lần sử dụng xe. Duy trì bề mặt sạch sẽ trước khi thực hiện vệ sinh nội thất xe hơi toàn diện là cách hữu hiệu nhất.',
+                    'Camera hành trình là trang bị đáng giá giúp bạn ghi lại toàn bộ quá trình khi di chuyển trên đường và là bằng chứng chứng minh khi xảy ra sự cố. Tại Việt Nam, việc lắp camera hành trình gần như là bắt buộc đối với các phương tiện kinh doanh vận tải, hành khách, xe container,… Nếu không lắp đầy đủ camera hành trình ô tô, chủ sở hữu phương tiện sẽ bị xử phạt theo quy định pháp luật.',
             },
             {
                 id: 2,
-                text: 'Xe mới lấy có mùi nhựa mới nên vệ sinh nội thất ô tô không?',
+                text: 'Có nên gắn Camera hành trình cho phía sau xe?',
                 description:
-                    'Dù chiếc xe của bạn có mùi hay không, bạn cũng nên lập ra kế hoạch chăm sóc và vệ sinh nội thất thường xuyên. Điều này giúp không gian bên trong xe luôn trong tình trạng sạch sẽ, bảo vệ sức khỏe, tăng độ bền chi tiết.',
+                    'Không nhất thiết phải gắn camera hành trình sau xe. Nếu ngân sách đáp ứng đủ, bạn có thể cân nhắc việc lắp đặt một camera hành trình phía sau để đảm bảo an toàn khi tham gia giao thông. Camera phía sau sẽ có thể ghi lại mọi va chạm hoặc bất kỳ sự cố nào xảy ra ở phía sau xe của bạn. Hiện tại, luật chưa quy định bắt buộc gắn camera hành trình ô tô phía sau.',
             },
             {
                 id: 3,
-                text: 'Cần lưu ý đến vị trí nào khi vệ sinh nội thất ô tô?',
+                text: 'Phân biệt Camera hành trình và Camera 360 độ ô tô',
                 description:
-                    'Có rất nhiều vị trí cần lưu ý khi vệ sinh nội thất ô tô, dù lại tại nhà hay tại trung tâm chăm sóc xe. Một số vị trí cần lưu ý bao gồm nấm mốc bên dưới ghế ngồi, khe gió điều hòa, ron cửa sổ, dây đai, hộc đựng đồ, vải lót đựng đồ sau ghế, trần nỉ, thảm lót cốp,…',
+                    'Camera 360 độ ô tô có chức năng chính trong việc xóa điểm mù, hỗ trợ quan sát khi lái xe, cho góc quay toàn cảnh bằng những hình ảnh giả lập 2D hoặc 3D và hiển thị lên màn hình điều khiển trong ô tô, không có tính năng thu âm.Trong khi đó, Camera hành trình có chức năng ghi lại hành trình di chuyển, lưu trữ video lẫn âm thanh thông qua các ống kính, có hỗ trợ thẻ nhớ và giá thành thấp hơn camera 360. Điều này giúp bạn có thể tránh khỏi những rắc rối khi va chạm hoặc những kỉ niệm đẹp khi phượt cùng gia đình.',
             },
             {
                 id: 4,
-                text: 'Dọn vệ sinh nội thất xe hơi giá bao nhiêu?',
-                description:
-                    'Tùy vào từng trung tâm chăm sóc xe sẽ có mức giá dọn vệ sinh nội thất xe hơi được quy định khác nhau. Chi phí thực hiện còn phụ thuộc vào nhiều yếu tố từ chất lượng dịch vụ, mặt bằng, quy trình thực hiện, gói dịch vụ, tình trạng cần vệ sinh,… Bạn có thể tham khảo giá vệ sinh nội thất ô tô chung tại Vietnam Car Care, chi phí dao động từ 1.000.000 VNĐ – 2.000.000 VNĐ/lần. Tại đây, chúng tôi được khách hàng đánh giá cao về chất lượng dịch vụ bởi không sử dụng sản phẩm chứa hóa chất độc hại, kỹ thuật viên dày dặn kinh nghiệm, thao tác vệ sinh chi tiết, kỹ lưỡng',
+                text: 'Camera hành trình ô tô nào tốt nhất?',
+                description: `Hiện nay có rất nhiều thương hiệu camera hành trình chất lượng tại Việt Nam. Theo khảo sát các khách hàng thực hiện dịch vụ chăm sóc xe tại L&K Tech, chúng tôi nhận thấy 4 loại camera hành trình phổ biến nhất trên xe như sau: - Camera hành trình ô tô Vietmap
+                - Camera hành trình Webvision
+                - Camera hành trình ô tô Xiaomi
+                - Camera hành trình HP`,
             },
         ],
     },
@@ -1240,7 +1280,8 @@ export const blogData = [
         author: 'User123',
         date: '02/09/2024',
         comments: '5 comments',
-        content: 'Bạn đã bao giờ nghe nói đến việc phủ ceramic cho xe chưa? Công nghệ này không chỉ giúp bảo vệ lớp sơn xe khỏi các tác động từ môi trường mà còn mang đến độ bóng loáng vượt trội. Hãy cùng tìm hiểu xem phủ ceramic có gì đặc biệt và tại sao nó lại trở thành xu hướng được nhiều người ưa chuộng',
+        content:
+            'Bạn đã bao giờ nghe nói đến việc phủ ceramic cho xe chưa? Công nghệ này không chỉ giúp bảo vệ lớp sơn xe khỏi các tác động từ môi trường mà còn mang đến độ bóng loáng vượt trội. Hãy cùng tìm hiểu xem phủ ceramic có gì đặc biệt và tại sao nó lại trở thành xu hướng được nhiều người ưa chuộng',
     },
     {
         id: 3,
@@ -1248,6 +1289,7 @@ export const blogData = [
         author: 'Guest',
         date: '03/09/2024',
         comments: '10 comments',
-        content: 'Hồi trước, tôi từng rất lo lắng về những vết xước nhỏ trên chiếc xe mới tậu. Nhưng sau khi tìm hiểu và áp dụng một số mẹo nhỏ, chiếc xe của tôi lại trở nên bóng loáng như mới. Nếu bạn cũng đang gặp phải tình trạng tương tự, hãy đọc ngay bài viết này để tìm ra giải pháp nhé!',
+        content:
+            'Hồi trước, tôi từng rất lo lắng về những vết xước nhỏ trên chiếc xe mới tậu. Nhưng sau khi tìm hiểu và áp dụng một số mẹo nhỏ, chiếc xe của tôi lại trở nên bóng loáng như mới. Nếu bạn cũng đang gặp phải tình trạng tương tự, hãy đọc ngay bài viết này để tìm ra giải pháp nhé!',
     },
 ];

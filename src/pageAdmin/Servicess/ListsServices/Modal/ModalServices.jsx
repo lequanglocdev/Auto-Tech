@@ -2,7 +2,7 @@ import React from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 
-const ModalWatch = ({ user, ...props }) => {
+const ModalServices = ({ user, ...props }) => {
     return (
         <Modal {...props} size="lg" aria-labelledby="contained-modal-title-vcenter" centered>
             <Modal.Header closeButton>
@@ -36,4 +36,4 @@ const ModalWatch = ({ user, ...props }) => {
     );
 };
 
-export default ModalWatch;
+export default ModalServices;

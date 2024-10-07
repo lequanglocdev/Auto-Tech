@@ -49,7 +49,7 @@ const Header = () => {
                         </Nav.Link>
                         {auth.isAuthenticated ? (
                             <>
-                                <Nav.Link href="/profile" className={styles.navText}>
+                                <Nav.Link  className={styles.navText}>
                                     <p>{auth?.user?.email}</p>
                                 </Nav.Link>
                                 <Nav.Link onClick={handleLogout} className={styles.navIcon}>

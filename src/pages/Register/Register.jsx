@@ -1,22 +1,25 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styles from './Register.module.css';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import icons from '@/utils/icon';
+import Spinner from 'react-bootstrap/Spinner';
 import { useRegisterForm, usePasswordToggle } from './hooks/useRegisterForm';
 import { registerCustomerApi } from '@/utils/api';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from 'react-router-dom';
 const Register = () => {
-    const { FaRegUser, IoMdEye, IoMdEyeOff, FaMailBulk, FaPhone, FaLocationDot  } = icons;
+    const { FaRegUser, IoMdEye, IoMdEyeOff, FaMailBulk, FaPhone, FaLocationDot } = icons;
     const { formData, setFormData, errorMessage, handleInputChange, validateForm } = useRegisterForm();
     const [showPassword, togglePasswordVisibility] = usePasswordToggle();
+    const [isLoading, setIsLoading] = useState(false);
     const naviagte = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (validateForm()) {
+            setIsLoading(true);
             try {
                 const response = await registerCustomerApi(
                     formData.username,
@@ -33,12 +36,12 @@ const Register = () => {
                     password: '',
                     email: '',
                     name: '',
-                    address:'',
+                    address: '',
                     phone_number: '',
                 });
 
                 setTimeout(() => {
-                    naviagte('/login');
+                    naviagte('/otp');
                 }, 4000);
             } catch (error) {
                 toast.error('Đăng ký thất bại. Vui lòng thử lại!', { autoClose: 3000 });
@@ -48,13 +51,22 @@ const Register = () => {
                     password: '',
                     email: '',
                     phone_number: '',
-                    address:''
+                    address: '',
                 });
+            } finally {
+                setIsLoading(false);
             }
         }
     };
     return (
         <div className={styles.register}>
+            {isLoading && (
+                <div className={styles.spinnerOverlay}>
+                    <Spinner animation="border" role="status" className={styles.customSpinner}>
+                        <span className="visually-hidden">Loading...</span>
+                    </Spinner>
+                </div>
+            )}
             <div className={styles.registerContainer}>
                 <div className={styles.registerImage}>
                     <img src="./logo.png" alt="Logo" />
@@ -142,7 +154,7 @@ const Register = () => {
                         </Form.Group>
                         <Form.Group controlId="formAddress">
                             <div className={styles.registerGroup}>
-                                <FaLocationDot  className={styles.registerIcon} />
+                                <FaLocationDot className={styles.registerIcon} />
                                 <Form.Control
                                     size="lg"
                                     type="text"
@@ -152,9 +164,7 @@ const Register = () => {
                                     onChange={(e) => handleInputChange('address', e.target.value)}
                                 />
                             </div>
-                            {errorMessage.address && (
-                                <div className={styles.address}>{errorMessage.address}</div>
-                            )}
+                            {errorMessage.address && <div className={styles.address}>{errorMessage.address}</div>}
                         </Form.Group>
                         <Button variant="danger" type="submit" size="lg" className={styles.registerButton}>
                             Đăng ký
@@ -165,7 +175,7 @@ const Register = () => {
                         <a href="/login">Đăng nhập</a>
                     </div>
                 </div>
-            <ToastContainer />
+                <ToastContainer />
             </div>
         </div>
     );

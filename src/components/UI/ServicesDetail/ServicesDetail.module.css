@@ -1,111 +1,144 @@
-.detailBanner{
-  margin-top: 10px;
-  position: relative;
+.detailBanner {
+    margin-top: 10px;
+    position: relative;
+}
+.bannerServices {
+    width: 600px;
+    height: 450px;
+    opacity: 0.3;
 }
 
-.detailText{
-  position: absolute;
-  top: 40%;
+.detailText {
+    position: absolute;
+    top: 20%;
+    text-align: center;
 }
 
-.detailBtn{
-  position: absolute;
-  top: 60%;
+.detailBtn {
+    position: absolute;
+    top: 80%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    gap: 20px;
 }
 
-.detailText h3{
-  font-size: 3rem;
-  color: var(--text-third);
+.detailText h3 {
+    font-size: 3.4rem;
+    color: var(--text-second);
 }
 
-.detailText p{
-  font-size: 1.4rem;
-  color: var(--text-third);
-  font-weight: bold;
+.detailText p {
+    margin-top: 20px;
+    font-size: 1.6rem;
+    color: var(--text-primary);
+    font-style: italic;
 }
 
-.detailContent{
-  text-align: center;
+.detailContent {
+    text-align: center;
 }
 
-.detailContent h4{
-  padding: 4px;
-  font-size: 2.6rem;
-  color: var(--text-primary);
+.detailContent h4,
+.detailQuestion h4 {
+    padding: 4px;
+    font-size: 2.6rem;
+    color: var(--text-primary);
 }
 
-.detailBenafit{
-  margin-top: 20px;
-  display: flex;
+.detailBenafit {
+    margin-top: 20px;
+    display: flex;
 }
 
-.detailBenafitImg{
-  height: 500px;
-  margin-right: 20px;
+.detailBenafitImg {
+    height: 500px;
+    margin-right: 20px;
 }
 
-.detailBenafitContentHead{
-  font-size: 2rem;
-  text-align: left;
-  color: var(--text-second);
+.detailBenafitContentHead {
+    font-size: 2rem;
+    text-align: left;
+    color: var(--text-second);
 }
 
-.detailBenafitContentDes{
-  font-size: 1.6rem;
-  text-align: left;
-  color: var(--text-primary);
+.detailBenafitContentDes {
+    font-size: 1.6rem;
+    text-align: left;
+    color: var(--text-primary);
 }
 
-.detailProcedure{
-  width: 100%;
-  margin: 0 10px;
-  background-color: var(--white-background);
-  padding-top: 30px;
+.detailProcedure {
+    width: 100%;
+    margin: 0 10px;
+    background-color: var(--white-background);
+    padding-top: 30px;
 }
 
-.detailProcedure h4{
-  font-size: 2rem;
-  color: var(--text-third);
-  font-weight: bold;
+.detailProcedure h4 {
+    font-size: 2rem;
+    color: var(--text-third);
+    font-weight: bold;
 }
 
 .stepsContainer {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-  padding-left: 20px;
-  gap: 16px; /* Khoảng cách giữa các phần tử */
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    padding-left: 20px;
+    gap: 16px; /* Khoảng cách giữa các phần tử */
 }
 
 .stepsContainer > div {
-  flex: 1 1 calc(50% - 16px); /* Chiếm 50% chiều rộng trừ khoảng cách */
+    flex: 1 1 calc(50% - 16px); /* Chiếm 50% chiều rộng trừ khoảng cách */
 }
 
 .stepHead,
-.stepDes{
-  text-align: left;
+.stepDes {
+    text-align: left;
 }
 
-.stepHead{
-  font-size: 1.6rem;
-  color: var(--text-second);
-  font-weight: bold;
+.stepHead {
+    font-size: 1.6rem;
+    color: var(--text-second);
+    font-weight: bold;
 }
 
-.stepDes{
-  font-size: 1.4rem;
-  color: var( --text-third);
-  font-weight: 400;
+.stepDes {
+    font-size: 1.4rem;
+    color: var(--text-third);
+    font-weight: 400;
 }
-
+.faqList {
+    transition: transform 0.3s ease-in-out;
+}
 .faqList li {
-  background-color: #444; /* Màu nền của từng câu hỏi */
-  color: white;
-  padding: 15px;
-  border: 1px solid #d32f2f; /* Viền đỏ */
-  margin-bottom: 10px;
-  text-align: left;
-  cursor: pointer;
-  transition: 1s ease-in;
+    background-color: #444; /* Màu nền của từng câu hỏi */
+    color: white;
+    padding: 15px;
+    border: 1px solid #d32f2f; /* Viền đỏ */
+    margin-bottom: 10px;
+    text-align: left;
+    cursor: pointer;
+    transition: 1s ease-in;
+    list-style: none;
+}
+
+.btn {
+    width: 200px;
+    height: 40px;
+    font-size: 1.6rem !important;
+}
+
+.faqItem {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.faqDescription,
+.faqIcon {
+    font-size: 1.4rem;
+    margin: 0;
 }

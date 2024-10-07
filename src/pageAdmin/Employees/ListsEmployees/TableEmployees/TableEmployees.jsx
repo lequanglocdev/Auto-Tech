@@ -2,19 +2,70 @@ import React, { useState } from 'react';
 import { Table, Pagination } from 'react-bootstrap';
 import styles from './TableEmployees.module.css';
 import icons from '@/utils/icon';
-import { deleteUserApi, getDetailUser } from '@/utils/api';
+import ModalEmployees from '../Modal/ModalEmployees';
+import { deleteEmployeeApi, getDetailEmployee, putEmployeeApi } from '@/utils/api';
+import EditEmployeeModal from '../EditEmployeeModal/EditEmployeeModal';
 
 const TableEmployees = ({ data = [], itemsPerPage }) => {
-    const [currentPage, setCurrentPage] = useState(1);
     const { FaEye, FaPen, FaTrash } = icons;
+
+    const [currentPage, setCurrentPage] = useState(1);
     const totalPages = Math.ceil(data.length / itemsPerPage);
     const startIndex = (currentPage - 1) * itemsPerPage;
     const currentData = data.slice(startIndex, startIndex + itemsPerPage);
-
+    const [modalShow, setModalShow] = React.useState(false);
+    const [selectedEmployee, setSelectedEmployee] = useState(null);
+    const [editModalShow, setEditModalShow] = useState(false);
+    const [employees, setEmployees] = useState(data);
     const handlePageChange = (pageNumber) => {
         setCurrentPage(pageNumber);
     };
-  
+    
+    const handleDeleteUser = async (user) => {
+        console.log('Check user delete', user);
+        try {
+            const res = await deleteEmployeeApi(user);
+            console.log('Delete response:', res);
+        } catch (error) {
+            console.error('Error deleting user:', error);
+        }
+    };
+
+    const handleShowUserDetail = async (user) => {
+        try {
+            const response = await getDetailEmployee(user); 
+            setSelectedEmployee(response); 
+            console.log(">> check detail response employee",response)
+            setModalShow(true);
+        } catch (error) {
+            console.error('Error fetching user details:', error);
+        }
+    };
+
+    const handleEditUser = (user) => {
+        setSelectedEmployee(user);
+        setEditModalShow(true);
+    };
+    
+    const handleUpdateEmployee = async (updatedUser) => {
+        try {
+            const response = await putEmployeeApi(updatedUser); // Gọi API để cập nhật thông tin nhân viên
+            if (response && response.data) {
+                console.log('Updated Employee:', response.data);
+                // Cập nhật lại danh sách nhân viên
+                const updatedData = data.map((item) =>
+                    item._id === response.data._id ? response.data : item
+                );
+                // Cập nhật lại state với danh sách nhân viên đã cập nhật
+                setSelectedEmployee(null); // Reset selected employee
+                setEditModalShow(false); // Đóng modal chỉnh sửa
+            } else {
+                console.error('No data returned from update API');
+            }
+        } catch (error) {
+            console.error('Error updating user:', error);
+        }
+    };
     return (
         <div className={styles.dataTableWrapper}>
             <Table striped bordered hover className={styles.dataTable}>
@@ -35,13 +86,13 @@ const TableEmployees = ({ data = [], itemsPerPage }) => {
                             <td className={styles.dataTableItem}>{item.email}</td>
                             <td className={styles.dataTableItem}>{item.phone_number}</td>
                             <td className={styles.dataTableItemAction}>
-                                <div className={styles.dataTableIconEye}>
+                                <div className={styles.dataTableIconEye} onClick={() => handleShowUserDetail(item)}>
                                     <FaEye />
                                 </div>
                                 <div className={styles.dataTableIconPen}>
-                                    <FaPen />
+                                    <FaPen  onClick={() => handleEditUser(item)} />
                                 </div>
-                                <div className={styles.dataTableIconTrash}>
+                                <div className={styles.dataTableIconTrash}  onClick={() => handleDeleteUser(item)}>
                                     <FaTrash />
                                 </div>
                             </td>
@@ -68,6 +119,9 @@ const TableEmployees = ({ data = [], itemsPerPage }) => {
                 />
                 <Pagination.Last onClick={() => handlePageChange(totalPages)} disabled={currentPage === totalPages} />
             </Pagination>
+
+            <ModalEmployees show={modalShow} onHide={() => setModalShow(false)} user={selectedEmployee}/>
+            <EditEmployeeModal show={editModalShow} onHide={() => setEditModalShow(false)} user={selectedEmployee}  onUpdate={handleUpdateEmployee} />
         </div>
     );
 };

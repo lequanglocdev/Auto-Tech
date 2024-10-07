@@ -3,20 +3,20 @@ import { Table, Pagination } from 'react-bootstrap';
 import icons from '@/utils/icon';
 import styles from './TableCustomer.module.css'
 import { deleteUserApi, getDetailUser } from '@/utils/api';
-import ModalWatch from '../Modal/ModalCustomer';
+import ModalCustomer from '../Modal/ModalCustomer';
 const TableCustomer = ({ data = [], itemsPerPage }) => {
-    const [currentPage, setCurrentPage] = useState(1);
     const { FaEye, FaPen, FaTrash } = icons;
+    
+    const [currentPage, setCurrentPage] = useState(1);
     const totalPages = Math.ceil(data.length / itemsPerPage);
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    const currentData = data.slice(startIndex, startIndex + itemsPerPage);
     const [modalShow, setModalShow] = React.useState(false);
     const [selectedUser, setSelectedUser] = useState(null);
 
     const handlePageChange = (pageNumber) => {
         setCurrentPage(pageNumber);
     };
-
-    const startIndex = (currentPage - 1) * itemsPerPage;
-    const currentData = data.slice(startIndex, startIndex + itemsPerPage);
 
     const handleDeleteUser = async (user) => {
         console.log('Check user delete', user);
@@ -30,10 +30,10 @@ const TableCustomer = ({ data = [], itemsPerPage }) => {
 
     const handleShowUserDetail = async (user) => {
         try {
-            const response = await getDetailUser(user); // Gọi API lấy chi tiết người dùng
-            setSelectedUser(response); // Lưu thông tin người dùng
-            console.log(">> check detail response",response)
-            setModalShow(true); // Hiển thị modal
+            const response = await getDetailUser(user); 
+            setSelectedUser(response); 
+            console.log(">> check detail response user",response)
+            setModalShow(true);
         } catch (error) {
             console.error('Error fetching user details:', error);
         }
@@ -95,7 +95,7 @@ const TableCustomer = ({ data = [], itemsPerPage }) => {
                 <Pagination.Last onClick={() => handlePageChange(totalPages)} disabled={currentPage === totalPages} />
             </Pagination>
           
-            <ModalWatch show={modalShow} onHide={() => setModalShow(false)} user={selectedUser} />
+            <ModalCustomer show={modalShow} onHide={() => setModalShow(false)} user={selectedUser} />
         </div>
     );
 };
