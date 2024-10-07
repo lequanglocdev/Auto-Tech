@@ -1,40 +1,39 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button, Modal, Form } from 'react-bootstrap';
 
-const EditEmployeeModal = ({ user, show, onHide, onUpdate  }) => {
-    const [formData, setFormData] = React.useState({
+const EditEmployeeModal = ({ user, show, onHide, onUpdate }) => {
+    const [formData, setFormData] = useState({
         name: '',
         email: '',
         phone_number: '',
-        role:''
+        role: ''
     });
 
-    React.useEffect(() => {
+    useEffect(() => {
         if (user) {
             setFormData({
-                name: user.name,
-                email: user.email,
-                phone_number: user.phone_number,
-                role:user.role
+                name: user.name || '',
+                email: user.email || '',
+                phone_number: user.phone_number || '',
+                role: user.role || ''
             });
         }
     }, [user]);
 
     const handleChange = (e) => {
-      const { name, value } = e.target;
-      setFormData({ ...formData, [name]: value });
-  };
+        const { name, value } = e.target;
+        setFormData((prev) => ({ ...prev, [name]: value }));
+    };
 
-  const handleSubmit = (e) => {
-      e.preventDefault();
-      onUpdate({ ...user, ...formData }); // Gửi thông tin đã chỉnh sửa lên TableEmployees
-  };
-
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        onUpdate({ ...user, ...formData });
+    };
 
     return (
-        <Modal show={show} onHide={onHide} size="lg" aria-labelledby="contained-modal-title-vcenter" centered>
+        <Modal show={show} onHide={onHide} size="lg" centered>
             <Modal.Header closeButton>
-                <Modal.Title id="contained-modal-title-vcenter">Chỉnh sửa thông tin nhân viên</Modal.Title>
+                <Modal.Title>Chỉnh sửa thông tin nhân viên</Modal.Title>
             </Modal.Header>
             <Modal.Body>
                 {user ? (
@@ -49,20 +48,13 @@ const EditEmployeeModal = ({ user, show, onHide, onUpdate  }) => {
                         </Form.Group>
                         <Form.Group controlId="phone_number">
                             <Form.Label>Điện thoại</Form.Label>
-                            <Form.Control
-                                type="text"
-                                name="phone_number"
-                                value={formData.phone_number}
-                                onChange={handleChange}
-                            />
+                            <Form.Control type="text" name="phone_number" value={formData.phone_number} onChange={handleChange} />
                         </Form.Group>
                         <Form.Group controlId="role">
                             <Form.Label>Vai trò</Form.Label>
                             <Form.Control type="text" name="role" value={formData.role} onChange={handleChange} />
                         </Form.Group>
-                        <Button variant="primary" type="submit" className='mt-2'>
-                            Lưu thay đổi
-                        </Button>
+                        <Button variant="primary" type="submit" className="mt-2">Cập nhật</Button>
                     </Form>
                 ) : (
                     <p>Loading...</p>

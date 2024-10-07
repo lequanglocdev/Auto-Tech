@@ -3,8 +3,9 @@ import { Table, Pagination } from 'react-bootstrap';
 import styles from './TableEmployees.module.css';
 import icons from '@/utils/icon';
 import ModalEmployees from '../Modal/ModalEmployees';
-import { deleteEmployeeApi, getDetailEmployee, putEmployeeApi } from '@/utils/api';
 import EditEmployeeModal from '../EditEmployeeModal/EditEmployeeModal';
+import ConfirmDeleteModal from '../ConfirmDeleteModal/ConfirmDeleteModal';
+import { deleteEmployeeApi, getDetailEmployee, putEmployeeApi } from '@/utils/api';
 
 const TableEmployees = ({ data = [], itemsPerPage }) => {
     const { FaEye, FaPen, FaTrash } = icons;
@@ -12,30 +13,43 @@ const TableEmployees = ({ data = [], itemsPerPage }) => {
     const [currentPage, setCurrentPage] = useState(1);
     const totalPages = Math.ceil(data.length / itemsPerPage);
     const startIndex = (currentPage - 1) * itemsPerPage;
-    const currentData = data.slice(startIndex, startIndex + itemsPerPage);
+    
     const [modalShow, setModalShow] = React.useState(false);
     const [selectedEmployee, setSelectedEmployee] = useState(null);
     const [editModalShow, setEditModalShow] = useState(false);
     const [employees, setEmployees] = useState(data);
+    const currentData = employees.slice(startIndex, startIndex + itemsPerPage);
+    const [confirmDeleteModalShow, setConfirmDeleteModalShow] = useState(false);
+    const [employeeToDelete, setEmployeeToDelete] = useState(null);
     const handlePageChange = (pageNumber) => {
         setCurrentPage(pageNumber);
     };
-    
-    const handleDeleteUser = async (user) => {
-        console.log('Check user delete', user);
-        try {
-            const res = await deleteEmployeeApi(user);
-            console.log('Delete response:', res);
-        } catch (error) {
-            console.error('Error deleting user:', error);
+
+    const handleDeleteUser = (user) => {
+        setEmployeeToDelete(user);
+        setConfirmDeleteModalShow(true); // Hiện modal xác nhận
+    };
+
+    const handleConfirmDelete = async () => {
+        if (employeeToDelete) {
+            try {
+                await deleteEmployeeApi(employeeToDelete);
+                console.log('Xóa thành công:', employeeToDelete);
+                setEmployees((prev) => prev.filter(emp => emp._id !== employeeToDelete._id));
+            } catch (error) {
+                console.error('Lỗi khi xóa nhân viên:', error);
+            } finally {
+                setConfirmDeleteModalShow(false);
+                setEmployeeToDelete(null); // Reset lại
+            }
         }
     };
 
     const handleShowUserDetail = async (user) => {
         try {
-            const response = await getDetailEmployee(user); 
-            setSelectedEmployee(response); 
-            console.log(">> check detail response employee",response)
+            const response = await getDetailEmployee(user);
+            setSelectedEmployee(response);
+            console.log('>> check detail response employee', response);
             setModalShow(true);
         } catch (error) {
             console.error('Error fetching user details:', error);
@@ -46,26 +60,25 @@ const TableEmployees = ({ data = [], itemsPerPage }) => {
         setSelectedEmployee(user);
         setEditModalShow(true);
     };
-    
-    const handleUpdateEmployee = async (updatedUser) => {
+
+    const handleUpdateEmployee = async (updatedEmployee) => {
         try {
-            const response = await putEmployeeApi(updatedUser); // Gọi API để cập nhật thông tin nhân viên
-            if (response && response.data) {
-                console.log('Updated Employee:', response.data);
-                // Cập nhật lại danh sách nhân viên
-                const updatedData = data.map((item) =>
-                    item._id === response.data._id ? response.data : item
-                );
-                // Cập nhật lại state với danh sách nhân viên đã cập nhật
-                setSelectedEmployee(null); // Reset selected employee
-                setEditModalShow(false); // Đóng modal chỉnh sửa
-            } else {
-                console.error('No data returned from update API');
-            }
+            // Gọi API với dữ liệu đã cập nhật
+            const response = await putEmployeeApi(updatedEmployee);
+            console.log('Cập nhật thành công:', response);
+
+            // Đóng modal sau khi cập nhật thành công
+            setEditModalShow(false);
+
+            // Cập nhật danh sách nhân viên trong state (nếu cần thiết)
+            setEmployees((prevEmployees) =>
+                prevEmployees.map((emp) => (emp._id === updatedEmployee._id ? updatedEmployee : emp)),
+            );
         } catch (error) {
-            console.error('Error updating user:', error);
+            console.error('Lỗi khi cập nhật nhân viên:', error);
         }
     };
+
     return (
         <div className={styles.dataTableWrapper}>
             <Table striped bordered hover className={styles.dataTable}>
@@ -90,9 +103,9 @@ const TableEmployees = ({ data = [], itemsPerPage }) => {
                                     <FaEye />
                                 </div>
                                 <div className={styles.dataTableIconPen}>
-                                    <FaPen  onClick={() => handleEditUser(item)} />
+                                    <FaPen onClick={() => handleEditUser(item)} />
                                 </div>
-                                <div className={styles.dataTableIconTrash}  onClick={() => handleDeleteUser(item)}>
+                                <div className={styles.dataTableIconTrash} onClick={() => handleDeleteUser(item)}>
                                     <FaTrash />
                                 </div>
                             </td>
@@ -120,8 +133,18 @@ const TableEmployees = ({ data = [], itemsPerPage }) => {
                 <Pagination.Last onClick={() => handlePageChange(totalPages)} disabled={currentPage === totalPages} />
             </Pagination>
 
-            <ModalEmployees show={modalShow} onHide={() => setModalShow(false)} user={selectedEmployee}/>
-            <EditEmployeeModal show={editModalShow} onHide={() => setEditModalShow(false)} user={selectedEmployee}  onUpdate={handleUpdateEmployee} />
+            <ModalEmployees show={modalShow} onHide={() => setModalShow(false)} user={selectedEmployee} />
+            <EditEmployeeModal
+                show={editModalShow}
+                onHide={() => setEditModalShow(false)}
+                user={selectedEmployee}
+                onUpdate={handleUpdateEmployee}
+            />
+             <ConfirmDeleteModal 
+                show={confirmDeleteModalShow} 
+                onHide={() => setConfirmDeleteModalShow(false)} 
+                onConfirm={handleConfirmDelete} 
+            />
         </div>
     );
 };

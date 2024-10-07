@@ -141,7 +141,7 @@ const createCarApi = (vehicleTypeName, description) => {
 
 const putEmployeeApi = (user) => {
     const URL_API = `/api/employees/${user._id}`;
-    return axios.put(URL_API);
+    return axios.put(URL_API,user);
 };
 
 export {
