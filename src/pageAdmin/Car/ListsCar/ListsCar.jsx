@@ -12,7 +12,6 @@ const ListsCar = () => {
         const fetchData = async () => {
             try {
                 const response = await getCarApi();
-                console.log('dataTableCar', response);
                 setUserData(response);
                 setLoading(false);
             } catch (error) {

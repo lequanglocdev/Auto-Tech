@@ -1,8 +1,8 @@
 import React from 'react'
 import styles from './TotalCalender.module.css'
-const TotalCalender = () => {
+const TotalCalender = ({ onClick }) => {
   return (
-    <div className={styles.dashBoardTotalCalender}>
+    <div className={styles.dashBoardTotalCalender} onClick={onClick}>
     <div>
         <div>
             <span>TotalCalender</span>

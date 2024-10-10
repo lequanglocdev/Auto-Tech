@@ -1,32 +1,32 @@
 import React, { useState } from 'react';
 import { Table, Pagination } from 'react-bootstrap';
 import icons from '@/utils/icon';
-import styles from './TableServices.module.css'
-import { deleteServiceApi, deleteUserApi, getDetailServices, putServiceApi} from '@/utils/api';
+import styles from './TableServices.module.css';
+import { deleteServiceApi, deleteUserApi, getDetailServices, putServiceApi } from '@/utils/api';
 import ModalServices from '../Modal/ModalServices';
 import EditServicesModal from '../EditServicesModal/EditServicesModal';
 import ConfirmDeleteModal from '../ConfirmDeleteModal/ConfirmDeleteModal';
 const TableServices = ({ data = [], itemsPerPage }) => {
     const { FaEye, FaPen, FaTrash } = icons;
-    
+
     const [currentPage, setCurrentPage] = useState(1);
     const totalPages = Math.ceil(data.length / itemsPerPage);
     const startIndex = (currentPage - 1) * itemsPerPage;
-    
+
     const [modalShow, setModalShow] = useState(false);
     const [editModalShow, setEditModalShow] = useState(false);
     const [confirmDeleteModalShow, setConfirmDeleteModalShow] = useState(false);
-    
+
     const [selectedUser, setSelectedUser] = useState(null);
     const [serviceToDelete, setServiceToDelete] = useState(null);
-    const [service, setServices] = useState(data)
+    const [service, setServices] = useState(data);
     const currentData = service.slice(startIndex, startIndex + itemsPerPage);
     const handlePageChange = (pageNumber) => {
         setCurrentPage(pageNumber);
     };
 
     const handleDeleteUser = (user) => {
-        setServiceToDelete(user)
+        setServiceToDelete(user);
         setConfirmDeleteModalShow(true);
     };
 
@@ -40,16 +40,16 @@ const TableServices = ({ data = [], itemsPerPage }) => {
                 console.error('Lỗi khi xóa nhân viên:', error);
             } finally {
                 setConfirmDeleteModalShow(false);
-                setServiceToDelete(null); 
+                setServiceToDelete(null);
             }
         }
     };
 
     const handleShowUserDetail = async (services) => {
         try {
-            const response = await getDetailServices(services); 
-            setSelectedUser(response); 
-            console.log(">> check detail response user",response)
+            const response = await getDetailServices(services);
+            setSelectedUser(response);
+            console.log('>> check detail response user', response);
             setModalShow(true);
         } catch (error) {
             console.error('Error fetching user details:', error);
@@ -68,9 +68,9 @@ const TableServices = ({ data = [], itemsPerPage }) => {
                 console.log('Cập nhật thành công:', response);
 
                 // Cập nhật danh sách customer với thông tin mới
-                setServices((prev) => prev.map((cust) =>
-                    cust._id === updatedService._id ? { ...cust, ...updatedService } : cust
-                ));
+                setServices((prev) =>
+                    prev.map((cust) => (cust._id === updatedService._id ? { ...cust, ...updatedService } : cust)),
+                );
 
                 setEditModalShow(false);
             }
@@ -114,28 +114,42 @@ const TableServices = ({ data = [], itemsPerPage }) => {
                 </tbody>
             </Table>
 
-            <Pagination size="lg" className={styles.pagination}>
-                <Pagination.First onClick={() => handlePageChange(1)} disabled={currentPage === 1} />
-                <Pagination.Prev onClick={() => handlePageChange(currentPage - 1)} disabled={currentPage === 1} />
-                {[...Array(totalPages).keys()].map((pageNumber) => (
-                    <Pagination.Item
-                        key={pageNumber + 1}
-                        active={pageNumber + 1 === currentPage}
-                        onClick={() => handlePageChange(pageNumber + 1)}
-                    >
-                        {pageNumber + 1}
-                    </Pagination.Item>
-                ))}
-                <Pagination.Next
-                    onClick={() => handlePageChange(currentPage + 1)}
-                    disabled={currentPage === totalPages}
-                />
-                <Pagination.Last onClick={() => handlePageChange(totalPages)} disabled={currentPage === totalPages} />
-            </Pagination>
-          
+            {service.length > 0 && (
+                <Pagination size="lg" className={styles.pagination}>
+                    <Pagination.First onClick={() => handlePageChange(1)} disabled={currentPage === 1} />
+                    <Pagination.Prev onClick={() => handlePageChange(currentPage - 1)} disabled={currentPage === 1} />
+                    {[...Array(totalPages).keys()].map((pageNumber) => (
+                        <Pagination.Item
+                            key={pageNumber + 1}
+                            active={pageNumber + 1 === currentPage}
+                            onClick={() => handlePageChange(pageNumber + 1)}
+                        >
+                            {pageNumber + 1}
+                        </Pagination.Item>
+                    ))}
+                    <Pagination.Next
+                        onClick={() => handlePageChange(currentPage + 1)}
+                        disabled={currentPage === totalPages}
+                    />
+                    <Pagination.Last
+                        onClick={() => handlePageChange(totalPages)}
+                        disabled={currentPage === totalPages}
+                    />
+                </Pagination>
+            )}
+
             <ModalServices show={modalShow} onHide={() => setModalShow(false)} services={selectedUser} />
-            <EditServicesModal show={editModalShow} service={selectedUser} onHide={() => setEditModalShow(false)} onUpdate={handleUpdateCustomer} />
-            <ConfirmDeleteModal show={confirmDeleteModalShow} onHide={() => setConfirmDeleteModalShow(false)} onConfirm={handleConfirmDelete}/>
+            <EditServicesModal
+                show={editModalShow}
+                service={selectedUser}
+                onHide={() => setEditModalShow(false)}
+                onUpdate={handleUpdateCustomer}
+            />
+            <ConfirmDeleteModal
+                show={confirmDeleteModalShow}
+                onHide={() => setConfirmDeleteModalShow(false)}
+                onConfirm={handleConfirmDelete}
+            />
         </div>
     );
 };

@@ -4,7 +4,7 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 
 import {  verifyOtpApi} from '@/utils/api';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useOTP } from './hooks/otpForm';
@@ -13,6 +13,17 @@ const Otp = () => {
     const {FaMailBulk, FaLock } = icons
     const { formData, setFormData, errorMessage, handleInputChange, validateForm } = useOTP()
     const navigate = useNavigate();
+    const location = useLocation();
+
+    React.useEffect(() => {
+        if (location.state?.email) {
+            setFormData((prevData) => ({
+                ...prevData,
+                email: location.state.email,
+            }));
+        }
+    }, [location.state, setFormData]);
+
     const handleSubmitButon = async (e) => {
         e.preventDefault();
         if (validateForm()) {
@@ -51,7 +62,7 @@ const Otp = () => {
                                     placeholder="Nhập địa chỉ email"
                                     className={styles.otpInput}
                                     value={formData.email}
-                                    onChange={(e) => handleInputChange('email', e.target.value)}
+                                    readOnly 
                                 />
                             </div>
                             {errorMessage.email && <div className={styles.errorMessage}>{errorMessage.email}</div>}

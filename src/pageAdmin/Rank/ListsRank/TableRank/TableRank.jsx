@@ -12,22 +12,22 @@ const TableRank = ({ data = [], itemsPerPage }) => {
     const [currentPage, setCurrentPage] = useState(1);
     const totalPages = Math.ceil(data.length / itemsPerPage);
     const startIndex = (currentPage - 1) * itemsPerPage;
-    
+
     const [modalShow, setModalShow] = React.useState(false);
     const [editModalShow, setEditModalShow] = useState(false);
     const [confirmDeleteModalShow, setConfirmDeleteModalShow] = useState(false);
-    
+
     const [selectedRank, setSelectedRank] = useState(null);
-    const [rankToDelete,setRankToDelete] = useState(null)
-    
-    const [rank, setRank] = useState(data)
+    const [rankToDelete, setRankToDelete] = useState(null);
+
+    const [rank, setRank] = useState(data);
     const currentData = rank.slice(startIndex, startIndex + itemsPerPage);
     const handlePageChange = (pageNumber) => {
         setCurrentPage(pageNumber);
     };
 
     const handleDeleteUser = (rank) => {
-        setRankToDelete(rank)
+        setRankToDelete(rank);
         setConfirmDeleteModalShow(true);
     };
 
@@ -41,7 +41,7 @@ const TableRank = ({ data = [], itemsPerPage }) => {
                 console.error('Lỗi khi xóa nhân viên:', error);
             } finally {
                 setConfirmDeleteModalShow(false);
-                setRankToDelete(null); 
+                setRankToDelete(null);
             }
         }
     };
@@ -58,18 +58,16 @@ const TableRank = ({ data = [], itemsPerPage }) => {
     };
 
     const handleEditUser = (rank) => {
-        setSelectedRank(rank)
+        setSelectedRank(rank);
         setEditModalShow(true);
     };
-   
+
     const handleUpdateRank = async (updateRank) => {
         try {
             const response = await putCustomerRankApi(updateRank);
             console.log('Cập nhật thành công:', response);
             setEditModalShow(false);
-            setRank((prev) =>
-                prev.map((emp) => (emp._id === updateRank._id ? updateRank : emp)),
-            );
+            setRank((prev) => prev.map((emp) => (emp._id === updateRank._id ? updateRank : emp)));
         } catch (error) {
             console.error('Lỗi khi cập nhật nhân viên:', error);
         }
@@ -112,29 +110,43 @@ const TableRank = ({ data = [], itemsPerPage }) => {
                 </tbody>
             </Table>
 
-            <Pagination size="lg" className={styles.pagination}>
-                <Pagination.First onClick={() => handlePageChange(1)} disabled={currentPage === 1} />
-                <Pagination.Prev onClick={() => handlePageChange(currentPage - 1)} disabled={currentPage === 1} />
-                {[...Array(totalPages).keys()].map((pageNumber) => (
-                    <Pagination.Item
-                        key={pageNumber + 1}
-                        active={pageNumber + 1 === currentPage}
-                        onClick={() => handlePageChange(pageNumber + 1)}
-                    >
-                        {pageNumber + 1}
-                    </Pagination.Item>
-                ))}
-                <Pagination.Next
-                    onClick={() => handlePageChange(currentPage + 1)}
-                    disabled={currentPage === totalPages}
-                />
-                <Pagination.Last onClick={() => handlePageChange(totalPages)} disabled={currentPage === totalPages} />
-            </Pagination>
+            {rank.length > 0 && (
+                <Pagination size="lg" className={styles.pagination}>
+                    <Pagination.First onClick={() => handlePageChange(1)} disabled={currentPage === 1} />
+                    <Pagination.Prev onClick={() => handlePageChange(currentPage - 1)} disabled={currentPage === 1} />
+                    {[...Array(totalPages).keys()].map((pageNumber) => (
+                        <Pagination.Item
+                            key={pageNumber + 1}
+                            active={pageNumber + 1 === currentPage}
+                            onClick={() => handlePageChange(pageNumber + 1)}
+                        >
+                            {pageNumber + 1}
+                        </Pagination.Item>
+                    ))}
+                    <Pagination.Next
+                        onClick={() => handlePageChange(currentPage + 1)}
+                        disabled={currentPage === totalPages}
+                    />
+                    <Pagination.Last
+                        onClick={() => handlePageChange(totalPages)}
+                        disabled={currentPage === totalPages}
+                    />
+                </Pagination>
+            )}
 
             <ModalRank show={modalShow} onHide={() => setModalShow(false)} rank={selectedRank} />
-            <EditRankModal show={editModalShow} rank={selectedRank} onHide={() => setEditModalShow(false)}  onUpdate={handleUpdateRank} />
-            <ConfirmDeleteModal show={confirmDeleteModalShow} onHide={() => setConfirmDeleteModalShow(false)} onConfirm={handleConfirmDelete}/>
-     </div>
+            <EditRankModal
+                show={editModalShow}
+                rank={selectedRank}
+                onHide={() => setEditModalShow(false)}
+                onUpdate={handleUpdateRank}
+            />
+            <ConfirmDeleteModal
+                show={confirmDeleteModalShow}
+                onHide={() => setConfirmDeleteModalShow(false)}
+                onConfirm={handleConfirmDelete}
+            />
+        </div>
     );
 };
 

@@ -1,17 +1,18 @@
 import { createServicesApi } from '@/utils/api';
 import { useState } from 'react';
-import { ToastContainer } from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+
 const useCreateServices = () => {
-    const [formData, setFormData] = useState({
+    const initialFormData = {
         serviceCode: '',
         name: '',
         description: '',
-    });
+    };
 
+    const [formData, setFormData] = useState(initialFormData);
     const [errors, setErrors] = useState({});
     const [isSubmitting, setIsSubmitting] = useState(false);
- 
     const [submitError, setSubmitError] = useState('');
 
     const handleChange = (e) => {
@@ -24,9 +25,9 @@ const useCreateServices = () => {
 
     const validateForm = () => {
         const newErrors = {};
-        if (!formData.serviceCode) newErrors.serviceCode = 'Bạn chưa nhập mã nhân viên';
-        if (!formData.name) newErrors.name = 'Bạn chưa nhập tên nhân viên';
-        if (!formData.description) newErrors.description = 'Bạn chưa nhập mật khẩu';
+        if (!formData.serviceCode) newErrors.serviceCode = 'Bạn chưa nhập mã dịch vụ';
+        if (!formData.name) newErrors.name = 'Bạn chưa nhập tên dịch vụ';
+        if (!formData.description) newErrors.description = 'Bạn chưa nhập mô tả';
 
         setErrors(newErrors);
         return Object.keys(newErrors).length === 0;
@@ -38,13 +39,16 @@ const useCreateServices = () => {
             setIsSubmitting(true);
             setSubmitError('');
             try {
-                await createServicesApi(
-                    formData.serviceCode,
-                    formData.name,
-                    formData.description,
-                );
+                await createServicesApi(formData.serviceCode, formData.name, formData.description);
+                toast.success('Dịch vụ đã được tạo thành công!');
+                // Đặt lại formData về giá trị khởi tạo
+                setFormData(initialFormData);
             } catch (error) {
-                console.log(error)
+                if (error.response && error.response.data && error.response.data.msg) {
+                    toast.error(error.response.data.msg);
+                } else {
+                    toast.error('Đã xảy ra lỗi khi tạo dịch vụ!');
+                }
             } finally {
                 setIsSubmitting(false);
             }
@@ -55,7 +59,7 @@ const useCreateServices = () => {
         formData,
         errors,
         handleChange,
-        handleSubmit,      
+        handleSubmit,
         isSubmitting,
         submitError,
     };

@@ -49,7 +49,7 @@ const SidebarAdmin = ({ isVisible, onSelectMenu }) => {
         {
             title: 'Quản lý lịch chăm sóc',
             icon: FaCalendarAlt,
-            items: ['Cuộc hẹn', 'Thêm cuộc hen'],
+            items: ['Danh sách cuộc hẹn', 'Tạo cuộc hẹn'],
         },
         {
             title: 'Quản lý dịch vụ',
@@ -85,13 +85,10 @@ const SidebarAdmin = ({ isVisible, onSelectMenu }) => {
         setOpenMenuIndex(openMenuIndex === index ? null : index);
     };
 
-    const handleMenuClick = (item, index, customerId) => {
+    const handleMenuClick = (item, index) => {
         setSelectedMenu(index);
-        if (item === 'Sales') {
-            navigate('/report/sale');
-        }
-        if (item === 'Traffic') {
-            navigate('/report/trafic');
+        if (item === 'Danh sách doanh thu') {
+            navigate('/admin');
         }
         if(item === 'Danh sách nhân viên'){
             navigate("/employees/list")
@@ -119,6 +116,12 @@ const SidebarAdmin = ({ isVisible, onSelectMenu }) => {
         }
         if(item === 'Thêm xe'){
             navigate("/car/create")
+        }
+        if(item === 'Danh sách cuộc hẹn'){
+            navigate("/appointments/list")
+        }
+        if(item === 'Tạo cuộc hẹn'){
+            navigate("/appointments/create")
         }
         if(item === 'Danh sách dịch vụ'){
             navigate('/service/list')

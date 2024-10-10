@@ -1,31 +1,29 @@
 import Breadcrumb from '@/components/UI/Breadcrumb/Breadcrumb';
 import React from 'react';
-import styles from './CreateRank.module.css'
+import styles from './CreateRank.module.css';
 import { Form } from 'react-bootstrap';
 import icons from '@/utils/icon';
 import useCreateRank from './hooks/useCreateRank';
 const CreateRank = () => {
     const { FaPlusCircle } = icons;
-    const {
-        formData,
-        errors,
-        handleChange,
-        handleSubmit,
-    } = useCreateRank();
+    const { formData, errors, handleChange, handleSubmit } = useCreateRank();
 
     return (
         <div>
             <div className={styles.createRank}>
-                <Breadcrumb items={['Quản lý hạng khách hàng', 'Thêm mới hạng khách hàng']} activeItem="Thêm mới hạng khách hàng" />
+                <Breadcrumb
+                    items={['Quản lý hạng khách hàng', 'Thêm mới hạng khách hàng']}
+                    activeItem="Thêm mới hạng khách hàng"
+                />
             </div>
             <div className={styles.createRankBody}>
                 <Form onSubmit={handleSubmit}>
                     <Form.Group className="mb-3" controlId="rank_name">
-                        <Form.Label className={styles.labelText}>Mã nhân viên</Form.Label>
+                        <Form.Label className={styles.labelText}>Hạng</Form.Label>
                         <Form.Control
                             type="text"
                             name="rank_name"
-                            placeholder="Nhập mã nhân viên"
+                            placeholder="nhập thứ hạng"
                             size="lg"
                             value={formData.rank_name}
                             onChange={handleChange}
@@ -35,11 +33,11 @@ const CreateRank = () => {
                     </Form.Group>
 
                     <Form.Group className="mb-3" controlId="discount_rate">
-                        <Form.Label className={styles.labelText}>Tên nhân viên</Form.Label>
+                        <Form.Label className={styles.labelText}>Giảm giá</Form.Label>
                         <Form.Control
                             type="text"
                             name="discount_rate"
-                            placeholder="Nhập tên nhân viên"
+                            placeholder="nhập giảm giá"
                             size="lg"
                             value={formData.discount_rate}
                             onChange={handleChange}
@@ -48,12 +46,12 @@ const CreateRank = () => {
                         <Form.Control.Feedback type="invalid">{errors.discount_rate}</Form.Control.Feedback>
                     </Form.Group>
 
-                    <Form.Group className="mb-3" controlId="password">
-                        <Form.Label className={styles.labelText}>Mật khẩu</Form.Label>
+                    <Form.Group className="mb-3" controlId="min_spending">
+                        <Form.Label className={styles.labelText}>Phí tối thiểu</Form.Label>
                         <Form.Control
                             type="text"
                             name="min_spending"
-                            placeholder="Nhập mật khẩu"
+                            placeholder="Nhập phí tối thiểu"
                             size="lg"
                             value={formData.min_spending}
                             onChange={handleChange}
@@ -62,16 +60,18 @@ const CreateRank = () => {
                         <Form.Control.Feedback type="invalid">{errors.min_spending}</Form.Control.Feedback>
                     </Form.Group>
 
-                    <Form.Group className="mb-3" controlId="email">
-                        <Form.Label className={styles.labelText}>Email</Form.Label>
+                    <Form.Group className="mb-3" controlId="description">
+                        <Form.Label className={styles.labelText}>Mô tả</Form.Label>
                         <Form.Control
                             type="text"
                             name="description"
-                            placeholder="Nhập description"
+                            placeholder="Nhập mô tả"
                             size="lg"
                             value={formData.description}
                             onChange={handleChange}
                             isInvalid={!!errors.description}
+                            as="textarea"
+                            rows={3}
                         />
                         <Form.Control.Feedback type="invalid">{errors.description}</Form.Control.Feedback>
                     </Form.Group>

@@ -41,7 +41,7 @@ const Register = () => {
                 });
 
                 setTimeout(() => {
-                    naviagte('/otp');
+                    naviagte('/otp',{ state: { email: formData.email } });
                 }, 4000);
             } catch (error) {
                 toast.error('Đăng ký thất bại. Vui lòng thử lại!', { autoClose: 3000 });
@@ -164,7 +164,9 @@ const Register = () => {
                                     onChange={(e) => handleInputChange('address', e.target.value)}
                                 />
                             </div>
-                            {errorMessage.address && <div className={styles.address}>{errorMessage.address}</div>}
+                            {errorMessage.address && (
+                                <div className={styles.errorMessage}>{errorMessage.address}</div>
+                            )}
                         </Form.Group>
                         <Button variant="danger" type="submit" size="lg" className={styles.registerButton}>
                             Đăng ký

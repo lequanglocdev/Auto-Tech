@@ -17,7 +17,10 @@ import {CreateService, ListsService} from '@/pageAdmin/Servicess/index'
 import {CreatePromotion, ListsPromotion} from '@/pageAdmin/Promotions/index'
 import {CreateRank, ListsRank} from '@/pageAdmin/Rank/index'
 import {CreatePrice, ListsPrice} from '@/pageAdmin/Price/index'
-import CustomerVehicles from "@/pageAdmin/Customer/CustomerVehicles/CustomerVehicles"
+import {CreateAppointment, ListAppointment} from '@/pageAdmin/Appointment/index'
+import TotalCalender from "@/components/UI/Dashboard/TotalCalender/TotalCalender"
+import CustomerDetailPage from "@/pageAdmin/CustomerDetail/CustomerDetailPage"
+
 
 
 export const publicRoute = [
@@ -39,7 +42,6 @@ export const privateRoute = [
     {path: '/employees/create',component:CreateEmployees},
     {path: '/customer/list',component:ListsCustomer},
     {path: '/customer/create',component:CreateCustomer},
-    {path: '/customer/vehicles',component:CustomerVehicles},
     {path: '/car/list',component:ListsCar},
     {path: '/car/create',component:CreateCar},
     {path: '/service/list',component:ListsService},
@@ -50,5 +52,8 @@ export const privateRoute = [
     {path: '/rank/create',component:CreateRank},
     {path: '/price/list',component:ListsPrice},
     {path: '/price/create',component:CreatePrice},
-    
+    {path: '/calendar/:id',component: TotalCalender},
+    {path: '/user/:id',component: CustomerDetailPage},
+    {path: '/appointments/list',component:ListAppointment},
+    {path: '/appointments/create',component:CreateAppointment}
 ]

@@ -29,7 +29,7 @@ const TableEmployees = ({ data = [], itemsPerPage }) => {
 
     const handleDeleteUser = (user) => {
         setEmployeeToDelete(user);
-        setConfirmDeleteModalShow(true); 
+        setConfirmDeleteModalShow(true);
     };
 
     const handleConfirmDelete = async () => {
@@ -42,7 +42,7 @@ const TableEmployees = ({ data = [], itemsPerPage }) => {
                 console.error('Lỗi khi xóa nhân viên:', error);
             } finally {
                 setConfirmDeleteModalShow(false);
-                setEmployeeToDelete(null); 
+                setEmployeeToDelete(null);
             }
         }
     };
@@ -100,7 +100,7 @@ const TableEmployees = ({ data = [], itemsPerPage }) => {
                                     <FaEye />
                                 </div>
                                 <div className={styles.dataTableIconPen} onClick={() => handleEditUser(item)}>
-                                    <FaPen  />
+                                    <FaPen />
                                 </div>
                                 <div className={styles.dataTableIconTrash} onClick={() => handleDeleteUser(item)}>
                                     <FaTrash />
@@ -111,24 +111,29 @@ const TableEmployees = ({ data = [], itemsPerPage }) => {
                 </tbody>
             </Table>
 
-            <Pagination size="lg" className={styles.pagination}>
-                <Pagination.First onClick={() => handlePageChange(1)} disabled={currentPage === 1} />
-                <Pagination.Prev onClick={() => handlePageChange(currentPage - 1)} disabled={currentPage === 1} />
-                {[...Array(totalPages).keys()].map((pageNumber) => (
-                    <Pagination.Item
-                        key={pageNumber + 1}
-                        active={pageNumber + 1 === currentPage}
-                        onClick={() => handlePageChange(pageNumber + 1)}
-                    >
-                        {pageNumber + 1}
-                    </Pagination.Item>
-                ))}
-                <Pagination.Next
-                    onClick={() => handlePageChange(currentPage + 1)}
-                    disabled={currentPage === totalPages}
-                />
-                <Pagination.Last onClick={() => handlePageChange(totalPages)} disabled={currentPage === totalPages} />
-            </Pagination>
+            {employees.length > 0 && (
+                <Pagination size="lg" className={styles.pagination}>
+                    <Pagination.First onClick={() => handlePageChange(1)} disabled={currentPage === 1} />
+                    <Pagination.Prev onClick={() => handlePageChange(currentPage - 1)} disabled={currentPage === 1} />
+                    {[...Array(totalPages).keys()].map((pageNumber) => (
+                        <Pagination.Item
+                            key={pageNumber + 1}
+                            active={pageNumber + 1 === currentPage}
+                            onClick={() => handlePageChange(pageNumber + 1)}
+                        >
+                            {pageNumber + 1}
+                        </Pagination.Item>
+                    ))}
+                    <Pagination.Next
+                        onClick={() => handlePageChange(currentPage + 1)}
+                        disabled={currentPage === totalPages}
+                    />
+                    <Pagination.Last
+                        onClick={() => handlePageChange(totalPages)}
+                        disabled={currentPage === totalPages}
+                    />
+                </Pagination>
+            )}
 
             <ModalEmployees show={modalShow} onHide={() => setModalShow(false)} user={selectedEmployee} />
             <EditEmployeeModal

@@ -50,7 +50,11 @@ const Login = () => {
                     },
                 });
             } catch (error) {
-                toast.error(error.msg, { autoClose: 3000 });
+                if (error.response && error.response.data && error.response.data.msg) {
+                    toast.error(error.response.data.msg, { autoClose: 3000 });
+                } else {
+                    toast.error('Đã xảy ra lỗi, vui lòng thử lại.', { autoClose: 3000 });
+                }
             } finally {
                 setIsLoading(false); 
             }

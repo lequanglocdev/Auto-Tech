@@ -120,6 +120,11 @@ const getDetailServices = (services) => {
     return axios.get(URL_API);
 };
 
+const getPriceApi = () => {
+    const URL_API = '/api/prices';
+    return axios.get(URL_API);
+};
+
 const deleteUserApi = (user) => {
     const URL_API = `/api/users/${user._id}`;
     return axios.delete(URL_API);
@@ -252,5 +257,6 @@ export {
     putCustomerApi,
     putCustomerRankApi,
     putCarApi,
-    putServiceApi
+    putServiceApi,
+    getPriceApi
 };

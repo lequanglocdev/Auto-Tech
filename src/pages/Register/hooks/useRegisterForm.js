@@ -29,7 +29,7 @@ export const useRegisterForm = () => {
         let hasError = false;
 
         if (formData.username.trim() === '') {
-            errors.name = 'Tên tài khoản không được để trống';
+            errors.username = 'Tên tài khoản không được để trống';
             hasError = true;
         }
 
@@ -50,7 +50,7 @@ export const useRegisterForm = () => {
             hasError = true;
         }
         if (formData.address.trim() === '') {
-            errors.phone_number = 'Địa chỉ ko được để trống';
+            errors.address = 'Địa chỉ ko được để trống';
             hasError = true;
         }
         setErrorMessage(errors);

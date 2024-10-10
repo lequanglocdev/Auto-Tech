@@ -7,9 +7,14 @@ import TotalCar from '@/components/UI/Dashboard/TotalCar/TotalCar';
 import TotalCustomer from '@/components/UI/Dashboard/TotalCustomer/TotalCustomer';
 import TotalRevenue from '@/components/UI/Dashboard/TotalRevenue/TotalRevenue';
 import TotalUser from '@/components/UI/Dashboard/TotalUser/TotalUser';
+import { useNavigate } from 'react-router-dom';
 
 
 const Dashboard = ({ toggle }) => {
+    const navigate = useNavigate();
+    const handleItemClick = (type, id) => {
+        navigate(`/${type}/${id}`);
+    };
     return (
         <div>
             <div className={styles.dashboardWrapper}>
@@ -18,7 +23,7 @@ const Dashboard = ({ toggle }) => {
                         <Breadcrumb items={['Tổng quan']} />
                     </div>
                     <div className={styles.dashBoardHead}>
-                        <TotalCalender />
+                        <TotalCalender onClick={() => handleItemClick('calendar', 1)}/>
                         <TotalCar />
                         <TotalCustomer />
                         <TotalRevenue />
