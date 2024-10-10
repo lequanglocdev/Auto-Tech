@@ -13,21 +13,23 @@ const TableEmployees = ({ data = [], itemsPerPage }) => {
     const [currentPage, setCurrentPage] = useState(1);
     const totalPages = Math.ceil(data.length / itemsPerPage);
     const startIndex = (currentPage - 1) * itemsPerPage;
-    
+
     const [modalShow, setModalShow] = React.useState(false);
-    const [selectedEmployee, setSelectedEmployee] = useState(null);
     const [editModalShow, setEditModalShow] = useState(false);
+    const [confirmDeleteModalShow, setConfirmDeleteModalShow] = useState(false);
+
+    const [selectedEmployee, setSelectedEmployee] = useState(null);
+    const [employeeToDelete, setEmployeeToDelete] = useState(null);
+
     const [employees, setEmployees] = useState(data);
     const currentData = employees.slice(startIndex, startIndex + itemsPerPage);
-    const [confirmDeleteModalShow, setConfirmDeleteModalShow] = useState(false);
-    const [employeeToDelete, setEmployeeToDelete] = useState(null);
     const handlePageChange = (pageNumber) => {
         setCurrentPage(pageNumber);
     };
 
     const handleDeleteUser = (user) => {
         setEmployeeToDelete(user);
-        setConfirmDeleteModalShow(true); // Hiện modal xác nhận
+        setConfirmDeleteModalShow(true); 
     };
 
     const handleConfirmDelete = async () => {
@@ -35,12 +37,12 @@ const TableEmployees = ({ data = [], itemsPerPage }) => {
             try {
                 await deleteEmployeeApi(employeeToDelete);
                 console.log('Xóa thành công:', employeeToDelete);
-                setEmployees((prev) => prev.filter(emp => emp._id !== employeeToDelete._id));
+                setEmployees((prev) => prev.filter((emp) => emp._id !== employeeToDelete._id));
             } catch (error) {
                 console.error('Lỗi khi xóa nhân viên:', error);
             } finally {
                 setConfirmDeleteModalShow(false);
-                setEmployeeToDelete(null); // Reset lại
+                setEmployeeToDelete(null); 
             }
         }
     };
@@ -63,14 +65,9 @@ const TableEmployees = ({ data = [], itemsPerPage }) => {
 
     const handleUpdateEmployee = async (updatedEmployee) => {
         try {
-            // Gọi API với dữ liệu đã cập nhật
             const response = await putEmployeeApi(updatedEmployee);
             console.log('Cập nhật thành công:', response);
-
-            // Đóng modal sau khi cập nhật thành công
             setEditModalShow(false);
-
-            // Cập nhật danh sách nhân viên trong state (nếu cần thiết)
             setEmployees((prevEmployees) =>
                 prevEmployees.map((emp) => (emp._id === updatedEmployee._id ? updatedEmployee : emp)),
             );
@@ -102,8 +99,8 @@ const TableEmployees = ({ data = [], itemsPerPage }) => {
                                 <div className={styles.dataTableIconEye} onClick={() => handleShowUserDetail(item)}>
                                     <FaEye />
                                 </div>
-                                <div className={styles.dataTableIconPen}>
-                                    <FaPen onClick={() => handleEditUser(item)} />
+                                <div className={styles.dataTableIconPen} onClick={() => handleEditUser(item)}>
+                                    <FaPen  />
                                 </div>
                                 <div className={styles.dataTableIconTrash} onClick={() => handleDeleteUser(item)}>
                                     <FaTrash />
@@ -114,7 +111,7 @@ const TableEmployees = ({ data = [], itemsPerPage }) => {
                 </tbody>
             </Table>
 
-            <Pagination className={styles.pagination}>
+            <Pagination size="lg" className={styles.pagination}>
                 <Pagination.First onClick={() => handlePageChange(1)} disabled={currentPage === 1} />
                 <Pagination.Prev onClick={() => handlePageChange(currentPage - 1)} disabled={currentPage === 1} />
                 {[...Array(totalPages).keys()].map((pageNumber) => (
@@ -140,10 +137,10 @@ const TableEmployees = ({ data = [], itemsPerPage }) => {
                 user={selectedEmployee}
                 onUpdate={handleUpdateEmployee}
             />
-             <ConfirmDeleteModal 
-                show={confirmDeleteModalShow} 
-                onHide={() => setConfirmDeleteModalShow(false)} 
-                onConfirm={handleConfirmDelete} 
+            <ConfirmDeleteModal
+                show={confirmDeleteModalShow}
+                onHide={() => setConfirmDeleteModalShow(false)}
+                onConfirm={handleConfirmDelete}
             />
         </div>
     );

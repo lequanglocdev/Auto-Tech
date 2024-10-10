@@ -29,12 +29,12 @@ const SidebarAdmin = ({ isVisible, onSelectMenu }) => {
         {
             title: 'Quản lý nhân viên',
             icon: FaUser,
-            items: ['Danh sách nhân viên', 'Thêm mới nhân viên', 'Chức vụ'],
+            items: ['Danh sách nhân viên', 'Thêm mới nhân viên'],
         },
         {
             title: 'Quản lý khách hàng',
             icon: FaUsers,
-            items: ['Danh sách khách hàng', 'Thêm mới khách hàng',]
+            items: ['Danh sách khách hàng', 'Thêm mới khách hàng', 'Thêm xe cho khách hàng']
         },
         {
             title: 'Quản lý hạng của khách hàng',
@@ -85,7 +85,7 @@ const SidebarAdmin = ({ isVisible, onSelectMenu }) => {
         setOpenMenuIndex(openMenuIndex === index ? null : index);
     };
 
-    const handleMenuClick = (item, index) => {
+    const handleMenuClick = (item, index, customerId) => {
         setSelectedMenu(index);
         if (item === 'Sales') {
             navigate('/report/sale');
@@ -104,6 +104,9 @@ const SidebarAdmin = ({ isVisible, onSelectMenu }) => {
         }
         if(item === 'Thêm mới khách hàng'){
             navigate("/customer/create")
+        }
+        if(item === 'Thêm xe cho khách hàng'){
+            navigate("/customer/vehicles")
         }
         if(item === 'Danh sách hạng khách hàng'){
             navigate("/rank/list")
@@ -172,7 +175,7 @@ const SidebarAdmin = ({ isVisible, onSelectMenu }) => {
                             <li
                                 className={styles.menuItem}
                                 key={itemIndex}
-                                onClick={() => handleMenuClick(item, index)} // Thêm index vào hàm handleMenuClick
+                                onClick={() => handleMenuClick(item, index, )} // Thêm index vào hàm handleMenuClick
                             >
                                 <p className={styles.menuItemText}>{item}</p>
                             </li>

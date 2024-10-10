@@ -17,6 +17,7 @@ import {CreateService, ListsService} from '@/pageAdmin/Servicess/index'
 import {CreatePromotion, ListsPromotion} from '@/pageAdmin/Promotions/index'
 import {CreateRank, ListsRank} from '@/pageAdmin/Rank/index'
 import {CreatePrice, ListsPrice} from '@/pageAdmin/Price/index'
+import CustomerVehicles from "@/pageAdmin/Customer/CustomerVehicles/CustomerVehicles"
 
 
 export const publicRoute = [
@@ -33,11 +34,12 @@ export const publicRoute = [
 ]
 
 export const privateRoute = [
-    {path: '/admin',component:Dashboard},
+    {path: '/admin',component:Dashboard,},
     {path: '/employees/list',component:ListsEmployees},
     {path: '/employees/create',component:CreateEmployees},
     {path: '/customer/list',component:ListsCustomer},
     {path: '/customer/create',component:CreateCustomer},
+    {path: '/customer/vehicles',component:CustomerVehicles},
     {path: '/car/list',component:ListsCar},
     {path: '/car/create',component:CreateCar},
     {path: '/service/list',component:ListsService},
@@ -48,4 +50,5 @@ export const privateRoute = [
     {path: '/rank/create',component:CreateRank},
     {path: '/price/list',component:ListsPrice},
     {path: '/price/create',component:CreatePrice},
+    
 ]

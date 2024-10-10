@@ -125,8 +125,18 @@ const deleteUserApi = (user) => {
     return axios.delete(URL_API);
 };
 
+const deleteRankApi = (rank) => {
+    const URL_API = `/api/customers-rank/${rank._id}`;
+    return axios.delete(URL_API);
+};
+
 const deleteEmployeeApi = (user) => {
     const URL_API = `/api/employees/${user._id}`;
+    return axios.delete(URL_API);
+};
+
+const deleteCarApi = (car) => {
+    const URL_API = `/api/vehicle-types/${car._id}`;
     return axios.delete(URL_API);
 };
 
@@ -139,10 +149,59 @@ const createCarApi = (vehicleTypeName, description) => {
     return axios.post(URL_API, data);
 };
 
+const createServicesApi = (serviceCode, name, description) => {
+    const URL_API = '/api/services';
+    const data = {
+        service_code: serviceCode,
+        name,
+        description
+    };
+    return axios.post(URL_API, data);
+};
+
+const createRankApi = (rankName, discountRate, minSpending, description) => {
+    const URL_API = '/api/customers-rank';
+    const data = {
+        rank_name: rankName,
+        discount_rate: discountRate,
+        min_spending: minSpending,
+        description:description
+    };
+    return axios.post(URL_API, data);
+};
+
+const createVehicleApi = (customerId, newVehicle) => {
+    const URL_API = `/api/vehicles/${customerId}`;
+    const data = {
+        license_plate: newVehicle.license_plate,
+        manufacturer: newVehicle.manufacturer,
+        model: newVehicle.model,
+        year: newVehicle.year,
+        color: newVehicle.color,
+    };
+    return axios.post(URL_API, data);
+};
+
 const putEmployeeApi = (user) => {
     const URL_API = `/api/employees/${user._id}`;
     return axios.put(URL_API,user);
 };
+
+const putCustomerApi = (user) => {
+    const URL_API = `/api/users/${user._id}`;
+    return axios.put(URL_API,user);
+};
+
+const putCustomerRankApi = (rank) => {
+    const URL_API = `/api/customers-rank/${rank._id}`;
+    return axios.put(URL_API,rank);
+};
+
+const putCarApi = (car) => {
+    const URL_API = `/api/vehicle-types/${car._id}`;
+    return axios.put(URL_API,car);
+};
+
 
 export {
     registerAdminApi,
@@ -157,6 +216,8 @@ export {
     geEmployeesApi,
     getDetailEmployee,
     deleteEmployeeApi,
+    deleteRankApi,
+    deleteCarApi,
     getRankApi,
     getDetailRank,
     getCarApi,
@@ -164,5 +225,11 @@ export {
     getDetailServices,
     verifyOtpApi,
     createCarApi,
-    putEmployeeApi
+    createServicesApi,
+    createRankApi,
+    createVehicleApi,
+    putEmployeeApi,
+    putCustomerApi,
+    putCustomerRankApi,
+    putCarApi
 };

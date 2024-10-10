@@ -8,6 +8,7 @@ import TableCustomer from './TableCustomer/TableCustomer';
 const ListsCustomer = () => {
     const [userData, setUserData] = useState([]);
     const [loading, setLoading] = useState(true);
+    
     useEffect(() => {
         const fetchData = async () => {
             try {

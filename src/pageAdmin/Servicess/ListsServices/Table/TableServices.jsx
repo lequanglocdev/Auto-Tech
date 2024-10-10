@@ -2,8 +2,10 @@ import React, { useState } from 'react';
 import { Table, Pagination } from 'react-bootstrap';
 import icons from '@/utils/icon';
 import styles from './TableServices.module.css'
-import { deleteUserApi, getDetailServices, getDetailUser } from '@/utils/api';
+import { deleteUserApi, getDetailServices} from '@/utils/api';
 import ModalServices from '../Modal/ModalServices';
+import EditServicesModal from '../EditServicesModal/EditServicesModal';
+import ConfirmDeleteModal from '../ConfirmDeleteModal/ConfirmDeleteModal';
 const TableServices = ({ data = [], itemsPerPage }) => {
     const { FaEye, FaPen, FaTrash } = icons;
     
@@ -11,21 +13,19 @@ const TableServices = ({ data = [], itemsPerPage }) => {
     const totalPages = Math.ceil(data.length / itemsPerPage);
     const startIndex = (currentPage - 1) * itemsPerPage;
     const currentData = data.slice(startIndex, startIndex + itemsPerPage);
-    const [modalShow, setModalShow] = React.useState(false);
+
+    const [modalShow, setModalShow] = useState(false);
+    const [editModalShow, setEditModalShow] = useState(false);
+    const [confirmDeleteModalShow, setConfirmDeleteModalShow] = useState(false);
+
     const [selectedUser, setSelectedUser] = useState(null);
 
     const handlePageChange = (pageNumber) => {
         setCurrentPage(pageNumber);
     };
 
-    const handleDeleteUser = async (user) => {
-        console.log('Check user delete', user);
-        try {
-            const res = await deleteUserApi(user);
-            console.log('Delete response:', res);
-        } catch (error) {
-            console.error('Error deleting user:', error);
-        }
+    const handleDeleteUser = (user) => {
+        setConfirmDeleteModalShow(true);
     };
 
     const handleShowUserDetail = async (services) => {
@@ -37,6 +37,11 @@ const TableServices = ({ data = [], itemsPerPage }) => {
         } catch (error) {
             console.error('Error fetching user details:', error);
         }
+    };
+
+    const handleEditUser = (user) => {
+        // setSelectedUser(user);
+        setEditModalShow(true);
     };
 
     return (
@@ -62,7 +67,7 @@ const TableServices = ({ data = [], itemsPerPage }) => {
                                 <div className={styles.dataTableIconEye} onClick={() => handleShowUserDetail(item)}>
                                     <FaEye />
                                 </div>
-                                <div className={styles.dataTableIconPen}>
+                                <div className={styles.dataTableIconPen} onClick={() => handleEditUser(item)}>
                                     <FaPen />
                                 </div>
                                 <div className={styles.dataTableIconTrash} onClick={() => handleDeleteUser(item)}>
@@ -74,7 +79,7 @@ const TableServices = ({ data = [], itemsPerPage }) => {
                 </tbody>
             </Table>
 
-            <Pagination className={styles.pagination}>
+            <Pagination size="lg" className={styles.pagination}>
                 <Pagination.First onClick={() => handlePageChange(1)} disabled={currentPage === 1} />
                 <Pagination.Prev onClick={() => handlePageChange(currentPage - 1)} disabled={currentPage === 1} />
                 {[...Array(totalPages).keys()].map((pageNumber) => (
@@ -94,6 +99,8 @@ const TableServices = ({ data = [], itemsPerPage }) => {
             </Pagination>
           
             <ModalServices show={modalShow} onHide={() => setModalShow(false)} services={selectedUser} />
+            <EditServicesModal show={editModalShow} user={selectedUser} onHide={() => setEditModalShow(false)} />
+            <ConfirmDeleteModal show={confirmDeleteModalShow} onHide={() => setConfirmDeleteModalShow(false)} />
         </div>
     );
 };

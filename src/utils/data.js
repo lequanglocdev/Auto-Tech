@@ -141,6 +141,16 @@ export const services = [
                 benefixDescription:
                     'Trước khi phủ Ceramic hoặc dán PPF ô tô, bề mặt sơn xe đều phải được vệ sinh, loại bỏ sạch sẽ các vết cặn bẩn bám. Hiệu chỉnh sơn là quá trình bắt buộc phải thực hiện trước khi phủ các lớp bảo vệ sơn. Nếu không, bề mặt sau khi thi công sẽ không đạt tính thẩm mỹ.',
             },
+            {
+                benefitHead: 'Bảo vệ lớp sơn',
+                benefixDescription:
+                    'Đánh bóng tạo một lớp bảo vệ chống lại tác động của thời tiết, ánh nắng mặt trời, và các tác nhân gây hại khác, giúp lớp sơn bền màu hơn theo thời gian.',
+            },
+            {
+                benefitHead: 'Giá trị thẩm mỹ và tăng giá trị bán lại',
+                benefixDescription:
+                    'Một chiếc xe có bề mặt sáng bóng và sạch sẽ thường có giá trị bán lại cao hơn vì tạo được ấn tượng tốt cho người mua.',
+            },
         ],
         step: [
             {
@@ -704,46 +714,81 @@ export const services = [
         benefitImage: require('../assets/benafit/benafit8.png'),
         benefitContent: [
             {
-                benefitHead: 'Hỗ trợ thợ sửa chữa điện ô tô tối đa',
+                benefitHead: 'Phát hiện sớm các vấn đề tiềm ẩn',
                 benefixDescription:
-                    'Xác định nhanh chóng và chính xác khu vực đang gặp trục trặc hoặc hư hỏng, mà không cần phải động tay chân tháo rời từng bộ phận để kiểm tra.Thông qua việc chẩn đoán, các thợ sửa chữa điện ô tô có thể xác định được các vấn đề trước khi chúng xảy ra hư hỏng, qua đó đưa ra biện pháp khắc phục kịp thời, giúp chủ xe tiết kiệm được thời gian và chi phí khi sửa chữa.',
+                    'Kiểm tra chẩn đoán hệ thống điện giúp phát hiện sớm các lỗi nhỏ trước khi chúng phát triển thành sự cố nghiêm trọng, từ đó giúp bạn tiết kiệm chi phí sửa chữa.',
             },
             {
-                benefitHead: 'Kỹ thuật chẩn đoán ô tô tạo sự uy tín cho các ông chủ gara',
+                benefitHead: 'Đảm bảo an toàn khi lái xe',
                 benefixDescription:
-                    'Lợi ích của chẩn đoán ô tô thực sự là một công cụ hữu ích cho các ông chủ gara ô tô, để lấy lòng tin tưởng của khách hàng. Bởi ngày nay, người sử dụng ô tô đều biết đến máy chẩn đoán xe ô tô như một điểm tựa vững chắc về sửa xe hơi thông minh.',
+                    'Hệ thống điện đóng vai trò quan trọng trong việc điều khiển và vận hành các bộ phận an toàn như hệ thống đèn, còi, cảm biến, và hệ thống phanh điện tử. Việc kiểm tra định kỳ giúp đảm bảo các bộ phận này luôn hoạt động đúng cách, tăng cường sự an toàn cho bạn khi lái xe.',
+            },
+            {
+                benefitHead: 'Tối ưu hóa hiệu suất của các thiết bị điện',
+                benefixDescription:
+                    'Việc kiểm tra định kỳ đảm bảo rằng các thiết bị điện như đèn, điều hòa, hệ thống giải trí, và hệ thống khởi động luôn hoạt động với hiệu suất cao nhất, mang lại trải nghiệm thoải mái và tiện nghi.',
+            },
+            {
+                benefitHead: 'Tiết kiệm chi phí sửa chữa',
+                benefixDescription:
+                    'Phát hiện và khắc phục sớm các lỗi điện giúp tránh được các sự cố nghiêm trọng và tốn kém. Bảo trì định kỳ có chi phí thấp hơn rất nhiều so với sửa chữa hoặc thay thế toàn bộ hệ thống điện khi gặp sự cố lớn.',
+            },
+            {
+                benefitHead: 'Đảm bảo sự ổn định của hệ thống điện tử',
+                benefixDescription:
+                    'Với các xe hiện đại ngày nay, hệ thống điện tử liên quan chặt chẽ đến các chức năng như định vị GPS, cảm biến va chạm, và hệ thống điều khiển từ xa. Kiểm tra định kỳ giúp các hệ thống này hoạt động ổn định, tăng tính tiện ích và an toàn.',
             },
         ],
         step: [
             {
-                stepHead: 'Bước 1: Thu thập thông tin',
+                stepHead: 'Bước 1: Kiểm tra hệ thống ắc quy và điện áp',
                 stepDescription:
-                    'Quy trình chẩn đoán bắt đầu bằng việc thu thập thông tin từ chủ xe về các triệu chứng, lịch sử sửa chữa trước đó và các sự cố hiện tại trên xe. Điều này giúp xác định phạm vi vấn đề và hướng dẫn cho quy trình chẩn đoán tiếp theo.',
+                    'Bắt đầu bằng việc kiểm tra tình trạng của ắc quy, đo điện áp để đảm bảo ắc quy đang hoạt động ở mức điện áp chuẩn (thường là từ 12.6V đến 12.8V khi không tải).Xem xét các đầu cáp, cọc ắc quy có bị lỏng hoặc oxi hóa không và vệ sinh nếu cần thiết.',
             },
             {
-                stepHead: 'Bước 2: Sử dụng thiết bị chẩn đoán',
+                stepHead: 'Bước 2: Kiểm tra hệ thống khởi động và máy phát điện',
                 stepDescription:
-                    'Kỹ thuật viên sẽ sử dụng các thiết bị chẩn đoán hiện đại để đọc mã lỗi và thông tin hệ thống trên xe. Thiết bị này giúp xác định các lỗi cụ thể và cung cấp dữ liệu quan trọng để chẩn đoán và khắc phục sự cố.',
+                    'Đánh giá tình trạng của hệ thống khởi động bằng cách đo điện áp khi khởi động xe để kiểm tra xem có đủ dòng điện hay không.Kiểm tra máy phát điện để đảm bảo nó đang nạp điện cho ắc quy đúng cách. Đo điện áp nạp khi động cơ đang chạy (thường từ 13.5V đến 14.5V).',
             },
             {
-                stepHead: 'Bước 3: Kiểm tra hệ thống',
+                stepHead: 'Bước 3:  Kiểm tra cầu chì và hệ thống rơ-le',
                 stepDescription:
-                    'Sau khi thu thập thông tin và sử dụng thiết bị chẩn đoán, kỹ thuật viên sẽ kiểm tra từng hệ thống trên xe, bao gồm động cơ, hộp số, hệ thống điện, hệ thống treo, hệ thống phanh và nhiều hệ thống khác. Quá trình này nhằm xác định các vấn đề, kiểm tra các cảm biến, linh kiện và các thiết bị liên quan.',
+                    'Kiểm tra tất cả các cầu chì để đảm bảo không có cầu chì nào bị cháy hoặc hư hỏng.Kiểm tra các rơ-le điều khiển các thiết bị quan trọng như đèn, còi, quạt gió để đảm bảo chúng hoạt động đúng.',
             },
             {
-                stepHead: 'Bước 4: Phân tích và đánh giá',
+                stepHead: 'Bước 4: Sử dụng máy quét mã lỗi OBD-II',
                 stepDescription:
-                    'Kỹ thuật viên sẽ phân tích dữ liệu thu được từ quá trình kiểm tra và đánh giá tình trạng các hệ thống trên xe. Qua đó, họ sẽ xác định nguyên nhân gây ra các vấn đề và đưa ra đánh giá về mức độ hỏng hóc và sự cố trên xe.',
+                    'Kết nối máy quét mã lỗi OBD-II vào cổng OBD của xe để lấy mã lỗi từ ECU (hộp điều khiển trung tâm).Đọc các mã lỗi và phân tích các lỗi liên quan đến hệ thống điện tử và điện trên xe.',
             },
             {
-                stepHead: 'Bước 5: Sửa chữa và thay thế',
+                stepHead: 'Bước 5: Kiểm tra hệ thống đèn và các thiết bị điện khác:',
                 stepDescription:
-                    'Dựa trên kết quả phân tích, kỹ thuật viên sẽ đề xuất các biện pháp sửa chữa và thay thế cần thiết để khắc phục sự cố trên xe. Các linh kiện hỏng hóc sẽ được thay thế và các lỗi sẽ được sửa chữa để đảm bảo xe hoạt động một cách bình thường.',
+                    'Kiểm tra toàn bộ hệ thống đèn, bao gồm đèn pha, đèn xi nhan, đèn hậu, và đèn nội thất để đảm bảo chúng hoạt động bình thường.Kiểm tra các thiết bị điện khác như điều hòa, hệ thống giải trí, cửa sổ điện, và gương chiếu hậu điện.',
             },
             {
-                stepHead: 'Bước 6: Kiểm tra và xác nhận',
+                stepHead: 'Bước 6: Đánh giá hệ thống cảm biến và dây điện',
                 stepDescription:
-                    'Sau khi sửa chữa, kỹ thuật viên sẽ tiến hành kiểm tra lại hệ thống để đảm bảo rằng sự cố đã được khắc phục hoàn toàn và không có lỗi nào khác xuất hiện. Quá trình này nhằm đảm bảo an toàn và đáng tin cậy cho xe hơi.',
+                    'Kiểm tra các cảm biến như cảm biến tốc độ, cảm biến nhiệt độ động cơ, và các cảm biến an toàn để đảm bảo chúng đang gửi tín hiệu đúng đến ECU.Đánh giá hệ thống dây điện để kiểm tra xem có dấu hiệu đứt, chập hoặc gãy dây nào không.',
+            },
+            {
+                stepHead: 'Bước 7: Kiểm tra hệ thống tiếp đất:',
+                stepDescription:
+                    'Xem xét các điểm tiếp đất chính của xe để đảm bảo chúng sạch sẽ và không bị rỉ sét, giúp hệ thống điện hoạt động ổn định.',
+            },
+            {
+                stepHead: 'Bước 8: Thực hiện kiểm tra mạch điện chi tiết',
+                stepDescription:
+                    'Dùng dụng cụ đo điện để kiểm tra từng mạch điện cụ thể (như mạch điều khiển đèn, mạch điều hòa) để tìm ra vị trí gây lỗi.',
+            },
+            {
+                stepHead: 'Bước 9: Cập nhật và kiểm tra lại mã lỗi sau sửa chữa',
+                stepDescription:
+                    'Sau khi khắc phục các sự cố, dùng máy quét mã lỗi OBD-II để xóa mã lỗi và chạy lại kiểm tra để đảm bảo không còn mã lỗi nào tồn tại.',
+            },
+            {
+                stepHead: 'Bước 10: Lưu lại kết quả chẩn đoán và sửa chữa',
+                stepDescription:
+                    'Ghi chép lại tất cả các bước đã thực hiện và kết quả kiểm tra, mã lỗi đã gặp phải, và các bước sửa chữa để tiện theo dõi trong các lần bảo dưỡng tiếp theo.',
             },
         ],
         question: [
@@ -785,65 +830,77 @@ export const services = [
         benefitImage: require('../assets/benafit/benafit9.png'),
         benefitContent: [
             {
-                benefitHead: 'Tăng độ sáng bóng, thêm lớp bảo vệ',
+                benefitHead: 'Bảo vệ động cơ',
                 benefixDescription:
-                    'Bằng tác động của máy đánh bóng và xi đánh bóng, bề mặt sơn xe được tăng cường độ sáng bóng hơn ban đầu và thêm một lớp phủ bảo vệ bề mặt cơ bản.',
+                    'Thay dầu nhớt định kỳ giúp loại bỏ cặn bẩn và mạt kim loại tích tụ trong động cơ, giúp bôi trơn các chi tiết máy một cách hiệu quả, giảm ma sát và hạn chế mài mòn.',
             },
             {
-                benefitHead: 'Loại bỏ hoàn toàn khiếm khuyết sơn xe',
+                benefitHead: 'Tăng hiệu suất hoạt động',
                 benefixDescription:
-                    'Ngoài các vết trầy xước, các khiếm khuyết sơn khác thường xuất hiện trên bề mặt như vết xoáy mạng nhện, đốm nước ăn mòn lâu ngày, vết sơn chảy, sơn vỏ cam, mắt cá, bụi sơn,... đều được loại bỏ hoàn toàn, tái tạo lại một bề mặt phẳng mịn như ban đầu.',
+                    'Dầu nhớt mới giúp động cơ hoạt động mượt mà hơn, giảm nhiệt độ và tối ưu hóa quá trình đốt cháy, từ đó cải thiện hiệu suất và tiết kiệm nhiên liệu.',
             },
             {
-                benefitHead: 'Tạo bề mặt thích hợp để phủ Ceramic, dán PPF ô tô',
+                benefitHead: 'Duy trì tuổi thọ của động cơ',
                 benefixDescription:
-                    'Trước khi phủ Ceramic hoặc dán PPF ô tô, bề mặt sơn xe đều phải được vệ sinh, loại bỏ sạch sẽ các vết cặn bẩn bám. Hiệu chỉnh sơn là quá trình bắt buộc phải thực hiện trước khi phủ các lớp bảo vệ sơn. Nếu không, bề mặt sau khi thi công sẽ không đạt tính thẩm mỹ.',
+                    'Thay dầu nhớt đúng hạn giúp duy trì lớp bảo vệ giữa các chi tiết động cơ, ngăn ngừa sự hao mòn và hư hỏng sớm, kéo dài tuổi thọ của xe.',
+            },
+            {
+                benefitHead:"Giảm thiểu khí thải",
+                benefixDescription:'Dầu nhớt sạch giúp động cơ hoạt động hiệu quả hơn, giảm lượng nhiên liệu chưa cháy hết và hạn chế lượng khí thải độc hại ra môi trường.'
+            },
+            {
+                benefitHead:" Hỗ trợ hệ thống làm mát:",
+                benefixDescription:'Dầu nhớt không chỉ bôi trơn mà còn có vai trò giúp làm mát động cơ. Khi dầu nhớt mới và sạch, khả năng làm mát của động cơ được duy trì, giảm nguy cơ quá nhiệt.'
+            },
+            {
+                benefitHead:"Tiết kiệm chi phí sửa chữa",
+                benefixDescription:'Thay dầu nhớt định kỳ là một biện pháp bảo dưỡng cơ bản nhưng quan trọng, giúp phát hiện và ngăn ngừa các vấn đề tiềm ẩn trong động cơ, giảm nguy cơ phải sửa chữa tốn kém trong tương lai.'
             },
         ],
         step: [
             {
-                stepHead: 'Bước 1: Rửa xe và làm sạch bề mặt sơn',
+                stepHead: 'Bước 1: Kiểm tra và chuẩn bị',
                 stepDescription:
-                    'Kỹ thuật viên thực hiện rửa xe và làm sạch toàn bộ bề mặt sơn giúp các khuyết điểm sơn xuất hiện rõ ràng hơn. Chúng tôi sử dụng nước rửa xe chuyên dụng, có độ PH trung tính, các vết bẩn tại mọi ngóc ngách đều được loại bỏ hoàn toàn.',
+                    'Đặt xe vào vị trí an toàn, nhấc nắp capo và kiểm tra mức dầu hiện tại bằng que thăm dầu. Chuẩn bị đầy đủ các dụng cụ và vật liệu cần thiết như dầu nhớt mới, bộ lọc dầu, phễu và khay hứng dầu thải.',
             },
             {
-                stepHead: 'Bước 2: Kiểm tra tình trạng sơn',
+                stepHead: 'Bước 2: Xả dầu cũ',
                 stepDescription:
-                    'Kỹ thuật viên sẽ kiểm tra, đánh giá các khiếm khuyết trên bề mặt sơn và đưa ra phương án hiệu chỉnh sơn phù hợp. Tiến hành đánh dấu lại các vị trí cần xử lý và dán lớp bảo vệ ở những khu vực không hiệu chỉnh, để tránh làm hỏng lớp sơn.',
+                    'Đặt khay hứng dầu dưới cacte (đáy động cơ), mở ốc xả dầu để dầu cũ chảy ra hết. Chờ vài phút để dầu cũ xả hoàn toàn, đảm bảo loại bỏ tất cả các cặn bẩn và tạp chất có trong động cơ.',
             },
             {
-                stepHead: 'Bước 3: Đánh bóng làm phẳng bề mặt sơn xe',
+                stepHead: 'Bước 3: Thay bộ lọc dầu',
                 stepDescription:
                     'Dựa vào độ dày mỏng khác nhau của sơn cũng như tình trạng khiếm khuyết sơn, kỹ thuật viên sẽ sử dụng kết hợp máy đánh bóng và xi đánh bóng xe ô tô để làm mịn và phẳng các vết xước, vết xoáy,…',
             },
             {
-                stepHead: 'Bước 4: Hoàn thiện bề mặt',
+                stepHead: 'Bước 4: Đóng ốc xả dầu',
                 stepDescription:
-                    'Để lớp sơn bề mặt sau khi loại bỏ các khiếm khuyết đạt được độ bóng hoàn hảo, có chiều sâu, láng mịn, cần được đánh bóng hoàn thiện với máy đánh bóng lệch tâm kết hợp pad đánh bóng hoàn thiện.',
+                    ' Sau khi dầu cũ đã xả hết, vặn chặt lại ốc xả dầu bằng dụng cụ chuyên dụng để đảm bảo không có rò rỉ.',
             },
             {
-                stepHead: 'Bước 5: Vệ sinh sạch sẽ',
+                stepHead: 'Bước 5: Đổ dầu nhớt mới',
                 stepDescription:
-                    'Xe sẽ được vệ sinh một lần nữa để đảm bảo không còn bất kỳ cặn xi đánh bóng dư thừa nào đọng lại. Đặc biệt, các vị trí như kẽ cửa xe, logo hay tại các khe hở luôn được kiểm tra và làm sạch tỉ mỉ.',
+                    'Sử dụng phễu để đổ dầu nhớt mới vào động cơ qua nắp châm dầu. Đổ từ từ và kiểm tra mức dầu bằng que thăm dầu để đảm bảo mức dầu đạt chuẩn (thường nằm giữa hai vạch MIN và MAX).',
             },
             {
-                stepHead: 'Bước 6:Phủ lớp bảo vệ sơn',
+                stepHead: 'Bước 6: Khởi động và kiểm tra',
                 stepDescription:
-                    'Tùy vào nhu cầu của khách hàng, chúng tôi sẽ sử dụng các biện pháp bảo vệ sơn tối ưu nhất như phủ ceramic hoặc dán PPF. Lớp bảo vệ này giúp bề mặt sơn bền đẹp, giảm thiểu tối đa các bụi bẩn, trầy xước, vết ố,… tăng độ bền cho các chi tiết khác.',
+                    'Khởi động xe và để động cơ chạy không tải trong vài phút. Kiểm tra xem có rò rỉ dầu không và đảm bảo động cơ hoạt động êm ái.',
             },
         ],
         question: [
             {
                 id: 1,
-                text: 'Dịch vụ vệ sinh nội thất ô tô bao gồm những công đoạn gì?',
+                text: 'Bao lâu thì nên thay dầu nhớt một lần?',
                 description:
-                    'Theo khuyến cáo, thời gian dọn vệ sinh toàn bộ nội thất xe hơi tại trung tâm chăm sóc xe từ 2-3 tháng/lần. Nếu tình trạng xe bám bẩn, nhiều nấm mốc hoặc vô tình để các chất bẩn thấm bên trong, thời gian vệ sinh nội thất sẽ đến nhanh hơn. Ngoài ra, bạn có thể tự vệ sinh nội thất ô tô tại nhà sau mỗi lần sử dụng xe. Duy trì bề mặt sạch sẽ trước khi thực hiện vệ sinh nội thất xe hơi toàn diện là cách hữu hiệu nhất.',
+                    'Tùy vào loại dầu và điều kiện sử dụng, thường thì nên thay dầu sau mỗi 5.000 - 10.000 km hoặc sau 6 tháng (tùy theo điều kiện nào đến trước). Kiểm tra hướng dẫn sử dụng của xe hoặc tư vấn từ chuyên gia để có lịch thay dầu chính xác.',
             },
             {
                 id: 2,
-                text: 'Xe mới lấy có mùi nhựa mới nên vệ sinh nội thất ô tô không?',
+                text: 'Tại sao việc thay dầu nhớt định kỳ lại quan trọng?',
                 description:
-                    'Dù chiếc xe của bạn có mùi hay không, bạn cũng nên lập ra kế hoạch chăm sóc và vệ sinh nội thất thường xuyên. Điều này giúp không gian bên trong xe luôn trong tình trạng sạch sẽ, bảo vệ sức khỏe, tăng độ bền chi tiết.',
+                    'Dầu nhớt giúp bôi trơn các bộ phận trong động cơ, làm mát và giảm ma sát. Thay dầu định kỳ giúp giữ cho động cơ hoạt động hiệu quả, giảm mài mòn và kéo dài tuổi thọ của xe.',
             },
             {
                 id: 3,
@@ -853,9 +910,15 @@ export const services = [
             },
             {
                 id: 4,
-                text: 'Dọn vệ sinh nội thất xe hơi giá bao nhiêu?',
+                text: ' Loại dầu nhớt nào phù hợp với xe của tôi?',
                 description:
-                    'Tùy vào từng trung tâm chăm sóc xe sẽ có mức giá dọn vệ sinh nội thất xe hơi được quy định khác nhau. Chi phí thực hiện còn phụ thuộc vào nhiều yếu tố từ chất lượng dịch vụ, mặt bằng, quy trình thực hiện, gói dịch vụ, tình trạng cần vệ sinh,… Bạn có thể tham khảo giá vệ sinh nội thất ô tô chung tại Vietnam Car Care, chi phí dao động từ 1.000.000 VNĐ – 2.000.000 VNĐ/lần. Tại đây, chúng tôi được khách hàng đánh giá cao về chất lượng dịch vụ bởi không sử dụng sản phẩm chứa hóa chất độc hại, kỹ thuật viên dày dặn kinh nghiệm, thao tác vệ sinh chi tiết, kỹ lưỡng',
+                    'Loại dầu nhớt phù hợp phụ thuộc vào hãng xe và dòng xe. Bạn nên kiểm tra hướng dẫn sử dụng hoặc hỏi ý kiến chuyên gia để lựa chọn loại dầu phù hợp (dầu tổng hợp, bán tổng hợp hoặc dầu gốc khoáng).',
+            },
+            {
+                id: 5,
+                text: 'Tôi có thể tự thay dầu nhớt tại nhà không?',
+                description:
+                    'Có thể, nhưng bạn cần có đủ dụng cụ và kiến thức cơ bản về ô tô. Tuy nhiên, để đảm bảo an toàn và đúng kỹ thuật, nên đưa xe đến các trung tâm dịch vụ uy tín như L&K TECH.',
             },
         ],
     },

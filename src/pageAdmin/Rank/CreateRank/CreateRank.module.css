@@ -5,3 +5,40 @@
   align-items: center;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
+
+.createRankBody {
+  margin-top: 20px;
+  padding: 0 20px;
+  padding-bottom: 50px;
+}
+
+.labelText {
+  font-size: 1.4rem;
+  font-weight: 500;
+  color: var();
+}
+
+.btnAdd {
+  outline: none;
+  border: none;
+  background-color: #0984e3;
+  width: 200px;
+  height: 30px;
+  border-radius: 6px;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  align-items: center;
+  font-size: 1.6rem;
+  color: var(--text-primary);
+  font-size: bold;
+  margin-top: 50px;
+}
+.btnAdd:hover {
+  background-color: #74b9ff; 
+}
+
+.btnAdd:active {
+  background-color: #0652a0; 
+  transform: scale(0.98);
+}

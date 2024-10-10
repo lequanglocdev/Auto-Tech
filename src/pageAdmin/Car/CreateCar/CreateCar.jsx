@@ -1,34 +1,36 @@
 import React, { useState } from 'react';
 import Breadcrumb from '@/components/UI/Breadcrumb/Breadcrumb';
 import styles from './CreateCar.module.css';
-import { Alert, Button, Form } from 'react-bootstrap';
+import { Form } from 'react-bootstrap';
 import { createCarApi } from '@/utils/api';
-
+import icons from '@/utils/icon';
+import { ToastContainer, toast  } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 const CreateCar = () => {
     const [vehicleTypeName, setVehicleTypeName] = useState('');
     const [description, setDescription] = useState('');
-    const [error, setError] = useState('');
-    const [success, setSuccess] = useState(false);
+    const { FaPlusCircle } = icons;
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-        setError('');
-        setSuccess(false);
 
         try {
-            // Gọi API tạo xe
             const response = await createCarApi(vehicleTypeName, description);
-            console.log(">>> API Response:", response);
-
-            // Hiển thị thông báo thành công
-            setSuccess(true);
-
-            // Reset form sau khi thành công
+            console.log('>>> API Response:', response);
+            toast.success('Xe đã được thêm thành công!');
             setVehicleTypeName('');
             setDescription('');
         } catch (error) {
-            console.error("Lỗi khi gọi API:", error);
-            setError('Tạo xe thất bại. Vui lòng thử lại.');
+            if (error.response && error.response.data) {
+                const errorMsg = error.response.data.msg;
+                if (errorMsg === "Loại xe này đã tồn tại") {
+                    toast.error('Loại xe này đã tồn tại!'); 
+                } else {
+                    toast.error(errorMsg);
+                }
+            } else {
+                toast.error('Có lỗi xảy ra khi thêm xe!'); 
+            }
         }
     };
 
@@ -57,26 +59,18 @@ const CreateCar = () => {
                             placeholder="Nhập mô tả"
                             size="lg"
                             value={description}
+                            as="textarea"
+                            rows={3}
                             onChange={(e) => setDescription(e.target.value)}
                         />
                     </Form.Group>
-                    
-                    <Button type="submit" variant="primary">Thêm</Button>
 
-                    {/* Hiển thị thông báo lỗi */}
-                    {error && (
-                        <Alert variant="danger" className="mt-3">
-                            {error}
-                        </Alert>
-                    )}
-
-                    {/* Hiển thị thông báo thành công */}
-                    {success && (
-                        <Alert variant="success" className="mt-3">
-                            Tạo xe thành công!
-                        </Alert>
-                    )}
+                   <button type="submit" className={styles.btnAdd}>
+                        <FaPlusCircle />
+                        Thêm
+                    </button>
                 </Form>
+                <ToastContainer/>
             </div>
         </div>
     );

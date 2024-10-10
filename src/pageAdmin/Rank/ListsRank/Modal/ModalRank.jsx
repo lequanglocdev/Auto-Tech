@@ -12,9 +12,9 @@ const ModalRank = ({ rank, ...props }) => {
                 {rank ? (
                     <>
                         <h4>Tên: {rank?.rank_name}</h4>
-                        <p>Email: {rank?.discount_rate}</p>
-                        <p>Điện thoại: {rank.min_spending}</p>
-                        <p>Địa chỉ: {rank.description}</p>
+                        <h4>Giảm giá: {rank?.discount_rate}</h4>
+                        <h4>Phí tối thiểu: {rank?.min_spending}</h4>
+                        <h4>Mô tả: {rank?.description}</h4>
                     </>
                 ) : (
                     <p>Loading...</p>

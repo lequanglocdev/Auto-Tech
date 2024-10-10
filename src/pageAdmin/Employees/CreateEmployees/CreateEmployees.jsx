@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Breadcrumb from '@/components/UI/Breadcrumb/Breadcrumb';
 import styles from './CreateEmployees.module.css';
 import { Button, Form, Modal } from 'react-bootstrap';

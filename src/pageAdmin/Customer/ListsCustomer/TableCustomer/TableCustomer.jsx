@@ -1,44 +1,92 @@
 import React, { useState } from 'react';
 import { Table, Pagination } from 'react-bootstrap';
 import icons from '@/utils/icon';
-import styles from './TableCustomer.module.css'
-import { deleteUserApi, getDetailUser } from '@/utils/api';
+import styles from './TableCustomer.module.css';
+import { deleteUserApi, getDetailUser, putCustomerApi } from '@/utils/api';
 import ModalCustomer from '../Modal/ModalCustomer';
+import EditCustomerModal from '../EditCustomerModal/EditCustomerModal';
+import ConfirmDeleteModal from '../ConfirmDeleteModal/ConfirmDeleteModal';
+// import { useNavigate } from 'react-router-dom';
 const TableCustomer = ({ data = [], itemsPerPage }) => {
     const { FaEye, FaPen, FaTrash } = icons;
-    
+    // const navigate = useNavigate();
     const [currentPage, setCurrentPage] = useState(1);
     const totalPages = Math.ceil(data.length / itemsPerPage);
     const startIndex = (currentPage - 1) * itemsPerPage;
-    const currentData = data.slice(startIndex, startIndex + itemsPerPage);
+    
     const [modalShow, setModalShow] = React.useState(false);
+    const [editModalShow, setEditModalShow] = useState(false);
+    const [confirmDeleteModalShow, setConfirmDeleteModalShow] = useState(false);
+    
     const [selectedUser, setSelectedUser] = useState(null);
+    const [customerToDelete, setCustomerToDelete] = useState(null);
 
+    const [customer, setCustomer] = useState(data);
+    const currentData = customer.slice(startIndex, startIndex + itemsPerPage);
     const handlePageChange = (pageNumber) => {
         setCurrentPage(pageNumber);
     };
 
-    const handleDeleteUser = async (user) => {
-        console.log('Check user delete', user);
-        try {
-            const res = await deleteUserApi(user);
-            console.log('Delete response:', res);
-        } catch (error) {
-            console.error('Error deleting user:', error);
+    const handleDeleteUser = (user) => {
+        setCustomerToDelete(user)
+        setConfirmDeleteModalShow(true);
+    };
+
+    const handleConfirmDelete = async () => {
+        if (customerToDelete) {
+            try {
+                await deleteUserApi(customerToDelete);
+                console.log('Xóa thành công:', customerToDelete);
+                setCustomer((prev) => prev.filter((emp) => emp._id !== customerToDelete._id));
+            } catch (error) {
+                console.error('Lỗi khi xóa nhân viên:', error);
+            } finally {
+                setConfirmDeleteModalShow(false);
+                setCustomerToDelete(null); 
+            }
         }
     };
 
     const handleShowUserDetail = async (user) => {
         try {
-            const response = await getDetailUser(user); 
-            setSelectedUser(response); 
-            console.log(">> check detail response user",response)
+            const response = await getDetailUser(user);
+            setSelectedUser(response);
+            console.log('>> check detail response user', response);
             setModalShow(true);
         } catch (error) {
             console.error('Error fetching user details:', error);
         }
     };
 
+
+    const handleEditUser = (user) => {
+        setSelectedUser(user);
+        setEditModalShow(true);
+    };
+    const handleUpdateCustomer = async (updatedCustomer) => {
+        try {
+            const response = await putCustomerApi(updatedCustomer);
+            if (response) {
+                console.log('Cập nhật thành công:', response);
+
+                // Cập nhật danh sách customer với thông tin mới
+                setCustomer((prev) => prev.map((cust) =>
+                    cust._id === updatedCustomer._id ? { ...cust, ...updatedCustomer } : cust
+                ));
+
+                setEditModalShow(false);
+            }
+        } catch (error) {
+            console.error('Lỗi khi cập nhật khách hàng:', error);
+        }
+    };
+
+    const handleUpdateUser = (newVehicle) => {
+        setSelectedUser((prev) => ({
+            ...prev,
+            vehicles: [...prev.vehicles, newVehicle], // Thêm phương tiện mới vào danh sách
+        }));
+    };
     return (
         <div className={styles.dataTableWrapper}>
             <Table striped bordered hover className={styles.dataTable}>
@@ -64,7 +112,7 @@ const TableCustomer = ({ data = [], itemsPerPage }) => {
                                 <div className={styles.dataTableIconEye} onClick={() => handleShowUserDetail(item)}>
                                     <FaEye />
                                 </div>
-                                <div className={styles.dataTableIconPen}>
+                                <div className={styles.dataTableIconPen} onClick={() => handleEditUser(item)}>
                                     <FaPen />
                                 </div>
                                 <div className={styles.dataTableIconTrash} onClick={() => handleDeleteUser(item)}>
@@ -76,7 +124,7 @@ const TableCustomer = ({ data = [], itemsPerPage }) => {
                 </tbody>
             </Table>
 
-            <Pagination className={styles.pagination}>
+            <Pagination size="lg" className={styles.pagination}>
                 <Pagination.First onClick={() => handlePageChange(1)} disabled={currentPage === 1} />
                 <Pagination.Prev onClick={() => handlePageChange(currentPage - 1)} disabled={currentPage === 1} />
                 {[...Array(totalPages).keys()].map((pageNumber) => (
@@ -94,8 +142,16 @@ const TableCustomer = ({ data = [], itemsPerPage }) => {
                 />
                 <Pagination.Last onClick={() => handlePageChange(totalPages)} disabled={currentPage === totalPages} />
             </Pagination>
-          
-            <ModalCustomer show={modalShow} onHide={() => setModalShow(false)} user={selectedUser} />
+
+            <ModalCustomer show={modalShow} onHide={() => setModalShow(false)} user={selectedUser} onUpdateUser={handleUpdateUser} />
+
+            <EditCustomerModal
+                show={editModalShow}
+                user={selectedUser}
+                onHide={() => setEditModalShow(false)}
+                onUpdate={handleUpdateCustomer}
+            />
+            <ConfirmDeleteModal show={confirmDeleteModalShow} onHide={() => setConfirmDeleteModalShow(false)}  onConfirm={handleConfirmDelete} />
         </div>
     );
 };
