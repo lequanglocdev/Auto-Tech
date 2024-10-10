@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Table, Pagination } from 'react-bootstrap';
 import icons from '@/utils/icon';
 import styles from './TableServices.module.css'
-import { deleteUserApi, getDetailServices} from '@/utils/api';
+import { deleteServiceApi, deleteUserApi, getDetailServices, putServiceApi} from '@/utils/api';
 import ModalServices from '../Modal/ModalServices';
 import EditServicesModal from '../EditServicesModal/EditServicesModal';
 import ConfirmDeleteModal from '../ConfirmDeleteModal/ConfirmDeleteModal';
@@ -12,20 +12,37 @@ const TableServices = ({ data = [], itemsPerPage }) => {
     const [currentPage, setCurrentPage] = useState(1);
     const totalPages = Math.ceil(data.length / itemsPerPage);
     const startIndex = (currentPage - 1) * itemsPerPage;
-    const currentData = data.slice(startIndex, startIndex + itemsPerPage);
-
+    
     const [modalShow, setModalShow] = useState(false);
     const [editModalShow, setEditModalShow] = useState(false);
     const [confirmDeleteModalShow, setConfirmDeleteModalShow] = useState(false);
-
+    
     const [selectedUser, setSelectedUser] = useState(null);
-
+    const [serviceToDelete, setServiceToDelete] = useState(null);
+    const [service, setServices] = useState(data)
+    const currentData = service.slice(startIndex, startIndex + itemsPerPage);
     const handlePageChange = (pageNumber) => {
         setCurrentPage(pageNumber);
     };
 
     const handleDeleteUser = (user) => {
+        setServiceToDelete(user)
         setConfirmDeleteModalShow(true);
+    };
+
+    const handleConfirmDelete = async () => {
+        if (serviceToDelete) {
+            try {
+                await deleteServiceApi(serviceToDelete);
+                console.log('Xóa thành công:', serviceToDelete);
+                setServices((prev) => prev.filter((emp) => emp._id !== serviceToDelete._id));
+            } catch (error) {
+                console.error('Lỗi khi xóa nhân viên:', error);
+            } finally {
+                setConfirmDeleteModalShow(false);
+                setServiceToDelete(null); 
+            }
+        }
     };
 
     const handleShowUserDetail = async (services) => {
@@ -40,8 +57,26 @@ const TableServices = ({ data = [], itemsPerPage }) => {
     };
 
     const handleEditUser = (user) => {
-        // setSelectedUser(user);
+        setSelectedUser(user);
         setEditModalShow(true);
+    };
+
+    const handleUpdateCustomer = async (updatedService) => {
+        try {
+            const response = await putServiceApi(updatedService);
+            if (response) {
+                console.log('Cập nhật thành công:', response);
+
+                // Cập nhật danh sách customer với thông tin mới
+                setServices((prev) => prev.map((cust) =>
+                    cust._id === updatedService._id ? { ...cust, ...updatedService } : cust
+                ));
+
+                setEditModalShow(false);
+            }
+        } catch (error) {
+            console.error('Lỗi khi cập nhật khách hàng:', error);
+        }
     };
 
     return (
@@ -99,8 +134,8 @@ const TableServices = ({ data = [], itemsPerPage }) => {
             </Pagination>
           
             <ModalServices show={modalShow} onHide={() => setModalShow(false)} services={selectedUser} />
-            <EditServicesModal show={editModalShow} user={selectedUser} onHide={() => setEditModalShow(false)} />
-            <ConfirmDeleteModal show={confirmDeleteModalShow} onHide={() => setConfirmDeleteModalShow(false)} />
+            <EditServicesModal show={editModalShow} service={selectedUser} onHide={() => setEditModalShow(false)} onUpdate={handleUpdateCustomer} />
+            <ConfirmDeleteModal show={confirmDeleteModalShow} onHide={() => setConfirmDeleteModalShow(false)} onConfirm={handleConfirmDelete}/>
         </div>
     );
 };

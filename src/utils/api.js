@@ -140,6 +140,10 @@ const deleteCarApi = (car) => {
     return axios.delete(URL_API);
 };
 
+const deleteServiceApi = (service) => {
+    const URL_API = `/api/services/${service._id}`;
+    return axios.delete(URL_API);
+};
 const createCarApi = (vehicleTypeName, description) => {
     const URL_API = '/api/vehicle-types';
     const data = {
@@ -182,6 +186,16 @@ const createVehicleApi = (customerId, newVehicle) => {
     return axios.post(URL_API, data);
 };
 
+const createPriceApi = (priceListName, startDate, endDate) => {
+    const URL_API = '/api/prices';
+    const data = {
+        price_list_name: priceListName,
+        start_date: startDate,
+        end_date: endDate
+    };
+    return axios.post(URL_API, data);
+};
+
 const putEmployeeApi = (user) => {
     const URL_API = `/api/employees/${user._id}`;
     return axios.put(URL_API,user);
@@ -202,6 +216,10 @@ const putCarApi = (car) => {
     return axios.put(URL_API,car);
 };
 
+const putServiceApi = (service) => {
+    const URL_API = `/api/services/${service._id}`;
+    return axios.put(URL_API,service);
+};
 
 export {
     registerAdminApi,
@@ -218,6 +236,7 @@ export {
     deleteEmployeeApi,
     deleteRankApi,
     deleteCarApi,
+    deleteServiceApi,
     getRankApi,
     getDetailRank,
     getCarApi,
@@ -228,8 +247,10 @@ export {
     createServicesApi,
     createRankApi,
     createVehicleApi,
+    createPriceApi,
     putEmployeeApi,
     putCustomerApi,
     putCustomerRankApi,
-    putCarApi
+    putCarApi,
+    putServiceApi
 };
