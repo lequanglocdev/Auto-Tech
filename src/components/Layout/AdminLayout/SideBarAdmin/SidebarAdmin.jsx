@@ -29,17 +29,17 @@ const SidebarAdmin = ({ isVisible, onSelectMenu }) => {
         {
             title: 'Quản lý nhân viên',
             icon: FaUser,
-            items: ['Danh sách nhân viên', 'Thêm mới nhân viên'],
+            items: ['Danh sách nhân viên'],
         },
         {
             title: 'Quản lý khách hàng',
             icon: FaUsers,
-            items: ['Danh sách khách hàng', 'Thêm mới khách hàng', 'Thêm xe cho khách hàng']
+            items: ['Danh sách khách hàng']
         },
         {
             title: 'Quản lý hạng của khách hàng',
             icon: FaRankingStar ,
-            items: ['Danh sách hạng khách hàng', 'Thêm hạng khách hàng',]
+            items: ['Danh sách hạng khách hàng']
         },
         {
             title: 'Quản lý xe ',
@@ -54,7 +54,7 @@ const SidebarAdmin = ({ isVisible, onSelectMenu }) => {
         {
             title: 'Quản lý dịch vụ',
             icon: MdHomeRepairService,
-            items: ['Danh sách dịch vụ', 'Thêm mới dịch vụ', 'Gói dịch vụ', 'Loại dịch vụ'],
+            items: ['Danh sách dịch vụ'],
         },
         {
             title: 'Quản lý chương trình khuyến mãi',
@@ -64,7 +64,7 @@ const SidebarAdmin = ({ isVisible, onSelectMenu }) => {
         {
             title: 'Quản lý bảng giá ',
             icon: IoPricetag,
-            items: ['Danh sách bảng giá', 'Thêm mới bảng giá'],
+            items: ['Danh sách bảng giá', 'Thêm mới bảng giá', 'Danh sách chi tiết bảng giá'],
         },
         {
             title: 'Quản lý hóa đơn',
@@ -91,22 +91,15 @@ const SidebarAdmin = ({ isVisible, onSelectMenu }) => {
             navigate('/admin');
         }
         if(item === 'Danh sách nhân viên'){
-            navigate("/employees/list")
+            navigate("/employees")
         }
-        if(item === 'Thêm mới nhân viên'){
-            navigate("/employees/create")
-        }
+      
         if(item === 'Danh sách khách hàng'){
-            navigate("/customer/list")
+            navigate("/customer")
         }
-        if(item === 'Thêm mới khách hàng'){
-            navigate("/customer/create")
-        }
-        if(item === 'Thêm xe cho khách hàng'){
-            navigate("/customer/vehicles")
-        }
+      
         if(item === 'Danh sách hạng khách hàng'){
-            navigate("/rank/list")
+            navigate("/rank")
         }
         if(item === 'Thêm hạng khách hàng'){
             navigate("/rank/create")
@@ -124,7 +117,7 @@ const SidebarAdmin = ({ isVisible, onSelectMenu }) => {
             navigate("/appointments/create")
         }
         if(item === 'Danh sách dịch vụ'){
-            navigate('/service/list')
+            navigate('/service')
         }
         if(item === 'Thêm mới dịch vụ'){
             navigate('/service/create')
@@ -136,10 +129,13 @@ const SidebarAdmin = ({ isVisible, onSelectMenu }) => {
             navigate('/promotion/create')
         }
         if(item === 'Danh sách bảng giá'){
-            navigate('/price/list')
+            navigate('/price/header')
         }
         if(item === 'Thêm mới bảng giá'){
             navigate('/price/create')
+        }
+        if(item === 'Danh sách chi tiết bảng giá'){
+            navigate('/price/list')
         }
 
     };

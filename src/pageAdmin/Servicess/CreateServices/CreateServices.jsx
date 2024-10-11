@@ -6,17 +6,25 @@ import icons from '@/utils/icon';
 import useCreateServices from './hooks/useCreateServices';
 import { ToastContainer} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useNavigate } from 'react-router-dom';
 const CreateServices = () => {
-  const { FaPlusCircle } = icons;
+    const navigate = useNavigate();
+  const { FaPlusCircle,MdArrowBackIos } = icons;
   const {
     formData,
     errors,
     handleChange,
     handleSubmit,
 } = useCreateServices();
+
+const handleListServices = () => {
+    navigate('/service');
+};
+
   return (
         <div>
             <div className={styles.createServices}>
+            <MdArrowBackIos onClick={handleListServices} className={styles.createServiceIcon} />
                 <Breadcrumb items={['Quản lý dịch vụ', 'Thêm mới']} activeItem="Thêm mới" />
             </div>
             <div className={styles.createServicesBody}>

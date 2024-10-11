@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import Breadcrumb from '@/components/UI/Breadcrumb/Breadcrumb';
-import styles from './ListsPrice.module.css'
+import styles from './ListDetailPrice.module.css'
 import { getPriceApi } from '@/utils/api';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import TableCar from './Table/TablePrice';
-import TablePrice from './Table/TablePrice';
-const ListsPrice = () => {
+import TablePrice from './Table/TableDetailPrice';
+const ListDetailPrice = () => {
     const [userData, setUserData] = useState([]);
     const [loading, setLoading] = useState(true);
     useEffect(() => {
@@ -46,4 +45,4 @@ const ListsPrice = () => {
     );
 };
 
-export default ListsPrice;
+export default ListDetailPrice;

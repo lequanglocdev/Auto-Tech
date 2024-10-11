@@ -3,16 +3,21 @@ import styles from './ListsEmployees.module.css';
 import Breadcrumb from '@/components/UI/Breadcrumb/Breadcrumb';
 import TableEmployees from './TableEmployees/TableEmployees';
 import { useState } from 'react';
-import {  geEmployeesApi } from '@/utils/api';
+import { geEmployeesApi } from '@/utils/api';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import icons from '@/utils/icon';
+import { useNavigate } from 'react-router-dom';
+import CommonButton from '@/components/UI/CommonButton/CommonButton ';
 const ListsEmployees = () => {
+    const navigate = useNavigate();
     const [employeeData, setEmployeeData] = useState([]);
     const [loading, setLoading] = useState(true);
+    const { FaPlusCircle } = icons;
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await  geEmployeesApi();
+                const response = await geEmployeesApi();
                 console.log('dataTable', response);
                 setEmployeeData(response);
                 setLoading(false);
@@ -29,18 +34,29 @@ const ListsEmployees = () => {
 
         fetchData();
     }, []);
+    const handleAddEmploy = () => {
+        navigate('/addEmployy');
+    };
     if (loading) {
         return <p>Loading...</p>;
     }
     return (
         <div>
             <div className={styles.listsEmployees}>
-                <Breadcrumb items={['Quản lý nhân viên', 'danh sách nhân viên']} activeItem="danh sách nhân viên" />
+                <Breadcrumb items={['Quản lý nhân viên', 'Danh sách nhân viên']} activeItem="Danh sách nhân viên" />
             </div>
-            <div>
+            <div className={styles.listsEmployeesBody}>
+                <div className={styles.listsEmployeesButton}>
+                    <CommonButton
+                        onClick={handleAddEmploy}
+                        icon={FaPlusCircle}
+                        label="Thêm"
+                    />
+                </div>
+
                 <TableEmployees data={employeeData} itemsPerPage={5} />
             </div>
-            <ToastContainer/>
+            <ToastContainer />
         </div>
     );
 };

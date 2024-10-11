@@ -5,10 +5,14 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { getUserApi } from '@/utils/api';
 import TableCustomer from './TableCustomer/TableCustomer';
+import CommonButton from '@/components/UI/CommonButton/CommonButton ';
+import { useNavigate } from 'react-router-dom';
+import icons from '@/utils/icon';
 const ListsCustomer = () => {
+    const navigate = useNavigate();
     const [userData, setUserData] = useState([]);
     const [loading, setLoading] = useState(true);
-    
+    const { FaPlusCircle } = icons;
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -30,6 +34,10 @@ const ListsCustomer = () => {
         fetchData();
     }, []);
 
+    const handleAddCustomer = () =>{
+        navigate('/addCustomer');
+    }
+
     if (loading) {
         return <p>Loading...</p>;
     }
@@ -37,9 +45,16 @@ const ListsCustomer = () => {
     return (
         <div>
             <div className={styles.listsCustomer}>
-                <Breadcrumb items={['Quản lý khách hàng', 'danh sách khách hàng']} activeItem="danh sách khách hàng" />
+                <Breadcrumb items={['Quản lý khách hàng', 'Danh sách khách hàng']} activeItem="Danh sách khách hàng" />
             </div>
             <div>
+                <div className={styles.listsCustomerButton}>
+                    <CommonButton
+                        onClick={handleAddCustomer}
+                        icon={FaPlusCircle}
+                        label="Thêm"
+                    />
+                </div>
                 <TableCustomer data={userData} itemsPerPage={5} />
             </div>
             <ToastContainer />

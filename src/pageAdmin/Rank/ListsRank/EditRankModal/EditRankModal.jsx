@@ -67,7 +67,7 @@ const EditRankModal = ({ rank, show, onHide, onUpdate }) => {
                         </Form.Group>
                         <Form.Group controlId="role">
                             <Form.Label>Mô tả</Form.Label>
-                            <Form.Control as="textarea" rows={3} value={formData.description} onChange={handleChange} />
+                            <Form.Control as="textarea" rows={3}  name="description" value={formData.description} onChange={handleChange} />
                         </Form.Group>
                         <Button variant="primary" type="submit" className="mt-2">
                             Cập nhật

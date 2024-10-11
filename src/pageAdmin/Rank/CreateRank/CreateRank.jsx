@@ -4,13 +4,18 @@ import styles from './CreateRank.module.css';
 import { Form } from 'react-bootstrap';
 import icons from '@/utils/icon';
 import useCreateRank from './hooks/useCreateRank';
+import { useNavigate } from 'react-router-dom';
 const CreateRank = () => {
-    const { FaPlusCircle } = icons;
+    const navigate = useNavigate();
+    const { FaPlusCircle, MdArrowBackIos } = icons;
     const { formData, errors, handleChange, handleSubmit } = useCreateRank();
-
+    const handleListRank = () => {
+        navigate('/rank');
+    };
     return (
         <div>
             <div className={styles.createRank}>
+                <MdArrowBackIos onClick={handleListRank} className={styles.createRankIcon} />
                 <Breadcrumb
                     items={['Quản lý hạng khách hàng', 'Thêm mới hạng khách hàng']}
                     activeItem="Thêm mới hạng khách hàng"

@@ -1,4 +1,30 @@
-.customerDetailWrapper{
-  padding: 10px;
+.customerDetailWrapper {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+}
+
+.customerDetailTextHeading{
+  font-size: 2rem !important;
+}
+
+.customerDetailTextDes{
+  font-size: 1.6rem;
   
+}
+
+.custom-tab .nav-link {
+  font-weight: normal; /* Trạng thái không được chọn */
+  color: #000; /* Màu chữ bình thường */
+}
+
+.customTab .nav-link.active {
+  font-weight: bold !important; /* Làm đậm chữ khi chọn */
+  color: #007bff !important; /* Màu chữ khi chọn (xanh dương) */
+}
+
+.custom-tab .nav-link:hover {
+  color: #0056b3; /* Màu chữ khi hover (tuỳ chọn) */
 }

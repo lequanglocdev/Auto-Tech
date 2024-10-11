@@ -30,8 +30,8 @@ import {
     FaLock,
     FaPlusCircle 
 } from 'react-icons/fa';
-import { MdOutlineArrowForwardIos, MdDashboard, MdHomeRepairService, MdManageAccounts, MdKeyboardDoubleArrowRight } from 'react-icons/md';
-import { IoIosArrowUp, IoMdEye, IoMdEyeOff, IoMdRemove, IoIosArrowForward, IoIosArrowDown, IoMdLogOut } from 'react-icons/io';
+import { MdOutlineArrowForwardIos, MdDashboard, MdHomeRepairService, MdManageAccounts, MdKeyboardDoubleArrowRight, MdArrowBackIos  } from 'react-icons/md';
+import { IoIosArrowUp, IoMdEye, IoMdEyeOff, IoMdRemove, IoIosArrowForward, IoIosArrowDown, IoMdLogOut, IoMdAddCircleOutline  } from 'react-icons/io';
 import { CiLocationOn } from 'react-icons/ci';
 import { IoMailOutline, IoTicket, IoPricetag  } from 'react-icons/io5';
 import { HiMiniBars3CenterLeft, HiMiniBars3 } from 'react-icons/hi2';
@@ -81,7 +81,9 @@ const icons = {
     FaRankingStar,
     IoPricetag,
     FaLock,
-    FaPlusCircle    
+    FaPlusCircle,
+    IoMdAddCircleOutline,
+    MdArrowBackIos     
 };
 
 export default icons;

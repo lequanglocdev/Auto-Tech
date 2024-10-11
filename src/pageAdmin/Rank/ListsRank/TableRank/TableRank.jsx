@@ -78,7 +78,6 @@ const TableRank = ({ data = [], itemsPerPage }) => {
             <Table striped bordered hover className={styles.dataTable}>
                 <thead>
                     <tr className="">
-                        <th className={styles.dataTableHead}>#</th>
                         <th className={styles.dataTableHead}>Thứ hạng</th>
                         <th className={styles.dataTableHead}>Giảm giá</th>
                         <th className={styles.dataTableHead}>Phí tối thiểu</th>
@@ -89,7 +88,6 @@ const TableRank = ({ data = [], itemsPerPage }) => {
                 <tbody>
                     {currentData.map((item, index) => (
                         <tr key={item._id}>
-                            <td>{startIndex + index + 1}</td>
                             <td className={styles.dataTableItem}>{item.rank_name}</td>
                             <td className={styles.dataTableItem}>{item.discount_rate}</td>
                             <td className={styles.dataTableItem}>{item.min_spending}</td>

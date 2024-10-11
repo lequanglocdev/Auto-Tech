@@ -6,8 +6,10 @@ import icons from '@/utils/icon';
 import useCreateEmployeeForm from './hooks/useCreateEmployeeForm';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useNavigate } from 'react-router-dom';
 const CreateEmployees = () => {
-    const { FaPlusCircle } = icons;
+    const navigate = useNavigate();
+    const { FaPlusCircle, MdArrowBackIos } = icons;
     const {
         formData,
         errors,
@@ -19,11 +21,15 @@ const CreateEmployees = () => {
         setShowOtpModal,
         handleOtpSubmit,
     } = useCreateEmployeeForm();
-
+    
+    const handleListEmployee = () =>{
+        navigate('/employees')
+    }
     return (
 
         <div>
             <div className={styles.createEmployees}>
+                <MdArrowBackIos onClick={handleListEmployee} className={styles.createEmployeesIcon}/>
                 <Breadcrumb items={['Quản lý nhân viên', 'Thêm mới']} activeItem="Thêm mới" />
             </div>
             <div className={styles.createEmployeesBody}>

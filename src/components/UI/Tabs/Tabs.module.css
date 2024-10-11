@@ -1,0 +1,42 @@
+/* Tabs.css */
+
+.tabs {
+  margin: 20px 0;
+}
+
+.tab-list {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  border-bottom: 2px solid #ddd;
+}
+
+.tab-item {
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.tab-item.active {
+  font-weight: bold;
+  color: #007bff; /* Màu xanh cho tab đang chọn */
+  border-bottom: 2px solid #007bff; /* Đường viền dưới tab đang chọn */
+}
+
+.tab-item:hover {
+  background-color: #f0f0f0; /* Màu nền khi hover */
+}
+
+.tab-content {
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tab-panel {
+  display: none; /* Ẩn tất cả nội dung tab mặc định */
+}
+
+.tab-panel.active {
+  display: block; /* Chỉ hiển thị nội dung của tab đang chọn */
+}

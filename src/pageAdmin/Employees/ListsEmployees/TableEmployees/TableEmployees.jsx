@@ -81,7 +81,6 @@ const TableEmployees = ({ data = [], itemsPerPage }) => {
             <Table striped bordered hover className={styles.dataTable}>
                 <thead>
                     <tr className="">
-                        <th className={styles.dataTableHead}>#</th>
                         <th className={styles.dataTableHead}>Name</th>
                         <th className={styles.dataTableHead}>Email</th>
                         <th className={styles.dataTableHead}>Phone</th>
@@ -91,7 +90,6 @@ const TableEmployees = ({ data = [], itemsPerPage }) => {
                 <tbody>
                     {currentData.map((item, index) => (
                         <tr key={item._id}>
-                            <td>{startIndex + index + 1}</td>
                             <td className={styles.dataTableItem}>{item.name}</td>
                             <td className={styles.dataTableItem}>{item.email}</td>
                             <td className={styles.dataTableItem}>{item.phone_number}</td>
@@ -111,7 +109,7 @@ const TableEmployees = ({ data = [], itemsPerPage }) => {
                 </tbody>
             </Table>
 
-            {employees.length > 0 && (
+            {employees.length > 5 && (
                 <Pagination size="lg" className={styles.pagination}>
                     <Pagination.First onClick={() => handlePageChange(1)} disabled={currentPage === 1} />
                     <Pagination.Prev onClick={() => handlePageChange(currentPage - 1)} disabled={currentPage === 1} />

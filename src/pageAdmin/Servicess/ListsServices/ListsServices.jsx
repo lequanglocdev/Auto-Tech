@@ -5,9 +5,14 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { getServicesApi } from '@/utils/api';
 import TableServices from './Table/TableServices';
+import icons from '@/utils/icon';
+import CommonButton from '@/components/UI/CommonButton/CommonButton ';
+import { useNavigate } from 'react-router-dom';
 const ListsServices = () => {
     const [userData, setUserData] = useState([]);
     const [loading, setLoading] = useState(true);
+    const { FaPlusCircle } = icons;
+    const navigate = useNavigate();
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -29,6 +34,10 @@ const ListsServices = () => {
         fetchData();
     }, []);
 
+    const handleAddServices = () =>{
+        navigate('/addService');
+    }
+
     if (loading) {
         return <p>Loading...</p>;
     }
@@ -39,6 +48,13 @@ const ListsServices = () => {
                 <Breadcrumb items={['Quản lý khách hàng', 'danh sách khách hàng']} activeItem="danh sách khách hàng" />
             </div>
             <div>
+            <div className={styles.listsServicesButton}>
+                    <CommonButton
+                        onClick={handleAddServices}
+                        icon={FaPlusCircle}
+                        label="Thêm"
+                    />
+                </div>
                 <TableServices data={userData} itemsPerPage={5} />
             </div>
             <ToastContainer />

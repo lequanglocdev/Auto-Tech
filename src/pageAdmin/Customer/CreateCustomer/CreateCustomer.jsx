@@ -6,24 +6,31 @@ import { Button, Form, Modal } from 'react-bootstrap';
 import useCreateCustomerForm from './hooks/useCreateCustomerForm';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useNavigate } from 'react-router-dom';
 const CreateCustomer = () => {
-    const { FaPlusCircle } = icons;
+    const navigate = useNavigate();
+    const { FaPlusCircle, MdArrowBackIos } = icons;
 
     const {
-      formData,
-      errors,
-      handleChange,
-      handleSubmit,
-      otp,
-      handleOtpChange,
-      showOtpModal,
-      setShowOtpModal,
-      handleOtpSubmit,
-  } = useCreateCustomerForm();
+        formData,
+        errors,
+        handleChange,
+        handleSubmit,
+        otp,
+        handleOtpChange,
+        showOtpModal,
+        setShowOtpModal,
+        handleOtpSubmit,
+    } = useCreateCustomerForm();
+
+    const handleListCustomer = () => {
+        navigate('/customer');
+    };
 
     return (
         <div>
             <div className={styles.createCustomer}>
+                <MdArrowBackIos onClick={handleListCustomer} className={styles.createCustomerIcon} />
                 <Breadcrumb items={['Quản lý khách hàng', 'Thêm mới khách hàng']} activeItem="Thêm mới khách hàng" />
             </div>
             <div className={styles.createCustomerBody}>
@@ -33,7 +40,7 @@ const CreateCustomer = () => {
                         <Form.Control
                             type="text"
                             name="username"
-                            placeholder="Nhập mã nhân viên"
+                            placeholder="Nhập tài khoản khách hàng"
                             size="lg"
                             value={formData.username}
                             onChange={handleChange}
@@ -47,7 +54,7 @@ const CreateCustomer = () => {
                         <Form.Control
                             type="text"
                             name="name"
-                            placeholder="Nhập tên nhân viên"
+                            placeholder="Nhập tên khách hàng"
                             size="lg"
                             value={formData.name}
                             onChange={handleChange}

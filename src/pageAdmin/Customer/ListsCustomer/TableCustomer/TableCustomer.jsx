@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Table, Pagination } from 'react-bootstrap';
 import icons from '@/utils/icon';
 import styles from './TableCustomer.module.css';
-import { deleteUserApi, getDetailUser, putCustomerApi } from '@/utils/api';
+import { deleteUserApi, putCustomerApi } from '@/utils/api';
 import ModalCustomer from '../Modal/ModalCustomer';
 import EditCustomerModal from '../EditCustomerModal/EditCustomerModal';
 import ConfirmDeleteModal from '../ConfirmDeleteModal/ConfirmDeleteModal';
@@ -47,19 +47,8 @@ const TableCustomer = ({ data = [], itemsPerPage }) => {
         }
     };
 
-    // const handleShowUserDetail = async (user) => {
-    //     try {
-    //         const response = await getDetailUser(user);
-    //         setSelectedUser(response);
-    //         console.log('>> check detail response user', response);
-    //         setModalShow(true);
-    //     } catch (error) {
-    //         console.error('Error fetching user details:', error);
-    //     }
-    // };
-
     const handleShowUserDetail = (user) => {
-        navigate(`/user/${user._id}`);
+        navigate(`/customer/${user._id}`);
     };
     const handleEditUser = (user) => {
         setSelectedUser(user);
@@ -69,9 +58,6 @@ const TableCustomer = ({ data = [], itemsPerPage }) => {
         try {
             const response = await putCustomerApi(updatedCustomer);
             if (response) {
-                console.log('Cập nhật thành công:', response);
-
-                // Cập nhật danh sách customer với thông tin mới
                 setCustomer((prev) =>
                     prev.map((cust) => (cust._id === updatedCustomer._id ? { ...cust, ...updatedCustomer } : cust)),
                 );
@@ -94,7 +80,6 @@ const TableCustomer = ({ data = [], itemsPerPage }) => {
             <Table striped bordered hover className={styles.dataTable}>
                 <thead>
                     <tr className="">
-                        <th className={styles.dataTableHead}>#</th>
                         <th className={styles.dataTableHead}>Name</th>
                         <th className={styles.dataTableHead}>Email</th>
                         <th className={styles.dataTableHead}>Phone</th>
@@ -103,21 +88,29 @@ const TableCustomer = ({ data = [], itemsPerPage }) => {
                     </tr>
                 </thead>
                 <tbody>
-                    {currentData.map((item, index) => (
-                        <tr key={item._id}>
-                            <td>{startIndex + index + 1}</td>
+                    {currentData.map((item) => (
+                        <tr key={item._id} className={styles.dataTableRow} onClick={() => handleShowUserDetail(item)}>
                             <td className={styles.dataTableItem}>{item.name}</td>
                             <td className={styles.dataTableItem}>{item.email}</td>
                             <td className={styles.dataTableItem}>{item.phone_number}</td>
                             <td className={styles.dataTableItem}>{item.address}</td>
                             <td className={styles.dataTableItemAction}>
-                                <div className={styles.dataTableIconEye} onClick={() => handleShowUserDetail(item)}>
-                                    <FaEye />
-                                </div>
-                                <div className={styles.dataTableIconPen} onClick={() => handleEditUser(item)}>
+                                <div
+                                    className={styles.dataTableIconPen}
+                                    onClick={(e) => {
+                                        e.stopPropagation();
+                                        handleEditUser(item);
+                                    }}
+                                >
                                     <FaPen />
                                 </div>
-                                <div className={styles.dataTableIconTrash} onClick={() => handleDeleteUser(item)}>
+                                <div
+                                    className={styles.dataTableIconTrash}
+                                    onClick={(e) => {
+                                        e.stopPropagation();
+                                        handleDeleteUser(item);
+                                    }}
+                                >
                                     <FaTrash />
                                 </div>
                             </td>
@@ -126,7 +119,7 @@ const TableCustomer = ({ data = [], itemsPerPage }) => {
                 </tbody>
             </Table>
 
-            {customer.length > 0 && (
+            {customer.length > 5 && (
                 <Pagination size="lg" className={styles.pagination}>
                     <Pagination.First onClick={() => handlePageChange(1)} disabled={currentPage === 1} />
                     <Pagination.Prev onClick={() => handlePageChange(currentPage - 1)} disabled={currentPage === 1} />

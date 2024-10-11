@@ -5,14 +5,19 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { getRankApi } from '@/utils/api';
 import TableRank from './TableRank/TableRank';
+import CommonButton from '@/components/UI/CommonButton/CommonButton ';
+import { useNavigate } from 'react-router-dom';
+import icons from '@/utils/icon';
 const ListsRank = () => {
+    const navigate = useNavigate();
     const [userData, setUserData] = useState([]);
     const [loading, setLoading] = useState(true);
+    const { FaPlusCircle } = icons;
     useEffect(() => {
         const fetchData = async () => {
             try {
                 const response = await getRankApi();
-                console.log(">> check rank",response)
+                console.log('>> check rank', response);
                 setUserData(response);
                 setLoading(false);
             } catch (error) {
@@ -28,6 +33,11 @@ const ListsRank = () => {
 
         fetchData();
     }, []);
+
+    const handleAddRank = () =>{
+        navigate('/addRank');
+    }
+
     if (loading) {
         return <p>Loading...</p>;
     }
@@ -40,9 +50,12 @@ const ListsRank = () => {
                 />
             </div>
             <div>
-                <TableRank data={userData} itemsPerPage={5}/>
+                <div className={styles.listsRankButton}>
+                    <CommonButton onClick={handleAddRank} icon={FaPlusCircle} label="Thêm" />
+                </div>
+                <TableRank data={userData} itemsPerPage={5} />
             </div>
-            <ToastContainer/>
+            <ToastContainer />
         </div>
     );
 };

@@ -84,7 +84,6 @@ const TableServices = ({ data = [], itemsPerPage }) => {
             <Table striped bordered hover className={styles.dataTable}>
                 <thead>
                     <tr className="">
-                        <th className={styles.dataTableHead}>#</th>
                         <th className={styles.dataTableHead}>Loại dịch vụ</th>
                         <th className={styles.dataTableHead}>Tên dịch vụ</th>
                         <th className={styles.dataTableHead}>Mô tả</th>
@@ -94,7 +93,6 @@ const TableServices = ({ data = [], itemsPerPage }) => {
                 <tbody>
                     {currentData.map((item, index) => (
                         <tr key={item._id}>
-                            <td>{startIndex + index + 1}</td>
                             <td className={styles.dataTableItem}>{item.service_code}</td>
                             <td className={styles.dataTableItem}>{item.name}</td>
                             <td className={styles.dataTableItem}>{item.description}</td>

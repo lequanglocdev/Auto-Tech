@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Table, Pagination } from 'react-bootstrap';
 import icons from '@/utils/icon';
 import styles from './TablePrice.module.css';
-import { deletePriceApi} from '@/utils/api';
+import { deletePriceApi, getDetailPrice} from '@/utils/api';
 import ConfirmDeleteModal from '../ConfirmDeleteModal/ConfirmDeleteModal';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -47,8 +47,16 @@ const TablePrice = ({ data = [], itemsPerPage }) => {
         }
     };
     
-    const handleShowUserDetail = (price) => {
-        navigate(`/price/${price._id}/lines`);
+     const handleShowUserDetail = async (price) => {
+        try {
+            const response = await getDetailPrice(price);
+            console.log(">>> response detail",response)
+            setSelectedPrice(response);
+            console.log('>> check detail response user', response);
+            setModalShow(true);
+        } catch (error) {
+            console.error('Error fetching user details:', error);
+        }
     };
     return (
         <div className={styles.dataTableWrapper}>
