@@ -108,7 +108,7 @@ const TableRank = ({ data = [], itemsPerPage }) => {
                 </tbody>
             </Table>
 
-            {rank.length > 0 && (
+            {rank.length > 5 && (
                 <Pagination size="lg" className={styles.pagination}>
                     <Pagination.First onClick={() => handlePageChange(1)} disabled={currentPage === 1} />
                     <Pagination.Prev onClick={() => handlePageChange(currentPage - 1)} disabled={currentPage === 1} />

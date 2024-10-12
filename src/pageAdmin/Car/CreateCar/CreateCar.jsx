@@ -6,11 +6,12 @@ import { createCarApi } from '@/utils/api';
 import icons from '@/utils/icon';
 import { ToastContainer, toast  } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useNavigate } from 'react-router-dom';
 const CreateCar = () => {
     const [vehicleTypeName, setVehicleTypeName] = useState('');
     const [description, setDescription] = useState('');
-    const { FaPlusCircle } = icons;
-
+    const { FaPlusCircle, MdArrowBackIos } = icons;
+    const navigate = useNavigate();
     const handleSubmit = async (event) => {
         event.preventDefault();
 
@@ -34,9 +35,14 @@ const CreateCar = () => {
         }
     };
 
+    const handleListCar = () => {
+        navigate('/customer');
+    };
+
     return (
         <div>
             <div className={styles.createCar}>
+            <MdArrowBackIos onClick={handleListCar} className={styles.createCarIcon} />
                 <Breadcrumb items={['Quản lý xe', 'Thêm mới xe']} activeItem="Thêm mới xe" />
             </div>
             <div className={styles.createCarBody}>

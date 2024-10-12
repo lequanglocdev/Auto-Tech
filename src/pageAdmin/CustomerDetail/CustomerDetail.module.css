@@ -1,30 +1,46 @@
-.customerDetailWrapper {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 20px;
-  background-color: #f9f9f9;
-  border-radius: 8px;
-}
-
-.customerDetailTextHeading{
-  font-size: 2rem !important;
+.customerDetaiProfile{
+  width: 500px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
 .customerDetailTextDes{
-  font-size: 1.6rem;
-  
+  font-size: 1.4rem;
+  font-weight: 400;
 }
 
-.custom-tab .nav-link {
-  font-weight: normal; /* Trạng thái không được chọn */
-  color: #000; /* Màu chữ bình thường */
+.customerDetailRank{
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 20px;
 }
 
-.customTab .nav-link.active {
-  font-weight: bold !important; /* Làm đậm chữ khi chọn */
-  color: #007bff !important; /* Màu chữ khi chọn (xanh dương) */
+.CustomerDetailSelect{
+  width: 100px !important;
+  height: 30px !important;
 }
 
-.custom-tab .nav-link:hover {
-  color: #0056b3; /* Màu chữ khi hover (tuỳ chọn) */
+
+.modalHeaderCustom {
+  background-color: var( --background-third); 
+  color: var(--text-primary);
+  font-size: 24px;
+  text-align: center;
+}
+
+.modalBodyCustom {
+  font-size: 18px;
+  color: #333;
+}
+
+.modalFooterCustom {
+  justify-content: center;
+}
+
+.buttonCustom {
+  font-size: 16px;
+  padding: 10px 20px;
 }

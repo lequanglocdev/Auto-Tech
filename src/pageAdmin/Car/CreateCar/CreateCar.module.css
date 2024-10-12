@@ -7,6 +7,13 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
+.createCarIcon{
+   font-size: 3rem;
+    padding: 4px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
 .createCarBody{
   margin-top: 20px;
   padding: 0 20px;

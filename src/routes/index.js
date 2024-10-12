@@ -45,11 +45,12 @@ export const privateRoute = [
     { path: '/rank', component: ListsRank },
     { path: '/addRank', component: CreateRank },
     
+    { path: '/car', component: ListsCar },
+    { path: '/addCar', component: CreateCar },
+    
     { path: '/service', component: ListsService },
     { path: '/addService', component: CreateService },
 
-    { path: '/car/list', component: ListsCar },
-    { path: '/car/create', component: CreateCar },
     
     
     { path: '/promotion/list', component: ListsPromotion },

@@ -87,7 +87,7 @@ const TableCustomer = ({ data = [], itemsPerPage }) => {
                         <th className={styles.dataTableHead}>Hành động</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody >
                     {currentData.map((item) => (
                         <tr key={item._id} className={styles.dataTableRow} onClick={() => handleShowUserDetail(item)}>
                             <td className={styles.dataTableItem}>{item.name}</td>

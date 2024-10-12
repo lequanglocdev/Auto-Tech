@@ -38,7 +38,7 @@ const TableCar = ({ data = [], itemsPerPage }) => {
                 await deleteCarApi(carToDelete);
                 setCar((prev) => prev.filter((emp) => emp._id !== carToDelete._id));
             } catch (error) {
-                console.log(error)
+                console.log(error);
             } finally {
                 setConfirmDeleteModalShow(false);
                 setCarToDelete(null);
@@ -57,10 +57,9 @@ const TableCar = ({ data = [], itemsPerPage }) => {
             if (response) {
                 setCar((prev) => prev.map((cust) => (cust._id === updatedCar._id ? { ...cust, ...updatedCar } : cust)));
                 setEditModalShow(false);
-               
             }
         } catch (error) {
-           console.log(error)
+            console.log(error);
         }
     };
     return (
@@ -68,7 +67,6 @@ const TableCar = ({ data = [], itemsPerPage }) => {
             <Table striped bordered hover className={styles.dataTable}>
                 <thead>
                     <tr className="">
-                        <th className={styles.dataTableHead}>#</th>
                         <th className={styles.dataTableHead}>Name</th>
                         <th className={styles.dataTableHead}>mô tả</th>
                         <th className={styles.dataTableHead}>Hành động</th>
@@ -77,7 +75,6 @@ const TableCar = ({ data = [], itemsPerPage }) => {
                 <tbody>
                     {currentData.map((item, index) => (
                         <tr key={item._id}>
-                            <td>{startIndex + index + 1}</td>
                             <td className={styles.dataTableItem}>{item.vehicle_type_name}</td>
                             <td className={styles.dataTableItem}>{item.description}</td>
                             <td className={styles.dataTableItemAction}>
@@ -93,8 +90,8 @@ const TableCar = ({ data = [], itemsPerPage }) => {
                 </tbody>
             </Table>
 
-            {car.length > 0 && (
-                <Pagination className={styles.pagination} size='lg'>
+            {car.length > 5 && (
+                <Pagination className={styles.pagination} size="lg">
                     <Pagination.First onClick={() => handlePageChange(1)} disabled={currentPage === 1} />
                     <Pagination.Prev onClick={() => handlePageChange(currentPage - 1)} disabled={currentPage === 1} />
                     {[...Array(totalPages).keys()].map((pageNumber) => (

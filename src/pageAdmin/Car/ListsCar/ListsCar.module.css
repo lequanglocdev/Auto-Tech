@@ -1,8 +1,14 @@
 .listCar {
-  width: 100%;
-  height: 50px;
-  display: flex;
-  align-items: center;
-  padding: 0 20px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    width: 100%;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.listsCarButton {
+    display: flex;
+    justify-content: flex-end;
+    padding: 20px;
 }
