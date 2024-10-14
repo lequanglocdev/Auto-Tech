@@ -1,46 +1,141 @@
-.customerDetaiProfile{
-  width: 500px;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  padding: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+.customerDetailWrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
-.customerDetailTextDes{
-  font-size: 1.4rem;
-  font-weight: 400;
+.customerDetaiProfile {
+    width: 340px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    padding: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    margin-right: 10px;
 }
 
-.customerDetailRank{
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  gap: 20px;
+.vehicleList {
+    flex: 1;
+    height: 240px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    padding: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    overflow: hidden; 
+}
+.vehicleItem {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 20px;
 }
 
-.CustomerDetailSelect{
-  width: 100px !important;
-  height: 30px !important;
+.customerDetailTextDes {
+    font-size: 1.4rem;
+    font-weight: 400;
 }
 
+.customerDetailRank {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 20px;
+}
+
+.CustomerDetailSelect {
+    width: 100px !important;
+    height: 30px !important;
+}
 
 .modalHeaderCustom {
-  background-color: var( --background-third); 
-  color: var(--text-primary);
-  font-size: 24px;
-  text-align: center;
+    background-color: #d63031;
+}
+.modalTitle {
+    font-size: 1.6rem !important;
+    color: var(--text-primary);
 }
 
 .modalBodyCustom {
-  font-size: 18px;
-  color: #333;
+    font-size: 18px;
+    color: #333;
 }
 
 .modalFooterCustom {
-  justify-content: center;
+    justify-content: center;
 }
 
 .buttonCustom {
-  font-size: 16px;
-  padding: 10px 20px;
+    font-size: 16px;
+    padding: 10px 20px;
+}
+
+.noVehicleContainer {
+    height: 80%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+.noVehicleMessage {
+    font-size: 1.6rem;
+    font-weight: 400;
+    color: #333;
+}
+.noVehicleBtn {
+    border: none;
+    outline: none;
+    background-color: var(--text-second);
+    height: 34px;
+    width: 34px;
+    border-radius: 50%;
+    color: var(--text-primary);
+    font-size: 1.4rem;
+}
+
+.vehicleTable {
+    width: 100%;
+    table-layout: fixed;
+}
+
+.vehicleTable th, .vehicleTable td {
+    overflow: hidden;
+    text-overflow: ellipsis; 
+    white-space: nowrap; /* Ngăn chặn xuống dòng */
+    font-size: 1.4rem !important;
+}
+
+/* Thêm chiều cao cố định và cuộn cho nội dung bảng */
+.vehicleTableWrapper {
+    margin-top: 6px;
+    max-height: 200px; /* Chiều cao tối đa cho phần cuộn */
+    overflow-y: auto; /* Bật cuộn dọc */
+}
+
+.dataTableItemAction {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    font-size: 1.4rem;
+    cursor: pointer;
+}
+
+.dataTableIconPen {
+    width: 30px;
+    height: 30px;
+    border-radius: 4px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #1a9f5333;
+    color: #55efc4;
+}
+
+.dataTableIconTrash {
+    width: 30px;
+    height: 30px;
+    border-radius: 4px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f1113333;
+    color: #c0392b;
 }

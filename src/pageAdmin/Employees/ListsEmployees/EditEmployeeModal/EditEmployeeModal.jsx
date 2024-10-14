@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Modal, Form } from 'react-bootstrap';
-
+import styles from './EditEmployeeModal.module.css';
 const EditEmployeeModal = ({ user, show, onHide, onUpdate }) => {
     const [formData, setFormData] = useState({
         name: '',
         email: '',
         phone_number: '',
-        role: ''
+        role: '',
     });
 
     useEffect(() => {
@@ -15,7 +15,7 @@ const EditEmployeeModal = ({ user, show, onHide, onUpdate }) => {
                 name: user.name || '',
                 email: user.email || '',
                 phone_number: user.phone_number || '',
-                role: user.role || ''
+                role: user.role || '',
             });
         }
     }, [user]);
@@ -33,36 +33,61 @@ const EditEmployeeModal = ({ user, show, onHide, onUpdate }) => {
     return (
         <Modal show={show} onHide={onHide} size="lg" centered>
             <Modal.Header closeButton>
-                <Modal.Title>Chỉnh sửa thông tin nhân viên</Modal.Title>
+                <Modal.Title className={styles.employeeTitle}>Chỉnh sửa thông tin nhân viên</Modal.Title>
             </Modal.Header>
             <Modal.Body>
                 {user ? (
                     <Form onSubmit={handleSubmit}>
-                        <Form.Group controlId="name">
-                            <Form.Label>Tên</Form.Label>
-                            <Form.Control type="text" name="name" value={formData.name} onChange={handleChange} />
+                        <Form.Group className={styles.employeeGroup} controlId="name">
+                            <Form.Label className={styles.employeeLabel}>Tên</Form.Label>
+                            <Form.Control
+                                className={styles.employeeControl}
+                                type="text"
+                                name="name"
+                                value={formData.name}
+                                onChange={handleChange}
+                            />
                         </Form.Group>
-                        <Form.Group controlId="email">
-                            <Form.Label>Email</Form.Label>
-                            <Form.Control type="email" name="email" value={formData.email} onChange={handleChange} />
+                        <Form.Group className={styles.employeeGroup} controlId="email">
+                            <Form.Label className={styles.employeeLabel}>Email</Form.Label>
+                            <Form.Control
+                                className={styles.employeeControl}
+                                type="email"
+                                name="email"
+                                value={formData.email}
+                                onChange={handleChange}
+                            />
                         </Form.Group>
-                        <Form.Group controlId="phone_number">
-                            <Form.Label>Điện thoại</Form.Label>
-                            <Form.Control type="text" name="phone_number" value={formData.phone_number} onChange={handleChange} />
+                        <Form.Group className={styles.employeeGroup} controlId="phone_number">
+                            <Form.Label className={styles.employeeLabel}>Điện thoại</Form.Label>
+                            <Form.Control
+                                className={styles.employeeControl}
+                                type="text"
+                                name="phone_number"
+                                value={formData.phone_number}
+                                onChange={handleChange}
+                            />
                         </Form.Group>
-                        <Form.Group controlId="role">
-                            <Form.Label>Vai trò</Form.Label>
-                            <Form.Control type="text" name="role" value={formData.role} onChange={handleChange} />
+                        <Form.Group className={styles.employeeGroup} controlId="role">
+                            <Form.Label className={styles.employeeLabel}>Vai trò</Form.Label>
+                            <Form.Control
+                                className={styles.employeeControl}
+                                type="text"
+                                name="role"
+                                value={formData.role}
+                                onChange={handleChange}
+                            />
                         </Form.Group>
-                        <Button variant="primary" type="submit" className="mt-2">Cập nhật</Button>
+                        <div className={styles.btn}>
+                            <Button className={`mt-2 ${styles.employeeBtn}`} variant="primary" type="submit">
+                                Cập nhật
+                            </Button>
+                        </div>
                     </Form>
                 ) : (
                     <p>Loading...</p>
                 )}
             </Modal.Body>
-            <Modal.Footer>
-                <Button onClick={onHide}>Đóng</Button>
-            </Modal.Footer>
         </Modal>
     );
 };

@@ -123,11 +123,11 @@ const CreateEmployees = () => {
                 </Modal.Header>
                 <Modal.Body>
                     <Form.Group controlId="emailModal">
-                        <Form.Label>Email đã nhập</Form.Label>
+                        <Form.Label className={styles.labelText}>Email đã nhập</Form.Label>
                         <Form.Control type="text" value={formData.email} readOnly />
                     </Form.Group>
                     <Form.Group controlId="otp">
-                        <Form.Label>OTP</Form.Label>
+                        <Form.Label className={styles.labelText}>OTP</Form.Label>
                         <Form.Control type="text" placeholder="Nhập mã OTP" value={otp} onChange={handleOtpChange} />
                     </Form.Group>
                 </Modal.Body>

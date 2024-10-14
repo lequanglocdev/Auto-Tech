@@ -1,18 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Modal, Form } from 'react-bootstrap';
-
+import styles from './EditServicesModal.module.css';
 const EditServicesModal = ({ service, show, onHide, onUpdate }) => {
     const [formData, setFormData] = useState({
         service_code: '',
         name: '',
-        description: ''
+        description: '',
     });
     useEffect(() => {
         if (service) {
             setFormData({
                 service_code: service.service_code || '',
                 name: service.name || '',
-                description: service.description || ''
+                description: service.description || '',
             });
         }
     }, [service]);
@@ -29,34 +29,52 @@ const EditServicesModal = ({ service, show, onHide, onUpdate }) => {
     return (
         <Modal show={show} onHide={onHide} size="lg" centered>
             <Modal.Header closeButton>
-                <Modal.Title>Chỉnh sửa thông tin dịch vụ</Modal.Title>
+                <Modal.Title className={styles.customerTitle}>Chỉnh sửa thông tin dịch vụ</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-               {service ? (
-                 <Form onSubmit={handleSubmit}>
-                 <Form.Group controlId="name">
-                     <Form.Label>Loại dịch vụ</Form.Label>
-                     <Form.Control type="text" name="service_code"value={formData.service_code} onChange={handleChange} />
-                 </Form.Group>
-                 <Form.Group controlId="name">
-                     <Form.Label>Tên dịch vụ</Form.Label>
-                     <Form.Control type="text" name="name" value={formData.name} onChange={handleChange} />
-                 </Form.Group>
-                 <Form.Group controlId="description">
-                     <Form.Label>Mô tả</Form.Label>
-                     <Form.Control as="textarea" rows={3} name="description" value={formData.description} onChange={handleChange} />
-                 </Form.Group>
-                 <Button variant="primary" type="submit" className="mt-2">
-                     Cập nhật
-                 </Button>
-             </Form>
-               ): (
+                {service ? (
+                    <Form onSubmit={handleSubmit}>
+                        <Form.Group className={styles.customerGroup} controlId="name">
+                            <Form.Label className={styles.customerLabel}>Loại dịch vụ</Form.Label>
+                            <Form.Control
+                                className={styles.customerControl}
+                                type="text"
+                                name="service_code"
+                                value={formData.service_code}
+                                onChange={handleChange}
+                            />
+                        </Form.Group>
+                        <Form.Group className={styles.customerGroup} controlId="name">
+                            <Form.Label className={styles.customerLabel}>Tên dịch vụ</Form.Label>
+                            <Form.Control
+                                className={styles.customerControl}
+                                type="text"
+                                name="name"
+                                value={formData.name}
+                                onChange={handleChange}
+                            />
+                        </Form.Group>
+                        <Form.Group className={styles.customerGroup} controlId="description">
+                            <Form.Label className={styles.customerLabel}>Mô tả</Form.Label>
+                            <Form.Control
+                                className={styles.customerControl}
+                                as="textarea"
+                                rows={3}
+                                name="description"
+                                value={formData.description}
+                                onChange={handleChange}
+                            />
+                        </Form.Group>
+                        <div className={styles.btn}>
+                            <Button className={`mt-2 ${styles.customerBtn}`} variant="primary" type="submit">
+                                Cập nhật
+                            </Button>
+                        </div>
+                    </Form>
+                ) : (
                     <p>Loading...</p>
-               )}
+                )}
             </Modal.Body>
-            <Modal.Footer>
-                <Button onClick={onHide}>Đóng</Button>
-            </Modal.Footer>
         </Modal>
     );
 };

@@ -49,7 +49,7 @@ const SidebarAdmin = ({ isVisible, onSelectMenu }) => {
         {
             title: 'Quản lý lịch chăm sóc',
             icon: FaCalendarAlt,
-            items: ['Danh sách cuộc hẹn', 'Tạo cuộc hẹn'],
+            items: ['Danh sách cuộc hẹn'],
         },
         {
             title: 'Quản lý dịch vụ',
@@ -59,12 +59,12 @@ const SidebarAdmin = ({ isVisible, onSelectMenu }) => {
         {
             title: 'Quản lý chương trình khuyến mãi',
             icon: IoTicket,
-            items: ['Danh sách khuyến mãi', 'Thêm mới khuyến mãi', 'Gói khuyến mãi'],
+            items: ['Danh sách khuyến mãi'],
         },
         {
             title: 'Quản lý bảng giá ',
             icon: IoPricetag,
-            items: ['Danh sách bảng giá', 'Thêm mới bảng giá', 'Danh sách chi tiết bảng giá'],
+            items: ['Danh sách bảng giá'],
         },
         {
             title: 'Quản lý hóa đơn',
@@ -124,17 +124,13 @@ const SidebarAdmin = ({ isVisible, onSelectMenu }) => {
             navigate('/service/create');
         }
         if (item === 'Danh sách khuyến mãi') {
-            navigate('/promotion/list');
+            navigate('/promotion');
         }
-        if (item === 'Thêm mới khuyến mãi') {
-            navigate('/promotion/create');
-        }
+    
         if (item === 'Danh sách bảng giá') {
-            navigate('/price/header');
+            navigate('/prices');
         }
-        if (item === 'Thêm mới bảng giá') {
-            navigate('/price/create');
-        }
+
         if (item === 'Danh sách chi tiết bảng giá') {
             navigate('/price/list');
         }

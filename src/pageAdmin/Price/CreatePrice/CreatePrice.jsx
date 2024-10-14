@@ -6,12 +6,13 @@ import {createPriceApi } from '@/utils/api';
 import icons from '@/utils/icon';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
+import { useNavigate } from 'react-router-dom';
 const CreatePrice = () => {
+    const navigate = useNavigate();
     const [priceName, setPriceName] = useState('');
     const [startDate, setStartDate] = useState('');
     const [endDate, setEndDate] = useState('');
-    const { FaPlusCircle } = icons;
+    const { FaPlusCircle, MdArrowBackIos } = icons;
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -33,9 +34,14 @@ const CreatePrice = () => {
         }
     };
 
+    const handleListCustomer = () => {
+        navigate('/prices');
+    };
+
     return (
         <div>
             <div className={styles.createPrice}>
+            <MdArrowBackIos onClick={handleListCustomer} className={styles.createPriceIcon} />
                 <Breadcrumb items={['Quản lý bảng giá', 'Thêm mới bảng giá']} activeItem="Thêm mới bảng giá" />
             </div>
             <div className={styles.createPriceBody}>

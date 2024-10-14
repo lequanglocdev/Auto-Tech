@@ -3,18 +3,16 @@ import { Table, Pagination } from 'react-bootstrap';
 import icons from '@/utils/icon';
 import styles from './TableCustomer.module.css';
 import { deleteUserApi, putCustomerApi } from '@/utils/api';
-import ModalCustomer from '../Modal/ModalCustomer';
 import EditCustomerModal from '../EditCustomerModal/EditCustomerModal';
 import ConfirmDeleteModal from '../ConfirmDeleteModal/ConfirmDeleteModal';
 import { useNavigate } from 'react-router-dom';
 const TableCustomer = ({ data = [], itemsPerPage }) => {
-    const { FaEye, FaPen, FaTrash } = icons;
+    const {FaPen, FaTrash } = icons;
     const navigate = useNavigate();
     const [currentPage, setCurrentPage] = useState(1);
     const totalPages = Math.ceil(data.length / itemsPerPage);
     const startIndex = (currentPage - 1) * itemsPerPage;
 
-    const [modalShow, setModalShow] = React.useState(false);
     const [editModalShow, setEditModalShow] = useState(false);
     const [confirmDeleteModalShow, setConfirmDeleteModalShow] = useState(false);
 
@@ -69,12 +67,7 @@ const TableCustomer = ({ data = [], itemsPerPage }) => {
         }
     };
 
-    const handleUpdateUser = (newVehicle) => {
-        setSelectedUser((prev) => ({
-            ...prev,
-            vehicles: [...prev.vehicles, newVehicle], // Thêm phương tiện mới vào danh sách
-        }));
-    };
+    
     return (
         <div className={styles.dataTableWrapper}>
             <Table striped bordered hover className={styles.dataTable}>
@@ -143,12 +136,7 @@ const TableCustomer = ({ data = [], itemsPerPage }) => {
                 </Pagination>
             )}
 
-            <ModalCustomer
-                show={modalShow}
-                onHide={() => setModalShow(false)}
-                user={selectedUser}
-                onUpdateUser={handleUpdateUser}
-            />
+           
 
             <EditCustomerModal
                 show={editModalShow}

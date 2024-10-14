@@ -4,16 +4,39 @@ import styles from './CreateCar.module.css';
 import { Form } from 'react-bootstrap';
 import { createCarApi } from '@/utils/api';
 import icons from '@/utils/icon';
-import { ToastContainer, toast  } from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from 'react-router-dom';
+
 const CreateCar = () => {
     const [vehicleTypeName, setVehicleTypeName] = useState('');
     const [description, setDescription] = useState('');
+    const [errors, setErrors] = useState({ vehicleTypeName: '', description: '' });
     const { FaPlusCircle, MdArrowBackIos } = icons;
     const navigate = useNavigate();
+
+    const validateForm = () => {
+        const newErrors = { vehicleTypeName: '', description: '' };
+        let isValid = true;
+
+        if (!vehicleTypeName) {
+            newErrors.vehicleTypeName = 'Tên xe không được để trống!';
+            isValid = false;
+        }
+
+        if (!description) {
+            newErrors.description = 'Mô tả không được để trống!';
+            isValid = false;
+        }
+
+        setErrors(newErrors);
+        return isValid;
+    };
+
     const handleSubmit = async (event) => {
         event.preventDefault();
+
+        if (!validateForm()) return; // Dừng nếu có lỗi
 
         try {
             const response = await createCarApi(vehicleTypeName, description);
@@ -21,28 +44,29 @@ const CreateCar = () => {
             toast.success('Xe đã được thêm thành công!');
             setVehicleTypeName('');
             setDescription('');
+            setErrors({ vehicleTypeName: '', description: '' }); // Reset lỗi
         } catch (error) {
             if (error.response && error.response.data) {
                 const errorMsg = error.response.data.msg;
                 if (errorMsg === "Loại xe này đã tồn tại") {
-                    toast.error('Loại xe này đã tồn tại!'); 
+                    toast.error('Loại xe này đã tồn tại!');
                 } else {
                     toast.error(errorMsg);
                 }
             } else {
-                toast.error('Có lỗi xảy ra khi thêm xe!'); 
+                toast.error('Có lỗi xảy ra khi thêm xe!');
             }
         }
     };
 
     const handleListCar = () => {
-        navigate('/customer');
+        navigate('/car');
     };
 
     return (
         <div>
             <div className={styles.createCar}>
-            <MdArrowBackIos onClick={handleListCar} className={styles.createCarIcon} />
+                <MdArrowBackIos onClick={handleListCar} className={styles.createCarIcon} />
                 <Breadcrumb items={['Quản lý xe', 'Thêm mới xe']} activeItem="Thêm mới xe" />
             </div>
             <div className={styles.createCarBody}>
@@ -55,7 +79,9 @@ const CreateCar = () => {
                             size="lg"
                             value={vehicleTypeName}
                             onChange={(e) => setVehicleTypeName(e.target.value)}
+                            isInvalid={!!errors.vehicleTypeName} // Hiển thị lỗi nếu có
                         />
+                        <Form.Control.Feedback type="invalid">{errors.vehicleTypeName}</Form.Control.Feedback>
                     </Form.Group>
 
                     <Form.Group className="mb-3" controlId="formGroupDes">
@@ -68,15 +94,17 @@ const CreateCar = () => {
                             as="textarea"
                             rows={3}
                             onChange={(e) => setDescription(e.target.value)}
+                            isInvalid={!!errors.description} // Hiển thị lỗi nếu có
                         />
+                        <Form.Control.Feedback type="invalid">{errors.description}</Form.Control.Feedback>
                     </Form.Group>
 
-                   <button type="submit" className={styles.btnAdd}>
+                    <button type="submit" className={styles.btnAdd}>
                         <FaPlusCircle />
                         Thêm
                     </button>
                 </Form>
-                <ToastContainer/>
+                <ToastContainer />
             </div>
         </div>
     );

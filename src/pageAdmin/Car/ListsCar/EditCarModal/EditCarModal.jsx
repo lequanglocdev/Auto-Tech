@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Modal, Form } from 'react-bootstrap';
-
+import styles from './EditCarModal.module.css';
 const EditCarModal = ({ car, show, onHide, onUpdate }) => {
     const [formData, setFormData] = useState({
-      vehicle_type_name: '',
-      description: '',
+        vehicle_type_name: '',
+        description: '',
     });
     useEffect(() => {
         if (car) {
@@ -27,30 +27,41 @@ const EditCarModal = ({ car, show, onHide, onUpdate }) => {
     return (
         <Modal show={show} onHide={onHide} size="lg" centered>
             <Modal.Header closeButton>
-                <Modal.Title>Chỉnh sửa thông tin khách hàng</Modal.Title>
+                <Modal.Title className={styles.customerTitle}>Chỉnh sửa thông tin loại xe</Modal.Title>
             </Modal.Header>
             <Modal.Body>
                 {car ? (
                     <Form onSubmit={handleSubmit}>
-                        <Form.Group controlId="vehicle_type_name">
-                            <Form.Label>Tên</Form.Label>
-                            <Form.Control type="text" name="vehicle_type_name" value={formData.vehicle_type_name} onChange={handleChange} />
+                        <Form.Group className={styles.customerGroup} controlId="vehicle_type_name">
+                            <Form.Label className={styles.customerLabel}>Tên</Form.Label>
+                            <Form.Control
+                                className={styles.customerControl}
+                                type="text"
+                                name="vehicle_type_name"
+                                value={formData.vehicle_type_name}
+                                onChange={handleChange}
+                            />
                         </Form.Group>
-                        <Form.Group controlId="description">
-                            <Form.Label>Mô tả</Form.Label>
-                            <Form.Control type="text" name="description" value={formData.description} onChange={handleChange} />
+                        <Form.Group className={styles.customerGroup} controlId="description">
+                            <Form.Label className={styles.customerLabel}>Mô tả</Form.Label>
+                            <Form.Control
+                                className={styles.customerControl}
+                                type="text"
+                                name="description"
+                                value={formData.description}
+                                onChange={handleChange}
+                            />
                         </Form.Group>
-                        <Button variant="primary" type="submit" className="mt-2">
-                            Cập nhật
-                        </Button>
+                        <div className={styles.btn}>
+                            <Button className={`mt-2 ${styles.customerBtn}`} variant="primary" type="submit">
+                                Cập nhật
+                            </Button>
+                        </div>
                     </Form>
                 ) : (
                     <p>Loading</p>
                 )}
             </Modal.Body>
-            <Modal.Footer>
-                <Button onClick={onHide}>Đóng</Button>
-            </Modal.Footer>
         </Modal>
     );
 };

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Modal, Form } from 'react-bootstrap';
-
+import styles from './EditCustomerModal.module.css';
 const EditCustomerModal = ({ user, show, onHide, onUpdate }) => {
     const [formData, setFormData] = useState({
         username: '',
@@ -33,40 +33,63 @@ const EditCustomerModal = ({ user, show, onHide, onUpdate }) => {
     return (
         <Modal show={show} onHide={onHide} size="lg" centered>
             <Modal.Header closeButton>
-                <Modal.Title>Chỉnh sửa thông tin khách hàng</Modal.Title>
+                <Modal.Title className={styles.customerTitle}>Chỉnh sửa thông tin khách hàng</Modal.Title>
             </Modal.Header>
             <Modal.Body>
                 {user ? (
                     <Form onSubmit={handleSubmit}>
-                        <Form.Group controlId="email">
-                            <Form.Label>Email</Form.Label>
-                            <Form.Control type="email" name="email" value={formData.email} onChange={handleChange} />
+                        <Form.Group className={styles.customerGroup} controlId="email">
+                            <Form.Label className={styles.customerLabel}>Email</Form.Label>
+                            <Form.Control
+                                className={styles.customerControl}
+                                type="email"
+                                name="email"
+                                value={formData.email}
+                                onChange={handleChange}
+                            />
                         </Form.Group>
-                        <Form.Group controlId="phone_number">
-                            <Form.Label>Tên</Form.Label>
-                            <Form.Control type="text" name="name" value={formData.name} onChange={handleChange} />
+                        <Form.Group className={styles.customerGroup} controlId="phone_number">
+                            <Form.Label className={styles.customerLabel}>Tên</Form.Label>
+                            <Form.Control
+                                className={styles.customerControl}
+                                type="text"
+                                name="name"
+                                value={formData.name}
+                                onChange={handleChange}
+                            />
                         </Form.Group>
-                        <Form.Group controlId="address">
-                            <Form.Label>Địa chỉ</Form.Label>
-                            <Form.Control type="text" name="address" value={formData.address} onChange={handleChange} />
+                        <Form.Group className={styles.customerGroup} controlId="address">
+                            <Form.Label className={styles.customerLabel}>Địa chỉ</Form.Label>
+                            <Form.Control
+                                className={styles.customerControl}
+                                type="text"
+                                name="address"
+                                value={formData.address}
+                                onChange={handleChange}
+                            />
                         </Form.Group>
 
-                        <Form.Group controlId="phone_number">
-                            <Form.Label>Số điện thoại</Form.Label>
-                            <Form.Control type="text" name="phone_number" value={formData.phone_number} onChange={handleChange} />
+                        <Form.Group className={styles.customerGroup} controlId="phone_number">
+                            <Form.Label className={styles.customerLabel}>Số điện thoại</Form.Label>
+                            <Form.Control
+                                className={styles.customerControl}
+                                type="text"
+                                name="phone_number"
+                                value={formData.phone_number}
+                                onChange={handleChange}
+                            />
                         </Form.Group>
 
-                        <Button variant="primary" type="submit" className="mt-2">
-                            Cập nhật
-                        </Button>
+                        <div className={styles.btn}>
+                            <Button className={`mt-2 ${styles.customerBtn}`} variant="primary" type="submit">
+                                Cập nhật
+                            </Button>
+                        </div>
                     </Form>
                 ) : (
                     <p>Loading</p>
                 )}
             </Modal.Body>
-            <Modal.Footer>
-                <Button onClick={onHide}>Đóng</Button>
-            </Modal.Footer>
         </Modal>
     );
 };

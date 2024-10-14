@@ -1,0 +1,14 @@
+.employeeTitle {
+  font-size: 1.8rem !important;
+  color: #e74c3c !important;
+}
+
+.employeeLabel {
+  font-size: 1.6rem !important;
+}
+
+.employeeBtn {  
+  width: 100px;
+  height: 34px;
+  font-size: 1.6rem !important;
+}

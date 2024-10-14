@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Modal, Form } from 'react-bootstrap';
-
+import styles from './EditRankModal.module.css';
 const EditRankModal = ({ rank, show, onHide, onUpdate }) => {
     const [formData, setFormData] = useState({
         rank_name: '',
@@ -33,53 +33,62 @@ const EditRankModal = ({ rank, show, onHide, onUpdate }) => {
     return (
         <Modal show={show} onHide={onHide} size="lg" centered>
             <Modal.Header closeButton>
-                <Modal.Title>Chỉnh sửa hạng khách hàng</Modal.Title>
+                <Modal.Title className={styles.customerTitle}>Chỉnh sửa hạng khách hàng</Modal.Title>
             </Modal.Header>
             <Modal.Body>
                 {rank ? (
                     <Form onSubmit={handleSubmit}>
-                        <Form.Group controlId="rank_name">
-                            <Form.Label>Thứ hạng</Form.Label>
+                        <Form.Group className={styles.customerGroup} controlId="rank_name">
+                            <Form.Label className={styles.customerLabel}>Thứ hạng</Form.Label>
                             <Form.Control
+                                className={styles.customerControl}
                                 type="text"
                                 name="rank_name"
                                 value={formData.rank_name}
                                 onChange={handleChange}
                             />
                         </Form.Group>
-                        <Form.Group controlId="discount_rate">
-                            <Form.Label>Giảm giá</Form.Label>
+                        <Form.Group className={styles.customerGroup} controlId="discount_rate">
+                            <Form.Label className={styles.customerLabel}>Giảm giá</Form.Label>
                             <Form.Control
+                                className={styles.customerControl}
                                 type="text"
                                 name="discount_rate"
                                 value={formData.discount_rate}
                                 onChange={handleChange}
                             />
                         </Form.Group>
-                        <Form.Group controlId="min_spending">
-                            <Form.Label>Phí tối thiểu</Form.Label>
+                        <Form.Group className={styles.customerGroup} controlId="min_spending">
+                            <Form.Label className={styles.customerLabel}>Phí tối thiểu</Form.Label>
                             <Form.Control
+                                className={styles.customerControl}
                                 type="text"
                                 name="min_spending"
                                 value={formData.min_spending}
                                 onChange={handleChange}
                             />
                         </Form.Group>
-                        <Form.Group controlId="role">
-                            <Form.Label>Mô tả</Form.Label>
-                            <Form.Control as="textarea" rows={3}  name="description" value={formData.description} onChange={handleChange} />
+                        <Form.Group className={styles.customerGroup} controlId="role">
+                            <Form.Label className={styles.customerLabel}>Mô tả</Form.Label>
+                            <Form.Control
+                                className={styles.customerControl}
+                                as="textarea"
+                                rows={3}
+                                name="description"
+                                value={formData.description}
+                                onChange={handleChange}
+                            />
                         </Form.Group>
-                        <Button variant="primary" type="submit" className="mt-2">
-                            Cập nhật
-                        </Button>
+                        <div className={styles.btn}>
+                            <Button className={`mt-2 ${styles.customerBtn}`} variant="primary" type="submit">
+                                Cập nhật
+                            </Button>
+                        </div>
                     </Form>
                 ) : (
                     <p>Loading....</p>
                 )}
             </Modal.Body>
-            <Modal.Footer>
-                <Button onClick={onHide}>Đóng</Button>
-            </Modal.Footer>
         </Modal>
     );
 };

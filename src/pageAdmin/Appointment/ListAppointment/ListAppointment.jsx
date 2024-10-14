@@ -1,9 +1,65 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react';
+import styles from './ListAppointment.module.css';
+import Breadcrumb from '@/components/UI/Breadcrumb/Breadcrumb';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { getUserApi } from '@/utils/api';
+import TableCustomer from './TableCustomer/TableCustomer';
+import CommonButton from '@/components/UI/CommonButton/CommonButton ';
+import { useNavigate } from 'react-router-dom';
+import icons from '@/utils/icon';
+const ListsAppointment = () => {
+    const navigate = useNavigate();
+    const [userData, setUserData] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const { FaPlusCircle } = icons;
+    // useEffect(() => {
+    //     const fetchData = async () => {
+    //         try {
+    //             const response = await getUserApi();
+    //             console.log('dataTable', response);
+    //             setUserData(response);
+    //             setLoading(false);
+    //         } catch (error) {
+    //             if (error.response && error.response.status === 401) {
+    //                 toast.error('Token đã hết hạn, vui lòng đăng nhập lại.');
+    //             } else {
+    //                 toast.error('Đã xảy ra lỗi khi lấy dữ liệu người dùng.');
+    //             }
 
-const ListAppointment = () => {
-  return (
-    <div>ListAppointment</div>
-  )
-}
+    //             setLoading(false);
+    //         }
+    //     };
 
-export default ListAppointment
+    //     fetchData();
+    // }, []);
+
+    const handleAddCustomer = () =>{
+        navigate('/addCustomer');
+    }
+
+    if (loading) {
+        return <p>Loading...</p>;
+    }
+
+    return (
+        <div>
+            <div className={styles.listsAppointment}>
+                <Breadcrumb items={['Quản lý chương trình khuyến mãi ', 'Danh sách chương trình khyến mãi']} activeItem="Danh sách chương trình khyến mãi" />
+            </div>
+            <div>
+                <div className={styles.listsAppointmentButton}>
+                    <CommonButton
+                        onClick={handleAddCustomer}
+                        icon={FaPlusCircle}
+                        label="Thêm"
+                    />
+                </div>
+                {/* <TableCustomer data={userData} itemsPerPage={5} /> */}
+            </div>
+            <ToastContainer />
+        </div>
+    );
+};
+
+export default ListsAppointment;

@@ -1,0 +1,33 @@
+.employeeTitle {
+    font-size: 1.8rem !important;
+    color: #3498db !important;
+}
+
+.employeeLabel {
+    font-size: 1.6rem !important;
+}
+
+.employeeControl {
+    font-size: 1.4rem !important;
+}
+
+.employeeLabel,
+.employeeControl {
+    color: var(--text-third) !important;
+}
+
+.employeeGroup {
+    padding: 6px;
+}
+
+.btn{
+  display: flex !important;
+  justify-content: flex-end !important;
+  align-items: center;
+}
+
+.employeeBtn {  
+    width: 100px;
+    height: 34px;
+    font-size: 1.6rem !important;
+}

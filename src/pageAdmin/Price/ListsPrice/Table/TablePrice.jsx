@@ -48,14 +48,13 @@ const TablePrice = ({ data = [], itemsPerPage }) => {
     };
     
     const handleShowUserDetail = (price) => {
-        navigate(`/price/${price._id}/lines`);
+        navigate(`/price-detail/${price._id}`);
     };
     return (
         <div className={styles.dataTableWrapper}>
             <Table striped bordered hover className={styles.dataTable}>
                 <thead>
                     <tr className="">
-                        <th className={styles.dataTableHead}>#</th>
                         <th className={styles.dataTableHead}>Tên bảng giá </th>
                         <th className={styles.dataTableHead}>Ngày bắt đầu</th>
                         <th className={styles.dataTableHead}>Ngày kết thúc</th>
@@ -63,8 +62,7 @@ const TablePrice = ({ data = [], itemsPerPage }) => {
                 </thead>
                 <tbody>
                     {currentData.map((item, index) => (
-                        <tr key={item._id}>
-                            <td>{startIndex + index + 1}</td>
+                        <tr key={item._id} className={styles.dataTableRow} onClick={() => handleShowUserDetail(item)}>
                             <td className={styles.dataTableItem}>{item.price_list_name}</td>
                             <td className={styles.dataTableItem}>{item.start_date}</td>
                             <td className={styles.dataTableItem}>{item.end_date}</td>
@@ -81,7 +79,7 @@ const TablePrice = ({ data = [], itemsPerPage }) => {
                 </tbody>
             </Table>
 
-            {price.length > 0 && (
+            {price.length > 5 && (
                 <Pagination className={styles.pagination} size='lg'>
                     <Pagination.First onClick={() => handlePageChange(1)} disabled={currentPage === 1} />
                     <Pagination.Prev onClick={() => handlePageChange(currentPage - 1)} disabled={currentPage === 1} />

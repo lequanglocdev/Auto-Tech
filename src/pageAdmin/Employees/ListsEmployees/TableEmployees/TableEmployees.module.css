@@ -8,6 +8,7 @@
   text-align: center;
   margin-top: auto;
   margin-bottom: 0;
+  cursor: pointer;
 }
 .dataTableItemAction {
   display: flex;

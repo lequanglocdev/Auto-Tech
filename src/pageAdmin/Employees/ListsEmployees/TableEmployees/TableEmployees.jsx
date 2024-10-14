@@ -2,19 +2,18 @@ import React, { useState } from 'react';
 import { Table, Pagination } from 'react-bootstrap';
 import styles from './TableEmployees.module.css';
 import icons from '@/utils/icon';
-import ModalEmployees from '../Modal/ModalEmployees';
 import EditEmployeeModal from '../EditEmployeeModal/EditEmployeeModal';
 import ConfirmDeleteModal from '../ConfirmDeleteModal/ConfirmDeleteModal';
-import { deleteEmployeeApi, getDetailEmployee, putEmployeeApi } from '@/utils/api';
+import { deleteEmployeeApi, putEmployeeApi } from '@/utils/api';
+import { useNavigate } from 'react-router-dom';
 
 const TableEmployees = ({ data = [], itemsPerPage }) => {
-    const { FaEye, FaPen, FaTrash } = icons;
-
+    const { FaPen, FaTrash } = icons;
+    const navigate = useNavigate();
     const [currentPage, setCurrentPage] = useState(1);
     const totalPages = Math.ceil(data.length / itemsPerPage);
     const startIndex = (currentPage - 1) * itemsPerPage;
 
-    const [modalShow, setModalShow] = React.useState(false);
     const [editModalShow, setEditModalShow] = useState(false);
     const [confirmDeleteModalShow, setConfirmDeleteModalShow] = useState(false);
 
@@ -48,14 +47,7 @@ const TableEmployees = ({ data = [], itemsPerPage }) => {
     };
 
     const handleShowUserDetail = async (user) => {
-        try {
-            const response = await getDetailEmployee(user);
-            setSelectedEmployee(response);
-            console.log('>> check detail response employee', response);
-            setModalShow(true);
-        } catch (error) {
-            console.error('Error fetching user details:', error);
-        }
+        navigate(`/employess/${user._id}`);
     };
 
     const handleEditUser = (user) => {
@@ -89,18 +81,27 @@ const TableEmployees = ({ data = [], itemsPerPage }) => {
                 </thead>
                 <tbody>
                     {currentData.map((item, index) => (
-                        <tr key={item._id}>
+                        <tr key={item._id} onClick={() => handleShowUserDetail(item)}>
                             <td className={styles.dataTableItem}>{item.name}</td>
                             <td className={styles.dataTableItem}>{item.email}</td>
                             <td className={styles.dataTableItem}>{item.phone_number}</td>
                             <td className={styles.dataTableItemAction}>
-                                <div className={styles.dataTableIconEye} onClick={() => handleShowUserDetail(item)}>
-                                    <FaEye />
-                                </div>
-                                <div className={styles.dataTableIconPen} onClick={() => handleEditUser(item)}>
+                                <div
+                                    className={styles.dataTableIconPen}
+                                    onClick={(e) => {
+                                        e.stopPropagation();
+                                        handleEditUser(item);
+                                    }}
+                                >
                                     <FaPen />
                                 </div>
-                                <div className={styles.dataTableIconTrash} onClick={() => handleDeleteUser(item)}>
+                                <div
+                                    className={styles.dataTableIconTrash}
+                                    onClick={(e) => {
+                                        e.stopPropagation();
+                                        handleDeleteUser(item);
+                                    }}
+                                >
                                     <FaTrash />
                                 </div>
                             </td>
@@ -132,8 +133,6 @@ const TableEmployees = ({ data = [], itemsPerPage }) => {
                     />
                 </Pagination>
             )}
-
-            <ModalEmployees show={modalShow} onHide={() => setModalShow(false)} user={selectedEmployee} />
             <EditEmployeeModal
                 show={editModalShow}
                 onHide={() => setEditModalShow(false)}
