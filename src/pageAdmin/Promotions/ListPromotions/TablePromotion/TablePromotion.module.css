@@ -19,16 +19,6 @@
     cursor: pointer;
 }
 
-.dataTableIconEye {
-    width: 30px;
-    height: 30px;
-    border-radius: 4px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #cb3ce733;
-    color: #e84393;
-}
 .dataTableIconPen {
     width: 30px;
     height: 30px;

@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { getDetailUser, getRankApi, putCustomerRankApi } from '@/utils/api';
+import { deleteVehicleForCustomer, getDetailUser, getRankApi, putCustomerRankApi, putVehicleForCustomer } from '@/utils/api';
 import styles from './CustomerDetail.module.css';
 import { Spinner, Form, Modal, Button, Table } from 'react-bootstrap';
 import { toast } from 'react-toastify';
 import AddVehicleModal from './AddVehicleModal/AddVehicleModal';
 import icons from '@/utils/icon';
+import EditVehicleModal from './EditVehicleModal/EditVehicleModal';
+import ConfirmDeleteModal from './ConfirmDeleteModal/ConfirmDeleteModal';
 const CustomerDetailPage = () => {
     const { id } = useParams();
     const [customer, setCustomer] = useState(null);
@@ -15,8 +17,12 @@ const CustomerDetailPage = () => {
     const [rank, setRank] = useState('');
     const [rankOptions, setRankOptions] = useState([]);
     const [showModal, setShowModal] = useState(false);
+    const [editModalShow, setEditModalShow] = useState(false);
+    const [confirmDeleteModalShow, setConfirmDeleteModalShow] = useState(false);
+    const [customerToDelete, setCustomerToDelete] = useState(null);
     const [showAddVehicleModal, setShowAddVehicleModal] = useState(false);
     const [selectedRank, setSelectedRank] = useState('');
+    const [selectedUser, setSelectedUser] = useState(null);
     const { FaPlus, FaPen, FaTrash} = icons;
 
     const rankStyles = {
@@ -108,6 +114,60 @@ const CustomerDetailPage = () => {
         setShowAddVehicleModal(false);
         toast.success('Thêm xe thành công!');
     };
+
+    const handleEditVehicle = (vehicle) => {
+        setSelectedUser(vehicle);
+        setEditModalShow(true);
+    };
+
+    const handleUpdateCustomer = async (updatedVehicle) => {
+        try {
+            const response = await putVehicleForCustomer(id, updatedVehicle._id, updatedVehicle);  // id là customerId, updatedVehicle._id là vehicleId
+            
+            if (response) {
+                // Cập nhật lại danh sách xe của khách hàng nếu cập nhật thành công
+                setVehicles((prevVehicles) =>
+                    prevVehicles.map((vehicle) =>
+                        vehicle._id === updatedVehicle._id ? { ...vehicle, ...updatedVehicle } : vehicle
+                    )
+                );
+    
+                setEditModalShow(false);
+                toast.success('Cập nhật xe thành công!');
+            }
+        } catch (error) {
+            console.error('Lỗi khi cập nhật xe cho khách hàng:', error);
+            toast.error('Đã xảy ra lỗi khi cập nhật xe.');
+        }
+    };
+
+    const handleDeleteUser = (user) => {
+        setCustomerToDelete(user);
+        setConfirmDeleteModalShow(true);
+    };
+
+    const handleConfirmDelete = async () => {
+        if (customerToDelete) {
+            try {
+                // Xóa xe với id của khách hàng và id của xe
+                await deleteVehicleForCustomer(id, customerToDelete._id);
+                
+                // Cập nhật lại danh sách xe sau khi xóa thành công
+                setVehicles((prevVehicles) =>
+                    prevVehicles.filter((vehicle) => vehicle._id !== customerToDelete._id)
+                );
+                toast.success('Xóa xe thành công!');
+            } catch (error) {
+                console.error('Lỗi khi xóa xe:', error);
+                toast.error('Đã xảy ra lỗi khi xóa xe.');
+            } finally {
+                setConfirmDeleteModalShow(false);
+                setCustomerToDelete(null);
+            }
+        }
+    };
+    
+
     if (loading) {
         return (
             <div className="d-flex justify-content-center mt-5">
@@ -197,19 +257,19 @@ const CustomerDetailPage = () => {
                                         <td className={styles.dataTableItemAction}>
                                             <div
                                                 className={styles.dataTableIconPen}
-                                                // onClick={(e) => {
-                                                //     e.stopPropagation();
-                                                //     handleEditUser(item);
-                                                // }}
+                                                onClick={(e) => {
+                                                    e.stopPropagation();
+                                                    handleEditVehicle(vehicle);
+                                                }}
                                             >
                                                 <FaPen />
                                             </div>
                                             <div
                                                 className={styles.dataTableIconTrash}
-                                                // onClick={(e) => {
-                                                //     e.stopPropagation();
-                                                //     handleDeleteUser(item);
-                                                // }}
+                                                onClick={(e) => {
+                                                    e.stopPropagation();
+                                                    handleDeleteUser(vehicle);
+                                                }}
                                             >
                                                 <FaTrash />
                                             </div>
@@ -247,6 +307,17 @@ const CustomerDetailPage = () => {
                 onClose={handleAddVehicleModalClose}
                 onSave={handleAddVehicleSave}
                 customerId={customer._id}
+            />
+              <EditVehicleModal
+                show={editModalShow}
+                vehicle={selectedUser}
+                onHide={() => setEditModalShow(false)}
+                onUpdate={handleUpdateCustomer}
+            />
+             <ConfirmDeleteModal
+                show={confirmDeleteModalShow}
+                onHide={() => setConfirmDeleteModalShow(false)}
+                onConfirm={handleConfirmDelete}
             />
         </div>
     );

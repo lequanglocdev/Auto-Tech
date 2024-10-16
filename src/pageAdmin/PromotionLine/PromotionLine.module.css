@@ -1,0 +1,92 @@
+.promotionLinelWrapper {
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+}
+
+.promotionDetaiHead {
+    display: flex;
+    align-items: center;
+}
+
+.promotionIcon {
+    font-size: 3rem;
+    padding: 4px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.dataTableWrapper {
+    margin-top: 10px;
+}
+
+.dataTableItem,
+.dataTableHead {
+    font-size: 1.4rem;
+    height: 50px;
+    text-align: center;
+    margin-top: auto;
+    margin-bottom: 0;
+    cursor: pointer;
+}
+
+.dataTableItemAction {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    font-size: 1.4rem;
+    cursor: pointer;
+}
+
+.dataTableIconPen {
+    width: 30px;
+    height: 30px;
+    border-radius: 4px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #1a9f5333;
+    color: #55efc4;
+}
+
+.dataTableIconTrash {
+    width: 30px;
+    height: 30px;
+    border-radius: 4px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f1113333;
+    color: #c0392b;
+}
+
+.labelText {
+    font-size: 1.4rem;
+    font-weight: 500;
+}
+
+.btnAdd {
+    outline: none;
+    border: none;
+    background-color: #0984e3;
+    width: 200px;
+    height: 30px;
+    border-radius: 6px;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    align-items: center;
+    font-size: 1.6rem;
+    color: var(--text-primary);
+    font-size: bold;
+    margin: 20px 0;
+}
+.btnAdd:hover {
+    background-color: #74b9ff;
+}
+
+.btnAdd:active {
+    background-color: #0652a0;
+    transform: scale(0.98);
+}

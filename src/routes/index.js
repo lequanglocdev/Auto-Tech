@@ -22,6 +22,9 @@ import CustomerDetailPage from '@/pageAdmin/CustomerDetail/CustomerDetailPage';
 import PriceDetail from '@/pageAdmin/PriceDetail/PriceDetailPage';
 import PriceDetailPage from '@/pageAdmin/PriceDetail/PriceDetailPage';
 import EmployeesDetail from '@/pageAdmin/EmployeesDetail/EmployeesDetail';
+import PromotionLine from '@/pageAdmin/PromotionLine/PromotionLine';
+import PromotionDetail from '@/pageAdmin/PromotionDetail/PromotionDetail';
+import Slot from '@/pageAdmin/Slot/Slot';
 
 export const publicRoute = [
     { path: '/', component: Home },
@@ -61,8 +64,10 @@ export const privateRoute = [
     
     { path: '/promotion', component: ListsPromotion },
     { path: '/addPromotion', component: CreatePromotion },
+    { path: '/promotion/:id', component: PromotionLine},
+    { path: '/line/:id', component: PromotionDetail},
    
-
+    {path: '/slot/:slotId',component: Slot},
  
     
     { path: '/appointments/list', component: ListAppointment },

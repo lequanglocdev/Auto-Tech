@@ -24,7 +24,7 @@ const SidebarAdmin = ({ isVisible, onSelectMenu }) => {
         {
             title: 'Tổng quan',
             icon: MdDashboard,
-            items: ['Danh sách doanh thu'],
+            items: ['Đặt lịch'],
         },
         {
             title: 'Quản lý nhân viên',
@@ -87,7 +87,7 @@ const SidebarAdmin = ({ isVisible, onSelectMenu }) => {
 
     const handleMenuClick = (item, index) => {
         setSelectedMenu(index);
-        if (item === 'Danh sách doanh thu') {
+        if (item === 'Đặt lịch') {
             navigate('/admin');
         }
         if (item === 'Danh sách nhân viên') {

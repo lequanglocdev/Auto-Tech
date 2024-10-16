@@ -3,7 +3,6 @@ import { Table, Pagination } from 'react-bootstrap';
 import icons from '@/utils/icon';
 import styles from './TablePromotion.module.css';
 import { deleteUserApi, putCustomerApi } from '@/utils/api';
-import ModalCustomer from '../Modal/ModalCustomer';
 import EditCustomerModal from '../EditPromotionModal/EditPromotionModal';
 import ConfirmDeleteModal from '../ConfirmDeleteModal/ConfirmDeleteModal';
 import { useNavigate } from 'react-router-dom';
@@ -47,8 +46,8 @@ const TablePromotion = ({ data = [], itemsPerPage }) => {
         }
     };
 
-    const handleShowUserDetail = (user) => {
-        navigate(`/customer/${user._id}`);
+    const handleShowUserDetail = (promotion) => {
+        navigate(`/promotion/${promotion._id}`);
     };
     const handleEditUser = (user) => {
         setSelectedPromotion(user);
@@ -69,12 +68,6 @@ const TablePromotion = ({ data = [], itemsPerPage }) => {
         }
     };
 
-    const handleUpdateUser = (newVehicle) => {
-        setSelectedPromotion((prev) => ({
-            ...prev,
-            vehicles: [...prev.vehicles, newVehicle], // Thêm phương tiện mới vào danh sách
-        }));
-    };
     return (
         <div className={styles.dataTableWrapper}>
             <Table striped bordered hover className={styles.dataTable}>
@@ -140,13 +133,6 @@ const TablePromotion = ({ data = [], itemsPerPage }) => {
                     />
                 </Pagination>
             )}
-
-            <ModalCustomer
-                show={modalShow}
-                onHide={() => setModalShow(false)}
-                user={selectedPromotion}
-                onUpdateUser={handleUpdateUser}
-            />
 
             <EditCustomerModal
                 show={editModalShow}

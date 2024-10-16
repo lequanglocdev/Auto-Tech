@@ -50,7 +50,7 @@ const EmployeesDetail = () => {
                 className={styles.employeeDetaiProfile}
                
             >
-                <h2 className={`mb-3 ${styles.employeeDetailTextHeading}`}>Thông tin chi tiết khách hàng</h2>
+                <h2 className={`mb-3 ${styles.employeeDetailTextHeading}`}>Thông tin chi tiết nhân viên</h2>
                 <p className={styles.employeeDetailTextDes}>
                     <strong>Tên:</strong> {employee.name}
                 </p>
