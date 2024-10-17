@@ -59,7 +59,31 @@ const TableCar = ({ data = [], itemsPerPage }) => {
                 setEditModalShow(false);
             }
         } catch (error) {
-            console.log(error);
+            if (error.response) {
+                const errorMessage = error.response.data || 'Đã xảy ra lỗi khi cập nhật';
+                console.error('Lỗi:', errorMessage);
+
+                toast.error(errorMessage, {
+                    position: 'top-right',
+                    autoClose: 3000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                });
+            } else {
+                console.error('Lỗi không xác định:', error);
+                toast.error('Đã xảy ra lỗi không xác định. Vui lòng thử lại sau.', {
+                    position: 'top-right',
+                    autoClose: 3000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                });
+            }
         }
     };
     return (
@@ -67,7 +91,7 @@ const TableCar = ({ data = [], itemsPerPage }) => {
             <Table striped bordered hover className={styles.dataTable}>
                 <thead>
                     <tr className="">
-                        <th className={styles.dataTableHead}>Name</th>
+                        <th className={styles.dataTableHead}>Hãng xe</th>
                         <th className={styles.dataTableHead}>mô tả</th>
                         <th className={styles.dataTableHead}>Hành động</th>
                     </tr>

@@ -1,4 +1,4 @@
-.dashContentWithSidebar {
+/* .dashContentWithSidebar {
     flex: 1;
     height: 1000px;
     padding: 20px;
@@ -16,22 +16,37 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
-.dashBoardHead {
+.dashboardHeader {
     margin-top: 20px;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-}
-
-.slotContainer {
-    margin-top: 20px;
+    padding: 0 20px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     flex-wrap: wrap;
-    margin: 20px;
+    gap: 20px;
 }
 
+.dashboardHeader h2{
+    font-size: 2rem;
+    font-weight: bold;
+    font-style: italic;
+    color: var(--text-second);
+}
+.slotContainer {
+    margin-top: 20px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin: 20px;
+    overflow: hidden; 
+}
+.noSlotMessage{
+    font-size: 1.6rem;
+    font-style: italic;
+    color: var(--text-third);
+}
 .slotCard {
     width: 350px;
     height: 200px;
@@ -76,7 +91,7 @@
     background-color: #0056b3;
 }
 
-.slotCardHeader{
+.slotCardHeader {
     width: 100%;
     height: 40px;
     padding: 0 10px;
@@ -88,61 +103,209 @@
     background-image: linear-gradient(to right, rgb(29, 162, 86), rgb(72, 212, 131));
 }
 
-.slotCardHeaderTextLeft{
+.slotCardHeaderTextLeft {
     font-size: 1.6rem;
     font-weight: bold;
     color: var(--text-primary) !important;
 }
 
-.bookedStatus{
+.bookedStatus {
     color: red !important;
     font-size: 1.4rem;
-    font-weight: bold; /* Tô đậm chữ nếu muốn */
+    font-weight: bold; 
 }
 
-.availableStatus{
+.availableStatus {
     color: var(--text-third) !important;
     font-size: 1.4rem;
     font-weight: bold;
 }
 
-.slotCardBody{
+.slotCardBody {
     flex: 1;
     background-color: #ecf0f1;
     padding: 4px;
 }
 
-.slotCardBodyText{
+.slotCardBodyText {
     font-size: 1.4rem;
-
 }
 
-.slotCardFooder{
+.slotCardFooter {
     position: absolute;
     bottom: 0;
     width: 100%;
     height: 40px;
-    background-color: #3498db;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.slotCardFooterView,
+.slotCardFooterDelete,
+.slotCardFooterBook {
+    flex: 1;
+    height: 40px;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 1.6rem;
     color: var(--text-primary);
+    font-size: 1.6rem;
     cursor: pointer;
 }
-.slotCardFooder:hover{
-   opacity: 0.8;
+.slotCardFooterView {
+    background-color: #f39c12;
+    border-bottom-left-radius: 4px;
+}
+.slotCardFooterDelete {
+    background-color: #e74c3c;
+}
+.slotCardFooterBook {
+    background-color: #3498db;
+}
+.modalHeader {
+    background-color: var(--text-second) !important;
 }
 
-.modalHeader{
-    background-color: var( --text-second) !important;
-}
-
-.modalHeaderText{
+.modalHeaderText {
     font-size: 1.4rem !important;
     color: var(--text-primary) !important;
 }
 
-.modalBody{
+.modalBody {
+    font-size: 1.4rem !important;
+} */
+.dashboar {
+    width: 100%;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.dashboardHeader {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 20px;
+    margin: 20px 0;
+}
+
+.slotContainerEmpty,
+.slotContainerBooked {
+    width: 100%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 0 10px;
+}
+
+.slotContainerAreaTwo{
+    margin-top: 40px;
+}
+
+.sectionTitle{
+    text-align: center;
+    font-size: 2rem;
+    font-weight: bold;
+    color: var(--text-second);
+    margin-bottom: 20px;
+    font-style: italic;
+}
+
+.slotCard {
+    width: 350px;
+    height: 200px;
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+}
+
+.slotCardHeader {
+    width: 100%;
+    height: 40px;
+    padding: 0 10px;
+    display: flex;
+    justify-content: space-between;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    align-items: center;
+    background-image: linear-gradient(to right, rgb(29, 162, 86), rgb(72, 212, 131));
+}
+.slotCardHeaderTextLeft {
+    font-size: 1.6rem;
+    font-weight: bold;
+    color: var(--text-primary) !important;
+}
+
+.bookedStatus {
+    color: red !important;
+    font-size: 1.4rem;
+    font-weight: bold;
+}
+
+.availableStatus {
+    color: var(--text-third) !important;
+    font-size: 1.4rem;
+    font-weight: bold;
+}
+
+.slotCardBody {
+    flex: 1;
+    background-color: #ecf0f1;
+    padding: 4px;
+}
+
+.slotCardBodyText {
+    font-size: 1.4rem;
+}
+
+.slotCardFooter {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 40px;
+}
+
+.slotCardFooterView,
+.slotCardFooterDelete,
+.slotCardFooterBook {
+    flex: 1;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--text-primary);
+    font-size: 1.8rem;
+    cursor: pointer;
+}
+.slotCardFooterView {
+    background-color: #f39c12;
+    border-bottom-left-radius: 4px;
+}
+.slotCardFooterDelete {
+    background-color: #e74c3c;
+}
+.slotCardFooterBook {
+    background-color: #3498db;
+}
+.modalHeader {
+    background-color: var(--text-second) !important;
+}
+
+.modalHeaderText {
+    font-size: 1.4rem !important;
+    color: var(--text-primary) !important;
+}
+
+.modalBody {
     font-size: 1.4rem !important;
 }

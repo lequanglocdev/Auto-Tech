@@ -1,6 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { deleteVehicleForCustomer, getDetailUser, getRankApi, putCustomerRankApi, putVehicleForCustomer } from '@/utils/api';
+import {
+    deleteVehicleForCustomer,
+    getDetailUser,
+    getRankApi,
+    putCustomerRankApi,
+    putVehicleForCustomer,
+} from '@/utils/api';
 import styles from './CustomerDetail.module.css';
 import { Spinner, Form, Modal, Button, Table } from 'react-bootstrap';
 import { toast } from 'react-toastify';
@@ -8,7 +14,10 @@ import AddVehicleModal from './AddVehicleModal/AddVehicleModal';
 import icons from '@/utils/icon';
 import EditVehicleModal from './EditVehicleModal/EditVehicleModal';
 import ConfirmDeleteModal from './ConfirmDeleteModal/ConfirmDeleteModal';
+import Breadcrumb from '@/components/UI/Breadcrumb/Breadcrumb';
+import { useNavigate } from 'react-router-dom';
 const CustomerDetailPage = () => {
+    const navigate = useNavigate();
     const { id } = useParams();
     const [customer, setCustomer] = useState(null);
     const [vehicles, setVehicles] = useState([]);
@@ -23,7 +32,7 @@ const CustomerDetailPage = () => {
     const [showAddVehicleModal, setShowAddVehicleModal] = useState(false);
     const [selectedRank, setSelectedRank] = useState('');
     const [selectedUser, setSelectedUser] = useState(null);
-    const { FaPlus, FaPen, FaTrash} = icons;
+    const { FaPlus, FaPen, FaTrash, MdArrowBackIos } = icons;
 
     const rankStyles = {
         Đồng: { backgroundColor: '#d35400', textColor: '#ecf0f1' },
@@ -122,16 +131,16 @@ const CustomerDetailPage = () => {
 
     const handleUpdateCustomer = async (updatedVehicle) => {
         try {
-            const response = await putVehicleForCustomer(id, updatedVehicle._id, updatedVehicle);  // id là customerId, updatedVehicle._id là vehicleId
-            
+            const response = await putVehicleForCustomer(id, updatedVehicle._id, updatedVehicle); // id là customerId, updatedVehicle._id là vehicleId
+
             if (response) {
                 // Cập nhật lại danh sách xe của khách hàng nếu cập nhật thành công
                 setVehicles((prevVehicles) =>
                     prevVehicles.map((vehicle) =>
-                        vehicle._id === updatedVehicle._id ? { ...vehicle, ...updatedVehicle } : vehicle
-                    )
+                        vehicle._id === updatedVehicle._id ? { ...vehicle, ...updatedVehicle } : vehicle,
+                    ),
                 );
-    
+
                 setEditModalShow(false);
                 toast.success('Cập nhật xe thành công!');
             }
@@ -151,11 +160,9 @@ const CustomerDetailPage = () => {
             try {
                 // Xóa xe với id của khách hàng và id của xe
                 await deleteVehicleForCustomer(id, customerToDelete._id);
-                
+
                 // Cập nhật lại danh sách xe sau khi xóa thành công
-                setVehicles((prevVehicles) =>
-                    prevVehicles.filter((vehicle) => vehicle._id !== customerToDelete._id)
-                );
+                setVehicles((prevVehicles) => prevVehicles.filter((vehicle) => vehicle._id !== customerToDelete._id));
                 toast.success('Xóa xe thành công!');
             } catch (error) {
                 console.error('Lỗi khi xóa xe:', error);
@@ -166,8 +173,10 @@ const CustomerDetailPage = () => {
             }
         }
     };
-    
 
+    const handleListCustomer = () => {
+        navigate('/customer');
+    };
     if (loading) {
         return (
             <div className="d-flex justify-content-center mt-5">
@@ -185,140 +194,147 @@ const CustomerDetailPage = () => {
     }
 
     return (
-        <div className={`${styles.customerDetailWrapper} container mt-4`}>
-            <div
-                className={styles.customerDetaiProfile}
-                style={{
-                    backgroundColor: rankStyles[currentRankName]?.backgroundColor || '#FFFFFF', // Mặc định màu trắng nếu không có trong danh sách
-                    color: rankStyles[currentRankName]?.textColor || '#000000', // Mặc định màu đen nếu không có trong danh sách
-                }}
-            >
-                <h2 className={`mb-3 ${styles.customerDetailTextHeading}`}>Thông tin chi tiết khách hàng</h2>
-                <p className={styles.customerDetailTextDes}>
-                    <strong>Tên:</strong> {customer.name}
-                </p>
-                <p className={styles.customerDetailTextDes}>
-                    <strong>Email:</strong> {customer.email}
-                </p>
-                <p className={styles.customerDetailTextDes}>
-                    <strong>Số điện thoại:</strong> {customer.phone_number}
-                </p>
-                <p className={styles.customerDetailTextDes}>
-                    <strong>Địa chỉ:</strong> {customer.address}
-                </p>
-                <div className={styles.customerDetailRank}>
+        <div>
+            <div className={styles.createServices}>
+                <MdArrowBackIos onClick={handleListCustomer} className={styles.createServiceIcon} />
+                <Breadcrumb
+                    items={['Danh sách khách hàng', 'Thông tin chi tiết khách hàng']}
+                    activeItem="Thông tin chi tiết khách hàng"
+                />
+            </div>
+            <div className={`${styles.customerDetailWrapper} container mt-4`}>
+                <div
+                    className={styles.customerDetaiProfile}
+                    style={{
+                        backgroundColor: rankStyles[currentRankName]?.backgroundColor || '#FFFFFF', // Mặc định màu trắng nếu không có trong danh sách
+                        color: rankStyles[currentRankName]?.textColor || '#000000', // Mặc định màu đen nếu không có trong danh sách
+                    }}
+                >
                     <p className={styles.customerDetailTextDes}>
-                        <strong>Hạng khách hàng:</strong> {currentRankName}
+                        <strong>Tên:</strong> {customer.name}
                     </p>
-                    <Form.Select
-                        aria-label="Chọn hạng khách hàng"
-                        value={rank}
-                        onChange={handleRankChange}
-                        className={`mb-3 ${styles.CustomerDetailSelect}`}
-                    >
-                        {rankOptions.map((option) => (
-                            <option key={option.value} value={option.value}>
-                                {option.label}
-                            </option>
-                        ))}
-                    </Form.Select>
+                    <p className={styles.customerDetailTextDes}>
+                        <strong>Email:</strong> {customer.email}
+                    </p>
+                    <p className={styles.customerDetailTextDes}>
+                        <strong>Số điện thoại:</strong> {customer.phone_number}
+                    </p>
+                    <p className={styles.customerDetailTextDes}>
+                        <strong>Địa chỉ:</strong> {customer.address}
+                    </p>
+                    <div className={styles.customerDetailRank}>
+                        <p className={styles.customerDetailTextDes}>
+                            <strong>Hạng khách hàng:</strong> {currentRankName}
+                        </p>
+                        <Form.Select
+                            aria-label="Chọn hạng khách hàng"
+                            value={rank}
+                            onChange={handleRankChange}
+                            className={`mb-3 ${styles.CustomerDetailSelect}`}
+                        >
+                            {rankOptions.map((option) => (
+                                <option key={option.value} value={option.value}>
+                                    {option.label}
+                                </option>
+                            ))}
+                        </Form.Select>
+                    </div>
                 </div>
-            </div>
-            <div className={styles.vehicleList}>
-                <div className={styles.vehicleItem}>
-                    <h3>Danh sách xe của khách hàng</h3>
-                    <button className={styles.noVehicleBtn} onClick={handleAddVehicleClick}>
-                        <FaPlus fontSize={20} />
-                    </button>
-                </div>
-                {vehicles.length > 0 ? (
-                    <div className={styles.vehicleTableWrapper}>
-                        <Table striped bordered hover responsive className={styles.vehicleTable}>
-                            <thead>
-                                <tr>
-                                    <th>Biển số xe</th>
-                                    {/* <th>Loại xe</th> */}
-                                    <th>Hãng</th>
-                                    <th>Model</th>
-                                    <th>Năm</th>
-                                    <th>Màu sắc</th>
-                                    <th>Hành động</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {vehicles.map((vehicle, index) => (
-                                    <tr key={vehicle._id}>
-                                        <td>{vehicle.license_plate}</td>
-                                        {/* <td>{vehicle?.vehicle_type_id}</td> */}
-                                        <td>{vehicle.manufacturer}</td>
-                                        <td>{vehicle.model}</td>
-                                        <td>{vehicle.year}</td>
-                                        <td>{vehicle.color}</td>
-                                        <td className={styles.dataTableItemAction}>
-                                            <div
-                                                className={styles.dataTableIconPen}
-                                                onClick={(e) => {
-                                                    e.stopPropagation();
-                                                    handleEditVehicle(vehicle);
-                                                }}
-                                            >
-                                                <FaPen />
-                                            </div>
-                                            <div
-                                                className={styles.dataTableIconTrash}
-                                                onClick={(e) => {
-                                                    e.stopPropagation();
-                                                    handleDeleteUser(vehicle);
-                                                }}
-                                            >
-                                                <FaTrash />
-                                            </div>
-                                        </td>
+                <div className={styles.vehicleList}>
+                    <div className={styles.vehicleItem}>
+                        <h3>Danh sách xe của khách hàng</h3>
+                        <button className={styles.noVehicleBtn} onClick={handleAddVehicleClick}>
+                            <FaPlus fontSize={20} />
+                        </button>
+                    </div>
+                    {vehicles.length > 0 ? (
+                        <div className={styles.vehicleTableWrapper}>
+                            <Table striped bordered hover responsive className={styles.vehicleTable}>
+                                <thead>
+                                    <tr>
+                                        <th>Biển số xe</th>
+                                        <th>Tên xe</th>
+                                        <th>Model</th>
+                                        <th>Năm sản xuất</th>
+                                        <th>Màu sắc</th>
+                                        <th>Hành động</th>
                                     </tr>
-                                ))}
-                            </tbody>
-                        </Table>
-                    </div>
-                ) : (
-                    <div className={styles.noVehicleContainer}>
-                        <p className={styles.noVehicleMessage}>Khách hàng hiện chưa có thông tin xe nào.</p>
-                    </div>
-                )}
-            </div>
+                                </thead>
+                                <tbody>
+                                    {vehicles.map((vehicle, index) => (
+                                        <tr key={vehicle._id}>
+                                            <td>{vehicle.license_plate}</td>
+                                            {/* <td>{vehicle?.vehicle_type_id}</td> */}
+                                            <td>{vehicle.manufacturer}</td>
+                                            <td>{vehicle.model}</td>
+                                            <td>{vehicle.year}</td>
+                                            <td>{vehicle.color}</td>
+                                            <td className={styles.dataTableItemAction}>
+                                                <div
+                                                    className={styles.dataTableIconPen}
+                                                    onClick={(e) => {
+                                                        e.stopPropagation();
+                                                        handleEditVehicle(vehicle);
+                                                    }}
+                                                >
+                                                    <FaPen />
+                                                </div>
+                                                <div
+                                                    className={styles.dataTableIconTrash}
+                                                    onClick={(e) => {
+                                                        e.stopPropagation();
+                                                        handleDeleteUser(vehicle);
+                                                    }}
+                                                >
+                                                    <FaTrash />
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </Table>
+                        </div>
+                    ) : (
+                        <div className={styles.noVehicleContainer}>
+                            <p className={styles.noVehicleMessage}>Khách hàng hiện chưa có thông tin xe nào.</p>
+                        </div>
+                    )}
+                </div>
 
-            <Modal show={showModal} onHide={handleModalClose} centered>
-                <Modal.Header closeButton className={styles.modalHeaderCustom}>
-                    <Modal.Title className={styles.modalTitle}>Xác nhận thay đổi rank</Modal.Title>
-                </Modal.Header>
-                <Modal.Body className={styles.modalBodyCustom}>
-                    Bạn có chắc chắn muốn thay đổi hạng khách hàng này?
-                </Modal.Body>
-                <Modal.Footer className={styles.modalFooterCustom}>
-                    <Button variant="secondary" onClick={handleModalClose} className={styles.buttonCustom}>
-                        Hủy
-                    </Button>
-                    <Button variant="danger" onClick={handleModalConfirm} className={styles.buttonCustom}>
-                        Xác nhận
-                    </Button>
-                </Modal.Footer>
-            </Modal>
-            <AddVehicleModal
-                show={showAddVehicleModal}
-                onClose={handleAddVehicleModalClose}
-                onSave={handleAddVehicleSave}
-                customerId={customer._id}
-            />
-              <EditVehicleModal
-                show={editModalShow}
-                vehicle={selectedUser}
-                onHide={() => setEditModalShow(false)}
-                onUpdate={handleUpdateCustomer}
-            />
-             <ConfirmDeleteModal
-                show={confirmDeleteModalShow}
-                onHide={() => setConfirmDeleteModalShow(false)}
-                onConfirm={handleConfirmDelete}
-            />
+                <Modal show={showModal} onHide={handleModalClose} centered>
+                    <Modal.Header closeButton className={styles.modalHeaderCustom}>
+                        <Modal.Title className={styles.modalTitle}>Xác nhận thay đổi rank</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body className={styles.modalBodyCustom}>
+                        Bạn có chắc chắn muốn thay đổi hạng khách hàng này?
+                    </Modal.Body>
+                    <Modal.Footer className={styles.modalFooterCustom}>
+                        <Button variant="secondary" onClick={handleModalClose} className={styles.buttonCustom}>
+                            Hủy
+                        </Button>
+                        <Button variant="danger" onClick={handleModalConfirm} className={styles.buttonCustom}>
+                            Xác nhận
+                        </Button>
+                    </Modal.Footer>
+                </Modal>
+                <AddVehicleModal
+                    show={showAddVehicleModal}
+                    onClose={handleAddVehicleModalClose}
+                    onSave={handleAddVehicleSave}
+                    customerId={customer._id}
+                />
+                <EditVehicleModal
+                    show={editModalShow}
+                    vehicle={selectedUser}
+                    onHide={() => setEditModalShow(false)}
+                    onUpdate={handleUpdateCustomer}
+                />
+                <ConfirmDeleteModal
+                    show={confirmDeleteModalShow}
+                    onHide={() => setConfirmDeleteModalShow(false)}
+                    onConfirm={handleConfirmDelete}
+                />
+            </div>
         </div>
     );
 };

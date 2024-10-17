@@ -2,15 +2,17 @@ import React, { useState, useEffect } from 'react';
 import { Table, Alert, Form } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
 import styles from './PromotionLine.module.css';
-import { getPromotionDetaiLinelApi, createPromotionLine } from '@/utils/api';
+import { getPromotionDetaiLinelApi, createPromotionLine, putPromotionLine, deletePromotionApi } from '@/utils/api';
 import { ToastContainer, toast } from 'react-toastify';
 import icons from '@/utils/icon';
 import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from 'react-router-dom';
+import EditPromotionLine from './EditPromotionModal/EditPromotionLineModal';
+import ConfirmDeleteModal from './ConfirmDeleteModal/ConfirmDeleteModal';
 const PromotionLine = () => {
     const navigate = useNavigate();
     const { id } = useParams();
-    const [promotionLines, setPromotionLines] = useState([]);
+  
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const { FaPen, FaTrash, MdArrowBackIos, FaPlusCircle } = icons;
@@ -22,6 +24,12 @@ const PromotionLine = () => {
         end_date: '',
     });
 
+   
+    const [promotionLines, setPromotionLines] = useState([]);
+    const [selectedPromotion, setSelectedPromotion] = useState(null); // Thêm state cho promotion được chọn
+    const [editModalShow, setEditModalShow] = useState(false);
+    const [confirmDeleteModalShow, setConfirmDeleteModalShow] = useState(false);
+    const [promotion, setpromotion] = useState(null);
     useEffect(() => {
         const fetchPromotionLines = async () => {
             try {
@@ -86,7 +94,51 @@ const PromotionLine = () => {
         navigate('/promotion');
     };
     const handleRowClick = (lineId) => {
-        navigate(`/line/${lineId}`);
+        navigate(`/promotions/${lineId}`);
+    };
+
+    const handleEditPromotionLine = (line) =>{
+        setSelectedPromotion(line);
+        setEditModalShow(true)
+    }
+    const handleUpdateLinePromotion = async (updatedLine) => {
+       try {
+            const response = await putPromotionLine(updatedLine);
+            const updatedLines = promotionLines.map((line) =>
+                line._id === updatedLine._id ? updatedLine : line
+            );
+            setPromotionLines(updatedLines); // Cập nhật danh sách với promotion line mới
+            toast.success('Cập nhật thành công');
+        } catch (error) {
+            console.error('Lỗi khi cập nhật:', error);
+            toast.error('Cập nhật thất bại');
+        } finally {
+            setEditModalShow(false); // Đóng modal sau khi cập nhật
+        }
+    };
+
+    
+    const handleDeleteUser = (line) => {
+        setSelectedPromotion(line); // Lưu promotion được chọn để xóa
+        setConfirmDeleteModalShow(true); // Hiển thị modal xác nhận
+    };
+
+    const handleConfirmDelete = async () => {
+        if (selectedPromotion) { // Kiểm tra nếu promotion đã được chọn
+            try {
+                await deletePromotionApi(selectedPromotion); // Gọi API xóa promotion
+                setPromotionLines((prev) =>
+                    prev.filter((line) => line._id !== selectedPromotion._id) // Loại bỏ promotion vừa xóa khỏi danh sách
+                );
+                toast.success('Xóa thành công');
+            } catch (error) {
+                console.error('Lỗi khi xóa:', error);
+                toast.error('Xóa thất bại');
+            } finally {
+                setConfirmDeleteModalShow(false); // Đóng modal
+                setSelectedPromotion(null); // Xóa promotion khỏi state
+            }
+        }
     };
     return (
         <div className={styles.promotionLineWrapper}>
@@ -189,22 +241,23 @@ const PromotionLine = () => {
                                 <td className={styles.dataTableItemAction}>
                                     <div
                                         className={styles.dataTableIconPen}
-                                        // onClick={(e) => {
-                                        //     e.stopPropagation();
-                                        //     handleEditUser(item);
-                                        // }}
+                                        onClick={(e) => {
+                                            e.stopPropagation();
+                                            handleEditPromotionLine(line);
+                                        }}
                                     >
                                         <FaPen />
                                     </div>
                                     <div
                                         className={styles.dataTableIconTrash}
-                                        // onClick={(e) => {
-                                        //     e.stopPropagation();
-                                        //     handleDeleteUser(item);
-                                        // }}
+                                        onClick={(e) => {
+                                            e.stopPropagation();
+                                            handleDeleteUser(line);
+                                        }}
                                     >
                                         <FaTrash />
                                     </div>
+
                                 </td>
                             </tr>
                         ))}
@@ -213,6 +266,18 @@ const PromotionLine = () => {
             ) : (
                 <Alert variant="info">Không có dữ liệu chi tiết cho khuyến mãi này. Hãy thêm chi tiết mới.</Alert>
             )}
+            
+            <EditPromotionLine
+                show={editModalShow}
+                promotion={selectedPromotion} // Truyền promotion được chọn vào modal
+                onHide={() => setEditModalShow(false)}
+                onUpdate={handleUpdateLinePromotion}
+            />
+            <ConfirmDeleteModal
+                show={confirmDeleteModalShow}
+                onHide={() => setConfirmDeleteModalShow(false)}
+                onConfirm={handleConfirmDelete}
+            />
         </div>
     );
 };

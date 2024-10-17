@@ -145,10 +145,39 @@ const getPromotionDetaiApi = (promotionId) => {
     return axios.get(URL_API);
 };
 
+const getPromotionDetaiHeaderLineDetailApi = (promotionId) => {
+    const URL_API = `/api/promotions/${promotionId}/details`;
+    return axios.get(URL_API);
+};
 const getSlot = () =>{
     const URL_API = '/api/slots';
     return axios.get(URL_API);
 }
+
+const getAppointmentsforDate = (date) => {
+    const URL_API = `/api/appointments?date=${date}`;
+    return axios.get(URL_API);
+};
+
+const getAppointmentsDetailApi = (appointment) =>{
+    const URL_API = `/api/appointments/${appointment._id}`
+    return axios.get(URL_API);
+};
+
+const getSlotDetailApi = (slot) =>{
+    const URL_API = `/api/slots/${slot._id}`
+    return axios.get(URL_API);
+};
+
+const getPriceForService = (serviceName = '', vehicleTypeName = '') => {
+    const URL_API = `/api/prices/filterprice?serviceName=${serviceName}&vehicleTypeName=${vehicleTypeName}`;
+    return axios.get(URL_API);
+}
+
+const getAppointmentCompleted = () => {
+    const URL_API = '/api/appointments/get/completed';
+    return axios.get(URL_API);
+};
 
 const deleteUserApi = (user) => {
     const URL_API = `/api/users/${user._id}`;
@@ -184,6 +213,17 @@ const deleteVehicleForCustomer = (userId, vehicleId) => {
     const URL_API = `/api/vehicles/${userId}/vehicles/${vehicleId}`;
     return axios.delete(URL_API);
 };
+
+const deleteSlotApi = (slot) => {
+    const URL_API = `/api/slots/${slot._id}`;
+    return axios.delete(URL_API);
+};
+
+const deletePromotionApi = (promotion) => {
+    const URL_API = `/api/promotions/lines/${promotion._id}`;
+    return axios.delete(URL_API);
+};
+
 
 const createCarApi = (vehicleTypeName, description) => {
     const URL_API = '/api/vehicle-types';
@@ -276,6 +316,16 @@ const createPromotionLine = (promotionId, discountType, discountValue, minOrderV
     return axios.post(URL_API, data); 
 };
 
+const createPromotionDetail = (promotionId, vehicleTypeId, serviceId, ) => {
+    const URL_API = `/api/promotions/lines/${promotionId}/details`;
+    const data = {
+        promotionId:promotionId,
+        vehicle_type_id: vehicleTypeId,
+        service_id: serviceId,
+    };
+    
+    return axios.post(URL_API, data); 
+};
 const createAppointments = (slotId, vehicleId, serviceIds, appointmentDatetime) => {
     const URL_API = `/api/appointments`;
     const data = {
@@ -286,6 +336,23 @@ const createAppointments = (slotId, vehicleId, serviceIds, appointmentDatetime) 
     };
     
     return axios.post(URL_API, data); 
+};
+
+const createSlot = (slotDatetime, durationMinutes, status, capacity) => {
+    const URL_API = `/api/slots`;
+    const data = {
+        slot_datetime: slotDatetime,
+        duration_minutes: durationMinutes,
+        status: status,
+        capacity: capacity
+    };
+    
+    return axios.post(URL_API, data); 
+};
+
+const createAppointmentCustomer = (appointmentId) => {
+    const URL_API = `/api/appointments/${appointmentId}/arrive`
+    return axios.post(URL_API); 
 };
 
 const putEmployeeApi = (user) => {
@@ -316,6 +383,16 @@ const putServiceApi = (service) => {
 const putVehicleForCustomer = (userId, vehicleId, vehicleData) => {
     const URL_API = `/api/vehicles/${userId}/vehicles/${vehicleId}`;
     return axios.put(URL_API, vehicleData);
+};
+
+const putPromotionHeader = (promotion) => {
+    const URL_API = `/api/promotions/${promotion._id}`;
+    return axios.put(URL_API, promotion);
+};
+
+const putPromotionLine = (promotion) => {
+    const URL_API = `/api/promotions/lines/${promotion._id}`;
+    return axios.put(URL_API, promotion);
 };
 
 const findCustomerApi = (query) => {
@@ -349,7 +426,13 @@ export {
     getPromotionDetaiLinelApi,
     getPromotionDetaiApi,
     getSlot,
-
+    getAppointmentsforDate,
+    getAppointmentsDetailApi,
+    getSlotDetailApi,
+    getPriceForService,
+    getPromotionDetaiHeaderLineDetailApi,
+    getAppointmentCompleted,
+    
     deleteUserApi,
     deleteEmployeeApi,
     deleteRankApi,
@@ -357,6 +440,8 @@ export {
     deleteServiceApi,
     deletePriceApi,
     deleteVehicleForCustomer,
+    deleteSlotApi,
+    deletePromotionApi,
 
     verifyOtpApi,
     createCarApi,
@@ -367,7 +452,10 @@ export {
     createPriceLineApi,
     createPromotions,
     createPromotionLine,
+    createPromotionDetail,
     createAppointments,
+    createSlot,
+    createAppointmentCustomer,
 
     putEmployeeApi,
     putCustomerApi,
@@ -375,6 +463,8 @@ export {
     putCarApi,
     putServiceApi,
     putVehicleForCustomer,
+    putPromotionHeader,
+    putPromotionLine,
 
     findCustomerApi
     

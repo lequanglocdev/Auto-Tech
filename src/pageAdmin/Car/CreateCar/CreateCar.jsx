@@ -36,7 +36,7 @@ const CreateCar = () => {
     const handleSubmit = async (event) => {
         event.preventDefault();
 
-        if (!validateForm()) return; // Dừng nếu có lỗi
+        if (!validateForm()) return; 
 
         try {
             const response = await createCarApi(vehicleTypeName, description);
@@ -67,15 +67,15 @@ const CreateCar = () => {
         <div>
             <div className={styles.createCar}>
                 <MdArrowBackIos onClick={handleListCar} className={styles.createCarIcon} />
-                <Breadcrumb items={['Quản lý xe', 'Thêm mới xe']} activeItem="Thêm mới xe" />
+                <Breadcrumb items={['Quản lý hãng xe', 'Thêm hãng xe']} activeItem="Thêm hãng xe" />
             </div>
             <div className={styles.createCarBody}>
                 <Form onSubmit={handleSubmit}>
                     <Form.Group className="mb-3" controlId="formGroupName">
-                        <Form.Label className={styles.labelText}>Tên xe</Form.Label>
+                        <Form.Label className={styles.labelText}>Hãng xe</Form.Label>
                         <Form.Control
                             type="text"
-                            placeholder="Nhập tên xe"
+                            placeholder="Nhập hãng xe"
                             size="lg"
                             value={vehicleTypeName}
                             onChange={(e) => setVehicleTypeName(e.target.value)}

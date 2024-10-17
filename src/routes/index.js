@@ -16,15 +16,18 @@ import { CreateService, ListsService } from '@/pageAdmin/Servicess/index';
 import { CreatePromotion, ListsPromotion } from '@/pageAdmin/Promotions/index';
 import { CreateRank, ListsRank } from '@/pageAdmin/Rank/index';
 import { CreatePrice, ListsPrice, ListDetailPrice } from '@/pageAdmin/Price/index';
-import { CreateAppointment, ListAppointment } from '@/pageAdmin/Appointment/index';
+import {ListAppointment } from '@/pageAdmin/Appointment/index';
 import TotalCalender from '@/components/UI/Dashboard/TotalCalender/TotalCalender';
 import CustomerDetailPage from '@/pageAdmin/CustomerDetail/CustomerDetailPage';
 import PriceDetail from '@/pageAdmin/PriceDetail/PriceDetailPage';
 import PriceDetailPage from '@/pageAdmin/PriceDetail/PriceDetailPage';
 import EmployeesDetail from '@/pageAdmin/EmployeesDetail/EmployeesDetail';
-import PromotionLine from '@/pageAdmin/PromotionLine/PromotionLine';
+import PromotionLine from '@/pageAdmin/PromotionLine/ListPromotionLine/PromotionLine';
 import PromotionDetail from '@/pageAdmin/PromotionDetail/PromotionDetail';
 import Slot from '@/pageAdmin/Slot/Slot';
+import AppointmentDetail from '@/pageAdmin/AppointmentDetail/AppointmentDetail';
+import CreateSlot from '@/pageAdmin/Slot/CreateSlot/CreateSlot';
+import AppointmentCompleted from '@/pageAdmin/AppointmentCompleted/AppointmentCompleted';
 
 export const publicRoute = [
     { path: '/', component: Home },
@@ -65,13 +68,16 @@ export const privateRoute = [
     { path: '/promotion', component: ListsPromotion },
     { path: '/addPromotion', component: CreatePromotion },
     { path: '/promotion/:id', component: PromotionLine},
-    { path: '/line/:id', component: PromotionDetail},
+    { path: '/promotions/:id', component: PromotionDetail},
    
     {path: '/slot/:slotId',component: Slot},
+    {path: '/addSlot',component: CreateSlot},
  
     
-    { path: '/appointments/list', component: ListAppointment },
-    { path: '/appointments/create', component: CreateAppointment },
+    { path: '/appointments', component: ListAppointment },
+    { path: '/admin/appointments/:id', component: AppointmentDetail },
+    {path: '/appointments/completed',component: AppointmentCompleted},
+
     { path: '/price/list', component: ListDetailPrice },
     
     { path: '/calendar/:id', component: TotalCalender },

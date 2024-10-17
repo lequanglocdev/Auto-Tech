@@ -42,14 +42,14 @@ const SidebarAdmin = ({ isVisible, onSelectMenu }) => {
             items: ['Danh sách hạng khách hàng'],
         },
         {
-            title: 'Quản lý xe ',
+            title: 'Quản lý hãng xe ',
             icon: FaCar,
-            items: ['Danh sách xe'],
+            items: ['Danh sách hãng xe'],
         },
         {
             title: 'Quản lý lịch chăm sóc',
             icon: FaCalendarAlt,
-            items: ['Danh sách cuộc hẹn'],
+            items: ['Danh sách cuộc hẹn','Danh sách lịch hẹn hoàn thành'],
         },
         {
             title: 'Quản lý dịch vụ',
@@ -105,14 +105,17 @@ const SidebarAdmin = ({ isVisible, onSelectMenu }) => {
             navigate('/rank/create');
         }
 
-        if (item === 'Danh sách xe') {
+        if (item === 'Danh sách hãng xe') {
             navigate('/car');
         }
         if (item === 'Thêm xe') {
             navigate('/car/create');
         }
         if (item === 'Danh sách cuộc hẹn') {
-            navigate('/appointments/list');
+            navigate('/appointments');
+        }
+        if( item === 'Danh sách lịch hẹn hoàn thành'){
+            navigate('/appointments/completed');
         }
         if (item === 'Tạo cuộc hẹn') {
             navigate('/appointments/create');

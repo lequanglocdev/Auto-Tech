@@ -1,3 +1,18 @@
+.createServices {
+    width: 100%;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+.createServiceIcon {
+    font-size: 3rem;
+    padding: 4px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
 .customerDetailWrapper {
     display: flex;
     justify-content: space-between;
@@ -5,7 +20,8 @@
 }
 
 .customerDetaiProfile {
-    width: 340px;
+    width: 380px;
+    height: 200px;
     border: 1px solid #ccc;
     border-radius: 6px;
     padding: 10px;
@@ -20,7 +36,7 @@
     border-radius: 6px;
     padding: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-    overflow: hidden; 
+    overflow: hidden;
 }
 .vehicleItem {
     display: flex;
@@ -95,9 +111,10 @@
     table-layout: fixed;
 }
 
-.vehicleTable th, .vehicleTable td {
+.vehicleTable th,
+.vehicleTable td {
     overflow: hidden;
-    text-overflow: ellipsis; 
+    text-overflow: ellipsis;
     white-space: nowrap; /* Ngăn chặn xuống dòng */
     font-size: 1.4rem !important;
 }

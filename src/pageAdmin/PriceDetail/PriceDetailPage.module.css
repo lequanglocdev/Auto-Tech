@@ -1,0 +1,44 @@
+.priceDetailHead {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 20px;
+    align-items: center;
+    width: 100%;
+    height: 40px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+}
+.priceDetailHeadIcon{
+    font-size: 2.4rem;
+    font-weight: bold;
+    cursor: pointer;
+}
+.priceDetailHead h4 {
+    font-size: 2rem;
+    font-style: italic;
+    color: var(--text-second);
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.dataTableWrapper {
+    margin-top: 10px;
+}
+.dataTableItem,
+.dataTableHead {
+    font-size: 1.4rem;
+    height: 50px;
+    text-align: center;
+    margin-top: auto;
+    margin-bottom: 0;
+}
+.dataTableItemAction {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    font-size: 1.4rem;
+}
+
+.dataTableWrapper {
+    margin-top: 20px;
+}

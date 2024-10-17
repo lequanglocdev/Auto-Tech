@@ -8,6 +8,7 @@ import TableServices from './Table/TableServices';
 import icons from '@/utils/icon';
 import CommonButton from '@/components/UI/CommonButton/CommonButton ';
 import { useNavigate } from 'react-router-dom';
+import { Spinner } from 'react-bootstrap';
 const ListsServices = () => {
     const [userData, setUserData] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -34,26 +35,30 @@ const ListsServices = () => {
         fetchData();
     }, []);
 
-    const handleAddServices = () =>{
+    const handleAddServices = () => {
         navigate('/addService');
-    }
+    };
 
     if (loading) {
-        return <p>Loading...</p>;
+        return (
+            <div
+                style={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                }}
+            >
+                <Spinner animation="border" variant="primary" size="lg" role="status" aria-hidden="true" />
+            </div>
+        );
     }
-
     return (
         <div>
             <div className={styles.listsCustomer}>
                 <Breadcrumb items={['Quản lý khách hàng', 'danh sách khách hàng']} activeItem="danh sách khách hàng" />
             </div>
             <div>
-            <div className={styles.listsServicesButton}>
-                    <CommonButton
-                        onClick={handleAddServices}
-                        icon={FaPlusCircle}
-                        label="Thêm"
-                    />
+                <div className={styles.listsServicesButton}>
+                    <CommonButton onClick={handleAddServices} icon={FaPlusCircle} label="Thêm" />
                 </div>
                 <TableServices data={userData} itemsPerPage={5} />
             </div>

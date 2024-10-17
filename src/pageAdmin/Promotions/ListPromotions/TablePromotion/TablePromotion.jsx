@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Table, Pagination } from 'react-bootstrap';
 import icons from '@/utils/icon';
 import styles from './TablePromotion.module.css';
-import { deleteUserApi, putCustomerApi } from '@/utils/api';
+import { deleteUserApi, putCustomerApi, putPromotionHeader } from '@/utils/api';
 import EditCustomerModal from '../EditPromotionModal/EditPromotionModal';
 import ConfirmDeleteModal from '../ConfirmDeleteModal/ConfirmDeleteModal';
 import { useNavigate } from 'react-router-dom';
@@ -13,7 +13,6 @@ const TablePromotion = ({ data = [], itemsPerPage }) => {
     const totalPages = Math.ceil(data.length / itemsPerPage);
     const startIndex = (currentPage - 1) * itemsPerPage;
 
-    const [modalShow, setModalShow] = React.useState(false);
     const [editModalShow, setEditModalShow] = useState(false);
     const [confirmDeleteModalShow, setConfirmDeleteModalShow] = useState(false);
 
@@ -31,21 +30,7 @@ const TablePromotion = ({ data = [], itemsPerPage }) => {
         setConfirmDeleteModalShow(true);
     };
 
-    const handleConfirmDelete = async () => {
-        if (promotionToDelete) {
-            try {
-                await deleteUserApi(promotionToDelete);
-                console.log('Xóa thành công:', promotionToDelete);
-                setPromotion((prev) => prev.filter((emp) => emp._id !== promotionToDelete._id));
-            } catch (error) {
-                console.error('Lỗi khi xóa nhân viên:', error);
-            } finally {
-                setConfirmDeleteModalShow(false);
-                setPromotionToDelete(null);
-            }
-        }
-    };
-
+   
     const handleShowUserDetail = (promotion) => {
         navigate(`/promotion/${promotion._id}`);
     };
@@ -53,9 +38,9 @@ const TablePromotion = ({ data = [], itemsPerPage }) => {
         setSelectedPromotion(user);
         setEditModalShow(true);
     };
-    const handleUpdateCustomer = async (updatedCustomer) => {
+    const handleUpdateHeaderPromotion = async (updatedCustomer) => {
         try {
-            const response = await putCustomerApi(updatedCustomer);
+            const response = await putPromotionHeader(updatedCustomer);
             if (response) {
                 setPromotion((prev) =>
                     prev.map((cust) => (cust._id === updatedCustomer._id ? { ...cust, ...updatedCustomer } : cust)),
@@ -73,9 +58,9 @@ const TablePromotion = ({ data = [], itemsPerPage }) => {
             <Table striped bordered hover className={styles.dataTable}>
                 <thead>
                     <tr className="">
-                        <th className={styles.dataTableHead}>promotion_code</th>
-                        <th className={styles.dataTableHead}>name</th>
-                        <th className={styles.dataTableHead}>description</th>
+                        <th className={styles.dataTableHead}>Mã chương trình khuyến mãi</th>
+                        <th className={styles.dataTableHead}>Tên chương trình khuyến mãi</th>
+                        <th className={styles.dataTableHead}>Mô tả</th>
                         <th className={styles.dataTableHead}>Hành động</th>
                     </tr>
                 </thead>
@@ -95,15 +80,7 @@ const TablePromotion = ({ data = [], itemsPerPage }) => {
                                 >
                                     <FaPen />
                                 </div>
-                                <div
-                                    className={styles.dataTableIconTrash}
-                                    onClick={(e) => {
-                                        e.stopPropagation();
-                                        handleDeleteUser(item);
-                                    }}
-                                >
-                                    <FaTrash />
-                                </div>
+                              
                             </td>
                         </tr>
                     ))}
@@ -138,13 +115,9 @@ const TablePromotion = ({ data = [], itemsPerPage }) => {
                 show={editModalShow}
                 user={selectedPromotion}
                 onHide={() => setEditModalShow(false)}
-                onUpdate={handleUpdateCustomer}
+                onUpdate={handleUpdateHeaderPromotion}
             />
-            <ConfirmDeleteModal
-                show={confirmDeleteModalShow}
-                onHide={() => setConfirmDeleteModalShow(false)}
-                onConfirm={handleConfirmDelete}
-            />
+          
         </div>
     );
 };

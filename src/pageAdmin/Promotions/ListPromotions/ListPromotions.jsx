@@ -8,6 +8,7 @@ import TableCustomer from './TablePromotion/TablePromotion';
 import CommonButton from '@/components/UI/CommonButton/CommonButton ';
 import { useNavigate } from 'react-router-dom';
 import icons from '@/utils/icon';
+import { Spinner } from 'react-bootstrap';
 const ListsPromotions = () => {
     const navigate = useNavigate();
     const [userData, setUserData] = useState([]);
@@ -39,7 +40,16 @@ const ListsPromotions = () => {
     }
 
     if (loading) {
-        return <p>Loading...</p>;
+        return (
+            <div
+                style={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                }}
+            >
+                <Spinner animation="border" variant="primary" size="lg" role="status" aria-hidden="true" />
+            </div>
+        );
     }
 
     return (

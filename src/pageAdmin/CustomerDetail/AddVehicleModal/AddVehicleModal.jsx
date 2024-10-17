@@ -44,9 +44,9 @@ const AddVehicleModal = ({ show, onClose, customerId, onSave }) => {
     const validateForm = () => {
         const newErrors = {};
 
-        if (!selectedVehicleType) newErrors.selectedVehicleType = 'Bạn phải chọn loại xe';
+        if (!selectedVehicleType) newErrors.selectedVehicleType = 'Bạn phải chọn hãng xe';
         if (!licensePlate) newErrors.licensePlate = 'Bạn phải nhập biển số xe';
-        if (!manufacturer) newErrors.manufacturer = 'Bạn phải nhập hãng xe';
+        if (!manufacturer) newErrors.manufacturer = 'Bạn phải nhập tên xe';
         if (!model) newErrors.model = 'Bạn phải nhập model';
         if (!year || isNaN(year) || year < 1886 || year > new Date().getFullYear()) 
             newErrors.year = 'Bạn phải nhập năm hợp lệ';
@@ -89,7 +89,7 @@ const AddVehicleModal = ({ show, onClose, customerId, onSave }) => {
             <Modal.Body>
                 <Form>
                     <Form.Group className={styles.formGroup} controlId="vehicleType">
-                        <Form.Label className={styles.formLabel}>Loại xe</Form.Label>
+                        <Form.Label className={styles.formLabel}>Hãng xe</Form.Label>
                         <Form.Control
                             as="select"
                             value={selectedVehicleType}
@@ -100,7 +100,7 @@ const AddVehicleModal = ({ show, onClose, customerId, onSave }) => {
                                 console.log('Selected Vehicle Type ID:', selectedId);
                             }}
                         >
-                            <option value="">Chọn loại xe</option>
+                            <option value="">Chọn hãng xe</option>
                             {vehicleTypes.map((type) => (
                                 <option key={type.id} value={type._id}>
                                     {type.vehicle_type_name}
@@ -123,10 +123,10 @@ const AddVehicleModal = ({ show, onClose, customerId, onSave }) => {
                     </Form.Group>
 
                     <Form.Group className={styles.formGroup} controlId="manufacturer">
-                        <Form.Label className={styles.formLabel}>Hãng xe</Form.Label>
+                        <Form.Label className={styles.formLabel}>tên xe</Form.Label>
                         <Form.Control
                             type="text"
-                            placeholder="Nhập hãng xe"
+                            placeholder="Nhập tên xe"
                             className={`${styles.formControl} ${errors.manufacturer ? 'is-invalid' : ''}`}
                             value={manufacturer}
                             onChange={(e) => setManufacturer(e.target.value)}

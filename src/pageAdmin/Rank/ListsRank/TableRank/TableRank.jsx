@@ -6,6 +6,8 @@ import { deleteRankApi, deleteUserApi, getDetailRank, putCustomerRankApi } from 
 import ModalRank from '../Modal/ModalRank';
 import EditRankModal from '../EditRankModal/EditRankModal';
 import ConfirmDeleteModal from '../ConfirmDeleteModal/ConfirmDeleteModal';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 const TableRank = ({ data = [], itemsPerPage }) => {
     const { FaEye, FaPen, FaTrash } = icons;
 
@@ -35,7 +37,7 @@ const TableRank = ({ data = [], itemsPerPage }) => {
         if (rankToDelete) {
             try {
                 await deleteRankApi(rankToDelete);
-                console.log('Xóa thành công:', rankToDelete);
+
                 setRank((prev) => prev.filter((emp) => emp._id !== rankToDelete._id));
             } catch (error) {
                 console.error('Lỗi khi xóa nhân viên:', error);
@@ -65,11 +67,36 @@ const TableRank = ({ data = [], itemsPerPage }) => {
     const handleUpdateRank = async (updateRank) => {
         try {
             const response = await putCustomerRankApi(updateRank);
-            console.log('Cập nhật thành công:', response);
             setEditModalShow(false);
             setRank((prev) => prev.map((emp) => (emp._id === updateRank._id ? updateRank : emp)));
         } catch (error) {
-            console.error('Lỗi khi cập nhật nhân viên:', error);
+            if (error.response) {
+                // Lấy thông tin lỗi từ response của API
+                const errorMessage = error.response.data || 'Đã xảy ra lỗi khi cập nhật';
+                console.error('Lỗi:', errorMessage);
+
+                // Hiển thị toast thông báo lỗi
+                toast.error(errorMessage, {
+                    position: 'top-right',
+                    autoClose: 3000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                });
+            } else {
+                console.error('Lỗi không xác định:', error);
+                toast.error('Đã xảy ra lỗi không xác định. Vui lòng thử lại sau.', {
+                    position: 'top-right',
+                    autoClose: 3000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                });
+            }
         }
     };
 
@@ -144,6 +171,7 @@ const TableRank = ({ data = [], itemsPerPage }) => {
                 onHide={() => setConfirmDeleteModalShow(false)}
                 onConfirm={handleConfirmDelete}
             />
+            <ToastContainer />
         </div>
     );
 };

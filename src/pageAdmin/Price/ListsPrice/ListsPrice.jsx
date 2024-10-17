@@ -8,6 +8,7 @@ import TablePrice from './Table/TablePrice';
 import icons from '@/utils/icon';
 import { useNavigate } from 'react-router-dom';
 import CommonButton from '@/components/UI/CommonButton/CommonButton ';
+import { Spinner } from 'react-bootstrap';
 const ListsPrice = () => {
     const navigate = useNavigate();
     const [userData, setUserData] = useState([]);
@@ -37,7 +38,16 @@ const ListsPrice = () => {
         navigate('/addPrices');
     }
     if (loading) {
-        return <p>Loading...</p>;
+        return (
+            <div
+                style={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                }}
+            >
+                <Spinner animation="border" variant="primary" size="lg" role="status" aria-hidden="true" />
+            </div>
+        );
     }
     return (
         <div>

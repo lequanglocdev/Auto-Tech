@@ -8,6 +8,7 @@ import TableCar from './Table/TableCar';
 import { useNavigate } from 'react-router-dom';
 import icons from '@/utils/icon';
 import CommonButton from '@/components/UI/CommonButton/CommonButton ';
+import { Spinner } from 'react-bootstrap';
 const ListsCar = () => {
     const [userData, setUserData] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -37,7 +38,16 @@ const ListsCar = () => {
         navigate('/addCar');
     };
     if (loading) {
-        return <p>Loading...</p>;
+        return (
+            <div
+                style={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                }}
+            >
+                <Spinner animation="border" variant="primary" size="lg" role="status" aria-hidden="true" />
+            </div>
+        );
     }
     return (
         <div>

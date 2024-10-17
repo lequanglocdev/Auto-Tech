@@ -10,3 +10,52 @@
   justify-content: flex-end;
   padding: 20px;
 }
+
+.appointment{
+  margin: 40px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  color: var(--text-third);
+}
+
+.appointmentResultsText{
+  margin-left: 40px;
+  color: var(--text-third);
+  margin-bottom: 20px;
+}
+.appointmentCalender{
+  width: 500px;
+
+}
+
+.status {
+  font-size: 12px;
+  font-weight: bold;
+  padding: 4px 8px;
+  border-radius: 12px;
+  color: #fff;
+  text-align: center;
+}
+
+.status.scheduled {
+  background-color: #007bff;
+}
+
+.status.completed {
+  background-color: #28a745;
+}
+
+.status.cancelled {
+  background-color: #dc3545;
+}
+
+.dataTableItem,
+.dataTableHead {
+  font-size: 1.4rem;
+  height: 50px;
+  text-align: center;
+  margin-top: auto;
+  margin-bottom: 0;
+  cursor: pointer;
+}
