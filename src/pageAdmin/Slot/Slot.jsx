@@ -19,6 +19,7 @@ const Slot = () => {
     const [appointmentDatetime, setAppointmentDatetime] = useState(''); // State cho appointmentDatetime
 
     const [selectedCustomer, setSelectedCustomer] = useState(null);
+    const [selectedVehicle, setSelectedVehicle] = useState(null);
 
     const [filteredPrices, setFilteredPrices] = useState([]);
     const [serviceName, setServiceName] = useState(''); // State cho tên dịch vụ
@@ -27,6 +28,7 @@ const Slot = () => {
     const [serviceData, setServiceData] = useState([]); // Dữ liệu danh sách dịch vụ
     const [vehicleTypes, setVehicleTypes] = useState([]); // Dữ liệu danh sách loại xe
     const [selectedPriceServices, setSelectedPriceServices] = useState([]);
+
     const { FaPlusCircle } = icons;
 
     // Lấy danh sách dịch vụ và loại xe khi component mount
@@ -50,7 +52,6 @@ const Slot = () => {
 
         fetchData();
     }, []);
-
 
     const handleSelectPriceServices = (item) => {
         console.log('Đã chọn giá dịch vụ với ID:', item.priceline_id); // Log ID của giá dịch vụ
@@ -87,50 +88,57 @@ const Slot = () => {
     };
 
     // Hàm tạo cuộc hẹn
-   const handleCreateAppointment = async () => {
-    if (!appointmentDatetime) {
-        toast.error('Vui lòng chọn ngày giờ cho cuộc hẹn.');
-        return;
-    }
+    const handleCreateAppointment = async () => {
+        if (!appointmentDatetime) {
+            toast.error('Vui lòng chọn ngày giờ cho cuộc hẹn.');
+            return;
+        }
 
-    if (!selectedCustomer || selectedCustomer.vehicles.length === 0) {
-        toast.error('Vui lòng chọn khách hàng và phương tiện.');
-        return;
-    }
+        if (!selectedCustomer || !selectedVehicle) {
+            toast.error('Vui lòng chọn khách hàng và phương tiện.');
+            return;
+        }
 
-    // Kiểm tra xem có giá dịch vụ đã chọn không
-    if (selectedPriceServices.length === 0) {
-        toast.error('Vui lòng chọn ít nhất một giá dịch vụ.');
-        return;
-    }
+        // Kiểm tra xem có giá dịch vụ đã chọn không
+        if (selectedPriceServices.length === 0) {
+            toast.error('Vui lòng chọn ít nhất một giá dịch vụ.');
+            return;
+        }
 
-    try {
-        const response = await createAppointments(
-            slotId,
-            selectedCustomer.vehicles[0]._id, // Lấy ID phương tiện đầu tiên
-            selectedPriceServices.map((service) => service.priceline_id), // Lấy tất cả các ID priceline đã chọn
-            appointmentDatetime,
-        );
-        console.log('>> Đặt dịch vụ ', response);
-        toast.success('Cuộc hẹn đã được tạo thành công!');
-    } catch (error) {
-        console.error('Error creating appointment:', error);
-        toast.error('Đã xảy ra lỗi khi tạo cuộc hẹn.');
-    }
-};
-
-
-    const handleSelectCustomer = () => {
-        console.log('Khách hàng đã chọn:', customerData);
-        setSelectedCustomer(customerData); // Lưu thông tin khách hàng đã chọn
+        try {
+            const response = await createAppointments(
+                slotId,
+                selectedVehicle._id, // Lấy ID phương tiện đầu tiên
+                selectedPriceServices.map((service) => service.priceline_id), // Lấy tất cả các ID priceline đã chọn
+                appointmentDatetime,
+            );
+            console.log('>> Đặt dịch vụ ', response);
+            toast.success('Cuộc hẹn đã được tạo thành công!');
+        } catch (error) {
+            console.error('Error creating appointment:', error);
+            toast.error('Đã xảy ra lỗi khi tạo cuộc hẹn.');
+        }
     };
 
+    const handleSelectCustomer = () => {
+        // Giả định bạn đã có thông tin customerData
+        if (customerData) {
+            setSelectedCustomer(customerData.customer);
+            setSelectedVehicle(selectedVehicle); // Lưu thông tin xe đã chọn
+        }
+    };
+    const handleSelectVehicle = (vehicle) => {
+        setSelectedVehicle(vehicle); // Lưu thông tin xe đã chọn
+        // Nếu bạn muốn tự động chọn khách hàng đã chọn, có thể thêm dòng này
+        if (customerData) {
+            setSelectedCustomer(customerData.customer); // Lưu thông tin khách hàng đã chọn
+        }
+    };
     const handleFilterPrices = async () => {
         setIsLoading(true);
         try {
             // Gọi API với các giá trị từ serviceName và vehicleTypeName
             const response = await getPriceForService(serviceName, vehicleTypeName);
-            
 
             setFilteredPrices(response);
         } catch (error) {
@@ -145,16 +153,17 @@ const Slot = () => {
             <h4 className={styles.slotHeader}>Trang đặt dịch vụ chăm sóc khách hàng tại cửa hàng L&k TECH</h4>
             <div className={styles.slotBody}>
                 <div className={styles.slotInfoDateTime}>
-                    <h5>Ngày giờ cuộc hẹn</h5>
+                    <h4>Ngày giờ cuộc hẹn</h4>
                     <Form.Group className="mb-3">
                         <Form.Control
+                            size="lg"
                             type="datetime-local"
                             onChange={(e) => setAppointmentDatetime(e.target.value)} // Lưu ngày giờ cuộc hẹn
                         />
                     </Form.Group>
                 </div>
                 <div className={styles.slotInfoCustomer}>
-                    <h5>Thông tin khách hàng</h5>
+                    <h4>Thông tin khách hàng</h4>
                     <Form.Group className="mb-3" controlId="customerSearch">
                         <Form.Control
                             type="text"
@@ -186,11 +195,12 @@ const Slot = () => {
                             <span className={styles.slotLoadingText}>Không có thông tin khách hàng</span>
                         ) : null}
                     </div>
+
                     {customerData && (
                         <div className={styles.slotCustomerDetaiWrapper}>
                             <div className={styles.slotCustomerDetaiHeader}>
                                 <div>
-                                    <p>Khách hàng: {customerData?.customer?.name} </p>
+                                    <p>Khách hàng: {customerData?.customer?.name}</p>
                                     <p>
                                         <strong>Số điện thoại:</strong> {customerData?.customer?.phone_number}
                                     </p>
@@ -217,12 +227,12 @@ const Slot = () => {
                                         <strong>Tổng chi tiêu:</strong> {customerData?.customer?.total_spending} VNĐ
                                     </p>
                                     <hr />
-                                    <h6>Thông tin phương tiện:</h6>
+                                    <p>Thông tin phương tiện:</p>
                                     {customerData?.vehicles?.length > 0 ? (
                                         customerData.vehicles.map((vehicle) => (
                                             <div key={vehicle._id}>
                                                 <p>
-                                                    <strong>Loại xe:</strong>{' '}
+                                                    <strong>Loại xe:</strong>
                                                     {vehicle.vehicle_type_id.vehicle_type_name}
                                                 </p>
                                                 <p>
@@ -240,6 +250,19 @@ const Slot = () => {
                                                 <p>
                                                     <strong>Màu sắc:</strong> {vehicle.color}
                                                 </p>
+                                                <button
+                                                    className={
+                                                        selectedVehicle && selectedVehicle._id === vehicle._id
+                                                            ? styles.selectedButton
+                                                            : ''
+                                                    }
+                                                    onClick={() => handleSelectVehicle(vehicle)}
+                                                >
+                                                    {selectedVehicle && selectedVehicle._id === vehicle._id
+                                                        ? 'Đã chọn xe'
+                                                        : 'Chọn xe này'}
+                                                </button>
+                                                <hr />
                                             </div>
                                         ))
                                     ) : (
@@ -247,64 +270,53 @@ const Slot = () => {
                                     )}
                                 </div>
                             </Collapse>
-                            <Button className={styles.selectCustomerButton} onClick={handleSelectCustomer}>
-                                Chọn khách hàng này
-                            </Button>
                         </div>
                     )}
-                    {selectedCustomer && (
+
+                    {selectedCustomer && selectedVehicle && (
                         <div className={styles.selectedCustomerInfo}>
-                            <h5>Khách hàng đã chọn</h5>
-                            <p>
-                                <strong>Tên:</strong> {selectedCustomer.customer.name}
-                            </p>
-                            <p>
-                                <strong>Số điện thoại:</strong> {selectedCustomer.customer.phone_number}
-                            </p>
-                            <p>
-                                <strong>Email:</strong> {selectedCustomer.customer.email}
-                            </p>
-                            <p>
-                                <strong>Địa chỉ:</strong> {selectedCustomer.customer.address}
-                            </p>
-                            <p>
-                                <strong>Tổng chi tiêu:</strong> {selectedCustomer.customer.total_spending} VNĐ
-                            </p>
-                            <h6>Phương tiện đã chọn:</h6>
-                            {selectedCustomer.vehicles.length > 0 ? (
-                                selectedCustomer.vehicles.map((vehicle) => (
-                                    <div key={vehicle._id}>
-                                        <p>
-                                            <strong>Biển số:</strong> {vehicle.license_plate}
-                                        </p>
-                                        <p>
-                                            <strong>Hãng xe:</strong> {vehicle.manufacturer}
-                                        </p>
-                                        <p>
-                                            <strong>Model:</strong> {vehicle.model}
-                                        </p>
-                                        <p>
-                                            <strong>Năm sản xuất:</strong> {vehicle.year}
-                                        </p>
-                                        <p>
-                                            <strong>Màu sắc:</strong> {vehicle.color}
-                                        </p>
-                                    </div>
-                                ))
-                            ) : (
-                                <p>Không có thông tin phương tiện.</p>
-                            )}
+                            <div>
+                                <h4>Thông tin khách hàng</h4>
+                                <p>
+                                    <strong>Tên khách hàng:</strong> {selectedCustomer.name}
+                                </p>
+                                <p>
+                                    <strong>Số điện thoại:</strong> {selectedCustomer.phone_number}
+                                </p>
+                            </div>
+
+                            <div>
+                                <h4>Xe đã chọn:</h4>
+                                <p>
+                                    <strong>Biển số:</strong> {selectedVehicle.license_plate}
+                                </p>
+                                <p>
+                                    <strong>Hãng xe:</strong> {selectedVehicle.manufacturer}
+                                </p>
+                                <p>
+                                    <strong>Model:</strong> {selectedVehicle.model}
+                                </p>
+                                <p>
+                                    <strong>Năm sản xuất:</strong> {selectedVehicle.year}
+                                </p>
+                                <p>
+                                    <strong>Màu sắc:</strong> {selectedVehicle.color}
+                                </p>
+                                <p>
+                                    <strong>Loại xe:</strong> {selectedVehicle.vehicle_type_id.vehicle_type_name}
+                                </p>
+                            </div>
                         </div>
                     )}
                 </div>
 
                 <div className={styles.filterSection}>
-                    <h5>Lọc giá dịch vụ</h5>
+                    <h4>Lọc giá dịch vụ</h4>
                     <Form>
                         {/* Select cho danh sách dịch vụ */}
                         <Form.Group className="mb-3">
-                            <Form.Label>Tên dịch vụ</Form.Label>
                             <Form.Select
+                                size="lg"
                                 value={serviceName}
                                 onChange={(e) => setServiceName(e.target.value)} // Lưu giá trị dịch vụ đã chọn
                             >
@@ -319,8 +331,8 @@ const Slot = () => {
 
                         {/* Select cho danh sách loại xe */}
                         <Form.Group className="mb-3">
-                            <Form.Label>Loại xe</Form.Label>
                             <Form.Select
+                                size="lg"
                                 value={vehicleTypeName}
                                 onChange={(e) => setVehicleTypeName(e.target.value)} // Lưu giá trị loại xe đã chọn
                             >
@@ -333,7 +345,7 @@ const Slot = () => {
                             </Form.Select>
                         </Form.Group>
 
-                        <Button variant="primary" onClick={handleFilterPrices}>
+                        <Button className="mt-3" size="lg" variant="primary" onClick={handleFilterPrices}>
                             Tìm kiếm
                         </Button>
                     </Form>
@@ -345,23 +357,23 @@ const Slot = () => {
                             <span className="visually-hidden">Loading...</span>
                         </Spinner>
                     ) : (
-                        <Table striped bordered hover>
+                        <Table striped bordered hover className={styles.dataTable}>
                             <thead>
                                 <tr>
-                                    <th>Tên dịch vụ</th>
-                                    <th>Loại xe</th>
-                                    <th>Giá</th>
-                                    <th>Hành động</th>
+                                    <th className={styles.dataTableHead}>Tên dịch vụ</th>
+                                    <th className={styles.dataTableHead}>Loại xe</th>
+                                    <th className={styles.dataTableHead}>Giá</th>
+                                    <th className={styles.dataTableHead}>Hành động</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {filteredPrices.length > 0 ? (
                                     filteredPrices.map((item, index) => (
                                         <tr key={index}>
-                                            <td>{item.service}</td>
-                                            <td>{item.vehicle_type}</td>
-                                            <td>{item.price}</td>
-                                            <td>
+                                            <td className={styles.dataTableItem}>{item.service}</td>
+                                            <td className={styles.dataTableItem}>{item.vehicle_type}</td>
+                                            <td className={styles.dataTableItem}>{item.price}</td>
+                                            <td className={styles.dataTableItem}>
                                                 <div
                                                     className={styles.dataTableIconEye}
                                                     onClick={() => handleSelectPriceServices(item)} // Chọn giá cho dịch vụ lấy id console log ra
@@ -372,35 +384,31 @@ const Slot = () => {
                                         </tr>
                                     ))
                                 ) : (
-                                    <tr>
-                                        <td colSpan="3" className="text-center">
-                                            Không có dữ liệu
-                                        </td>
-                                    </tr>
+                                    <></>
                                 )}
                             </tbody>
                         </Table>
                     )}
                 </div>
                 <div>
-                    <h5>Giá dịch vụ đã chọn</h5>
-                    <Table striped bordered hover>
+                    <h4>Giá dịch vụ đã chọn</h4>
+                    <Table striped bordered hover className={styles.dataTable}>
                         <thead>
                             <tr>
-                                <th>Tên dịch vụ</th>
-                                <th>Loại xe</th>
-                                <th>Giá</th>
-                                <th>Hành động</th>
+                                <th className={styles.dataTableHead}>Tên dịch vụ</th>
+                                <th className={styles.dataTableHead}>Loại xe</th>
+                                <th className={styles.dataTableHead}>Giá</th>
+                                <th className={styles.dataTableHead}>Hành động</th>
                             </tr>
                         </thead>
                         <tbody>
                             {selectedPriceServices.length > 0 ? (
                                 selectedPriceServices.map((service, index) => (
                                     <tr key={index}>
-                                        <td>{service.service}</td>
-                                        <td>{service.vehicle_type}</td>
-                                        <td>{service.price}</td>
-                                        <td>
+                                        <td className={styles.dataTableItem}>{service.service}</td>
+                                        <td className={styles.dataTableItem}>{service.vehicle_type}</td>
+                                        <td className={styles.dataTableItem}>{service.price}</td>
+                                        <td className={styles.dataTableItem}>
                                             <Button
                                                 variant="danger"
                                                 onClick={() => handleRemovePriceService(service.priceline_id)}
@@ -411,18 +419,17 @@ const Slot = () => {
                                     </tr>
                                 ))
                             ) : (
-                                <tr>
-                                    <td colSpan="4" className="text-center">
-                                        Không có dữ liệu
-                                    </td>
-                                </tr>
+                                <></>
                             )}
                         </tbody>
                     </Table>
                 </div>
 
-                <Button onClick={handleCreateAppointment}>Tạo cuộc hẹn</Button>
+                <Button size="lg" onClick={handleCreateAppointment}>
+                    Tạo cuộc hẹn
+                </Button>
             </div>
+            <ToastContainer />
         </div>
     );
 };

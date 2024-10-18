@@ -1,11 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, useLocation } from 'react-router-dom';
-import { getCarApi, getServicesApi, createPromotionDetail } from '@/utils/api'; // Đảm bảo import đúng hàm API của bạn
+import { useParams, useLocation, useNavigate } from 'react-router-dom';
+import { getCarApi, getServicesApi, createPromotionDetail } from '@/utils/api';
 import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css'; // Import style cho Toastify
+import 'react-toastify/dist/ReactToastify.css';
+import styles from './PromotionDetail.module.css';
+import icons from '@/utils/icon';
+import { Button, Form } from 'react-bootstrap';
 
 const PromotionDetail = () => {
-    const { id } = useParams(); // Lấy ID từ URL
+    const navigate = useNavigate();
+    const { id } = useParams();
     const location = useLocation();
     const [vehicleTypes, setVehicleTypes] = useState([]);
     const [services, setServices] = useState([]);
@@ -13,14 +17,15 @@ const PromotionDetail = () => {
     const [selectedService, setSelectedService] = useState('');
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const { MdArrowBackIos } = icons;
 
-    // Lấy danh sách loại xe và dịch vụ khi component được mount
     useEffect(() => {
         const fetchInitialData = async () => {
             try {
                 const [vehiclesResponse, servicesResponse] = await Promise.all([getCarApi(), getServicesApi()]);
-                setVehicleTypes(vehiclesResponse); // Lưu danh sách loại xe
-                setServices(servicesResponse); // Lưu danh sách dịch vụ
+                console.log('Vehicles response:', vehiclesResponse); // Kiểm tra response từ API
+                setVehicleTypes(vehiclesResponse);
+                setServices(servicesResponse);
             } catch (error) {
                 console.error('Error fetching vehicle types or services:', error);
                 setError('Không thể tải dữ liệu loại xe hoặc dịch vụ.');
@@ -32,7 +37,6 @@ const PromotionDetail = () => {
         fetchInitialData();
     }, []);
 
-    // Xử lý khi người dùng bấm nút tạo promotion
     const handleCreatePromotion = async () => {
         if (!selectedVehicleType || !selectedService) {
             setError('Vui lòng chọn loại xe và dịch vụ.');
@@ -41,7 +45,7 @@ const PromotionDetail = () => {
 
         try {
             const response = await createPromotionDetail(id, selectedVehicleType, selectedService);
-            toast.success('Tạo khuyến mãi thành công!'); // Hiển thị thông báo thành công
+            toast.success('Tạo khuyến mãi thành công!');
             console.log('Promotion created:', response);
         } catch (error) {
             console.error('Error creating promotion:', error);
@@ -58,40 +62,62 @@ const PromotionDetail = () => {
         return <div>{error}</div>;
     }
 
+    const handleListPromotion = () => {
+        navigate('/promotion');
+    };
+
     return (
         <div>
-            <h1>Promotion Detail</h1>
+            <div className={styles.promotionDetaiHead}>
+                <MdArrowBackIos onClick={handleListPromotion} className={styles.promotionIcon} />
+                <h3>Chi tiết chương trình khuyến mãi</h3>
+            </div>
 
-            {/* Dropdown chọn loại xe */}
-            <div>
-                <label>Chọn loại xe:</label>
-                <select value={selectedVehicleType} onChange={(e) => setSelectedVehicleType(e.target.value)}>
+            <div className={styles.invoiceBody}>
+                <label htmlFor="vehicleSelect" className={styles.invoiceEmploy}>
+                    Chọn loại xe áp dụng:
+                </label>
+                <Form.Select
+                    size="lg"
+                    className={styles.invoiceEmploySelect}
+                    id="vehicleSelect"
+                    value={selectedVehicleType}
+                    onChange={(e) => setSelectedVehicleType(e.target.value)}
+                >
                     <option value="">Chọn loại xe</option>
                     {vehicleTypes.map((vehicle) => (
                         <option key={vehicle._id} value={vehicle._id}>
-                            {vehicle.name}
+                            {vehicle.vehicle_type_name}
                         </option>
                     ))}
-                </select>
+                </Form.Select>
             </div>
 
-            {/* Dropdown chọn dịch vụ */}
-            <div>
-                <label>Chọn dịch vụ:</label>
-                <select value={selectedService} onChange={(e) => setSelectedService(e.target.value)}>
-                    <option value="">Chọn dịch vụ</option>
+            <div className={styles.invoiceBody}>
+                <label htmlFor="serviceSelect" className={styles.invoiceEmploy}>
+                    Chọn dịch vụ:
+                </label>
+                <Form.Select
+                    size="lg"
+                    className={styles.invoiceEmploySelect}
+                    id="serviceSelect"
+                    value={selectedService}
+                    onChange={(e) => setSelectedService(e.target.value)}
+                >
+                    <option value="">-- Chọn dịch vụ --</option>
                     {services.map((service) => (
                         <option key={service._id} value={service._id}>
                             {service.name}
                         </option>
                     ))}
-                </select>
+                </Form.Select>
             </div>
 
-            {/* Nút tạo khuyến mãi */}
-            <button onClick={handleCreatePromotion}>Tạo khuyến mãi</button>
-
-            {/* Toast container để hiển thị thông báo */}
+            <div className={styles.invoiceBtn}>
+                <Button size="lg" onClick={handleCreatePromotion}>
+                    Tạo hóa đơn
+                </Button>
+            </div>
             <ToastContainer />
         </div>
     );

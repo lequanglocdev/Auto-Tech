@@ -28,6 +28,7 @@ import Slot from '@/pageAdmin/Slot/Slot';
 import AppointmentDetail from '@/pageAdmin/AppointmentDetail/AppointmentDetail';
 import CreateSlot from '@/pageAdmin/Slot/CreateSlot/CreateSlot';
 import AppointmentCompleted from '@/pageAdmin/AppointmentCompleted/AppointmentCompleted';
+import Invoice from '@/pageAdmin/Invoice/Invoice';
 
 export const publicRoute = [
     { path: '/', component: Home },
@@ -77,6 +78,8 @@ export const privateRoute = [
     { path: '/appointments', component: ListAppointment },
     { path: '/admin/appointments/:id', component: AppointmentDetail },
     {path: '/appointments/completed',component: AppointmentCompleted},
+
+    {path: '/payments/invoice/:appointmentId',component: Invoice},
 
     { path: '/price/list', component: ListDetailPrice },
     

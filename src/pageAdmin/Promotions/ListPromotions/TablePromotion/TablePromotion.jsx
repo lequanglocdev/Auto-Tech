@@ -32,7 +32,7 @@ const TablePromotion = ({ data = [], itemsPerPage }) => {
 
    
     const handleShowUserDetail = (promotion) => {
-        navigate(`/promotion/${promotion._id}`);
+        navigate(`/promotion/${promotion._id}?code=${promotion.promotion_code}`);
     };
     const handleEditUser = (user) => {
         setSelectedPromotion(user);

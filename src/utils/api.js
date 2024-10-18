@@ -179,6 +179,15 @@ const getAppointmentCompleted = () => {
     return axios.get(URL_API);
 };
 
+const getInfoInvoiceCompleted = (appointmentId) =>{
+    const URL_API = `/api/payments/invoice/${appointmentId}`
+    return axios.get(URL_API)
+}
+
+const getInvoiceDetails = (invoiceId) => {
+    const URL_API = `/api/payments/invoice/${invoiceId}`; // Cập nhật URL API cho phù hợp
+    return axios.get(URL_API);
+};
 const deleteUserApi = (user) => {
     const URL_API = `/api/users/${user._id}`;
     return axios.delete(URL_API);
@@ -355,6 +364,14 @@ const createAppointmentCustomer = (appointmentId) => {
     return axios.post(URL_API); 
 };
 
+const createPaymentCustomer = (appointmentId,employeesId) =>{
+    const URL_API = `/api/payments/generate-invoice/${appointmentId}/employee/${employeesId}`
+    const data ={
+        employeesId: employeesId
+    }
+    return axios.post(URL_API,data); 
+}
+
 const putEmployeeApi = (user) => {
     const URL_API = `/api/employees/${user._id}`;
     return axios.put(URL_API,user);
@@ -432,7 +449,9 @@ export {
     getPriceForService,
     getPromotionDetaiHeaderLineDetailApi,
     getAppointmentCompleted,
-    
+    getInfoInvoiceCompleted,
+    getInvoiceDetails, 
+
     deleteUserApi,
     deleteEmployeeApi,
     deleteRankApi,
@@ -456,6 +475,7 @@ export {
     createAppointments,
     createSlot,
     createAppointmentCustomer,
+    createPaymentCustomer,
 
     putEmployeeApi,
     putCustomerApi,

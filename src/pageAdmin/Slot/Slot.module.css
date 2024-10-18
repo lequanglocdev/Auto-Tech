@@ -35,7 +35,8 @@
 .slotCustomerDetaiWrapper {
     width: 100%;
     min-height: 100px;
-    background-color: #3498db;
+    background-color: #fff;
+    border: 1px solid #ccc;
     padding: 10px;
     border-radius: 6px;
 }
@@ -43,12 +44,12 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    color: var(--text-primary);
+    color: var(--text-third);
     font-size: 1.4rem;
 }
 
 .slotCustomerDetaiLine {
-    color: var(--text-primary);
+    color: var(--text-third);
     font-size: 1.4rem;
 }
 
@@ -78,4 +79,40 @@
 
 .slotInfoDateTime {
     flex: 1;
+}
+
+.selectCustomerButton {
+    font-size: 1.4rem !important;
+    position: relative;
+    right: 0;
+}
+
+.labelText {
+    font-size: 1.4rem;
+    font-weight: 500;
+    color: var();
+}
+
+.selectedButton {
+    border: none;
+    outline: none;
+    border-radius: 6px;
+    width: 100px;
+    height: 30px;
+    background-color: #007bff !important; /* Màu xanh hoặc màu bạn muốn */
+    color: white;
+    border: none;
+    cursor: default; /* Thay đổi con trỏ để cho thấy đây là nút đã chọn */
+}
+
+.selectedCustomerInfo {
+    font-size: 1.4rem;
+    color: var(--text-third);
+    padding: 0 20px;
+    width: 100%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.selectedCustomerInfo h4{
+    color: #007bff;
 }

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Table, Alert, Form } from 'react-bootstrap';
-import { useParams } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 import styles from './PromotionLine.module.css';
 import { getPromotionDetaiLinelApi, createPromotionLine, putPromotionLine, deletePromotionApi } from '@/utils/api';
 import { ToastContainer, toast } from 'react-toastify';
@@ -24,12 +24,21 @@ const PromotionLine = () => {
         end_date: '',
     });
 
-   
+    
     const [promotionLines, setPromotionLines] = useState([]);
     const [selectedPromotion, setSelectedPromotion] = useState(null); // Thêm state cho promotion được chọn
     const [editModalShow, setEditModalShow] = useState(false);
     const [confirmDeleteModalShow, setConfirmDeleteModalShow] = useState(false);
     const [promotion, setpromotion] = useState(null);
+
+
+    const location = useLocation();
+    const query = new URLSearchParams(location.search);
+    const promotionCode = query.get('code'); // Lấy promotion_code từ query params
+
+    // Sử dụng promotionCode như bạn muốn, ví dụ:
+    console.log('Promotion Code:', promotionCode);
+
     useEffect(() => {
         const fetchPromotionLines = async () => {
             try {
@@ -144,7 +153,7 @@ const PromotionLine = () => {
         <div className={styles.promotionLineWrapper}>
             <div className={styles.promotionDetaiHead}>
                 <MdArrowBackIos onClick={handleListPrmotion} className={styles.promotionIcon} />
-                <h3>Chi tiết khuyến mãi</h3>
+                <h3>Nội dung cho chương trình khuyến mãi {promotionCode}</h3>
             </div>
             <Form onSubmit={handleSubmit} className={styles.promotionForm}>
                 <Form.Group className="mb-3" controlId="discountType">

@@ -24,7 +24,7 @@ const SidebarAdmin = ({ isVisible, onSelectMenu }) => {
         {
             title: 'Tổng quan',
             icon: MdDashboard,
-            items: ['Đặt lịch'],
+            items: ['Chăm sóc khách hàng'],
         },
         {
             title: 'Quản lý nhân viên',
@@ -49,7 +49,7 @@ const SidebarAdmin = ({ isVisible, onSelectMenu }) => {
         {
             title: 'Quản lý lịch chăm sóc',
             icon: FaCalendarAlt,
-            items: ['Danh sách cuộc hẹn','Danh sách lịch hẹn hoàn thành'],
+            items: ['Danh sách lịch hẹn hoàn thành'],
         },
         {
             title: 'Quản lý dịch vụ',
@@ -87,7 +87,7 @@ const SidebarAdmin = ({ isVisible, onSelectMenu }) => {
 
     const handleMenuClick = (item, index) => {
         setSelectedMenu(index);
-        if (item === 'Đặt lịch') {
+        if (item === 'Chăm sóc khách hàng') {
             navigate('/admin');
         }
         if (item === 'Danh sách nhân viên') {
@@ -111,9 +111,9 @@ const SidebarAdmin = ({ isVisible, onSelectMenu }) => {
         if (item === 'Thêm xe') {
             navigate('/car/create');
         }
-        if (item === 'Danh sách cuộc hẹn') {
-            navigate('/appointments');
-        }
+        // if (item === 'Danh sách cuộc hẹn') {
+        //     navigate('/appointments');
+        // }
         if( item === 'Danh sách lịch hẹn hoàn thành'){
             navigate('/appointments/completed');
         }

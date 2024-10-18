@@ -80,6 +80,7 @@ const Dashboard = ({ toggle }) => {
     // const handleViewSlot = async (slotInfo) => {
     //     try {
     //         const response = await getSlotDetailApi(slotInfo.slot);
+    //         console.log(">>response",response)
     //         setSlotDetails(response);
     //         setShowDetailSlot(true);
     //     } catch (error) {
@@ -91,6 +92,7 @@ const Dashboard = ({ toggle }) => {
     
         // Giả sử slotInfo chứa danh sách appointments và bạn muốn lấy ID của appointment đầu tiên (ví dụ)
         const appointmentId = slotInfo.appointments[0]._id;
+        console.log(">>> res",appointmentId)
     
         // Điều hướng tới URL với ID của appointment
         navigate(`appointments/${appointmentId}`);
@@ -109,11 +111,11 @@ const Dashboard = ({ toggle }) => {
                 <div className={styles.dashboar}>
                     <Breadcrumb items={['Tổng quan', 'Chăm sóc khách hàng']} activeItem="Chăm sóc khách hàng" />
                 </div>
-                <div className={styles.dashboardHeader}>
+                {/* <div className={styles.dashboardHeader}>
                     <div className={styles.listsServicesButton}>
                         <CommonButton onClick={handleAddSlot} icon={FaPlusCircle} label="Thêm" />
                     </div>
-                </div>
+                </div> */}
                 <div className={styles.slotContainer}>
                     <div className={styles.slotContainerAreaOne}>
                         <h3 className={styles.sectionTitle}>Khu vực trống</h3>
