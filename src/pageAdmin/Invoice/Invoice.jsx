@@ -96,16 +96,8 @@ const Invoice = () => {
             {invoiceDetails && ( // Hiển thị thông tin hóa đơn nếu có
                 <div className={styles.invoiceDetails}>
                     <h3>Thông tin hóa đơn:</h3>
-                    <p>
-                        <strong>Mã hóa đơn</strong>: {invoiceDetails?.invoice?._id}
-                    </p>
-                    <p>
-                        <strong>Nhân viên ID</strong>: {invoiceDetails?.invoice?.employee_id}
-                    </p>
+
                     <div>
-                        <p>
-                            <strong>Mã khách hàng</strong>: {invoiceDetails?.invoice?.customer_id?.user_id}
-                        </p>
                         <p>
                             <strong>Email</strong>: {invoiceDetails?.invoice?.customer_id?.email}
                         </p>
@@ -128,7 +120,7 @@ const Invoice = () => {
                             <strong>Tổng số tền khách phải trả</strong>: {invoiceDetails?.invoice?.final_amount}
                         </p>
                         <p>
-                            <strong>Trạng thái</strong>: {invoiceDetails?.invoice?.status} (Chờ thanh toán){' '}
+                            <strong>Trạng thái</strong>:Chờ thanh toán
                         </p>
                         {/* <h3>Thông tin chi tiết hóa đơn:</h3>
                       <p><strong>Mã khách hàng</strong>: {invoiceDetails?.invoice?.customer_id?.user_id}</p>
