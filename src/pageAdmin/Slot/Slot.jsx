@@ -5,9 +5,10 @@ import { Button, Form, Spinner, Collapse, Table } from 'react-bootstrap';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import icons from '@/utils/icon';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 const Slot = () => {
+    const navigate = useNavigate();
     const [query, setQuery] = useState('');
     const [customerData, setCustomerData] = useState(null);
     const [error, setError] = useState('');
@@ -113,7 +114,9 @@ const Slot = () => {
                 appointmentDatetime,
             );
             console.log('>> Đặt dịch vụ ', response);
-            toast.success('Cuộc hẹn đã được tạo thành công!');
+            toast.success('Cuộc hẹn đã được tạo thành công!', {
+                onClose: () => navigate('/admin'),
+            });
         } catch (error) {
             console.error('Error creating appointment:', error);
             toast.error('Đã xảy ra lỗi khi tạo cuộc hẹn.');

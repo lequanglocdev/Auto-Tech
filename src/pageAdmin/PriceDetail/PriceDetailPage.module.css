@@ -42,3 +42,11 @@
 .dataTableWrapper {
     margin-top: 20px;
 }
+
+.priceDetailBtn{
+   display: flex;
+   justify-content: flex-end;
+   align-items: center;
+   margin-right: 20px;
+   margin-top: 20px;
+}

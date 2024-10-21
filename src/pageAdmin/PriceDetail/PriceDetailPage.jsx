@@ -1,4 +1,3 @@
-// PriceDetailPage.js
 import React, { useEffect, useState } from 'react';
 import { useLocation, useParams } from 'react-router-dom';
 import { getDetailPrice } from '@/utils/api';
@@ -7,6 +6,7 @@ import styles from './PriceDetailPage.module.css';
 import { Table } from 'react-bootstrap';
 import icons from '@/utils/icon';
 import { useNavigate } from 'react-router-dom';
+import CommonButton from '@/components/UI/CommonButton/CommonButton ';
 
 const PriceDetailPage = () => {
     const navigate = useNavigate();
@@ -14,17 +14,20 @@ const PriceDetailPage = () => {
     const location = useLocation();
     const { priceListName } = location.state || {};
     const [priceDetail, setPriceDetail] = useState([]);
+    const [loading, setLoading] = useState(true); // State để kiểm soát trạng thái tải dữ liệu
     const [showModal, setShowModal] = useState(false);
-    const { MdArrowBackIos } = icons;
+    const { MdArrowBackIos, FaPlusCircle } = icons;
 
     useEffect(() => {
         const fetchPriceDetail = async () => {
             try {
                 const response = await getDetailPrice({ _id: priceId });
                 console.log('response detail price', response);
-                setPriceDetail(response); // Lưu trữ mảng thông tin chi tiết
+                setPriceDetail(response);
             } catch (error) {
                 console.error('Error fetching price detail:', error);
+            } finally {
+                setLoading(false); // Đặt loading về false khi dữ liệu đã được tải
             }
         };
 
@@ -44,6 +47,10 @@ const PriceDetailPage = () => {
     };
 
     const renderContent = () => {
+        if (loading) {
+            return <p>Đang tải dữ liệu...</p>; // Hiển thị khi dữ liệu đang được tải
+        }
+
         if (priceDetail.length === 0) {
             return (
                 <div
@@ -96,24 +103,11 @@ const PriceDetailPage = () => {
                 {priceListName && <h4>{priceListName} tại cửa hàng L&K TECH</h4>}
                 <div></div>
             </div>
-            <button
-                onClick={handleAddInfo}
-                style={{
-                    padding: '10px 20px',
-                    backgroundColor: '#cc0000',
-                    color: '#fff',
-                    border: 'none',
-                    borderRadius: '5px',
-                    cursor: 'pointer',
-                    marginTop: '20px',
-                }}
-            >
-                Thêm Thông Tin
-            </button>
-            {/* Hiển thị nội dung chi tiết */}
-            {renderContent()}
+            <div className={styles.priceDetailBtn}>
+                <CommonButton onClick={handleAddInfo} icon={FaPlusCircle} label="Thêm" />
+            </div>
 
-            {/* Nút thêm thông tin luôn hiển thị */}
+            {renderContent()}
 
             {/* Modal thêm thông tin */}
             <AddPriceDetailModal show={showModal} handleClose={handleCloseModal} priceId={priceId} />

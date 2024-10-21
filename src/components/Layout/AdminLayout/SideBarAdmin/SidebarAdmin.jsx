@@ -24,47 +24,48 @@ const SidebarAdmin = ({ isVisible, onSelectMenu }) => {
         {
             title: 'Tổng quan',
             icon: MdDashboard,
-            items: ['Chăm sóc khách hàng'],
+            path:'/admin'
         },
         {
             title: 'Quản lý nhân viên',
             icon: FaUser,
-            items: ['Danh sách nhân viên'],
+            path: '/employees'
         },
         {
             title: 'Quản lý khách hàng',
             icon: FaUsers,
-            items: ['Danh sách khách hàng'],
+            path: '/customer'
         },
         {
             title: 'Quản lý hạng của khách hàng',
             icon: FaRankingStar,
-            items: ['Danh sách hạng khách hàng'],
+            path: '/rank'
+           
         },
         {
             title: 'Quản lý hãng xe ',
             icon: FaCar,
-            items: ['Danh sách hãng xe'],
+            path: '/car'
         },
         {
             title: 'Quản lý lịch chăm sóc',
             icon: FaCalendarAlt,
-            items: ['Danh sách lịch hẹn hoàn thành'],
+            path: '/appointments/completed',
         },
         {
             title: 'Quản lý dịch vụ',
             icon: MdHomeRepairService,
-            items: ['Danh sách dịch vụ'],
+            path: '/service'
         },
         {
             title: 'Quản lý chương trình khuyến mãi',
             icon: IoTicket,
-            items: ['Danh sách khuyến mãi'],
+            path: '/promotion'
         },
         {
             title: 'Quản lý bảng giá ',
             icon: IoPricetag,
-            items: ['Danh sách bảng giá'],
+            path: '/prices'
         },
         {
             title: 'Quản lý hóa đơn',
@@ -87,56 +88,18 @@ const SidebarAdmin = ({ isVisible, onSelectMenu }) => {
 
     const handleMenuClick = (item, index) => {
         setSelectedMenu(index);
-        if (item === 'Chăm sóc khách hàng') {
-            navigate('/admin');
-        }
-        if (item === 'Danh sách nhân viên') {
-            navigate('/employees');
-        }
 
-        if (item === 'Danh sách khách hàng') {
-            navigate('/customer');
+        if(typeof item === 'string'){
+           
+            // if (item === 'Danh sách chi tiết bảng giá') {
+            //     navigate('/price/list');
+            // }
+        }else{
+            if (item.path) {
+                navigate(item.path);
+            }
         }
-
-        if (item === 'Danh sách hạng khách hàng') {
-            navigate('/rank');
-        }
-        if (item === 'Thêm hạng khách hàng') {
-            navigate('/rank/create');
-        }
-
-        if (item === 'Danh sách hãng xe') {
-            navigate('/car');
-        }
-        if (item === 'Thêm xe') {
-            navigate('/car/create');
-        }
-        // if (item === 'Danh sách cuộc hẹn') {
-        //     navigate('/appointments');
-        // }
-        if( item === 'Danh sách lịch hẹn hoàn thành'){
-            navigate('/appointments/completed');
-        }
-        if (item === 'Tạo cuộc hẹn') {
-            navigate('/appointments/create');
-        }
-        if (item === 'Danh sách dịch vụ') {
-            navigate('/service');
-        }
-        if (item === 'Thêm mới dịch vụ') {
-            navigate('/service/create');
-        }
-        if (item === 'Danh sách khuyến mãi') {
-            navigate('/promotion');
-        }
-    
-        if (item === 'Danh sách bảng giá') {
-            navigate('/prices');
-        }
-
-        if (item === 'Danh sách chi tiết bảng giá') {
-            navigate('/price/list');
-        }
+        
     };
 
     return (
@@ -145,7 +108,7 @@ const SidebarAdmin = ({ isVisible, onSelectMenu }) => {
                 <div className={styles.menu} key={index}>
                     <div
                         className={styles.menuHeader}
-                        onClick={() => toggleMenu(index)}
+                        onClick={() => (menu.items ? toggleMenu(index) : handleMenuClick(menu, index))}
                         style={{
                             color: selectedMenu === index ? '#e02f33' : '#333',
                         }}
@@ -157,32 +120,38 @@ const SidebarAdmin = ({ isVisible, onSelectMenu }) => {
                             }}
                         />
                         <p className={styles.menuHeaderText}>{menu.title}</p>
-                        {openMenuIndex === index ? (
-                            <IoIosArrowDown className={styles.menuIcon} />
-                        ) : (
-                            <IoIosArrowForward className={styles.menuIcon} />
+                        {menu.items && (
+                            openMenuIndex === index ? (
+                                <IoIosArrowDown className={styles.menuIcon} />
+                            ) : (
+                                <IoIosArrowForward className={styles.menuIcon} />
+                            )
                         )}
                     </div>
-                    <ul
-                        className={`${styles.menuList} ${openMenuIndex === index ? styles.open : ''}`}
-                        style={{
-                            maxHeight: openMenuIndex === index ? `${menu.items.length * 40}px` : '0px',
-                        }}
-                    >
-                        {menu.items.map((item, itemIndex) => (
-                            <li
-                                className={styles.menuItem}
-                                key={itemIndex}
-                                onClick={() => handleMenuClick(item, index)} // Thêm index vào hàm handleMenuClick
-                            >
-                                <p className={styles.menuItemText}>{item}</p>
-                            </li>
-                        ))}
-                    </ul>
+                    {menu.items && (
+                        <ul
+                            className={`${styles.menuList} ${openMenuIndex === index ? styles.open : ''}`}
+                            style={{
+                                maxHeight: openMenuIndex === index ? `${menu.items.length * 40}px` : '0px',
+                            }}
+                        >
+                            {menu.items.map((item, itemIndex) => (
+                                <li
+                                    className={styles.menuItem}
+                                    key={itemIndex}
+                                    onClick={() => handleMenuClick(item, index)}
+                                >
+                                    <p className={styles.menuItemText}>{item}</p>
+                                </li>
+                            ))}
+                        </ul>
+                    )}
                 </div>
             ))}
         </div>
     );
+    
+    
 };
 
 export default SidebarAdmin;
