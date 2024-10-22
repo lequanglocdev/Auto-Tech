@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styles from './Slot.module.css';
 import { findCustomerApi, getServicesApi, createAppointments, getPriceForService, getCarApi } from '@/utils/api'; // Import createAppointments
-import { Button, Form, Spinner, Collapse, Table } from 'react-bootstrap';
+import { Button, Form, Spinner, Collapse, Table, Col, Row } from 'react-bootstrap';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import icons from '@/utils/icon';
@@ -13,21 +13,22 @@ const Slot = () => {
     const [customerData, setCustomerData] = useState(null);
     const [error, setError] = useState('');
     const [isLoading, setIsLoading] = useState(false);
+    const [isLoadingServices, setIsLoadingServices] = useState(false);
     const [open, setOpen] = useState(false);
 
     const { slotId } = useParams();
 
-    const [appointmentDatetime, setAppointmentDatetime] = useState(''); // State cho appointmentDatetime
+    const [appointmentDatetime, setAppointmentDatetime] = useState('');
 
     const [selectedCustomer, setSelectedCustomer] = useState(null);
     const [selectedVehicle, setSelectedVehicle] = useState(null);
 
     const [filteredPrices, setFilteredPrices] = useState([]);
-    const [serviceName, setServiceName] = useState(''); // State cho tên dịch vụ
-    const [vehicleTypeName, setVehicleTypeName] = useState('');
+    const [serviceName, setServiceName] = useState('');
+    const [serviceNameError, setServiceNameError] = useState('');
 
-    const [serviceData, setServiceData] = useState([]); // Dữ liệu danh sách dịch vụ
-    const [vehicleTypes, setVehicleTypes] = useState([]); // Dữ liệu danh sách loại xe
+    const [serviceData, setServiceData] = useState([]);
+    const [vehicleTypes, setVehicleTypes] = useState([]);
     const [selectedPriceServices, setSelectedPriceServices] = useState([]);
 
     const { FaPlusCircle } = icons;
@@ -138,16 +139,22 @@ const Slot = () => {
         }
     };
     const handleFilterPrices = async () => {
-        setIsLoading(true);
+        if (!serviceName.trim()) {
+            setServiceNameError('Vui lòng nhập tên dịch vụ trước khi tìm kiếm.'); // Cập nhật thông báo lỗi
+            toast.error('Vui lòng nhập tên dịch vụ trước khi tìm kiếm.');
+            return; // Dừng hàm nếu không có tên dịch vụ
+        }
+        setServiceNameError('');
+        setIsLoadingServices(true);
         try {
             // Gọi API với các giá trị từ serviceName và vehicleTypeName
-            const response = await getPriceForService(serviceName, vehicleTypeName);
+            const response = await getPriceForService(serviceName);
 
             setFilteredPrices(response);
         } catch (error) {
             toast.error('Đã xảy ra lỗi khi lấy dữ liệu.');
         } finally {
-            setIsLoading(false);
+            setIsLoadingServices(false);
         }
     };
 
@@ -203,7 +210,9 @@ const Slot = () => {
                         <div className={styles.slotCustomerDetaiWrapper}>
                             <div className={styles.slotCustomerDetaiHeader}>
                                 <div>
-                                    <p>Khách hàng: {customerData?.customer?.name}</p>
+                                    <p>
+                                        <strong>Khách hàng</strong>: {customerData?.customer?.name}
+                                    </p>
                                     <p>
                                         <strong>Số điện thoại:</strong> {customerData?.customer?.phone_number}
                                     </p>
@@ -211,29 +220,23 @@ const Slot = () => {
                                         <strong>Email:</strong> {customerData?.customer?.email}
                                     </p>
                                 </div>
-                                <div>
+                                {/* <div>
                                     <Button onClick={handleToggleDetails}>
                                         {open ? 'Ẩn chi tiết' : 'Xem chi tiết'}
                                     </Button>
-                                </div>
+                                </div> */}
                             </div>
-                            <Collapse in={open}>
-                                <div className={styles.slotCustomerDetaiLine}>
-                                    <p>
-                                        <strong>Địa chỉ:</strong> {customerData?.customer?.address}
-                                    </p>
-                                    <p>
-                                        <strong>Hạng khách hàng:</strong>{' '}
-                                        {customerData?.customer?.customer_rank_id || 'Chưa xác định'}
-                                    </p>
-                                    <p>
-                                        <strong>Tổng chi tiêu:</strong> {customerData?.customer?.total_spending} VNĐ
-                                    </p>
-                                    <hr />
-                                    <p>Thông tin phương tiện:</p>
+
+                            <div className={styles.slotCustomerDetaiLine}>
+                                <p>
+                                    <strong>Địa chỉ:</strong> {customerData?.customer?.address}
+                                </p>
+                                <hr />
+                                <p>Thông tin phương tiện:</p>
+                                <div className={styles.slotVehicles}>
                                     {customerData?.vehicles?.length > 0 ? (
                                         customerData.vehicles.map((vehicle) => (
-                                            <div key={vehicle._id}>
+                                            <div className={styles.slotVehiclesItem} key={vehicle._id}>
                                                 <p>
                                                     <strong>Loại xe:</strong>
                                                     {vehicle.vehicle_type_id.vehicle_type_name}
@@ -244,7 +247,7 @@ const Slot = () => {
                                                 <p>
                                                     <strong>Hãng xe:</strong> {vehicle.manufacturer}
                                                 </p>
-                                                <p>
+                                                {/* <p>
                                                     <strong>Model:</strong> {vehicle.model}
                                                 </p>
                                                 <p>
@@ -252,7 +255,7 @@ const Slot = () => {
                                                 </p>
                                                 <p>
                                                     <strong>Màu sắc:</strong> {vehicle.color}
-                                                </p>
+                                                </p> */}
                                                 <button
                                                     className={
                                                         selectedVehicle && selectedVehicle._id === vehicle._id
@@ -265,49 +268,12 @@ const Slot = () => {
                                                         ? 'Đã chọn xe'
                                                         : 'Chọn xe này'}
                                                 </button>
-                                                <hr />
                                             </div>
                                         ))
                                     ) : (
                                         <p>Không có thông tin phương tiện.</p>
                                     )}
                                 </div>
-                            </Collapse>
-                        </div>
-                    )}
-
-                    {selectedCustomer && selectedVehicle && (
-                        <div className={styles.selectedCustomerInfo}>
-                            <div>
-                                <h4>Thông tin khách hàng</h4>
-                                <p>
-                                    <strong>Tên khách hàng:</strong> {selectedCustomer.name}
-                                </p>
-                                <p>
-                                    <strong>Số điện thoại:</strong> {selectedCustomer.phone_number}
-                                </p>
-                            </div>
-
-                            <div>
-                                <h4>Xe đã chọn:</h4>
-                                <p>
-                                    <strong>Biển số:</strong> {selectedVehicle.license_plate}
-                                </p>
-                                <p>
-                                    <strong>Hãng xe:</strong> {selectedVehicle.manufacturer}
-                                </p>
-                                <p>
-                                    <strong>Model:</strong> {selectedVehicle.model}
-                                </p>
-                                <p>
-                                    <strong>Năm sản xuất:</strong> {selectedVehicle.year}
-                                </p>
-                                <p>
-                                    <strong>Màu sắc:</strong> {selectedVehicle.color}
-                                </p>
-                                <p>
-                                    <strong>Loại xe:</strong> {selectedVehicle.vehicle_type_id.vehicle_type_name}
-                                </p>
                             </div>
                         </div>
                     )}
@@ -315,13 +281,13 @@ const Slot = () => {
 
                 <div className={styles.filterSection}>
                     <h4>Lọc giá dịch vụ</h4>
-                    <Form>
-                        {/* Select cho danh sách dịch vụ */}
+                    {/* <Form>
+                       
                         <Form.Group className="mb-3">
                             <Form.Select
                                 size="lg"
                                 value={serviceName}
-                                onChange={(e) => setServiceName(e.target.value)} // Lưu giá trị dịch vụ đã chọn
+                                onChange={(e) => setServiceName(e.target.value)} 
                             >
                                 <option value="">Chọn dịch vụ</option>
                                 {serviceData.map((service) => (
@@ -332,30 +298,40 @@ const Slot = () => {
                             </Form.Select>
                         </Form.Group>
 
-                        {/* Select cho danh sách loại xe */}
-                        <Form.Group className="mb-3">
-                            <Form.Select
-                                size="lg"
-                                value={vehicleTypeName}
-                                onChange={(e) => setVehicleTypeName(e.target.value)} // Lưu giá trị loại xe đã chọn
-                            >
-                                <option value="">Chọn loại xe</option>
-                                {vehicleTypes.map((vehicleType) => (
-                                    <option key={vehicleType._id} value={vehicleType.vehicle_type_name}>
-                                        {vehicleType.vehicle_type_name}
-                                    </option>
-                                ))}
-                            </Form.Select>
-                        </Form.Group>
-
                         <Button className="mt-3" size="lg" variant="primary" onClick={handleFilterPrices}>
                             Tìm kiếm
                         </Button>
+                    </Form> */}
+                    <Form>
+                        <Form.Group as={Row} className="">
+                            <Col xs={10}>
+                                {/* Chỉnh kích thước cho trường nhập liệu */}
+                                <Form.Control
+                                    size="lg"
+                                    type="text"
+                                    placeholder="Nhập tên dịch vụ"
+                                    value={serviceName}
+                                    onChange={(e) => {
+                                        setServiceName(e.target.value);
+                                        setServiceNameError('');
+                                    }} 
+                                    isInvalid={!!serviceNameError}
+                                />
+                                <Form.Control.Feedback type="invalid">
+                                    {serviceNameError} 
+                                </Form.Control.Feedback>
+                            </Col>
+                            <Col xs={2}>
+                                <Button size="lg" variant="primary" onClick={handleFilterPrices}>
+                                    Tìm kiếm
+                                </Button>
+                            </Col>
+                        </Form.Group>
                     </Form>
                 </div>
 
                 <div>
-                    {isLoading ? (
+                    {isLoadingServices ? (
                         <Spinner animation="border" role="status">
                             <span className="visually-hidden">Loading...</span>
                         </Spinner>

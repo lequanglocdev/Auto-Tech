@@ -27,12 +27,11 @@ const Avartar = () => {
     const handleLogout = () => {
         localStorage.removeItem('access_token'); // Xóa token khi đăng xuất
         setAuth({ isAuthenticated: false, user: null });
-        navigate('/auth'); // Điều hướng về trang đăng nhập
+        navigate('/auth');
     };
 
-    // Xử lý khi người dùng bấm nút Login
     const handleLogin = () => {
-        navigate('/admin'); // Điều hướng về trang đăng nhập
+        navigate('/admin');
     };
 
     return (
@@ -91,12 +90,9 @@ const Avartar = () => {
                 anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
             >
                 {auth.isAuthenticated ? (
-                    // Hiển thị thông tin khi đã đăng nhập
                     <>
                         <MenuItem sx={{ fontSize: '1.6rem', fontWeight: '400' }}>Thông tin cá nhân</MenuItem>
-                        <MenuItem sx={{ fontSize: '1.4rem', fontWeight: '600' }}>
-                            {auth.user.name} {/* Tên người dùng */}
-                        </MenuItem>
+                        <MenuItem sx={{ fontSize: '1.4rem', fontWeight: '600' }}>{auth.user.name}</MenuItem>
                         <MenuItem onClick={handleLogout} sx={{ fontSize: '1.4rem', fontWeight: '600' }}>
                             <ListItemIcon>
                                 <Logout fontSize="large" />
@@ -105,7 +101,6 @@ const Avartar = () => {
                         </MenuItem>
                     </>
                 ) : (
-                    // Hiển thị nút đăng nhập khi chưa đăng nhập
                     <MenuItem onClick={handleLogin} sx={{ fontSize: '1.4rem', fontWeight: '600' }}>
                         <ListItemIcon>
                             <LoginIcon fontSize="large" />

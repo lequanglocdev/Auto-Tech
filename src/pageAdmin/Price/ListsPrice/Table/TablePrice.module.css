@@ -18,6 +18,16 @@
   font-size: 1.4rem;
   cursor: pointer;
 }
+.dataTableIconPen {
+  width: 30px;
+  height: 30px;
+  border-radius: 4px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #1a9f5333;
+  color: #55efc4;
+}
 
 .dataTableIconEye {
   width: 30px;

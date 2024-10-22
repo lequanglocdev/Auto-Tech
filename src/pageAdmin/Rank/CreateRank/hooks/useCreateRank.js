@@ -25,11 +25,16 @@ const useCreateRank = () => {
 
     const validateForm = () => {
         const newErrors = {};
-        if (!formData.rank_name) newErrors.rank_name = 'Bạn chưa nhập mã nhân viên';
-        if (!formData.discount_rate) newErrors.discount_rate = 'Bạn chưa nhập tên nhân viên';
-        if (!formData.min_spending) newErrors.min_spending = 'Bạn chưa nhập mật khẩu';
-        if (!formData.description) newErrors.description = 'Bạn chưa nhập email';
-
+    
+        if (!formData.rank_name) newErrors.rank_name = 'Bạn chưa nhập hạng khách hàng';
+        if (!formData.discount_rate || isNaN(formData.discount_rate) || formData.discount_rate < 0 || formData.discount_rate > 100) {
+            newErrors.discount_rate = 'Giảm giá phải là số từ 0 đến 100';
+        }
+        if (!formData.min_spending || isNaN(formData.min_spending) || formData.min_spending <= 0) {
+            newErrors.min_spending = 'Phí tối thiểu phải là một số dương';
+        }
+        if (!formData.description) newErrors.description = 'Bạn chưa nhập mô tả';
+    
         setErrors(newErrors);
         return Object.keys(newErrors).length === 0;
     };

@@ -1,4 +1,3 @@
-// SlotList.js
 import React from 'react';
 import SlotCard from '../SlotCard/SlotCard';
 import styles from './SlotList.module.css';

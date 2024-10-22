@@ -29,11 +29,11 @@ const AppointmentDetail = () => {
 
     const handleConfirmCustomer = async () => {
         try {
-            await createAppointmentCustomer(id); // Gọi API xác nhận khách hàng
-            toast.success('Xác nhận khách hàng thành công!'); // Hiển thị thông báo thành công
-            // Có thể cập nhật lại dữ liệu hoặc chuyển hướng nếu cần
+            await createAppointmentCustomer(id); 
+            toast.success('Xác nhận khách hàng thành công!'); 
+           
         } catch (error) {
-            toast.error('Đã xảy ra lỗi khi xác nhận khách hàng.'); // Hiển thị thông báo lỗi
+            toast.error('Đã xảy ra lỗi khi xác nhận khách hàng.'); 
         }
     };
 

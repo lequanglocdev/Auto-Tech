@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { useLocation, useParams } from 'react-router-dom';
-import { getDetailPrice } from '@/utils/api';
+import { useLocation, useParams, useNavigate } from 'react-router-dom';
+import { getCarApi, getDetailPrice, getServicesApi } from '@/utils/api';
 import AddPriceDetailModal from './AddPriceDetailModal/AddPriceDetailModal';
 import styles from './PriceDetailPage.module.css';
 import { Table } from 'react-bootstrap';
 import icons from '@/utils/icon';
-import { useNavigate } from 'react-router-dom';
 import CommonButton from '@/components/UI/CommonButton/CommonButton ';
 
 const PriceDetailPage = () => {
@@ -14,7 +13,7 @@ const PriceDetailPage = () => {
     const location = useLocation();
     const { priceListName } = location.state || {};
     const [priceDetail, setPriceDetail] = useState([]);
-    const [loading, setLoading] = useState(true); // State để kiểm soát trạng thái tải dữ liệu
+    const [loading, setLoading] = useState(true);
     const [showModal, setShowModal] = useState(false);
     const { MdArrowBackIos, FaPlusCircle } = icons;
 
@@ -22,12 +21,11 @@ const PriceDetailPage = () => {
         const fetchPriceDetail = async () => {
             try {
                 const response = await getDetailPrice({ _id: priceId });
-                console.log('response detail price', response);
                 setPriceDetail(response);
             } catch (error) {
                 console.error('Error fetching price detail:', error);
             } finally {
-                setLoading(false); // Đặt loading về false khi dữ liệu đã được tải
+                setLoading(false);
             }
         };
 
@@ -46,9 +44,52 @@ const PriceDetailPage = () => {
         navigate('/prices');
     };
 
+    const [services, setServices] = useState([]);
+    const [vehicles, setVehicles] = useState([]);
+
+    // Lấy dịch vụ và loại xe khi tải trang
+    useEffect(() => {
+        const fetchServicesAndVehicles = async () => {
+            try {
+                const servicesResponse = await getServicesApi();
+                const vehiclesResponse = await getCarApi();
+                setServices(servicesResponse);
+                setVehicles(vehiclesResponse);
+                console.log('Services:', servicesResponse); // Log để kiểm tra
+                console.log('Vehicles:', vehiclesResponse); // Log để kiểm tra
+            } catch (error) {
+                console.error('Error fetching services or vehicles:', error);
+            }
+        };
+
+        fetchServicesAndVehicles();
+    }, []);
+
+    const handleUpdatePriceDetail = (newPriceDetail) => {
+        // Lấy priceLine từ phản hồi
+        const { priceLine } = newPriceDetail; 
+    
+        // Tìm tên dịch vụ từ mảng services đã tải
+        const service = services.find((item) => item._id === priceLine.service_id);
+        
+        // Tìm tên loại xe từ mảng vehicles đã tải
+        const vehicle = vehicles.find((item) => item._id === priceLine.vehicle_type_id);
+    
+        // Tạo đối tượng mới với tên dịch vụ và loại xe
+        const updatedPriceDetail = {
+            ...priceLine, // Spread các thuộc tính của priceLine
+            service_id: { _id: priceLine.service_id, name: service ? service.name : 'Không tìm thấy tên dịch vụ' },
+            vehicle_type_id: { _id: priceLine.vehicle_type_id, vehicle_type_name: vehicle ? vehicle.vehicle_type_name : 'Không tìm thấy tên loại xe' }
+        };
+    
+        // Cập nhật state với thông tin mới
+        setPriceDetail((prevDetails) => [...prevDetails, updatedPriceDetail]);
+    };
+    
+
     const renderContent = () => {
         if (loading) {
-            return <p>Đang tải dữ liệu...</p>; // Hiển thị khi dữ liệu đang được tải
+            return <p>Đang tải dữ liệu...</p>;
         }
 
         if (priceDetail.length === 0) {
@@ -78,16 +119,14 @@ const PriceDetailPage = () => {
                             <th className={styles.dataTableHead}>Tên dịch vụ</th>
                             <th className={styles.dataTableHead}>Loại xe</th>
                             <th className={styles.dataTableHead}>Giá</th>
-                            <th className={styles.dataTableHead}>Mô tả</th>
                         </tr>
                     </thead>
                     <tbody>
                         {priceDetail.map((item) => (
                             <tr key={item._id} className={styles.dataTableRow}>
-                                <td className={styles.dataTableItem}>{item.service_id.name}</td>
-                                <td className={styles.dataTableItem}>{item.vehicle_type_id.vehicle_type_name}</td>
-                                <td className={styles.dataTableItem}>{item.price}</td>
-                                <td className={styles.dataTableItem}>{item.service_id.description}</td>
+                                <td className={styles.dataTableItem}>{item.service_id?.name}</td>
+                                <td className={styles.dataTableItem}>{item.vehicle_type_id?.vehicle_type_name}</td>
+                                <td className={styles.dataTableItem}>{item?.price}</td>
                             </tr>
                         ))}
                     </tbody>
@@ -110,7 +149,14 @@ const PriceDetailPage = () => {
             {renderContent()}
 
             {/* Modal thêm thông tin */}
-            <AddPriceDetailModal show={showModal} handleClose={handleCloseModal} priceId={priceId} />
+            <AddPriceDetailModal
+                show={showModal}
+                handleClose={handleCloseModal}
+                priceId={priceId}
+                onUpdatePriceDetail={handleUpdatePriceDetail} // Truyền callback để cập nhật dữ liệu
+                services={services} // Truyền dịch vụ
+                vehicles={vehicles} // Truyền loại xe
+            />
         </div>
     );
 };

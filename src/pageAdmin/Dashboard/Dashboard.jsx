@@ -3,7 +3,7 @@ import styles from './Dashboard.module.css';
 import { useEffect, useState } from 'react';
 import { getAppointmentCompleted, getSlot } from '@/utils/api';
 import SlotList from './SlotList/SlotList';
-import { Spinner } from 'react-bootstrap';
+import { Form, Spinner } from 'react-bootstrap';
 import CalendarSearch from './CalendarSearch/CalendarSearch';
 import { useNavigate } from 'react-router-dom';
 import CardCompleted from './CardCompleted/CardCompleted';
@@ -31,21 +31,22 @@ const Dashboard = ({ toggle }) => {
     };
 
     const fetchAppointments = async () => {
-        setAppointmentsLoading(true); // Set loading to true before fetching
+        setAppointmentsLoading(true);
         try {
             const response = await getAppointmentCompleted();
+            console.log('Appointments response:', response); 
             setAppointments(response);
             setFilteredAppointments(response);
         } catch (err) {
-            setAppointmentsError(err); // Set error if fetching fails
+            setAppointmentsError(err);
         } finally {
-            setAppointmentsLoading(false); // Set loading to false after fetching
+            setAppointmentsLoading(false);
         }
     };
 
     useEffect(() => {
-        fetchSlots(); // Fetch slots when component mounts
-        fetchAppointments(); // Fetch appointments when component mounts
+        fetchSlots();
+        fetchAppointments();
     }, []);
 
     if (loading) {
@@ -57,7 +58,7 @@ const Dashboard = ({ toggle }) => {
     }
 
     if (error) {
-        return <div>Error: {error}</div>;
+        return <div>Lỗi: {error}</div>;
     }
 
     const handleBookSlot = (slotInfo) => {
@@ -65,6 +66,7 @@ const Dashboard = ({ toggle }) => {
     };
     const availableSlots = slots.filter((slotInfo) => slotInfo.slot.status !== 'booked');
     const bookedSlots = slots.filter((slotInfo) => slotInfo.slot.status === 'booked');
+    console.log('Booked Slots:', bookedSlots);
     return (
         <div className={styles.dasboardWraper}>
             <div className={styles.dashboarHeader}>
@@ -73,6 +75,7 @@ const Dashboard = ({ toggle }) => {
             <div className={styles.dasboardBody}>
                 <div className={styles.dasboardBodyHandle}>
                     <div className={styles.dasboardBodyEmpty}>
+                        <h4>Khu vực chăm sóc khách hàng</h4>
                         {availableSlots.length > 0 ? (
                             <SlotList slots={availableSlots} handleBookSlot={handleBookSlot} />
                         ) : (
@@ -80,13 +83,18 @@ const Dashboard = ({ toggle }) => {
                         )}
                     </div>
                     <div className={styles.dasboardBodyCalender}>
-                        {bookedSlots.length > 0 && (
+                        <h4>Lịch hẹn</h4>
+                        {bookedSlots.length > 0 ? (
                             <CalendarSearch bookedSlots={bookedSlots} fetchAppointments={fetchAppointments} />
+                        ) : (
+                            <div>
+                                <p>Chưa có lịch hẹn nào </p>
+                            </div>
                         )}
                     </div>
                 </div>
-                <hr />
                 <div className={styles.dasboardBodyCompleted}>
+                    <h4 className={styles.dasboardBodyCompletedHead}>Khu vực lập hóa đơn</h4>
                     <CardCompleted
                         key={appointments.length}
                         appointments={appointments}

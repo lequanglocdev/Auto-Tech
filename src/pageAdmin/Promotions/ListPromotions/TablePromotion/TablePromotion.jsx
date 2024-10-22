@@ -2,12 +2,14 @@ import React, { useState } from 'react';
 import { Table, Pagination } from 'react-bootstrap';
 import icons from '@/utils/icon';
 import styles from './TablePromotion.module.css';
-import { deleteUserApi, putCustomerApi, putPromotionHeader } from '@/utils/api';
+import { deleteUserApi, putActivePromotion, putCustomerApi, putPromotionHeader } from '@/utils/api';
 import EditCustomerModal from '../EditPromotionModal/EditPromotionModal';
 import ConfirmDeleteModal from '../ConfirmDeleteModal/ConfirmDeleteModal';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from 'react-router-dom';
 const TablePromotion = ({ data = [], itemsPerPage }) => {
-    const {FaPen, FaTrash } = icons;
+    const { FaPen, FaTrash } = icons;
     const navigate = useNavigate();
     const [currentPage, setCurrentPage] = useState(1);
     const totalPages = Math.ceil(data.length / itemsPerPage);
@@ -30,7 +32,6 @@ const TablePromotion = ({ data = [], itemsPerPage }) => {
         setConfirmDeleteModalShow(true);
     };
 
-   
     const handleShowUserDetail = (promotion) => {
         navigate(`/promotion/${promotion._id}?code=${promotion.promotion_code}`);
     };
@@ -53,6 +54,29 @@ const TablePromotion = ({ data = [], itemsPerPage }) => {
         }
     };
 
+    const handleToggleActive = async (item) => {
+        try {
+            // Cập nhật trạng thái is_active của item hiện tại
+            const updatedItem = { ...item, is_active: !item.is_active };
+
+            const response = await putActivePromotion(updatedItem);
+            if (response?.msg) {
+                toast.success(response.msg);
+            }
+
+            updatePromotionState(updatedItem);
+        } catch (error) {
+            console.error('Lỗi khi cập nhật trạng thái:', error);
+        }
+    };
+
+    const updatePromotionState = (updatedItem) => {
+        setPromotion((prev) =>
+            prev.map((promo) =>
+                promo._id === updatedItem._id ? { ...promo, is_active: updatedItem.is_active } : promo,
+            ),
+        );
+    };
     return (
         <div className={styles.dataTableWrapper}>
             <Table striped bordered hover className={styles.dataTable}>
@@ -61,15 +85,46 @@ const TablePromotion = ({ data = [], itemsPerPage }) => {
                         <th className={styles.dataTableHead}>Mã chương trình khuyến mãi</th>
                         <th className={styles.dataTableHead}>Tên chương trình khuyến mãi</th>
                         <th className={styles.dataTableHead}>Mô tả</th>
+                        <th className={styles.dataTableHead}>Ngày bắt đầu</th>
+                        <th className={styles.dataTableHead}>Ngày kết thúc</th>
+                        <th className={styles.dataTableHead}>Trạng thái</th>
                         <th className={styles.dataTableHead}>Hành động</th>
                     </tr>
                 </thead>
-                <tbody >
+                <tbody>
                     {currentData.map((item) => (
                         <tr key={item._id} className={styles.dataTableRow} onClick={() => handleShowUserDetail(item)}>
                             <td className={styles.dataTableItem}>{item.promotion_code}</td>
                             <td className={styles.dataTableItem}>{item.name}</td>
                             <td className={styles.dataTableItem}>{item.description}</td>
+                            <td className={styles.dataTableItem}>
+                                {new Date(item.start_date).toLocaleString('vi-VN', {
+                                    year: 'numeric',
+                                    month: '2-digit',
+                                    day: '2-digit',
+                                })}
+                            </td>
+                            <td className={styles.dataTableItem}>
+                                {new Date(item.end_date).toLocaleString('vi-VN', {
+                                    year: 'numeric',
+                                    month: '2-digit',
+                                    day: '2-digit',
+                                })}
+                            </td>
+                            <td className={styles.dataTableItem}>
+                                <label className={styles.switch} onClick={(e) => e.stopPropagation()}>
+                                    <input
+                                        type="checkbox"
+                                        checked={item.is_active}
+                                        onChange={(e) => {
+                                            e.stopPropagation(); // Ngăn sự kiện click của <tr>
+                                            handleToggleActive(item);
+                                        }}
+                                    />
+                                    <span className={`${styles.slider} ${styles.round}`}></span>
+                                </label>
+                            </td>
+
                             <td className={styles.dataTableItemAction}>
                                 <div
                                     className={styles.dataTableIconPen}
@@ -80,7 +135,6 @@ const TablePromotion = ({ data = [], itemsPerPage }) => {
                                 >
                                     <FaPen />
                                 </div>
-                              
                             </td>
                         </tr>
                     ))}
@@ -117,7 +171,7 @@ const TablePromotion = ({ data = [], itemsPerPage }) => {
                 onHide={() => setEditModalShow(false)}
                 onUpdate={handleUpdateHeaderPromotion}
             />
-          
+            <ToastContainer />
         </div>
     );
 };

@@ -48,7 +48,6 @@ const AppointmentCompleted = () => {
     return (
         <Container>
             <div className={styles.appointmentHeader}>
-                {/* <MdArrowBackIos onClick={handleListCar} className={styles.createCarIcon} /> */}
                 <Breadcrumb
                     items={['Quản lý lịch chăm sóc', 'Danh sách lịch hẹn hoàn thành']}
                     activeItem="Danh sách lịch hẹn hoàn thành"

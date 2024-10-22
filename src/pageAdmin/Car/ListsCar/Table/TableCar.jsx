@@ -91,7 +91,7 @@ const TableCar = ({ data = [], itemsPerPage }) => {
             <Table striped bordered hover className={styles.dataTable}>
                 <thead>
                     <tr className="">
-                        <th className={styles.dataTableHead}>Hãng xe</th>
+                        <th className={styles.dataTableHead}>Loại xe</th>
                         <th className={styles.dataTableHead}>mô tả</th>
                         <th className={styles.dataTableHead}>Hành động</th>
                     </tr>

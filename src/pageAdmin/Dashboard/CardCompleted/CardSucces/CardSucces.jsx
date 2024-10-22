@@ -52,7 +52,6 @@ const CardSucces = ({ appointment }) => {
                         <h4>Thông tin khu vực</h4>
                     </Accordion.Header>
                     <Accordion.Body>
-                        {/* Thông tin slot */}
                         <p className={styles.appointmentCardText}><strong>Mã khu vực:</strong> {appointment.slot_id._id}</p>
                         <p className={styles.appointmentCardText}><strong>Thời gian đặt:</strong> {new Date(appointment.slot_id.slot_datetime).toLocaleString()}</p>
                         <p className={styles.appointmentCardText}><strong>Thời gian thực hiện (phút):</strong> {appointment.slot_id.duration_minutes}</p>

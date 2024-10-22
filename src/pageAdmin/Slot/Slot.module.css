@@ -113,6 +113,18 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
-.selectedCustomerInfo h4{
+.selectedCustomerInfo h4 {
     color: #007bff;
+}
+
+.slotVehicles {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 20px;
+}
+
+.slotVehiclesItem {
+    padding:10px 20px;
+    border: 1px solid #ccc;
 }

@@ -9,7 +9,7 @@ const CardCompleted = ({ appointments, filteredAppointments, loading, error }) =
     }
 
     if (error) {
-        return <div>Error: {error.message}</div>;
+        return <div><p>Chưa có hóa đơn nào</p></div>;
     }
 
     return (

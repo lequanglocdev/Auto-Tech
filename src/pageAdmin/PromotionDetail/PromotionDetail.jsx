@@ -115,7 +115,7 @@ const PromotionDetail = () => {
 
             <div className={styles.invoiceBtn}>
                 <Button size="lg" onClick={handleCreatePromotion}>
-                    Tạo hóa đơn
+                    Áp dụng
                 </Button>
             </div>
             <ToastContainer />

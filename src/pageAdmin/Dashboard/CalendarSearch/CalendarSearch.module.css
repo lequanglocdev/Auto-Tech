@@ -71,3 +71,14 @@
   font-size: 1.8rem;
   cursor: pointer;
 }
+
+.calendar{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.calendarForm{
+  flex: 1;
+}

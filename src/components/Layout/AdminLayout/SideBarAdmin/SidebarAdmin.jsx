@@ -43,7 +43,7 @@ const SidebarAdmin = ({ isVisible, onSelectMenu }) => {
            
         },
         {
-            title: 'Quản lý hãng xe ',
+            title: 'Quản lý loại xe ',
             icon: FaCar,
             path: '/car'
         },

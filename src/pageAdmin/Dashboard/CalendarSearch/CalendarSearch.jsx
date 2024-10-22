@@ -1,25 +1,29 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Form } from 'react-bootstrap';
 import styles from './CalendarSearch.module.css';
-import { FaPlusCircle } from 'react-icons/fa';
-import { createAppointmentCustomer } from '@/utils/api';
+import { createAppointmentCustomer, getAppointmentsforDate } from '@/utils/api';
 import { ToastContainer, toast } from 'react-toastify';
+import { formatDateTime } from '@/utils/dateTime';
+import CommonButton from '@/components/UI/CommonButton/CommonButton ';
 
 const CalendarSearch = ({ bookedSlots, fetchAppointments }) => {
-    const [updatedBookedSlots, setUpdatedBookedSlots] = useState(bookedSlots);
+    const [allBookedSlots, setAllBookedSlots] = useState(bookedSlots); // Tất cả lịch hẹn
+    const [updatedBookedSlots, setUpdatedBookedSlots] = useState(bookedSlots); // Lịch hẹn hiển thị
+    const [searchDate, setSearchDate] = useState('');
+
+    useEffect(() => {
+        console.log('Received booked slots:', bookedSlots);
+        setUpdatedBookedSlots(bookedSlots);
+    }, [bookedSlots]);
 
     const handleConfirmCustomer = async (appointment) => {
         const id = appointment._id;
         try {
             await createAppointmentCustomer(id);
             toast.success('Xác nhận khách hàng thành công!');
-            
-            // Cập nhật danh sách bookedSlots để loại bỏ lịch hẹn đã xác nhận
-            const updatedSlots = updatedBookedSlots.filter(
-                (slotInfo) => slotInfo.appointments[0]._id !== id
-            );
-            setUpdatedBookedSlots(updatedSlots);
 
+            const updatedSlots = updatedBookedSlots.filter((slotInfo) => slotInfo.appointments[0]._id !== id);
+            setUpdatedBookedSlots(updatedSlots);
             await fetchAppointments(); // Gọi lại fetchAppointments sau khi API thành công
         } catch (error) {
             toast.error('Đã xảy ra lỗi khi xác nhận khách hàng.');
@@ -31,48 +35,86 @@ const CalendarSearch = ({ bookedSlots, fetchAppointments }) => {
         alert('Hủy lịch khách hàng');
     };
 
+    const handleSearch = async () => {
+        try {
+            if (searchDate) {
+                const response = await getAppointmentsforDate(searchDate);
+                console.log('API response:', response); // Log dữ liệu trả về từ API
+
+                if (Array.isArray(response)) {
+                    setUpdatedBookedSlots(response);
+                    console.log('Updated booked slots after search:', response); // Log các slot đã cập nhật
+                } else if (typeof response === 'object' && response !== null) {
+                    setUpdatedBookedSlots([response]); // Chuyển đổi đối tượng thành mảng
+                    console.log('Updated booked slots after search (single object):', [response]); 
+                } else {
+                    toast.error('Dữ liệu không hợp lệ từ API.');
+                }
+            } else {
+                setUpdatedBookedSlots(bookedSlots);
+            }
+        } catch (error) {
+            toast.error('Đã xảy ra lỗi khi tìm kiếm lịch hẹn.');
+            console.error('Lỗi:', error);
+        }
+    };
+
     return (
         <div className={styles.calendarSearch}>
-            <h3>Lịch hẹn</h3>
-            <Form className={styles.calendarForm}>
-                <Form.Control size="lg" type="text" placeholder="Search" />
-                <div>
-                    <FaPlusCircle />
-                </div>
-            </Form>
+            <div className={styles.calendar}>
+                <Form.Group className={styles.calendarForm}>
+                    <Form.Control
+                        size="lg"
+                        type="date"
+                        value={searchDate}
+                        onChange={(e) => setSearchDate(e.target.value)}
+                    />
+                </Form.Group>
+                <CommonButton label="Tìm" onClick={handleSearch} />
+            </div>
             <div className={styles.bookedSlots}>
                 {updatedBookedSlots.length > 0 ? (
-                    updatedBookedSlots.map((slotInfo, index) => (
-                        <div key={slotInfo.slot._id} className={styles.bookedSlot}>
-                            <div className={styles.slotCardHeader}>
-                                <p className={styles.slotCardHeaderTextLeft}>Khu vực chăm sóc số {index + 1}</p>
-                                <p className={styles.availableStatus}>Chờ xác nhận</p>
-                            </div>
-                            <div className={styles.slotCardBody}>
-                                <p className={styles.slotCardBodyText}>
-                                    <strong>Ngày và giờ:</strong> {/* Thêm thông tin ngày giờ */}
-                                </p>
-                                <p className={styles.slotCardBodyText}>
-                                    <strong>Tổng thời gian dự kiến:</strong> {/* Thêm thông tin thời gian */}
-                                </p>
-                                <p className={styles.slotCardBodyText}>
-                                    <strong>Số lượng khách có thể đặt:</strong> {/* Thêm thông tin số lượng khách */}
-                                </p>
-                            </div>
-                            <div className={styles.slotCardFooter}>
-                                <div className={styles.slotCardFooterCompleted} onClick={() => handleConfirmCustomer(slotInfo.appointments[0])}>
-                                    <span>Xác nhận</span>
+                    updatedBookedSlots.map((slotInfo, index) => {
+                        console.log('Key (slotInfo._id):', slotInfo); 
+                        return (
+                            <div key={slotInfo._id} className={styles.bookedSlot}>
+                                <div className={styles.slotCardHeader}>
+                                    <p className={styles.slotCardHeaderTextLeft}>Khu vực chăm sóc số {index + 1}</p>
+                                    <p className={styles.availableStatus}>{slotInfo?.status}</p>
                                 </div>
-                                <div className={styles.slotCardFooterDelete} onClick={hanleCancelCustomer}>
-                                    <span>Huỷ</span>
+                                <div className={styles.slotCardBody}>
+                                    <p className={styles.slotCardBodyText}>
+                                        <strong>Tên:</strong> {slotInfo?.customer_id?.name}
+                                    </p>
+                                    <p className={styles.slotCardBodyText}>
+                                        <strong>Email:</strong> {slotInfo?.customer_id?.email}
+                                    </p>
+                                    <p className={styles.slotCardBodyText}>
+                                        <strong>Biển số xe:</strong> {slotInfo?.vehicle_id?.license_plate}
+                                    </p>
+                                    <p className={styles.slotCardBodyText}>
+                                        <strong>Thời gian:</strong> {formatDateTime(slotInfo?.slot_id?.slot_datetime)}
+                                    </p>
+                                </div>
+                                <div className={styles.slotCardFooter}>
+                                    <div
+                                        className={styles.slotCardFooterCompleted}
+                                        onClick={() => handleConfirmCustomer(slotInfo)}
+                                    >
+                                        <span>Xác nhận</span>
+                                    </div>
+                                    <div className={styles.slotCardFooterDelete} onClick={hanleCancelCustomer}>
+                                        <span>Huỷ</span>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    ))
+                        );
+                    })
                 ) : (
                     <p>Không có lịch hẹn nào</p>
                 )}
             </div>
+
             <ToastContainer />
         </div>
     );

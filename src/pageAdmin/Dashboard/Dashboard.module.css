@@ -13,17 +13,34 @@
 }
 
 .dasboardBodyHandle{
+    width: 100%;
     display: flex;
     justify-content: space-between;
+   
 }
 
 .dasboardBodyEmpty{
     flex: 2;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.dasboardBodyEmpty h4,
+.dasboardBodyCalender h4,
+.dasboardBodyCompletedHead{
+    font-size: 2rem;
+    font-style: italic;
+    font-weight: bold;
+    color: tomato;
+    text-align: center;
+    margin-bottom: 10px;
 }
 
 .dasboardBodyCalender{
     flex: 1;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    padding: 4px;
 }
+
 
 .dasboardBodyCompleted{
     flex: 1;

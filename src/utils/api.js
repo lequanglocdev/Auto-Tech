@@ -412,6 +412,16 @@ const putPromotionLine = (promotion) => {
     return axios.put(URL_API, promotion);
 };
 
+const putActivePromotion = (promotion) =>{
+    const URL_API = `/api/promotions/${promotion._id}/toggle-active`;
+    return axios.put(URL_API, promotion);
+}
+
+const putPriceApi = (price) => {
+    const URL_API = `/api/prices/${price._id}`;
+    return axios.put(URL_API,price);
+};
+
 const findCustomerApi = (query) => {
     const URL_API = `/api/users/find?${query}`;
     return axios.get(URL_API);
@@ -485,6 +495,8 @@ export {
     putVehicleForCustomer,
     putPromotionHeader,
     putPromotionLine,
+    putActivePromotion,
+    putPriceApi,
 
     findCustomerApi
     

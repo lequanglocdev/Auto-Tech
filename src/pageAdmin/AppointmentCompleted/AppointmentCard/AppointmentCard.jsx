@@ -1,13 +1,12 @@
 import React from 'react';
 import { Card, Accordion, Button } from 'react-bootstrap';
-import { useNavigate } from 'react-router-dom'; // Sử dụng useNavigate cho điều hướng
+import { useNavigate } from 'react-router-dom';
 import styles from './appointmentCard.module.css';
 
 const AppointmentCard = ({ appointment }) => {
-    const navigate = useNavigate(); // Khai báo useNavigate
+    const navigate = useNavigate(); 
 
     const handlePaymentClick = () => {
-        // Chuyển đến màn hình lập hóa đơn với appointment._id
         navigate(`/payments/invoice/${appointment._id}`);
     };
 
@@ -23,7 +22,6 @@ const AppointmentCard = ({ appointment }) => {
                         <h4>Thông tin khách hàng</h4>
                     </Accordion.Header>
                     <Accordion.Body>
-                        {/* Thông tin khách hàng */}
                         <p className={styles.appointmentCardText}><strong>Mã khách hàng:</strong> {appointment.customer_id._id}</p>
                         <p className={styles.appointmentCardText}><strong>Tên:</strong> {appointment.customer_id.name}</p>
                         <p className={styles.appointmentCardText}><strong>Email:</strong> {appointment.customer_id.email}</p>
@@ -52,7 +50,6 @@ const AppointmentCard = ({ appointment }) => {
                         <h4>Thông tin khu vực</h4>
                     </Accordion.Header>
                     <Accordion.Body>
-                        {/* Thông tin slot */}
                         <p className={styles.appointmentCardText}><strong>Mã khu vực:</strong> {appointment.slot_id._id}</p>
                         <p className={styles.appointmentCardText}><strong>Thời gian đặt:</strong> {new Date(appointment.slot_id.slot_datetime).toLocaleString()}</p>
                         <p className={styles.appointmentCardText}><strong>Thời gian thực hiện (phút):</strong> {appointment.slot_id.duration_minutes}</p>
@@ -62,7 +59,6 @@ const AppointmentCard = ({ appointment }) => {
                 </Accordion.Item>
 
                 <Accordion.Item eventKey="3">
-                    {/* Nút Thanh Toán */}
                     <Button variant="primary" className={styles.accordionBtn} onClick={handlePaymentClick}>
                         Lập hóa đơn
                     </Button>

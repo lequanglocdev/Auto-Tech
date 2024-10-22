@@ -67,19 +67,19 @@ const CreateCar = () => {
         <div>
             <div className={styles.createCar}>
                 <MdArrowBackIos onClick={handleListCar} className={styles.createCarIcon} />
-                <Breadcrumb items={['Quản lý hãng xe', 'Thêm hãng xe']} activeItem="Thêm hãng xe" />
+                <Breadcrumb items={['Quản lý loại xe', 'Thêm loại xe']} activeItem="Thêm loại xe" />
             </div>
             <div className={styles.createCarBody}>
                 <Form onSubmit={handleSubmit}>
                     <Form.Group className="mb-3" controlId="formGroupName">
-                        <Form.Label className={styles.labelText}>Hãng xe</Form.Label>
+                        <Form.Label className={styles.labelText}>Loại xe</Form.Label>
                         <Form.Control
                             type="text"
                             placeholder="Nhập hãng xe"
                             size="lg"
                             value={vehicleTypeName}
                             onChange={(e) => setVehicleTypeName(e.target.value)}
-                            isInvalid={!!errors.vehicleTypeName} // Hiển thị lỗi nếu có
+                            isInvalid={!!errors.vehicleTypeName} 
                         />
                         <Form.Control.Feedback type="invalid">{errors.vehicleTypeName}</Form.Control.Feedback>
                     </Form.Group>
@@ -94,7 +94,7 @@ const CreateCar = () => {
                             as="textarea"
                             rows={3}
                             onChange={(e) => setDescription(e.target.value)}
-                            isInvalid={!!errors.description} // Hiển thị lỗi nếu có
+                            isInvalid={!!errors.description} 
                         />
                         <Form.Control.Feedback type="invalid">{errors.description}</Form.Control.Feedback>
                     </Form.Group>

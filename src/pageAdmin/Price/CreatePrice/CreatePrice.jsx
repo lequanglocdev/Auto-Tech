@@ -19,26 +19,34 @@ const CreatePrice = () => {
     const validateForm = () => {
         const newErrors = { priceName: '', startDate: '', endDate: '' };
         let isValid = true;
-
+    
+        const today = new Date().toISOString().split('T')[0]; // Lấy ngày hôm nay dưới dạng yyyy-mm-dd
+    
         if (!priceName) {
             newErrors.priceName = 'Tên giá không được để trống!';
             isValid = false;
         }
-
+    
         if (!startDate) {
             newErrors.startDate = 'Ngày bắt đầu không được để trống!';
             isValid = false;
+        } else if (startDate < today) {
+            newErrors.startDate = 'Ngày bắt đầu phải lớn hơn hoặc bằng ngày hôm nay!';
+            isValid = false;
         }
-
+    
         if (!endDate) {
             newErrors.endDate = 'Ngày kết thúc không được để trống!';
             isValid = false;
+        } else if (endDate <= startDate) {
+            newErrors.endDate = 'Ngày kết thúc phải lớn hơn ngày bắt đầu!';
+            isValid = false;
         }
-
+    
         setErrors(newErrors);
         return isValid;
     };
-
+    
     const handleSubmit = async (event) => {
         event.preventDefault();
         if (!validateForm()) return;

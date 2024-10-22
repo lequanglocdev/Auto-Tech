@@ -27,6 +27,7 @@ const ListsAppointment = ({ data = [],itemsPerPage}) => {
         setLoading(true); // Bắt đầu loading khi gọi API
         try {
             const response = await getAppointmentsforDate(searchDate);
+            console.log('>>> lịch hẹn',response)
             setAppointments(response);
         } catch (error) {
             if (error.response && error.response.status === 401) {

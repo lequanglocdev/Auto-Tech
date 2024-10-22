@@ -95,7 +95,8 @@ const CreatePromotion = () => {
                     <Form.Group className="mb-3" controlId="isActive">
                         <Form.Label className={styles.labelText}>Trạng thái</Form.Label>
                         <Form.Check
-                            type="checkbox"
+                            size='lg'
+                            type="switch"
                             name="isActive"
                             label="Kích hoạt"
                             checked={formData.isActive}
@@ -105,6 +106,7 @@ const CreatePromotion = () => {
                         <Form.Control.Feedback type="invalid">{errors.isActive}</Form.Control.Feedback>
                     </Form.Group>
 
+                   
                     <button type="submit" className={styles.btnAdd}>
                         <FaPlusCircle />
                         Thêm
