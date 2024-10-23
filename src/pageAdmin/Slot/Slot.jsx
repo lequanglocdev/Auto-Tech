@@ -143,7 +143,7 @@ const Slot = () => {
     
         if (vehicleTypeName) {
             try {
-                const response = await getPriceForService(vehicleTypeName);
+                const response = await getPriceForService(serviceName,vehicleTypeName);
     
                 // Kiểm tra xem response có phải là mảng không, nếu không thì chuyển nó thành mảng rỗng
                 if (Array.isArray(response)) {
