@@ -4,8 +4,7 @@ import { Button, Form, Modal } from "react-bootstrap";
 const EditPromotionLine = ({ promotion, show, onHide, onUpdate }) => {
     const [formData, setFormData] = useState({
         discount_type: promotion?.discount_type || 'percentage',
-        discount_value: promotion?.discount_value || '',
-        min_order_value: promotion?.min_order_value || '',
+        description: promotion?.description || '',
         start_date: promotion?.start_date ? new Date(promotion.start_date).toISOString().split('T')[0] : '', // Chuyển đổi sang YYYY-MM-DD
         end_date: promotion?.end_date ? new Date(promotion.end_date).toISOString().split('T')[0] : '' // Chuyển đổi sang YYYY-MM-DD
     });
@@ -14,8 +13,7 @@ const EditPromotionLine = ({ promotion, show, onHide, onUpdate }) => {
         if (promotion) {
             setFormData({
                 discount_type: promotion.discount_type,
-                discount_value: promotion.discount_value,
-                min_order_value: promotion.min_order_value,
+                description: promotion.description,
                 start_date: promotion.start_date ? new Date(promotion.start_date).toISOString().split('T')[0] : '',
                 end_date: promotion.end_date ? new Date(promotion.end_date).toISOString().split('T')[0] : ''
             });
@@ -35,10 +33,10 @@ const EditPromotionLine = ({ promotion, show, onHide, onUpdate }) => {
         const updatedLine = {
             ...promotion,
             ...formData,
-            start_date: new Date(formData.start_date).toISOString(), // Chuyển về ISO khi gửi lên API
-            end_date: new Date(formData.end_date).toISOString() // Chuyển về ISO khi gửi lên API
+            start_date: new Date(formData.start_date).toISOString(),
+            end_date: new Date(formData.end_date).toISOString()
         };
-        onUpdate(updatedLine); // Gọi hàm onUpdate với dữ liệu mới
+        onUpdate(updatedLine);
     };
 
     return (
@@ -56,26 +54,16 @@ const EditPromotionLine = ({ promotion, show, onHide, onUpdate }) => {
                             value={formData.discount_type}
                             onChange={handleChange}
                         >
-                            <option value="percentage">Phần trăm</option>
-                            <option value="fixed">Giá trị cố định</option>
+                            <option value="1">Phần trăm</option>
+                            <option value="2">Giá trị cố định</option>
                         </Form.Control>
                     </Form.Group>
-                    <Form.Group controlId="discountValue">
-                        <Form.Label>Giá trị giảm</Form.Label>
+                    <Form.Group controlId="description">
+                        <Form.Label>Mô tả</Form.Label>
                         <Form.Control
-                            type="number"
-                            name="discount_value"
-                            value={formData.discount_value}
-                            onChange={handleChange}
-                            required
-                        />
-                    </Form.Group>
-                    <Form.Group controlId="minOrderValue">
-                        <Form.Label>Giá trị đơn hàng tối thiểu</Form.Label>
-                        <Form.Control
-                            type="number"
-                            name="min_order_value"
-                            value={formData.min_order_value}
+                            type="text"
+                            name="description"
+                            value={formData.description}
                             onChange={handleChange}
                             required
                         />
@@ -110,4 +98,3 @@ const EditPromotionLine = ({ promotion, show, onHide, onUpdate }) => {
 };
 
 export default EditPromotionLine;
-

@@ -30,7 +30,7 @@ const handleListServices = () => {
             <div className={styles.createServicesBody}>
                 <Form onSubmit={handleSubmit}>
                     <Form.Group className="mb-3" controlId="serviceCode">
-                        <Form.Label className={styles.labelText}>Loại dịch vụ</Form.Label>
+                        <Form.Label className={styles.labelText}>Mã dịch vụ</Form.Label>
                         <Form.Control
                             type="text"
                             name="serviceCode"
@@ -72,6 +72,21 @@ const handleListServices = () => {
                         <Form.Control.Feedback type="invalid">{errors.description}</Form.Control.Feedback>
                     </Form.Group>
 
+                    <Form.Group className="mb-3" controlId="timeRequired">
+                        <Form.Label className={styles.labelText}>Thời gian hoàn thành</Form.Label>
+                        <Form.Control
+                            type="text"
+                            name="timeRequired"
+                            placeholder="Nhập thời gian hoàn thành"
+                            size="lg"
+                            value={formData.timeRequired}
+                            onChange={handleChange}
+                            isInvalid={!!errors.timeRequired}
+                        />
+                        <Form.Control.Feedback type="invalid">{errors.timeRequired}</Form.Control.Feedback>
+                    </Form.Group>
+
+                    
                     <button type="submit" className={styles.btnAdd}>
                         <FaPlusCircle />
                         Thêm

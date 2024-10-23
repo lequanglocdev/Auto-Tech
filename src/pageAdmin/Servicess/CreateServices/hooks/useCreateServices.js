@@ -8,6 +8,7 @@ const useCreateServices = () => {
         serviceCode: '',
         name: '',
         description: '',
+        timeRequired:""
     };
 
     const [formData, setFormData] = useState(initialFormData);
@@ -25,13 +26,22 @@ const useCreateServices = () => {
 
     const validateForm = () => {
         const newErrors = {};
+        
         if (!formData.serviceCode) newErrors.serviceCode = 'Bạn chưa nhập mã dịch vụ';
         if (!formData.name) newErrors.name = 'Bạn chưa nhập tên dịch vụ';
         if (!formData.description) newErrors.description = 'Bạn chưa nhập mô tả';
-
+        
+        // Validate time_required phải là số và lớn hơn 0
+        if (!formData.timeRequired) {
+            newErrors.timeRequired = 'Bạn chưa nhập thời gian yêu cầu';
+        } else if (isNaN(formData.timeRequired) || parseInt(formData.timeRequired) <= 0) {
+            newErrors.timeRequired = 'Thời gian yêu cầu phải là số nguyên dương (phút)';
+        }
+    
         setErrors(newErrors);
         return Object.keys(newErrors).length === 0;
     };
+    
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -39,7 +49,7 @@ const useCreateServices = () => {
             setIsSubmitting(true);
             setSubmitError('');
             try {
-                await createServicesApi(formData.serviceCode, formData.name, formData.description);
+                await createServicesApi(formData.serviceCode, formData.name, formData.description,formData.timeRequired);
                 toast.success('Dịch vụ đã được tạo thành công!');
                 // Đặt lại formData về giá trị khởi tạo
                 setFormData(initialFormData);

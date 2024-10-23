@@ -56,6 +56,31 @@ const CreatePromotion = () => {
                         />
                         <Form.Control.Feedback type="invalid">{errors.name}</Form.Control.Feedback>
                     </Form.Group>
+                    <Form.Group className="mb-3" controlId="startDate">
+                        <Form.Label className={styles.labelText}>Ngày bắt đầu</Form.Label>
+                        <Form.Control
+                            type="date"
+                            name='startDate'
+                            size="lg"
+                            value={formData.startDate}
+                            onChange={handleChange}
+                            isInvalid={!!errors.startDate}
+                        />
+                        <Form.Control.Feedback type="invalid">{errors.startDate}</Form.Control.Feedback>
+                    </Form.Group>
+
+                    <Form.Group className="mb-3" controlId="endDate">
+                        <Form.Label className={styles.labelText}>Ngày kết thúc</Form.Label>
+                        <Form.Control
+                            type="date"
+                            size="lg"
+                            name='endDate'
+                            value={formData.endDate}
+                            onChange={handleChange}
+                            isInvalid={!!errors.endDate}
+                        />
+                         <Form.Control.Feedback type="invalid">{errors.endDate}</Form.Control.Feedback>
+                    </Form.Group>
 
                     <Form.Group className="mb-3" controlId="description">
                         <Form.Label className={styles.labelText}>Mô tả</Form.Label>
@@ -72,39 +97,7 @@ const CreatePromotion = () => {
                         <Form.Control.Feedback type="invalid">{errors.description}</Form.Control.Feedback>
                     </Form.Group>
 
-                    <Form.Group className="mb-3" controlId="applicableRankId">
-                        <Form.Label className={styles.labelText}>Hạng khách hàng áp dụng</Form.Label>
-                        <Form.Control
-                            size="lg"
-                            as="select"
-                            name="applicableRankId"
-                            value={formData.applicableRankId}
-                            onChange={handleChange}
-                            isInvalid={!!errors.applicableRankId}
-                        >
-                            <option value="">Chọn hạng khách hàng</option>
-                            {ranks.map((rank) => (
-                                <option key={rank.id} value={rank._id}>
-                                    {rank.rank_name}
-                                </option>
-                            ))}
-                        </Form.Control>
-                        <Form.Control.Feedback type="invalid">{errors.applicableRankId}</Form.Control.Feedback>
-                    </Form.Group>
-
-                    <Form.Group className="mb-3" controlId="isActive">
-                        <Form.Label className={styles.labelText}>Trạng thái</Form.Label>
-                        <Form.Check
-                            size='lg'
-                            type="switch"
-                            name="isActive"
-                            label="Kích hoạt"
-                            checked={formData.isActive}
-                            onChange={(e) => handleChange({ target: { name: 'isActive', value: e.target.checked } })}
-                            isInvalid={!!errors.isActive}
-                        />
-                        <Form.Control.Feedback type="invalid">{errors.isActive}</Form.Control.Feedback>
-                    </Form.Group>
+                   
 
                    
                     <button type="submit" className={styles.btnAdd}>

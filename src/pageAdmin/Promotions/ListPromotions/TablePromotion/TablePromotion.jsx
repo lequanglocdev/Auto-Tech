@@ -2,7 +2,13 @@ import React, { useState } from 'react';
 import { Table, Pagination } from 'react-bootstrap';
 import icons from '@/utils/icon';
 import styles from './TablePromotion.module.css';
-import { deleteUserApi, putActivePromotion, putCustomerApi, putPromotionHeader } from '@/utils/api';
+import {
+    deletePromotionHeaderApi,
+    deleteUserApi,
+    putActivePromotion,
+    putCustomerApi,
+    putPromotionHeader,
+} from '@/utils/api';
 import EditCustomerModal from '../EditPromotionModal/EditPromotionModal';
 import ConfirmDeleteModal from '../ConfirmDeleteModal/ConfirmDeleteModal';
 import { ToastContainer, toast } from 'react-toastify';
@@ -39,6 +45,21 @@ const TablePromotion = ({ data = [], itemsPerPage }) => {
         setSelectedPromotion(user);
         setEditModalShow(true);
     };
+
+    const handleConfirmDelete = async () => {
+        if (promotionToDelete) {
+            try {
+                await deletePromotionHeaderApi(promotionToDelete);
+                setPromotion((prev) => prev.filter((emp) => emp._id !== promotionToDelete._id));
+            } catch (error) {
+                console.log(error);
+            } finally {
+                setConfirmDeleteModalShow(false);
+                setPromotionToDelete(null);
+            }
+        }
+    };
+
     const handleUpdateHeaderPromotion = async (updatedCustomer) => {
         try {
             const response = await putPromotionHeader(updatedCustomer);
@@ -56,17 +77,17 @@ const TablePromotion = ({ data = [], itemsPerPage }) => {
 
     const handleToggleActive = async (item) => {
         try {
-            // Cập nhật trạng thái is_active của item hiện tại
             const updatedItem = { ...item, is_active: !item.is_active };
-
             const response = await putActivePromotion(updatedItem);
+
             if (response?.msg) {
-                toast.success(response.msg);
+                alert(response.msg); // Thông báo thành công
             }
 
             updatePromotionState(updatedItem);
         } catch (error) {
             console.error('Lỗi khi cập nhật trạng thái:', error);
+            alert('Error updating status'); // Thông báo lỗi
         }
     };
 
@@ -115,16 +136,15 @@ const TablePromotion = ({ data = [], itemsPerPage }) => {
                                 <label className={styles.switch} onClick={(e) => e.stopPropagation()}>
                                     <input
                                         type="checkbox"
-                                        checked={item.is_active}
+                                        checked={item.is_active || false} // Đảm bảo luôn có giá trị hợp lệ
                                         onChange={(e) => {
-                                            e.stopPropagation(); // Ngăn sự kiện click của <tr>
-                                            handleToggleActive(item);
+                                            e.stopPropagation();
+                                            handleToggleActive(item); // Truyền item đã được kiểm tra
                                         }}
                                     />
                                     <span className={`${styles.slider} ${styles.round}`}></span>
                                 </label>
                             </td>
-
                             <td className={styles.dataTableItemAction}>
                                 <div
                                     className={styles.dataTableIconPen}
@@ -134,6 +154,16 @@ const TablePromotion = ({ data = [], itemsPerPage }) => {
                                     }}
                                 >
                                     <FaPen />
+                                </div>
+
+                                <div
+                                    className={styles.dataTableIconTrash}
+                                    onClick={(e) => {
+                                        e.stopPropagation();
+                                        handleDeleteUser(item);
+                                    }}
+                                >
+                                    <FaTrash />
                                 </div>
                             </td>
                         </tr>
@@ -170,6 +200,12 @@ const TablePromotion = ({ data = [], itemsPerPage }) => {
                 user={selectedPromotion}
                 onHide={() => setEditModalShow(false)}
                 onUpdate={handleUpdateHeaderPromotion}
+            />
+
+            <ConfirmDeleteModal
+                show={confirmDeleteModalShow}
+                onHide={() => setConfirmDeleteModalShow(false)}
+                onConfirm={handleConfirmDelete}
             />
             <ToastContainer />
         </div>

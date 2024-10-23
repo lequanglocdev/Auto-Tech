@@ -131,13 +131,37 @@ const Slot = () => {
             setSelectedVehicle(selectedVehicle); // Lưu thông tin xe đã chọn
         }
     };
-    const handleSelectVehicle = (vehicle) => {
-        setSelectedVehicle(vehicle); // Lưu thông tin xe đã chọn
-        // Nếu bạn muốn tự động chọn khách hàng đã chọn, có thể thêm dòng này
+    const handleSelectVehicle = async (vehicle) => {
+        setSelectedVehicle(vehicle);
+        console.log('Xe đã chọn:', vehicle);
+    
         if (customerData) {
-            setSelectedCustomer(customerData.customer); // Lưu thông tin khách hàng đã chọn
+            setSelectedCustomer(customerData.customer);
+        }
+    
+        const vehicleTypeName = vehicle.vehicle_type_id?.vehicle_type_name;
+    
+        if (vehicleTypeName) {
+            try {
+                const response = await getPriceForService(vehicleTypeName);
+    
+                // Kiểm tra xem response có phải là mảng không, nếu không thì chuyển nó thành mảng rỗng
+                if (Array.isArray(response)) {
+                    setFilteredPrices(response);
+                } else {
+                    setFilteredPrices([]); // Nếu không phải mảng, set giá trị là mảng rỗng
+                }
+    
+                console.log('Bảng giá cho loại xe:', vehicleTypeName, response); // Log kết quả để kiểm tra
+            } catch (error) {
+                toast.error('Đã xảy ra lỗi khi lấy bảng giá cho xe đã chọn.');
+            }
+        } else {
+            toast.error('Không tìm thấy loại xe.');
         }
     };
+    
+    
     const handleFilterPrices = async () => {
         if (!serviceName.trim()) {
             setServiceNameError('Vui lòng nhập tên dịch vụ trước khi tìm kiếm.'); // Cập nhật thông báo lỗi
@@ -239,13 +263,13 @@ const Slot = () => {
                                             <div className={styles.slotVehiclesItem} key={vehicle._id}>
                                                 <p>
                                                     <strong>Loại xe:</strong>
-                                                    {vehicle.vehicle_type_id.vehicle_type_name}
+                                                    {vehicle.vehicle_type_id?.vehicle_type_name}
                                                 </p>
                                                 <p>
-                                                    <strong>Biển số:</strong> {vehicle.license_plate}
+                                                    <strong>Biển số:</strong> {vehicle?.license_plate}
                                                 </p>
                                                 <p>
-                                                    <strong>Hãng xe:</strong> {vehicle.manufacturer}
+                                                    <strong>Hãng xe:</strong> {vehicle?.manufacturer}
                                                 </p>
                                                 {/* <p>
                                                     <strong>Model:</strong> {vehicle.model}

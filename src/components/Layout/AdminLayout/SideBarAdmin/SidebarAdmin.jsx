@@ -67,16 +67,16 @@ const SidebarAdmin = ({ isVisible, onSelectMenu }) => {
             icon: IoPricetag,
             path: '/prices'
         },
-        {
-            title: 'Quản lý hóa đơn',
-            icon: FaMoneyBillTrendUp,
-            items: ['Chi tiết hóa đơn'],
-        },
-        {
-            title: 'Tài khoản',
-            icon: MdManageAccounts,
-            items: ['Thông tin cá nhân', 'Thông tin tài khoản', 'Thêm mới tài khoản', 'Đổi mật khẩu', 'Đăng xuất'],
-        },
+        // {
+        //     title: 'Quản lý hóa đơn',
+        //     icon: FaMoneyBillTrendUp,
+        //     items: ['Chi tiết hóa đơn'],
+        // },
+        // {
+        //     title: 'Tài khoản',
+        //     icon: MdManageAccounts,
+        //     items: ['Thông tin cá nhân', 'Thông tin tài khoản', 'Thêm mới tài khoản', 'Đổi mật khẩu', 'Đăng xuất'],
+        // },
     ];
 
     const [openMenuIndex, setOpenMenuIndex] = useState(null);

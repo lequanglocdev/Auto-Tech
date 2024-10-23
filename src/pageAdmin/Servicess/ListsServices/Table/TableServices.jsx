@@ -84,9 +84,10 @@ const TableServices = ({ data = [], itemsPerPage }) => {
             <Table striped bordered hover className={styles.dataTable}>
                 <thead>
                     <tr className="">
-                        <th className={styles.dataTableHead}>Loại dịch vụ</th>
+                        <th className={styles.dataTableHead}>Mã dịch vụ</th>
                         <th className={styles.dataTableHead}>Tên dịch vụ</th>
                         <th className={styles.dataTableHead}>Mô tả</th>
+                        <th className={styles.dataTableHead}>Thời gian hoàn thành</th>
                         <th className={styles.dataTableHead}>Hành động</th>
                     </tr>
                 </thead>
@@ -96,6 +97,7 @@ const TableServices = ({ data = [], itemsPerPage }) => {
                             <td className={styles.dataTableItem}>{item.service_code}</td>
                             <td className={styles.dataTableItem}>{item.name}</td>
                             <td className={styles.dataTableItem}>{item.description}</td>
+                            <td className={styles.dataTableItem}>{item.time_required}phút</td>
                             <td className={styles.dataTableItemAction}>
                                 <div className={styles.dataTableIconEye} onClick={() => handleShowUserDetail(item)}>
                                     <FaEye />

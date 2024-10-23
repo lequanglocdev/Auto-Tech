@@ -1,13 +1,14 @@
 import { useState, useEffect } from 'react';
 import { createPromotions, getRankApi } from '@/utils/api';
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 const useCreatePromotionForm = () => {
     const [formData, setFormData] = useState({
         promotionCode: '',
         name: '',
         description: '',
-        applicableRankId: '',
-        isActive: false,
+        startDate: '',
+        endDate: ''
     });
 
     const [errors, setErrors] = useState({});
@@ -19,7 +20,7 @@ const useCreatePromotionForm = () => {
         const fetchRanks = async () => {
             try {
                 const response = await getRankApi();
-                console.log(">> response ranks",response)
+                console.log(">> response ranks", response);
                 setRanks(response); // Giả sử API trả về một mảng các rank
             } catch (error) {
                 console.error('Lỗi khi lấy danh sách hạng:', error);
@@ -39,11 +40,25 @@ const useCreatePromotionForm = () => {
 
     const validateForm = () => {
         const newErrors = {};
+        const today = new Date().setHours(0, 0, 0, 0); // Ngày hiện tại (chỉ lấy phần ngày)
+        const startDate = new Date(formData.startDate).setHours(0, 0, 0, 0);
+        const endDate = new Date(formData.endDate).setHours(0, 0, 0, 0);
+
         if (!formData.promotionCode) newErrors.promotionCode = 'Bạn chưa nhập mã khuyến mãi';
         if (!formData.name) newErrors.name = 'Bạn chưa nhập tên chương trình khuyến mãi';
         if (!formData.description) newErrors.description = 'Bạn chưa nhập mô tả';
-        if (!formData.applicableRankId) newErrors.applicableRankId = 'Bạn chưa chọn loại hạng khách hàng';
-        if (!formData.isActive) newErrors.isActive = 'Bạn chưa xét trạng thái';
+
+        if (!formData.startDate) {
+            newErrors.startDate = 'Bạn chưa nhập ngày bắt đầu';
+        } else if (startDate < today) {
+            newErrors.startDate = 'Ngày bắt đầu phải lớn hơn hoặc bằng ngày hiện tại';
+        }
+
+        if (!formData.endDate) {
+            newErrors.endDate = 'Bạn chưa nhập ngày kết thúc';
+        } else if (endDate <= startDate) {
+            newErrors.endDate = 'Ngày kết thúc phải lớn hơn ngày bắt đầu';
+        }
 
         setErrors(newErrors);
         return Object.keys(newErrors).length === 0;
@@ -60,9 +75,18 @@ const useCreatePromotionForm = () => {
                     formData.promotionCode,
                     formData.name,
                     formData.description,
-                    formData.applicableRankId,
-                    formData.isActive,
+                    formData.startDate,
+                    formData.endDate
                 );
+                toast.success('Chương trình khuyến mãi đã được tạo thành công!');
+                
+                setFormData({
+                    promotionCode: '',
+                    name: '',
+                    description: '',
+                    startDate: '',
+                    endDate: ''
+                });
             } catch (error) {
                 console.error('Lỗi khi tạo chương trình khuyến mãi:', error);
             } finally {

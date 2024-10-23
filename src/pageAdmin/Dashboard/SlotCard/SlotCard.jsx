@@ -2,7 +2,6 @@ import React from 'react';
 import styles from './SLotCard.module.css';
 
 const SlotCard = ({ slotInfo, index, handleViewSlot, handleBookSlot }) => {
-// Kiểm tra nếu slot đã được booked, không render gì cả
     if (slotInfo.slot.status === 'booked') {
         return null;
     }

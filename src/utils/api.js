@@ -233,6 +233,15 @@ const deletePromotionApi = (promotion) => {
     return axios.delete(URL_API);
 };
 
+const deletePromotionHeaderApi = (promotion) => {
+    const URL_API = `/api/promotions/${promotion._id}`;
+    return axios.delete(URL_API);
+};
+
+const deletePriceDetailApi = (price) => {
+    const URL_API = `/api/prices/lines/${price._id}`;
+    return axios.delete(URL_API);
+};
 
 const createCarApi = (vehicleTypeName, description) => {
     const URL_API = '/api/vehicle-types';
@@ -243,12 +252,13 @@ const createCarApi = (vehicleTypeName, description) => {
     return axios.post(URL_API, data);
 };
 
-const createServicesApi = (serviceCode, name, description) => {
+const createServicesApi = (serviceCode, name, description,timeRequired) => {
     const URL_API = '/api/services';
     const data = {
         service_code: serviceCode,
         name,
-        description
+        description,
+        time_required: timeRequired
     };
     return axios.post(URL_API, data);
 };
@@ -298,26 +308,25 @@ const createPriceLineApi = (priceId, serviceId, vehicleTypeId, price) => {
     return axios.post(URL_API, data); 
 };
 
-const createPromotions = (promotionCode, name, description, applicableRankId, isActive) => {
+const createPromotions = (promotionCode, name, description,startDate,endDate) => {
     const URL_API = `/api/promotions`;
     const data = {
         promotion_code: promotionCode,
         name: name,
-        description: description,
-        applicable_rank_id: applicableRankId,
-        isActive: isActive
+        description: description, 
+        start_date:startDate,
+        end_date: endDate
     };
     
     return axios.post(URL_API, data); 
 };
 
-const createPromotionLine = (promotionId, discountType, discountValue, minOrderValue, startDate, endDate) => {
+const createPromotionLine = (promotionId, discountType, description, startDate, endDate) => {
     const URL_API = `/api/promotions/${promotionId}/lines`;
     const data = {
         promotionId:promotionId,
         discount_type: discountType,
-        discount_value: discountValue,
-        min_order_value: minOrderValue,
+        description: description,
         start_date: startDate,
         end_date: endDate
     };
@@ -422,6 +431,15 @@ const putPriceApi = (price) => {
     return axios.put(URL_API,price);
 };
 
+const putActivePriceApi = (priceId, isActive) => {
+    const URL_API = `/api/prices/${priceId}`;
+    return axios.put(URL_API, { is_active: isActive });
+};
+const putPriceDetailApi = (price) => {
+    const URL_API = `/api/prices/lines/${price._id}`;
+    return axios.put(URL_API,price);
+};
+
 const findCustomerApi = (query) => {
     const URL_API = `/api/users/find?${query}`;
     return axios.get(URL_API);
@@ -471,6 +489,8 @@ export {
     deleteVehicleForCustomer,
     deleteSlotApi,
     deletePromotionApi,
+    deletePromotionHeaderApi,
+    deletePriceDetailApi,
 
     verifyOtpApi,
     createCarApi,
@@ -497,6 +517,8 @@ export {
     putPromotionLine,
     putActivePromotion,
     putPriceApi,
+    putPriceDetailApi,
+    putActivePriceApi,
 
     findCustomerApi
     

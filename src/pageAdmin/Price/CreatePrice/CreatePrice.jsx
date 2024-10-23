@@ -58,12 +58,7 @@ const CreatePrice = () => {
             setStartDate('');
             setEndDate('');
         } catch (error) {
-            if (error.response && error.response.data) {
-                const errorMsg = error.response.data.msg;
-                toast.error(errorMsg);
-            } else {
-                toast.error('Có lỗi xảy ra khi thêm bảng giá!');
-            }
+            toast.error('Lỗi nhập dữ liệu');
         }
     };
 

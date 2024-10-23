@@ -12,25 +12,22 @@ import ConfirmDeleteModal from './ConfirmDeleteModal/ConfirmDeleteModal';
 const PromotionLine = () => {
     const navigate = useNavigate();
     const { id } = useParams();
-  
+
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const { FaPen, FaTrash, MdArrowBackIos, FaPlusCircle } = icons;
     const [formData, setFormData] = useState({
-        discount_type: 'percentage',
-        discount_value: '',
-        min_order_value: '',
+        discount_type: true,
+        description: '',
         start_date: '',
         end_date: '',
     });
 
-    
     const [promotionLines, setPromotionLines] = useState([]);
     const [selectedPromotion, setSelectedPromotion] = useState(null); // Thêm state cho promotion được chọn
     const [editModalShow, setEditModalShow] = useState(false);
     const [confirmDeleteModalShow, setConfirmDeleteModalShow] = useState(false);
     const [promotion, setpromotion] = useState(null);
-
 
     const location = useLocation();
     const query = new URLSearchParams(location.search);
@@ -66,29 +63,37 @@ const PromotionLine = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const { discount_type, discount_value, min_order_value, start_date, end_date } = formData;
+        const { discount_type, description, start_date, end_date } = formData;
 
         try {
             const response = await createPromotionLine(
                 id,
                 discount_type,
-                parseFloat(discount_value),
-                parseInt(min_order_value),
+                description,
                 new Date(start_date).toISOString(),
                 new Date(end_date).toISOString(),
             );
-            const newPromotionLine = response.data.promotionLine;
-            setPromotionLines((prev) => [...prev, newPromotionLine]);
-            setFormData({
-                discount_type: 'percentage',
-                discount_value: '',
-                min_order_value: '',
-                start_date: '',
-                end_date: '',
-            });
+
+            console.log('Response from API:', response); // Kiểm tra phản hồi từ API
+
+            if (response && response.promotionLine) {
+                const newPromotionLine = response.promotionLine;
+
+
+                setPromotionLines((prev) => [...prev, newPromotionLine]);
+                toast.success('Thêm khuyến mãi thành công');
+                setFormData({
+                    discount_type: 1, // Đặt lại mặc định là `true` (hoặc 1 cho phần trăm)
+                    description: '',
+                    start_date: '',
+                    end_date: '',
+                });
+            } else {
+                toast.error('Lỗi');
+            }
         } catch (error) {
             console.error('Error creating promotion line:', error);
-            setError('Không thể thêm chi tiết khuyến mãi mới.');
+            toast.error('Chương trình khuyến mãi đã hết');
         }
     };
 
@@ -106,16 +111,14 @@ const PromotionLine = () => {
         navigate(`/promotions/${lineId}`);
     };
 
-    const handleEditPromotionLine = (line) =>{
+    const handleEditPromotionLine = (line) => {
         setSelectedPromotion(line);
-        setEditModalShow(true)
-    }
+        setEditModalShow(true);
+    };
     const handleUpdateLinePromotion = async (updatedLine) => {
-       try {
+        try {
             const response = await putPromotionLine(updatedLine);
-            const updatedLines = promotionLines.map((line) =>
-                line._id === updatedLine._id ? updatedLine : line
-            );
+            const updatedLines = promotionLines.map((line) => (line._id === updatedLine._id ? updatedLine : line));
             setPromotionLines(updatedLines); // Cập nhật danh sách với promotion line mới
             toast.success('Cập nhật thành công');
         } catch (error) {
@@ -126,18 +129,18 @@ const PromotionLine = () => {
         }
     };
 
-    
     const handleDeleteUser = (line) => {
-        setSelectedPromotion(line); // Lưu promotion được chọn để xóa
-        setConfirmDeleteModalShow(true); // Hiển thị modal xác nhận
+        setSelectedPromotion(line); 
+        setConfirmDeleteModalShow(true);
     };
 
     const handleConfirmDelete = async () => {
-        if (selectedPromotion) { // Kiểm tra nếu promotion đã được chọn
+        if (selectedPromotion) {
+            // Kiểm tra nếu promotion đã được chọn
             try {
                 await deletePromotionApi(selectedPromotion); // Gọi API xóa promotion
-                setPromotionLines((prev) =>
-                    prev.filter((line) => line._id !== selectedPromotion._id) // Loại bỏ promotion vừa xóa khỏi danh sách
+                setPromotionLines(
+                    (prev) => prev.filter((line) => line._id !== selectedPromotion._id), // Loại bỏ promotion vừa xóa khỏi danh sách
                 );
                 toast.success('Xóa thành công');
             } catch (error) {
@@ -166,28 +169,17 @@ const PromotionLine = () => {
                         placeholder="Nhập mô tả"
                         size="lg"
                     >
-                        <option value="percentage">Phần trăm</option>
-                        <option value="fixed">Giá trị cố định</option>
+                        <option value={1}>Giảm giá theo phần trăm</option>
+                        <option value={2}>Giảm giá cố định</option>
                     </Form.Control>
                 </Form.Group>
-                <Form.Group className="mb-3" controlId="discountValue">
-                    <Form.Label className={styles.labelText}>Giá trị giảm</Form.Label>
+
+                <Form.Group className="mb-3" controlId="description">
+                    <Form.Label className={styles.labelText}>Mô tả</Form.Label>
                     <Form.Control
-                        type="number"
-                        name="discount_value"
-                        value={formData.discount_value}
-                        onChange={handleChange}
-                        placeholder="Nhập mô tả"
-                        size="lg"
-                        required
-                    />
-                </Form.Group>
-                <Form.Group className="mb-3" controlId="minOrderValue">
-                    <Form.Label className={styles.labelText}>Giá trị đơn hàng tối thiểu</Form.Label>
-                    <Form.Control
-                        type="number"
-                        name="min_order_value"
-                        value={formData.min_order_value}
+                        type="text"
+                        name="description"
+                        value={formData.description}
                         onChange={handleChange}
                         required
                         placeholder="Nhập mô tả"
@@ -228,8 +220,7 @@ const PromotionLine = () => {
                     <thead>
                         <tr>
                             <th className={styles.dataTableHead}>Loại giảm giá</th>
-                            <th className={styles.dataTableHead}>Giá trị giảm</th>
-                            <th className={styles.dataTableHead}>Giá trị đơn hàng tối thiểu</th>
+                            <th className={styles.dataTableHead}>Mô tả</th>
                             <th className={styles.dataTableHead}>Ngày bắt đầu</th>
                             <th className={styles.dataTableHead}>Ngày kết thúc</th>
                             <th className={styles.dataTableHead}>Hành động</th>
@@ -237,14 +228,14 @@ const PromotionLine = () => {
                     </thead>
                     <tbody>
                         {promotionLines.map((line) => (
-                            <tr key={line._id} onClick={() => handleRowClick(line._id)}>
+                            <tr key={line._id} onClick={() => handleRowClick(line._id)}
+>
                                 <td className={styles.dataTableItem}>
-                                    {line.discount_type === 'percentage' ? 'Phần trăm' : 'Giá trị cố định'}
+                                    {line?.discount_type === 1 ? 'Giảm giá theo phần trăm' : 'Giảm giá cố định'}
                                 </td>
-                                <td className={styles.dataTableItem}>{line.discount_value}</td>
-                                <td className={styles.dataTableItem}>{line.min_order_value}</td>
+                                <td className={styles.dataTableItem}>{line?.description}</td>
                                 <td className={styles.dataTableItem}>
-                                    {new Date(line.start_date).toLocaleDateString()}
+                                    {new Date(line?.start_date).toLocaleDateString()}
                                 </td>
                                 <td className={styles.dataTableItem}>{new Date(line.end_date).toLocaleDateString()}</td>
                                 <td className={styles.dataTableItemAction}>
@@ -266,7 +257,6 @@ const PromotionLine = () => {
                                     >
                                         <FaTrash />
                                     </div>
-
                                 </td>
                             </tr>
                         ))}
@@ -275,7 +265,7 @@ const PromotionLine = () => {
             ) : (
                 <Alert variant="info">Không có dữ liệu chi tiết cho khuyến mãi này. Hãy thêm chi tiết mới.</Alert>
             )}
-            
+
             <EditPromotionLine
                 show={editModalShow}
                 promotion={selectedPromotion} // Truyền promotion được chọn vào modal
@@ -287,6 +277,7 @@ const PromotionLine = () => {
                 onHide={() => setConfirmDeleteModalShow(false)}
                 onConfirm={handleConfirmDelete}
             />
+            <ToastContainer />
         </div>
     );
 };

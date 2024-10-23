@@ -44,7 +44,7 @@ const AddVehicleModal = ({ show, onClose, customerId, onSave }) => {
     const validateForm = () => {
         const newErrors = {};
 
-        if (!selectedVehicleType) newErrors.selectedVehicleType = 'Bạn phải chọn hãng xe';
+        if (!selectedVehicleType) newErrors.selectedVehicleType = 'Bạn phải chọn loại xe';
         if (!licensePlate) newErrors.licensePlate = 'Bạn phải nhập biển số xe';
         if (!manufacturer) newErrors.manufacturer = 'Bạn phải nhập tên xe';
         if (!model) newErrors.model = 'Bạn phải nhập model';
