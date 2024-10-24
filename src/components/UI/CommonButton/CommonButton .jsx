@@ -5,7 +5,7 @@ import styles from './CommonButton.module.css';
 const CommonButton = ({ onClick, icon: Icon, label, className }) => {
     return (
         <button className={`${styles.commonButton} ${className}`} onClick={onClick}>
-            {Icon && <Icon style={{ fontSize: 20, marginRight: 8 }} />}
+            {Icon && <Icon style={{ fontSize: 16, marginRight: 8 }} />}
             {label}
         </button>
     );

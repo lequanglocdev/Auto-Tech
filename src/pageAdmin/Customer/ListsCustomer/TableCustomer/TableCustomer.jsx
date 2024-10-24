@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Table, Pagination } from 'react-bootstrap';
+import { Table, Pagination, Form, Row, Col, Button } from 'react-bootstrap';
 import icons from '@/utils/icon';
 import styles from './TableCustomer.module.css';
 import { deleteUserApi, putCustomerApi } from '@/utils/api';
@@ -7,7 +7,7 @@ import EditCustomerModal from '../EditCustomerModal/EditCustomerModal';
 import ConfirmDeleteModal from '../ConfirmDeleteModal/ConfirmDeleteModal';
 import { useNavigate } from 'react-router-dom';
 const TableCustomer = ({ data = [], itemsPerPage }) => {
-    const {FaPen, FaTrash } = icons;
+    const { FaPen, FaTrash } = icons;
     const navigate = useNavigate();
     const [currentPage, setCurrentPage] = useState(1);
     const totalPages = Math.ceil(data.length / itemsPerPage);
@@ -67,20 +67,20 @@ const TableCustomer = ({ data = [], itemsPerPage }) => {
         }
     };
 
-    
     return (
         <div className={styles.dataTableWrapper}>
-            <Table striped bordered hover className={styles.dataTable}>
+          
+            <Table bordered className={styles.dataTable}>
                 <thead>
                     <tr className="">
                         <th className={styles.dataTableHead}>Name</th>
                         <th className={styles.dataTableHead}>Email</th>
                         <th className={styles.dataTableHead}>Phone</th>
                         <th className={styles.dataTableHead}>Đia chỉ</th>
-                        <th className={styles.dataTableHead}>Hành động</th>
+                        <th className={styles.dataTableHead}>Tác vụ</th>
                     </tr>
                 </thead>
-                <tbody >
+                <tbody>
                     {currentData.map((item) => (
                         <tr key={item._id} className={styles.dataTableRow} onClick={() => handleShowUserDetail(item)}>
                             <td className={styles.dataTableItem}>{item.name}</td>
@@ -112,7 +112,7 @@ const TableCustomer = ({ data = [], itemsPerPage }) => {
                 </tbody>
             </Table>
 
-            {customer.length > 5 && (
+            {customer.length >= 5 && (
                 <Pagination size="lg" className={styles.pagination}>
                     <Pagination.First onClick={() => handlePageChange(1)} disabled={currentPage === 1} />
                     <Pagination.Prev onClick={() => handlePageChange(currentPage - 1)} disabled={currentPage === 1} />
@@ -135,8 +135,6 @@ const TableCustomer = ({ data = [], itemsPerPage }) => {
                     />
                 </Pagination>
             )}
-
-           
 
             <EditCustomerModal
                 show={editModalShow}

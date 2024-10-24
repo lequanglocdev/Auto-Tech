@@ -1,14 +1,14 @@
 .customerTitle {
-    font-size: 1.8rem !important;
+    font-size: 1.6rem !important;
     color: #3498db !important;
 }
 
 .customerLabel {
-    font-size: 1.6rem !important;
+    font-size: 1.4rem !important;
 }
 
 .customerControl {
-    font-size: 1.4rem !important;
+    font-size: 1.3rem !important;
 }
 
 .customerLabel,
@@ -27,7 +27,9 @@
 }
 
 .customerBtn {
+    margin-top: 10px;
     width: 100px;
     height: 34px;
+    padding: 4px 10px;
     font-size: 1.6rem !important;
 }

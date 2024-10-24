@@ -7,8 +7,8 @@ import { formatDateTime } from '@/utils/dateTime';
 import CommonButton from '@/components/UI/CommonButton/CommonButton ';
 
 const CalendarSearch = ({ bookedSlots, fetchAppointments }) => {
-    const [allBookedSlots, setAllBookedSlots] = useState(bookedSlots); // Tất cả lịch hẹn
-    const [updatedBookedSlots, setUpdatedBookedSlots] = useState(bookedSlots); // Lịch hẹn hiển thị
+    const [allBookedSlots, setAllBookedSlots] = useState(bookedSlots); 
+    const [updatedBookedSlots, setUpdatedBookedSlots] = useState(bookedSlots); 
     const [searchDate, setSearchDate] = useState('');
 
     useEffect(() => {
@@ -24,7 +24,7 @@ const CalendarSearch = ({ bookedSlots, fetchAppointments }) => {
 
             const updatedSlots = updatedBookedSlots.filter((slotInfo) => slotInfo.appointments[0]._id !== id);
             setUpdatedBookedSlots(updatedSlots);
-            await fetchAppointments(); // Gọi lại fetchAppointments sau khi API thành công
+            await fetchAppointments(); 
         } catch (error) {
             toast.error('Đã xảy ra lỗi khi xác nhận khách hàng.');
             console.error('Lỗi:', error);
@@ -39,13 +39,13 @@ const CalendarSearch = ({ bookedSlots, fetchAppointments }) => {
         try {
             if (searchDate) {
                 const response = await getAppointmentsforDate(searchDate);
-                console.log('API response:', response); // Log dữ liệu trả về từ API
+                console.log('API response:', response); 
 
                 if (Array.isArray(response)) {
                     setUpdatedBookedSlots(response);
-                    console.log('Updated booked slots after search:', response); // Log các slot đã cập nhật
+                    console.log('Updated booked slots after search:', response); 
                 } else if (typeof response === 'object' && response !== null) {
-                    setUpdatedBookedSlots([response]); // Chuyển đổi đối tượng thành mảng
+                    setUpdatedBookedSlots([response]);
                     console.log('Updated booked slots after search (single object):', [response]); 
                 } else {
                     toast.error('Dữ liệu không hợp lệ từ API.');

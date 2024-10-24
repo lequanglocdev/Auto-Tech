@@ -76,7 +76,7 @@ const TableEmployees = ({ data = [], itemsPerPage }) => {
                         <th className={styles.dataTableHead}>Name</th>
                         <th className={styles.dataTableHead}>Email</th>
                         <th className={styles.dataTableHead}>Phone</th>
-                        <th className={styles.dataTableHead}>Hành động</th>
+                        <th className={styles.dataTableHead}>Tác vụ</th>
                     </tr>
                 </thead>
                 <tbody>

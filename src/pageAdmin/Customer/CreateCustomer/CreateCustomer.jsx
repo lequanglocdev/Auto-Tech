@@ -125,25 +125,22 @@ const CreateCustomer = () => {
                     </button>
                 </Form>
             </div>
-            <Modal show={showOtpModal} onHide={() => setShowOtpModal(false)} centered>
+            <Modal show={showOtpModal}  onHide={() => setShowOtpModal(false)} centered>
                 <Modal.Header closeButton>
-                    <Modal.Title>Nhập mã OTP</Modal.Title>
+                    <Modal.Title className={styles.customerTitle}>Nhập mã OTP</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <Form.Group controlId="emailModal">
-                        <Form.Label className={styles.labelText}>Email đã nhập</Form.Label>
-                        <Form.Control type="text" value={formData.email} readOnly />
+                    <Form.Group className={styles.customerGroup}  controlId="emailModal">
+                        <Form.Label  className={styles.customerLabel}>Email đã nhập</Form.Label>
+                        <Form.Control className={styles.customerControl} type="text" value={formData.email} readOnly />
                     </Form.Group>
-                    <Form.Group controlId="otp">
-                        <Form.Label className={styles.labelText}>OTP</Form.Label>
-                        <Form.Control type="text" placeholder="Nhập mã OTP" value={otp} onChange={handleOtpChange} />
+                    <Form.Group className={styles.customerGroup}  controlId="otp">
+                        <Form.Label className={styles.customerLabel}>OTP</Form.Label>
+                        <Form.Control className={styles.customerControl} type="text" placeholder="Nhập mã OTP" value={otp} onChange={handleOtpChange} />
                     </Form.Group>
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button variant="secondary" onClick={() => setShowOtpModal(false)}>
-                        Hủy
-                    </Button>
-                    <Button variant="primary" onClick={handleOtpSubmit}>
+                    <Button variant="primary" onClick={handleOtpSubmit} className={styles.btn}>
                         Xác nhận
                     </Button>
                 </Modal.Footer>

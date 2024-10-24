@@ -145,14 +145,14 @@ const Slot = () => {
             try {
                 const response = await getPriceForService(serviceName,vehicleTypeName);
     
-                // Kiểm tra xem response có phải là mảng không, nếu không thì chuyển nó thành mảng rỗng
+             
                 if (Array.isArray(response)) {
                     setFilteredPrices(response);
                 } else {
-                    setFilteredPrices([]); // Nếu không phải mảng, set giá trị là mảng rỗng
+                    setFilteredPrices([]); 
                 }
     
-                console.log('Bảng giá cho loại xe:', vehicleTypeName, response); // Log kết quả để kiểm tra
+                console.log('Bảng giá cho loại xe:', vehicleTypeName, response); 
             } catch (error) {
                 toast.error('Đã xảy ra lỗi khi lấy bảng giá cho xe đã chọn.');
             }
@@ -164,14 +164,13 @@ const Slot = () => {
     
     const handleFilterPrices = async () => {
         if (!serviceName.trim()) {
-            setServiceNameError('Vui lòng nhập tên dịch vụ trước khi tìm kiếm.'); // Cập nhật thông báo lỗi
+            setServiceNameError('Vui lòng nhập tên dịch vụ trước khi tìm kiếm.');
             toast.error('Vui lòng nhập tên dịch vụ trước khi tìm kiếm.');
-            return; // Dừng hàm nếu không có tên dịch vụ
+            return; 
         }
         setServiceNameError('');
         setIsLoadingServices(true);
         try {
-            // Gọi API với các giá trị từ serviceName và vehicleTypeName
             const response = await getPriceForService(serviceName);
 
             setFilteredPrices(response);
@@ -271,15 +270,7 @@ const Slot = () => {
                                                 <p>
                                                     <strong>Hãng xe:</strong> {vehicle?.manufacturer}
                                                 </p>
-                                                {/* <p>
-                                                    <strong>Model:</strong> {vehicle.model}
-                                                </p>
-                                                <p>
-                                                    <strong>Năm sản xuất:</strong> {vehicle.year}
-                                                </p>
-                                                <p>
-                                                    <strong>Màu sắc:</strong> {vehicle.color}
-                                                </p> */}
+                                            
                                                 <button
                                                     className={
                                                         selectedVehicle && selectedVehicle._id === vehicle._id
@@ -329,7 +320,6 @@ const Slot = () => {
                     <Form>
                         <Form.Group as={Row} className="">
                             <Col xs={10}>
-                                {/* Chỉnh kích thước cho trường nhập liệu */}
                                 <Form.Control
                                     size="lg"
                                     type="text"

@@ -185,7 +185,7 @@ const getInfoInvoiceCompleted = (appointmentId) =>{
 }
 
 const getInvoiceDetails = (invoiceId) => {
-    const URL_API = `/api/payments/invoice/${invoiceId}`; // Cập nhật URL API cho phù hợp
+    const URL_API = `/api/payments/invoice/${invoiceId}`; 
     return axios.get(URL_API);
 };
 const deleteUserApi = (user) => {

@@ -93,7 +93,7 @@ const Invoice = () => {
                 </Button>
             </div>
 
-            {invoiceDetails && ( // Hiển thị thông tin hóa đơn nếu có
+            {invoiceDetails && ( 
                 <div className={styles.invoiceDetails}>
                     <h3>Thông tin hóa đơn:</h3>
 

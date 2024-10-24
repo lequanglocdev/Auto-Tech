@@ -7,6 +7,37 @@
 }
 .listsCustomerButton {
     display: flex;
-    justify-content: flex-end;
+    justify-content:space-between;
+    align-items: center;
     padding: 20px;
+    
+}
+
+.formSearch{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+.formSearchInput{
+    width: 300px !important;
+    height: 26px !important;
+    border: 1px solid #b2bec3;
+    outline: none;
+    font-size: 1.4rem !important;
+    padding: 4px;
+}
+
+.formSearchBtn{
+    border: none;
+    outline: none;
+    width: 80px;
+    height: 26px;
+    border-radius: 4px;
+    background-color: #e17055;
+    color: #fff;
+    font-size: 1.3rem;
+}
+.formSearchBtn:hover{
+    background-color: #d66951;
 }

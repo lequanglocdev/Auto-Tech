@@ -3,8 +3,8 @@ import { Table, Alert, Form } from 'react-bootstrap';
 import { useLocation, useParams } from 'react-router-dom';
 import styles from './PromotionLine.module.css';
 import { getPromotionDetaiLinelApi, createPromotionLine, putPromotionLine, deletePromotionApi } from '@/utils/api';
-import { ToastContainer, toast } from 'react-toastify';
 import icons from '@/utils/icon';
+import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from 'react-router-dom';
 import EditPromotionLine from './EditPromotionModal/EditPromotionLineModal';
@@ -79,7 +79,6 @@ const PromotionLine = () => {
             if (response && response.promotionLine) {
                 const newPromotionLine = response.promotionLine;
 
-
                 setPromotionLines((prev) => [...prev, newPromotionLine]);
                 toast.success('Thêm khuyến mãi thành công');
                 setFormData({
@@ -130,7 +129,7 @@ const PromotionLine = () => {
     };
 
     const handleDeleteUser = (line) => {
-        setSelectedPromotion(line); 
+        setSelectedPromotion(line);
         setConfirmDeleteModalShow(true);
     };
 
@@ -228,8 +227,7 @@ const PromotionLine = () => {
                     </thead>
                     <tbody>
                         {promotionLines.map((line) => (
-                            <tr key={line._id} onClick={() => handleRowClick(line._id)}
->
+                            <tr key={line._id} onClick={() => handleRowClick(line._id)}>
                                 <td className={styles.dataTableItem}>
                                     {line?.discount_type === 1 ? 'Giảm giá theo phần trăm' : 'Giảm giá cố định'}
                                 </td>

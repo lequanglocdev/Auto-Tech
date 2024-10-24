@@ -3,17 +3,16 @@ import { Button, Modal, Form } from 'react-bootstrap';
 import styles from './EditPromotionModal.module.css';
 const EditCustomerModal = ({ user, show, onHide, onUpdate }) => {
     const [formData, setFormData] = useState({
-        promotion_code: '',
         name: '',
         description: '',
-      
+        active:''
     });
     useEffect(() => {
         if (user) {
             setFormData({
-                promotion_code: user.promotion_code || '',
                 name: user.name || '',
                 description: user.description || '',
+                active: user.active ? 'active' : 'inactive', // Chuyển đổi thành chuỗi để hiển thị trong form
             });
         }
     }, [user]);
@@ -25,7 +24,13 @@ const EditCustomerModal = ({ user, show, onHide, onUpdate }) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        onUpdate({ ...user, ...formData });
+        const updatedData = {
+            _id: user._id, // Sử dụng ID hiện tại
+            name: formData.name || user.name,
+            description: formData.description || user.description,
+            active: formData.active === 'active', // Chuyển đổi trạng thái
+        };
+        onUpdate(updatedData); // Gửi dữ liệu cập nhật lên component cha
     };
     return (
         <Modal show={show} onHide={onHide} size="lg" centered>
@@ -35,18 +40,9 @@ const EditCustomerModal = ({ user, show, onHide, onUpdate }) => {
             <Modal.Body>
                 {user ? (
                     <Form onSubmit={handleSubmit}>
-                        <Form.Group className={styles.customerGroup} controlId="promotion_code">
-                            <Form.Label className={styles.customerLabel}>Mã chương trình khuyến mãi</Form.Label>
-                            <Form.Control
-                                className={styles.customerControl}
-                                type="text"
-                                name="promotion_code"
-                                value={formData.promotion_code}
-                                onChange={handleChange}
-                            />
-                        </Form.Group>
+
                         <Form.Group className={styles.customerGroup} controlId="name">
-                            <Form.Label className={styles.customerLabel}>Tên chương trình khuyến mãi</Form.Label>
+                            <Form.Label className={styles.customerLabel}>Tên chương trình</Form.Label>
                             <Form.Control
                                 className={styles.customerControl}
                                 type="text"
@@ -66,7 +62,19 @@ const EditCustomerModal = ({ user, show, onHide, onUpdate }) => {
                             />
                         </Form.Group>
 
-                    
+                        <Form.Group className={styles.customerGroup} controlId="active">
+                            <Form.Label className={styles.customerLabel}>Trạng thái</Form.Label>
+                            <Form.Control
+                                className={styles.customerControl}
+                                as="select" // Thay đổi từ type="text" thành as="select"
+                                name="active"
+                                value={formData.active} // Chọn giá trị dựa trên trạng thái
+                                onChange={handleChange}
+                            >
+                                <option value="active">Hoạt động</option>
+                                <option value="inactive">Ngưng hoạt động</option>
+                            </Form.Control>
+                        </Form.Group>
 
                         <div className={styles.btn}>
                             <Button className={`mt-2 ${styles.customerBtn}`} variant="primary" type="submit">

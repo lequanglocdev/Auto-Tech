@@ -8,7 +8,7 @@ import TableCustomer from './TableCustomer/TableCustomer';
 import CommonButton from '@/components/UI/CommonButton/CommonButton ';
 import { useNavigate } from 'react-router-dom';
 import icons from '@/utils/icon';
-import { Spinner } from 'react-bootstrap';
+import { Button, Col, Form, InputGroup, Row, Spinner } from 'react-bootstrap';
 const ListsCustomer = () => {
     const navigate = useNavigate();
     const [userData, setUserData] = useState([]);
@@ -18,7 +18,7 @@ const ListsCustomer = () => {
         const fetchData = async () => {
             try {
                 const response = await getUserApi();
-                console.log('dataTable', response);
+                // console.log('dataTable', response);
                 setUserData(response);
                 setLoading(false);
             } catch (error) {
@@ -35,9 +35,9 @@ const ListsCustomer = () => {
         fetchData();
     }, []);
 
-    const handleAddCustomer = () =>{
+    const handleAddCustomer = () => {
         navigate('/addCustomer');
-    }
+    };
 
     if (loading) {
         return (
@@ -59,11 +59,12 @@ const ListsCustomer = () => {
             </div>
             <div>
                 <div className={styles.listsCustomerButton}>
-                    <CommonButton
-                        onClick={handleAddCustomer}
-                        icon={FaPlusCircle}
-                        label="Thêm"
-                    />
+                    <div className={styles.formSearch}>
+                        <Form.Control type="text" placeholder="Tìm kiếm thông tin khách hàng" className={styles.formSearchInput} />
+                        <button className={styles.formSearchBtn}>Tìm kiếm</button>
+                    </div>
+
+                    <CommonButton onClick={handleAddCustomer} icon={FaPlusCircle} label="Thêm" />
                 </div>
                 <TableCustomer data={userData} itemsPerPage={5} />
             </div>

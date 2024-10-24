@@ -48,3 +48,28 @@
     background-color: #0652a0;
     transform: scale(0.98);
 }
+.customerTitle {
+    font-size: 1.6rem !important;
+    color: #3498db !important;
+}
+
+.customerLabel {
+    font-size: 1.4rem !important;
+}
+
+.customerControl {
+    font-size: 1.3rem !important;
+}
+.customerLabel,
+.customerControl {
+    color: var(--text-third) !important;
+}
+
+.customerGroup {
+    padding: 6px;
+}
+
+.btn{
+    padding: 6px 12px !important;
+    font-size: 1.3rem !important;
+}
