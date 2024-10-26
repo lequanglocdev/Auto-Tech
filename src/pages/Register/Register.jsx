@@ -6,8 +6,7 @@ import icons from '@/utils/icon';
 import Spinner from 'react-bootstrap/Spinner';
 import { useRegisterForm, usePasswordToggle } from './hooks/useRegisterForm';
 import { registerCustomerApi } from '@/utils/api';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 const Register = () => {
     const { FaRegUser, IoMdEye, IoMdEyeOff, FaMailBulk, FaPhone, FaLocationDot } = icons;
@@ -41,7 +40,7 @@ const Register = () => {
                 });
 
                 setTimeout(() => {
-                    naviagte('/otp',{ state: { email: formData.email } });
+                    naviagte('/otp', { state: { email: formData.email } });
                 }, 4000);
             } catch (error) {
                 toast.error('Đăng ký thất bại. Vui lòng thử lại!', { autoClose: 3000 });
@@ -164,9 +163,7 @@ const Register = () => {
                                     onChange={(e) => handleInputChange('address', e.target.value)}
                                 />
                             </div>
-                            {errorMessage.address && (
-                                <div className={styles.errorMessage}>{errorMessage.address}</div>
-                            )}
+                            {errorMessage.address && <div className={styles.errorMessage}>{errorMessage.address}</div>}
                         </Form.Group>
                         <Button variant="danger" type="submit" size="lg" className={styles.registerButton}>
                             Đăng ký
@@ -177,7 +174,6 @@ const Register = () => {
                         <a href="/login">Đăng nhập</a>
                     </div>
                 </div>
-                <ToastContainer />
             </div>
         </div>
     );

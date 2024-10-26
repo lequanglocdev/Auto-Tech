@@ -1,8 +1,8 @@
 import { createAppointmentCustomer, getAppointmentsDetailApi } from '@/utils/api';
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import {ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { toast } from 'react-toastify';
+
 import styles from './AppointmentDetail.module.css';
 
 import icons from '@/utils/icon';
@@ -117,7 +117,7 @@ const AppointmentDetail = () => {
             <div className={styles.appointmentDetailFooter}>
                 <button className={styles.appointmentDetailFooterBtn} onClick={handleConfirmCustomer}>Xác nhận khách hàng</button>
             </div>
-            <ToastContainer />
+          
         </div>
     );
 };

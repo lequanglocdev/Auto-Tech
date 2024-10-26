@@ -5,8 +5,7 @@ import styles from './TableCar.module.css';
 import { deleteCarApi, deleteUserApi, putCarApi } from '@/utils/api';
 import EditCarModal from '../EditCarModal/EditCarModal';
 import ConfirmDeleteModal from '../ConfirmDeleteModal/ConfirmDeleteModal';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import {  toast } from 'react-toastify';
 const TableCar = ({ data = [], itemsPerPage }) => {
     const { FaPen, FaTrash } = icons;
 
@@ -148,7 +147,6 @@ const TableCar = ({ data = [], itemsPerPage }) => {
                 onHide={() => setConfirmDeleteModalShow(false)}
                 onConfirm={handleConfirmDelete}
             />
-            <ToastContainer />
         </div>
     );
 };

@@ -4,8 +4,7 @@ import Breadcrumb from '@/components/UI/Breadcrumb/Breadcrumb';
 import icons from '@/utils/icon';
 import { Button, Form, Modal } from 'react-bootstrap';
 import useCreatePromotionForm from './hooks/useCreatePromotionForm';
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+
 import { useNavigate } from 'react-router-dom';
 
 const CreatePromotion = () => {
@@ -107,7 +106,7 @@ const CreatePromotion = () => {
                 </Form>
             </div>
 
-            <ToastContainer />
+         
         </div>
     );
 };

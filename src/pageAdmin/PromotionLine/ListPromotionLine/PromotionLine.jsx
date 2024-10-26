@@ -4,8 +4,7 @@ import { useLocation, useParams } from 'react-router-dom';
 import styles from './PromotionLine.module.css';
 import { getPromotionDetaiLinelApi, createPromotionLine, putPromotionLine, deletePromotionApi } from '@/utils/api';
 import icons from '@/utils/icon';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 import EditPromotionLine from './EditPromotionModal/EditPromotionLineModal';
 import ConfirmDeleteModal from './ConfirmDeleteModal/ConfirmDeleteModal';
@@ -275,7 +274,7 @@ const PromotionLine = () => {
                 onHide={() => setConfirmDeleteModalShow(false)}
                 onConfirm={handleConfirmDelete}
             />
-            <ToastContainer />
+           
         </div>
     );
 };

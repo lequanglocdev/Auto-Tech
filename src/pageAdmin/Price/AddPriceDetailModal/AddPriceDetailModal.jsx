@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { Modal, Button } from 'react-bootstrap';
 import { getServicesApi, getCarApi, createPriceLineApi } from '@/utils/api';
-import {toast } from 'react-toastify';
+import {  toast } from 'react-toastify';
 
-
-const AddPriceDetailModal = ({ show, handleClose, priceId, onUpdatePriceDetail }) => {
+const AddPriceDetailModal = ({ show, onHide, priceId, onUpdatePriceDetail }) => {
     const [services, setServices] = useState([]);
     const [vehicles, setVehicles] = useState([]);
     const [addedVehicles, setAddedVehicles] = useState([]); // State để lưu danh sách loại xe đã thêm
@@ -67,16 +66,16 @@ const AddPriceDetailModal = ({ show, handleClose, priceId, onUpdatePriceDetail }
             // Hiển thị toast thông báo thành công
             toast.success('Thêm thông tin bảng giá thành công!');
 
-            handleClose(); // Đóng modal sau khi thành công
+            onHide(); // Đóng modal sau khi thành công
         } catch (error) {
-            console.error('Error creating price line:', error);
-            toast.error('Đã xảy ra lỗi khi thêm thông tin bảng giá.');
+            console.error('Error creating price line:', error.response.data.msg);
+            toast.error(error.response.data.msg);
         }
     };
 
     return (
         <>
-            <Modal size="lg" show={show} onHide={handleClose} centered>
+            <Modal size="lg" show={show} onHide={onHide} centered>
                 <Modal.Header closeButton>
                     <Modal.Title>Thêm Thông Tin Bảng Giá</Modal.Title>
                 </Modal.Header>
@@ -131,10 +130,10 @@ const AddPriceDetailModal = ({ show, handleClose, priceId, onUpdatePriceDetail }
                     </form>
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button variant="secondary" onClick={handleClose}>Đóng</Button>
+                    <Button variant="secondary" onClick={onHide}>Đóng</Button>
                 </Modal.Footer>
             </Modal>
-           
+            
         </>
     );
 };

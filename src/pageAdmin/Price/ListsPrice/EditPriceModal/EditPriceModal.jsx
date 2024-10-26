@@ -3,7 +3,7 @@ import { Button, Modal, Form } from 'react-bootstrap';
 import styles from './EditPriceModal.module.css';
 import { toast } from 'react-toastify'; // Để hiển thị thông báo lỗi
 
-const EditPriceModal = ({ price, show, onHide, onUpdate }) => {
+const EditPriceModal = ({ priceId, show, onHide, onUpdate }) => {
     const [formData, setFormData] = useState({
         price_list_name: '',
         start_date: '',
@@ -11,14 +11,14 @@ const EditPriceModal = ({ price, show, onHide, onUpdate }) => {
     });
 
     useEffect(() => {
-        if (price) {
+        if (priceId) {
             setFormData({
-                price_list_name: price.price_list_name || '',
-                start_date: price.start_date ? new Date(price.start_date).toISOString().slice(0, 10) : '',
-                end_date: price.end_date ? new Date(price.end_date).toISOString().slice(0, 10) : '',
+                price_list_name: priceId.price_list_name || '',
+                start_date: priceId.start_date ? new Date(priceId.start_date).toISOString().slice(0, 10) : '',
+                end_date: priceId.end_date ? new Date(priceId.end_date).toISOString().slice(0, 10) : '',
             });
         }
-    }, [price]);
+    }, [priceId]);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -61,7 +61,7 @@ const EditPriceModal = ({ price, show, onHide, onUpdate }) => {
         }
 
         // Nếu cả hai điều kiện đều hợp lệ, gọi onUpdate
-        onUpdate({ ...price, ...formData });
+        onUpdate({ ...priceId, ...formData });
     };
 
     return (
@@ -70,7 +70,7 @@ const EditPriceModal = ({ price, show, onHide, onUpdate }) => {
                 <Modal.Title className={styles.customerTitle}>Chỉnh sửa bảng giá</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                {price ? (
+                {priceId ? (
                     <Form onSubmit={handleSubmit}>
                         <Form.Group className={styles.customerGroup} controlId="price_list_name">
                             <Form.Label className={styles.customerLabel}>Tên bảng giá</Form.Label>

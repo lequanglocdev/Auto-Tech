@@ -8,8 +8,7 @@ import icons from '@/utils/icon';
 
 import EditPriceModal from './EditPriceModal/EditPriceModal';
 import ConfirmDeleteModal from './ConfirmDeleteModal/ConfirmDeleteModal';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { toast } from 'react-toastify';
 import CommonButton from '@/components/UI/CommonButton/CommonButton ';
 
 const PriceDetailPage = ({ data = [], itemsPerPage }) => {
@@ -243,7 +242,6 @@ const PriceDetailPage = ({ data = [], itemsPerPage }) => {
                 onHide={() => setConfirmDeleteModalShow(false)}
                 onConfirm={handleConfirmDelete}
             />
-            {/* <ToastContainer /> */}
         </div>
     );
 };

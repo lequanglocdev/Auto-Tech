@@ -84,25 +84,25 @@ const Dashboard = ({ toggle }) => {
                     </div>
                     <div className={styles.dasboardBodyCalender}>
                         <h4>Lịch hẹn</h4>
-                        {bookedSlots.length > 0 ? (
+                        {/* {bookedSlots.length > 0 ? (
                             <CalendarSearch bookedSlots={bookedSlots} fetchAppointments={fetchAppointments} />
                         ) : (
                             <div>
                                 <p>Chưa có lịch hẹn nào </p>
                             </div>
-                        )}
+                        )} */}
                     </div>
                 </div>
                 <div className={styles.dasboardBodyCompleted}>
-                    <h4 className={styles.dasboardBodyCompletedHead}>Khu vực lập hóa đơn</h4>
-                    <CardCompleted
+                    <h4 className={styles.dasboardBodyCompletedHead}>Khu vực </h4>
+                    {/* <CardCompleted
                         key={appointments.length}
                         appointments={appointments}
                         filteredAppointments={filteredAppointments}
                         fetchAppointments={fetchAppointments}
                         loading={appointmentsLoading}
                         error={appointmentsError}
-                    />
+                    /> */}
                 </div>
             </div>
         </div>

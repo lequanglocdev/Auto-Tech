@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useLocation, useNavigate } from 'react-router-dom';
 import { getCarApi, getServicesApi, createPromotionDetail } from '@/utils/api';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { toast } from 'react-toastify';
 import styles from './PromotionDetail.module.css';
 import icons from '@/utils/icon';
 import { Button, Form } from 'react-bootstrap';
@@ -118,7 +117,7 @@ const PromotionDetail = () => {
                     Áp dụng
                 </Button>
             </div>
-            <ToastContainer />
+         
         </div>
     );
 };

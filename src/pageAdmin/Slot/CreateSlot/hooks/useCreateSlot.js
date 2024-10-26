@@ -1,7 +1,6 @@
 import { createSlot } from '@/utils/api'; // Giả sử hàm này là hàm axios được sử dụng để tạo slot
 import { useState } from 'react';
 import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 
 const useCreateSlot = () => {
     const initialFormData = {

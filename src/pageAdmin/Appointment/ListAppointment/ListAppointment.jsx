@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import styles from './ListAppointment.module.css';
 
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { toast } from 'react-toastify';
 import { Form, Table, Spinner, Pagination } from 'react-bootstrap';
 import { getAppointmentsforDate } from '@/utils/api';
 import Breadcrumb from '@/components/UI/Breadcrumb/Breadcrumb';
@@ -140,7 +139,7 @@ const ListsAppointment = ({ data = [],itemsPerPage}) => {
                 )
             )}
 
-            <ToastContainer />
+         
         </div>
     );
 };

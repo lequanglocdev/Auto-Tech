@@ -24,6 +24,12 @@ const AddPromotionLine = ({ show, promotionHeader, onHide, onSubmit }) => {
     const handleSubmit = (e) => {
         e.preventDefault();
         onSubmit(formData); // Gọi hàm onSubmit truyền từ props
+        setFormData({
+            discount_type: '',
+            description: '',
+            start_date: '',
+            end_date: '',
+        });
     };
 
     return (

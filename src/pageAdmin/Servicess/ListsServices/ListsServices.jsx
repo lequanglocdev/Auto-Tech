@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styles from './ListsServices.module.css';
 import Breadcrumb from '@/components/UI/Breadcrumb/Breadcrumb';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import {toast } from 'react-toastify';
 import { getServicesApi } from '@/utils/api';
 import TableServices from './Table/TableServices';
 import icons from '@/utils/icon';
@@ -62,7 +61,7 @@ const ListsServices = () => {
                 </div>
                 <TableServices data={userData} itemsPerPage={5} />
             </div>
-            <ToastContainer />
+         
         </div>
     );
 };

@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import styles from './ListsCustomer.module.css';
 import Breadcrumb from '@/components/UI/Breadcrumb/Breadcrumb';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { toast } from 'react-toastify';
+
 import { getUserApi } from '@/utils/api';
 import TableCustomer from './TableCustomer/TableCustomer';
 import CommonButton from '@/components/UI/CommonButton/CommonButton ';
@@ -60,7 +60,11 @@ const ListsCustomer = () => {
             <div>
                 <div className={styles.listsCustomerButton}>
                     <div className={styles.formSearch}>
-                        <Form.Control type="text" placeholder="Tìm kiếm thông tin khách hàng" className={styles.formSearchInput} />
+                        <Form.Control
+                            type="text"
+                            placeholder="Tìm kiếm thông tin khách hàng"
+                            className={styles.formSearchInput}
+                        />
                         <button className={styles.formSearchBtn}>Tìm kiếm</button>
                     </div>
 
@@ -68,7 +72,7 @@ const ListsCustomer = () => {
                 </div>
                 <TableCustomer data={userData} itemsPerPage={5} />
             </div>
-            <ToastContainer />
+          
         </div>
     );
 };

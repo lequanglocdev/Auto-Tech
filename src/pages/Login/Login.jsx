@@ -9,8 +9,8 @@ import { loginAdminApi } from '@/utils/api';
 import { AuthContext } from '@/components/context/auth.context';
 import { useNavigate } from 'react-router-dom';
 import { FaMailBulk } from 'react-icons/fa';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { toast } from 'react-toastify';
+
 
 const Login = () => {
     const { IoMdEye, IoMdEyeOff } = icons;
@@ -118,7 +118,7 @@ const Login = () => {
                         <a href="/auth">Quay lại</a>
                         <a href="/register">Đăng ký</a>
                     </div>
-                    <ToastContainer />
+            
                 </div>
             </div>
         </div>

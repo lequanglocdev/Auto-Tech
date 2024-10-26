@@ -2,8 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Breadcrumb from '@/components/UI/Breadcrumb/Breadcrumb';
 import styles from './ListDetailPrice.module.css'
 import { getPriceApi } from '@/utils/api';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import {  toast } from 'react-toastify';
 import TablePrice from './Table/TableDetailPrice';
 const ListDetailPrice = () => {
     const [userData, setUserData] = useState([]);
@@ -40,7 +39,6 @@ const ListDetailPrice = () => {
             <div>
                 <TablePrice data={userData} itemsPerPage={5} />
             </div>
-            <ToastContainer />
         </div>
     );
 };

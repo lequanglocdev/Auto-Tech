@@ -2,10 +2,10 @@ import React, { useEffect, useState } from 'react';
 import styles from './Slot.module.css';
 import { findCustomerApi, getServicesApi, createAppointments, getPriceForService, getCarApi } from '@/utils/api'; // Import createAppointments
 import { Button, Form, Spinner, Collapse, Table, Col, Row } from 'react-bootstrap';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import {  toast } from 'react-toastify';
 import icons from '@/utils/icon';
 import { useNavigate, useParams } from 'react-router-dom';
+import { formatDateTime, getCurrentDateTime } from '@/utils/dateTime';
 
 const Slot = () => {
     const navigate = useNavigate();
@@ -180,21 +180,29 @@ const Slot = () => {
             setIsLoadingServices(false);
         }
     };
+// _____________________________________
 
+
+
+useEffect(() => {
+    // Đặt giá trị mặc định là thời gian hiện tại
+    setAppointmentDatetime(getCurrentDateTime());
+}, []);
     return (
         <div className={styles.slot}>
             <h4 className={styles.slotHeader}>Trang đặt dịch vụ chăm sóc khách hàng tại cửa hàng L&k TECH</h4>
             <div className={styles.slotBody}>
-                <div className={styles.slotInfoDateTime}>
-                    <h4>Ngày giờ cuộc hẹn</h4>
-                    <Form.Group className="mb-3">
-                        <Form.Control
-                            size="lg"
-                            type="datetime-local"
-                            onChange={(e) => setAppointmentDatetime(e.target.value)} // Lưu ngày giờ cuộc hẹn
-                        />
-                    </Form.Group>
-                </div>
+            <div className={styles.slotInfoDateTime}>
+            <h4>Ngày giờ cuộc hẹn</h4>
+            <Form.Group className="mb-3">
+                <Form.Control
+                    size="lg"
+                    type="datetime-local"
+                    value={appointmentDatetime} // Đặt giá trị cho input
+                    onChange={(e) => setAppointmentDatetime(e.target.value)} // Lưu ngày giờ cuộc hẹn
+                />
+            </Form.Group>
+        </div>
                 <div className={styles.slotInfoCustomer}>
                     <h4>Thông tin khách hàng</h4>
                     <Form.Group className="mb-3" controlId="customerSearch">
@@ -422,7 +430,7 @@ const Slot = () => {
                     Tạo cuộc hẹn
                 </Button>
             </div>
-            <ToastContainer />
+            
         </div>
     );
 };

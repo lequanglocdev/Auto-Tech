@@ -4,8 +4,8 @@ import styles from './CreateCar.module.css';
 import { Form } from 'react-bootstrap';
 import { createCarApi } from '@/utils/api';
 import icons from '@/utils/icon';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { toast } from 'react-toastify';
+
 import { useNavigate } from 'react-router-dom';
 
 const CreateCar = () => {
@@ -104,7 +104,7 @@ const CreateCar = () => {
                         Thêm
                     </button>
                 </Form>
-                <ToastContainer />
+             
             </div>
         </div>
     );

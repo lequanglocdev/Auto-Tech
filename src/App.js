@@ -2,9 +2,10 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import { privateRoute, publicRoute } from '@/routes/index';
 import { DefaultLayout, AdminLayout } from '@/components/Layout/index';
-import { Fragment} from 'react';
+import { Fragment } from 'react';
 import { CustomerDetail } from './pageAdmin/Customer';
-
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 function App() {
     return (
         <BrowserRouter>
@@ -54,6 +55,17 @@ function App() {
                     );
                 })}
             </Routes>
+            <ToastContainer
+                position="top-right"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+            />
         </BrowserRouter>
     );
 }

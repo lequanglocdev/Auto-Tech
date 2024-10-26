@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react';
 import Breadcrumb from '@/components/UI/Breadcrumb/Breadcrumb';
 import styles from './ListsCar.module.css';
 import { getCarApi } from '@/utils/api';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { toast } from 'react-toastify';
+
 import TableCar from './Table/TableCar';
 import { useNavigate } from 'react-router-dom';
 import icons from '@/utils/icon';
@@ -60,7 +60,7 @@ const ListsCar = () => {
                 </div>
                 <TableCar data={userData} itemsPerPage={5} />
             </div>
-            <ToastContainer />
+    
         </div>
     );
 };

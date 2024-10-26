@@ -36,12 +36,12 @@ const SidebarAdmin = ({ isVisible, onSelectMenu }) => {
             icon: FaUsers,
             path: '/customer'
         },
-        {
-            title: 'Quản lý hạng của khách hàng',
-            icon: FaRankingStar,
-            path: '/rank'
+        // {
+        //     title: 'Quản lý hạng của khách hàng',
+        //     icon: FaRankingStar,
+        //     path: '/rank'
            
-        },
+        // },
         {
             title: 'Quản lý loại xe ',
             icon: FaCar,

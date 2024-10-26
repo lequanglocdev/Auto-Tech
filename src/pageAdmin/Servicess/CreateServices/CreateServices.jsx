@@ -4,8 +4,7 @@ import styles from './CreateServices.module.css'
 import { Form } from 'react-bootstrap';
 import icons from '@/utils/icon';
 import useCreateServices from './hooks/useCreateServices';
-import { ToastContainer} from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+
 import { useNavigate } from 'react-router-dom';
 const CreateServices = () => {
     const navigate = useNavigate();
@@ -92,7 +91,7 @@ const handleListServices = () => {
                         Thêm
                     </button>
                 </Form>
-                <ToastContainer/>
+              
             </div>
         </div>
     );

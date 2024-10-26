@@ -3,8 +3,8 @@ import { useParams } from 'react-router-dom';
 import styles from './Invoice.module.css';
 import { geEmployeesApi, createPaymentCustomer, getInvoiceDetails } from '@/utils/api'; // Import hàm lấy thông tin hóa đơn
 import { Button, Form } from 'react-bootstrap';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import {toast } from 'react-toastify';
+
 
 const Invoice = () => {
     const { appointmentId } = useParams();
@@ -64,7 +64,7 @@ const Invoice = () => {
 
     return (
         <div>
-            <ToastContainer />
+         
             <div>
                 <h4 className={styles.slotHeader}>Trang đặt tạo hóa đơn khách hàng tại cửa hàng L&k TECH</h4>
             </div>

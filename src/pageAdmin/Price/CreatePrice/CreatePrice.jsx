@@ -4,8 +4,7 @@ import styles from './CreatePrice.module.css';
 import { Form } from 'react-bootstrap';
 import { createPriceApi } from '@/utils/api';
 import icons from '@/utils/icon';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import {  toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 const CreatePrice = () => {
     const navigate = useNavigate();
@@ -84,7 +83,7 @@ const CreatePrice = () => {
                             onChange={(e) => setPriceName(e.target.value)}
                             isInvalid={!!errors.priceName}
                         />
-                        <Form.Control.Feedback type="invalid">{errors.priceName}</Form.Control.Feedback>
+                        <Form.Control.Feedback type="invalid" className={styles.errorText}>{errors.priceName}</Form.Control.Feedback>
                     </Form.Group>
 
                     <Form.Group className="mb-3" controlId="formGroupStartDate">
@@ -96,7 +95,7 @@ const CreatePrice = () => {
                             onChange={(e) => setStartDate(e.target.value)}
                             isInvalid={!!errors.startDate}
                         />
-                        <Form.Control.Feedback type="invalid">{errors.startDate}</Form.Control.Feedback>
+                        <Form.Control.Feedback type="invalid" className={styles.errorText}>{errors.startDate}</Form.Control.Feedback>
                     </Form.Group>
 
                     <Form.Group className="mb-3" controlId="formGroupEndDate">
@@ -108,7 +107,7 @@ const CreatePrice = () => {
                             onChange={(e) => setEndDate(e.target.value)}
                             isInvalid={!!errors.endDate}
                         />
-                         <Form.Control.Feedback type="invalid">{errors.endDate}</Form.Control.Feedback>
+                         <Form.Control.Feedback className={styles.errorText} type="invalid">{errors.endDate}</Form.Control.Feedback>
                     </Form.Group>
 
                     <button type="submit" className={styles.btnAdd}>
@@ -116,7 +115,7 @@ const CreatePrice = () => {
                         Thêm
                     </button>
                 </Form>
-                <ToastContainer />
+             
             </div>
         </div>
     );

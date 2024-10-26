@@ -9,7 +9,7 @@ const ConfirmDeleteModal = ({ show, onHide, onConfirm }) => {
                 <Modal.Title className={styles.customerTitle}>Xác nhận xóa</Modal.Title>
             </Modal.Header>
             <Modal.Body className={styles.customerLabel}>
-                <p>Bạn có chắc chắn muốn xóa nhân viên này không?</p>
+                <p>Bạn muốn xóa chương trình khuyến mãi này không?</p>
             </Modal.Body>
             <Modal.Footer>
                 <Button variant="secondary" className={styles.customerBtn} onClick={onHide}>Hủy</Button>

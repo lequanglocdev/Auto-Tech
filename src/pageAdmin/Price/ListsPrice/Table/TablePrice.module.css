@@ -44,8 +44,8 @@ color: #c0392b;
 .switch {
   position: relative;
   display: inline-block;
-  width: 40px;
-  height: 24px;
+  width: 10px;
+  height: 10px;
 }
 
 .switch input {
@@ -57,10 +57,10 @@ color: #c0392b;
 .slider {
   position: absolute;
   cursor: pointer;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
+  top: 1px;
+  left: 5px;
+  right: -6px;
+  bottom: 3px;
   background-color: #ccc;
   transition: 0.2s;
 }
@@ -68,10 +68,10 @@ color: #c0392b;
 .slider:before {
   position: absolute;
   content: "";
-  height: 16px;
-  width: 26px;
-  left: 4px;
-  bottom: 4px;
+  height: 10px;
+  width: 10px;
+  left: 1px;
+  bottom: 2px;
   background-color: white;
   transition: 0.2s;
 }
@@ -86,7 +86,7 @@ input:checked + .slider:before {
 
 /* Rounded sliders */
 .slider.round {
-  border-radius: 34px;
+  border-radius: 20px;
 }
 
 .slider.round:before {

@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styles from './ListPromotions.module.css';
 import Breadcrumb from '@/components/UI/Breadcrumb/Breadcrumb';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import {  toast } from 'react-toastify';
 import { getPromotionApi } from '@/utils/api';
 import CommonButton from '@/components/UI/CommonButton/CommonButton ';
 import { useNavigate } from 'react-router-dom';
@@ -68,7 +67,6 @@ const ListsPromotions = () => {
                 <TablePromotion data={userData} itemsPerPage={5} />
               
             </div>
-            <ToastContainer />
         </div>
     );
 };

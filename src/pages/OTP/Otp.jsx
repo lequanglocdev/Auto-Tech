@@ -1,17 +1,16 @@
 import React from 'react';
-import styles from './Otp.module.css'
+import styles from './Otp.module.css';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 
-import {  verifyOtpApi} from '@/utils/api';
+import { verifyOtpApi } from '@/utils/api';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { toast } from 'react-toastify';
 import { useOTP } from './hooks/otpForm';
-import icons  from '@/utils/icon'
+import icons from '@/utils/icon';
 const Otp = () => {
-    const {FaMailBulk, FaLock } = icons
-    const { formData, setFormData, errorMessage, handleInputChange, validateForm } = useOTP()
+    const { FaMailBulk, FaLock } = icons;
+    const { formData, setFormData, errorMessage, handleInputChange, validateForm } = useOTP();
     const navigate = useNavigate();
     const location = useLocation();
 
@@ -29,11 +28,11 @@ const Otp = () => {
         if (validateForm()) {
             try {
                 const response = await verifyOtpApi(formData.email, formData.otp);
-                console.log(">> check otp",response.otp)
+                console.log('>> check otp', response.otp);
                 toast.success(response.msg, { autoClose: 3000 });
                 setTimeout(() => {
-                  navigate('/login');
-              }, 3000); 
+                    navigate('/login');
+                }, 3000);
                 setFormData({
                     email: '',
                     otp: '',
@@ -62,7 +61,7 @@ const Otp = () => {
                                     placeholder="Nhập địa chỉ email"
                                     className={styles.otpInput}
                                     value={formData.email}
-                                    readOnly 
+                                    readOnly
                                 />
                             </div>
                             {errorMessage.email && <div className={styles.errorMessage}>{errorMessage.email}</div>}
@@ -81,12 +80,11 @@ const Otp = () => {
                             </div>
                             {errorMessage.otp && <div className={styles.errorMessage}>{errorMessage.otp}</div>}
                         </Form.Group>
-                        
+
                         <Button variant="danger" type="submit" size="lg" className={styles.otpButton}>
                             Xác thực
                         </Button>
                     </Form>
-                    <ToastContainer />
                 </div>
             </div>
         </div>

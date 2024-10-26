@@ -1,8 +1,7 @@
 import Breadcrumb from '@/components/UI/Breadcrumb/Breadcrumb';
 import React, { useEffect, useState } from 'react';
 import styles from './ListsRank.module.css';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { toast } from 'react-toastify';
 import { getRankApi } from '@/utils/api';
 import TableRank from './TableRank/TableRank';
 import CommonButton from '@/components/UI/CommonButton/CommonButton ';
@@ -65,7 +64,7 @@ const ListsRank = () => {
                 </div>
                 <TableRank data={userData} itemsPerPage={5} />
             </div>
-            <ToastContainer />
+           
         </div>
     );
 };

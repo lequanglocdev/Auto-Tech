@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Form } from 'react-bootstrap';
 import styles from './CalendarSearch.module.css';
 import { createAppointmentCustomer, getAppointmentsforDate } from '@/utils/api';
-import { ToastContainer, toast } from 'react-toastify';
+import {toast } from 'react-toastify';
 import { formatDateTime } from '@/utils/dateTime';
 import CommonButton from '@/components/UI/CommonButton/CommonButton ';
 
@@ -115,7 +115,7 @@ const CalendarSearch = ({ bookedSlots, fetchAppointments }) => {
                 )}
             </div>
 
-            <ToastContainer />
+        
         </div>
     );
 };

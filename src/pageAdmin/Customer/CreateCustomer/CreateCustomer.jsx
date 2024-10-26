@@ -4,8 +4,6 @@ import Breadcrumb from '@/components/UI/Breadcrumb/Breadcrumb';
 import icons from '@/utils/icon';
 import { Button, Form, Modal } from 'react-bootstrap';
 import useCreateCustomerForm from './hooks/useCreateCustomerForm';
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from 'react-router-dom';
 const CreateCustomer = () => {
     const navigate = useNavigate();
@@ -145,7 +143,7 @@ const CreateCustomer = () => {
                     </Button>
                 </Modal.Footer>
             </Modal>
-            <ToastContainer />
+          
         </div>
     );
 };

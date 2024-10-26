@@ -4,8 +4,6 @@ import styles from './CreateEmployees.module.css';
 import { Button, Form, Modal } from 'react-bootstrap';
 import icons from '@/utils/icon';
 import useCreateEmployeeForm from './hooks/useCreateEmployeeForm';
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from 'react-router-dom';
 const CreateEmployees = () => {
     const navigate = useNavigate();
@@ -140,7 +138,6 @@ const CreateEmployees = () => {
                     </Button>
                 </Modal.Footer>
             </Modal>
-            <ToastContainer />
         </div>
        
     );

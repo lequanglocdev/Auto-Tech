@@ -3,8 +3,7 @@ import styles from './ListsEmployees.module.css';
 import Breadcrumb from '@/components/UI/Breadcrumb/Breadcrumb';
 import TableEmployees from './TableEmployees/TableEmployees';
 import { geEmployeesApi } from '@/utils/api';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { toast } from 'react-toastify';
 import icons from '@/utils/icon';
 import { useNavigate } from 'react-router-dom';
 import CommonButton from '@/components/UI/CommonButton/CommonButton ';
@@ -66,7 +65,6 @@ const ListsEmployees = () => {
 
                 <TableEmployees data={employeeData} itemsPerPage={5} />
             </div>
-            <ToastContainer />
         </div>
     );
 };

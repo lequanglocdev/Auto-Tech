@@ -4,8 +4,7 @@ import styles from './CreateSlot.module.css';
 import { Form } from 'react-bootstrap';
 import icons from '@/utils/icon';
 import useCreateSlot from './hooks/useCreateSlot';
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+
 import { useNavigate } from 'react-router-dom';
 
 const CreateSlot = () => {
@@ -87,7 +86,7 @@ const CreateSlot = () => {
                         <FaPlusCircle /> Thêm
                     </button>
                 </Form>
-                <ToastContainer />
+            
             </div>
         </div>
     );

@@ -19,7 +19,7 @@ const registerManagerApi = (username, password, email, name, phone_number, roleE
         name,
         password,
         phone_number,
-        roleEmployee
+        roleEmployee,
     };
     // console.log('Sending data:', data);
     return axios.post(URL_API, data);
@@ -135,59 +135,61 @@ const getPromotionApi = () => {
     return axios.get(URL_API);
 };
 
-const getPromotionDetaiLinelApi = (promotion) =>{
-    const URL_API = `/api/promotions/${promotion._id}/lines`
-    return axios.get(URL_API);
-}
-
-const getPromotionDetaiApi = (promotionId) => {
-    const URL_API = `/api/promotions/${promotionId}/lines`;
+const getPromotionDetaiLinelApi = (promotion) => {
+    const URL_API = `/api/promotions/${promotion._id}/lines`;
     return axios.get(URL_API);
 };
+
+const getPromotionDetaiApi = (promotion) => {
+    const URL_API = `/api/promotions/line/details/${promotion._id}`;
+    return axios.get(URL_API);
+};
+
 
 const getPromotionDetaiHeaderLineDetailApi = (promotionId) => {
     const URL_API = `/api/promotions/${promotionId}/details`;
     return axios.get(URL_API);
 };
-const getSlot = () =>{
+const getSlot = () => {
     const URL_API = '/api/slots';
     return axios.get(URL_API);
-}
+};
 
 const getAppointmentsforDate = (date) => {
     const URL_API = `/api/appointments?date=${date}`;
     return axios.get(URL_API);
 };
 
-const getAppointmentsDetailApi = (appointment) =>{
-    const URL_API = `/api/appointments/${appointment._id}`
+const getAppointmentsDetailApi = (appointment) => {
+    const URL_API = `/api/appointments/${appointment._id}`;
     return axios.get(URL_API);
 };
 
-const getSlotDetailApi = (slot) =>{
-    const URL_API = `/api/slots/${slot._id}`
+const getSlotDetailApi = (slot) => {
+    const URL_API = `/api/slots/${slot._id}`;
     return axios.get(URL_API);
 };
 
 const getPriceForService = (serviceName = '', vehicleTypeName = '') => {
     const URL_API = `/api/prices/filterprice?serviceName=${serviceName}&vehicleTypeName=${vehicleTypeName}`;
     return axios.get(URL_API);
-}
+};
 
 const getAppointmentCompleted = () => {
     const URL_API = '/api/appointments/get/completed';
     return axios.get(URL_API);
 };
 
-const getInfoInvoiceCompleted = (appointmentId) =>{
-    const URL_API = `/api/payments/invoice/${appointmentId}`
-    return axios.get(URL_API)
-}
-
-const getInvoiceDetails = (invoiceId) => {
-    const URL_API = `/api/payments/invoice/${invoiceId}`; 
+const getInfoInvoiceCompleted = (appointmentId) => {
+    const URL_API = `/api/payments/invoice/${appointmentId}`;
     return axios.get(URL_API);
 };
+
+const getInvoiceDetails = (invoiceId) => {
+    const URL_API = `/api/payments/invoice/${invoiceId}`;
+    return axios.get(URL_API);
+};
+
 const deleteUserApi = (user) => {
     const URL_API = `/api/users/${user._id}`;
     return axios.delete(URL_API);
@@ -229,12 +231,12 @@ const deleteSlotApi = (slot) => {
 };
 
 const deletePromotionApi = (promotion) => {
-    const URL_API = `/api/promotions/lines/${promotion._id}`;
+    const URL_API = `/api/promotions/lines/${promotion}`;
     return axios.delete(URL_API);
 };
 
 const deletePromotionHeaderApi = (promotion) => {
-    const URL_API = `/api/promotions/${promotion._id}`;
+    const URL_API = `/api/promotions/${promotion}`;
     return axios.delete(URL_API);
 };
 
@@ -246,19 +248,19 @@ const deletePriceDetailApi = (price) => {
 const createCarApi = (vehicleTypeName, description) => {
     const URL_API = '/api/vehicle-types';
     const data = {
-        vehicle_type_name:vehicleTypeName,
+        vehicle_type_name: vehicleTypeName,
         description,
     };
     return axios.post(URL_API, data);
 };
 
-const createServicesApi = (serviceCode, name, description,timeRequired) => {
+const createServicesApi = (serviceCode, name, description, timeRequired) => {
     const URL_API = '/api/services';
     const data = {
         service_code: serviceCode,
         name,
         description,
-        time_required: timeRequired
+        time_required: timeRequired,
     };
     return axios.post(URL_API, data);
 };
@@ -269,7 +271,7 @@ const createRankApi = (rankName, discountRate, minSpending, description) => {
         rank_name: rankName,
         discount_rate: discountRate,
         min_spending: minSpending,
-        description:description
+        description: description,
     };
     return axios.post(URL_API, data);
 };
@@ -292,7 +294,7 @@ const createPriceApi = (priceListName, startDate, endDate) => {
     const data = {
         price_list_name: priceListName,
         start_date: startDate,
-        end_date: endDate
+        end_date: endDate,
     };
     return axios.post(URL_API, data);
 };
@@ -304,45 +306,55 @@ const createPriceLineApi = (priceId, serviceId, vehicleTypeId, price) => {
         vehicle_type_id: vehicleTypeId,
         price: price,
     };
-    
-    return axios.post(URL_API, data); 
+
+    return axios.post(URL_API, data);
 };
 
-const createPromotions = (promotionCode, name, description,startDate,endDate) => {
+const createPromotions = (promotionCode, name, description, startDate, endDate) => {
     const URL_API = `/api/promotions`;
     const data = {
         promotion_code: promotionCode,
         name: name,
-        description: description, 
-        start_date:startDate,
-        end_date: endDate
+        description: description,
+        start_date: startDate,
+        end_date: endDate,
     };
-    
-    return axios.post(URL_API, data); 
+
+    return axios.post(URL_API, data);
 };
 
 const createPromotionLine = (promotionId, discountType, description, startDate, endDate) => {
     const URL_API = `/api/promotions/${promotionId}/lines`;
     const data = {
-        promotionId:promotionId,
+        promotionId: promotionId,
         discount_type: discountType,
         description: description,
         start_date: startDate,
-        end_date: endDate
+        end_date: endDate,
     };
-    
-    return axios.post(URL_API, data); 
+
+    return axios.post(URL_API, data);
 };
 
-const createPromotionDetail = (promotionId, vehicleTypeId, serviceId, ) => {
+const createPromotionDetail = (
+    promotionId,
+    vehicleTypeId,
+    serviceId,
+    applicableRankId,
+    discountValue,
+    minOrderValue,
+) => {
     const URL_API = `/api/promotions/lines/${promotionId}/details`;
     const data = {
-        promotionId:promotionId,
+        promotionId: promotionId,
         vehicle_type_id: vehicleTypeId,
         service_id: serviceId,
+        applicable_rank_id: applicableRankId,
+        discount_value: discountValue,
+        min_order_value: minOrderValue,
     };
-    
-    return axios.post(URL_API, data); 
+
+    return axios.post(URL_API, data);
 };
 const createAppointments = (slotId, vehicleId, serviceIds, appointmentDatetime) => {
     const URL_API = `/api/appointments`;
@@ -350,10 +362,10 @@ const createAppointments = (slotId, vehicleId, serviceIds, appointmentDatetime) 
         slot_id: slotId,
         vehicle_id: vehicleId,
         service_ids: serviceIds,
-        appointment_datetime: appointmentDatetime
+        appointment_datetime: appointmentDatetime,
     };
-    
-    return axios.post(URL_API, data); 
+
+    return axios.post(URL_API, data);
 };
 
 const createSlot = (slotDatetime, durationMinutes, status, capacity) => {
@@ -362,48 +374,48 @@ const createSlot = (slotDatetime, durationMinutes, status, capacity) => {
         slot_datetime: slotDatetime,
         duration_minutes: durationMinutes,
         status: status,
-        capacity: capacity
+        capacity: capacity,
     };
-    
-    return axios.post(URL_API, data); 
+
+    return axios.post(URL_API, data);
 };
 
 const createAppointmentCustomer = (appointmentId) => {
-    const URL_API = `/api/appointments/${appointmentId}/arrive`
-    return axios.post(URL_API); 
+    const URL_API = `/api/appointments/${appointmentId}/arrive`;
+    return axios.post(URL_API);
 };
 
-const createPaymentCustomer = (appointmentId,employeesId) =>{
-    const URL_API = `/api/payments/generate-invoice/${appointmentId}/employee/${employeesId}`
-    const data ={
-        employeesId: employeesId
-    }
-    return axios.post(URL_API,data); 
-}
+const createPaymentCustomer = (appointmentId, employeesId) => {
+    const URL_API = `/api/payments/generate-invoice/${appointmentId}/employee/${employeesId}`;
+    const data = {
+        employeesId: employeesId,
+    };
+    return axios.post(URL_API, data);
+};
 
 const putEmployeeApi = (user) => {
     const URL_API = `/api/employees/${user._id}`;
-    return axios.put(URL_API,user);
+    return axios.put(URL_API, user);
 };
 
 const putCustomerApi = (user) => {
     const URL_API = `/api/users/${user._id}`;
-    return axios.put(URL_API,user);
+    return axios.put(URL_API, user);
 };
 
 const putCustomerRankApi = (rank) => {
     const URL_API = `/api/customers-rank/${rank._id}`;
-    return axios.put(URL_API,rank);
+    return axios.put(URL_API, rank);
 };
 
 const putCarApi = (car) => {
     const URL_API = `/api/vehicle-types/${car._id}`;
-    return axios.put(URL_API,car);
+    return axios.put(URL_API, car);
 };
 
 const putServiceApi = (service) => {
     const URL_API = `/api/services/${service._id}`;
-    return axios.put(URL_API,service);
+    return axios.put(URL_API, service);
 };
 
 const putVehicleForCustomer = (userId, vehicleId, vehicleData) => {
@@ -421,14 +433,19 @@ const putPromotionLine = (promotion) => {
     return axios.put(URL_API, promotion);
 };
 
-const putActivePromotion = (promotion) =>{
-    const URL_API = `/api/promotions/${promotion._id}/toggle-active`;
+const putPromotionDetail =(promotion) =>{
+    const URL_API = `/api//promotions/details/${promotion._id}`;
     return axios.put(URL_API, promotion);
 }
 
+const putActivePromotion = (promotion) => {
+    const URL_API = `/api/promotions/${promotion._id}/toggle-active`;
+    return axios.put(URL_API, promotion);
+};
+
 const putPriceApi = (price) => {
     const URL_API = `/api/prices/${price._id}`;
-    return axios.put(URL_API,price);
+    return axios.put(URL_API, price);
 };
 
 const putActivePriceApi = (priceId, isActive) => {
@@ -437,7 +454,7 @@ const putActivePriceApi = (priceId, isActive) => {
 };
 const putPriceDetailApi = (price) => {
     const URL_API = `/api/prices/lines/${price._id}`;
-    return axios.put(URL_API,price);
+    return axios.put(URL_API, price);
 };
 
 const findCustomerApi = (query) => {
@@ -445,17 +462,13 @@ const findCustomerApi = (query) => {
     return axios.get(URL_API);
 };
 
-
 export {
     registerAdminApi,
     loginAdminApi,
-   
     registerManagerApi,
     registerCustomerApi,
     loginCustomerApi,
     loginManagerApi,
-   
-
     getUserApi,
     getDetailUser,
     geEmployeesApi,
@@ -478,8 +491,7 @@ export {
     getPromotionDetaiHeaderLineDetailApi,
     getAppointmentCompleted,
     getInfoInvoiceCompleted,
-    getInvoiceDetails, 
-
+    getInvoiceDetails,
     deleteUserApi,
     deleteEmployeeApi,
     deleteRankApi,
@@ -491,7 +503,6 @@ export {
     deletePromotionApi,
     deletePromotionHeaderApi,
     deletePriceDetailApi,
-
     verifyOtpApi,
     createCarApi,
     createServicesApi,
@@ -506,7 +517,6 @@ export {
     createSlot,
     createAppointmentCustomer,
     createPaymentCustomer,
-
     putEmployeeApi,
     putCustomerApi,
     putCustomerRankApi,
@@ -515,11 +525,10 @@ export {
     putVehicleForCustomer,
     putPromotionHeader,
     putPromotionLine,
+    putPromotionDetail,
     putActivePromotion,
     putPriceApi,
     putPriceDetailApi,
     putActivePriceApi,
-
-    findCustomerApi
-    
+    findCustomerApi,
 };

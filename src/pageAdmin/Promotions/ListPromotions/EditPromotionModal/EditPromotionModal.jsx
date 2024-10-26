@@ -5,14 +5,14 @@ const EditCustomerModal = ({ user, show, onHide, onUpdate }) => {
     const [formData, setFormData] = useState({
         name: '',
         description: '',
-        active:''
+        is_active:''
     });
     useEffect(() => {
         if (user) {
             setFormData({
                 name: user.name || '',
                 description: user.description || '',
-                active: user.active ? 'active' : 'inactive', // Chuyển đổi thành chuỗi để hiển thị trong form
+                is_active: user.is_active ? 'active' : 'inactive', // Chuyển đổi thành chuỗi để hiển thị trong form
             });
         }
     }, [user]);
@@ -28,7 +28,7 @@ const EditCustomerModal = ({ user, show, onHide, onUpdate }) => {
             _id: user._id, // Sử dụng ID hiện tại
             name: formData.name || user.name,
             description: formData.description || user.description,
-            active: formData.active === 'active', // Chuyển đổi trạng thái
+            is_active: formData.is_active === 'active', // Chuyển đổi trạng thái
         };
         onUpdate(updatedData); // Gửi dữ liệu cập nhật lên component cha
     };
@@ -62,13 +62,13 @@ const EditCustomerModal = ({ user, show, onHide, onUpdate }) => {
                             />
                         </Form.Group>
 
-                        <Form.Group className={styles.customerGroup} controlId="active">
+                        <Form.Group className={styles.customerGroup} controlId="is_active">
                             <Form.Label className={styles.customerLabel}>Trạng thái</Form.Label>
                             <Form.Control
                                 className={styles.customerControl}
                                 as="select" // Thay đổi từ type="text" thành as="select"
-                                name="active"
-                                value={formData.active} // Chọn giá trị dựa trên trạng thái
+                                name="is_active"
+                                value={formData.is_active} // Chọn giá trị dựa trên trạng thái
                                 onChange={handleChange}
                             >
                                 <option value="active">Hoạt động</option>

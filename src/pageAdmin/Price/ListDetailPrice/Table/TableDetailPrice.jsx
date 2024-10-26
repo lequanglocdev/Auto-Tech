@@ -4,8 +4,6 @@ import icons from '@/utils/icon';
 import styles from './TablePrice.module.css';
 import { deletePriceApi, getDetailPrice} from '@/utils/api';
 import ConfirmDeleteModal from '../ConfirmDeleteModal/ConfirmDeleteModal';
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import ModalPrice from '../Modal/ModalPrice';
 import { useNavigate } from 'react-router-dom';
 const TablePrice = ({ data = [], itemsPerPage }) => {
@@ -120,7 +118,7 @@ const TablePrice = ({ data = [], itemsPerPage }) => {
                 onHide={() => setConfirmDeleteModalShow(false)}
                 onConfirm={handleConfirmDelete}
             />
-            <ToastContainer />
+    
         </div>
     );
 };

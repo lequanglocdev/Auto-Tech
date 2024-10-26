@@ -4,8 +4,7 @@ import icons from '@/utils/icon';
 import styles from './TablePrice.module.css';
 import { deletePriceApi, putActivePriceApi, putPriceApi } from '@/utils/api';
 import ConfirmDeleteModal from '../ConfirmDeleteModal/ConfirmDeleteModal';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import {toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 import EditPriceModal from '../EditPriceModal/EditPriceModal';
 const TablePrice = ({ data = [], itemsPerPage }) => {
@@ -120,7 +119,7 @@ const TablePrice = ({ data = [], itemsPerPage }) => {
         <div className={styles.dataTableWrapper}>
             <Table striped bordered hover className={styles.dataTable}>
                 <thead>
-                    <tr className="">
+                    <tr className={styles.appointmentCardHeader}>
                         <th className={styles.dataTableHead}>Tên bảng giá </th>
                         <th className={styles.dataTableHead}>Ngày bắt đầu</th>
                         <th className={styles.dataTableHead}>Ngày kết thúc</th>
@@ -219,7 +218,7 @@ const TablePrice = ({ data = [], itemsPerPage }) => {
                 onHide={() => setConfirmDeleteModalShow(false)}
                 onConfirm={handleConfirmDelete}
             />
-            <ToastContainer />
+
         </div>
     );
 };

@@ -3,33 +3,59 @@ import { Table, Accordion } from 'react-bootstrap';
 import styles from './TablePromotion.module.css';
 import icons from '@/utils/icon';
 import EditCustomerModal from '../EditPromotionModal/EditPromotionModal';
-import { createPromotionLine, getPromotionDetaiLinelApi, putPromotionHeader, putPromotionLine } from '@/utils/api';
+import {
+    createPromotionLine,
+    deletePromotionApi,
+    deletePromotionHeaderApi,
+    getPromotionDetaiLinelApi,
+    putPromotionHeader,
+    putPromotionLine,
+    getPromotionDetaiHeaderLineDetailApi,
+    getPromotionDetaiApi,
+    putPromotionDetail,
+} from '@/utils/api';
 import ConfirmDeleteModal from '../ConfirmDeleteModal/ConfirmDeleteModal';
 import AddPromotionLine from '../AddPromotionLine/AddPromotionLine';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { toast } from 'react-toastify';
+
 import EditPromotionLine from '../EditPromotionLineModal/EditPromotionLineModal';
+import ConfirmDeleteModalLine from '../ConfirmDeleteModalLine/ConfirmDeleteModalLine';
+import AddPromotionDetail from '../AddPromotionDetail/AddPromotionDetail';
+import { style } from '@mui/system';
+import EditPromotionDetailModal from '../../EditPromotionDetailModal/EditPromotionDetailModal';
 const TablePromotion = ({ data = [], itemsPerPage }) => {
     const { FaPen, FaTrash, FaEye, FaPlusCircle } = icons;
     const [selectedPromotionHeader, setSelectedPromotionHeader] = useState({});
 
     const [promotion, setPromotion] = useState(data);
+
+    // edit promotionHeader , add promotion
     const [selectedPromotion, setSelectedPromotion] = useState(null);
 
-    const [editPromotionLineModalShow, setEditPromotionLineModalShow] = useState(false);
+    // edit promotion line
     const [selectedPromotionLine, setSelectedPromotionLine] = useState(null);
 
+    // header
     const [editModalShow, setEditModalShow] = useState(false);
     const [confirmDeleteModalShow, setConfirmDeleteModalShow] = useState(false);
+
+    //line
+    const [editPromotionLineModalShow, setEditPromotionLineModalShow] = useState(false);
+    const [confirmDeletePromotionLineModalShow, setConfirmDeletePromotionLineModalShow] = useState(false);
     const [addPromotionModalShow, setAddPromotionModalShow] = useState(false);
 
+    //detail
+    const [addPromotionDetailModalShow, setAddPromotionDetailModalShow] = useState(false);
+    const [promotionDetails, setPromotionDetails] = useState([]);
     const [activeIndex, setActiveIndex] = useState(null); // Theo dõi mục accordion đang mở
+    const [editPromotionDetailModalShow, setEditPromotionDetailModalShow] = useState(false);
+    const [selectedPromotionDetail, setSelectedPromotionDetail] = useState(null);
 
     const handleAccordionClick = async (id) => {
         if (!selectedPromotionHeader[id]) {
             try {
                 const response = await getPromotionDetaiLinelApi({ _id: id });
-                // console.log('>>> response', response);
+                console.log('>>> response', response);
                 setSelectedPromotionHeader((prevHeaders) => ({
                     ...prevHeaders,
                     [id]: response,
@@ -54,7 +80,7 @@ const TablePromotion = ({ data = [], itemsPerPage }) => {
             if (response) {
                 setPromotion((prevPromotions) =>
                     prevPromotions.map((promo) =>
-                        promo._id === updatedPromotion._id ? { ...promo, ...updatedPromotion } : promo,
+                        promo?._id === updatedPromotion?._id ? { ...promo, ...updatedPromotion } : promo,
                     ),
                 );
 
@@ -69,11 +95,64 @@ const TablePromotion = ({ data = [], itemsPerPage }) => {
     };
 
     const handleDeleteHeader = (promotionHeader) => {
+        // console.log('lấy id', promotionHeader?._id);
         setSelectedPromotion(promotionHeader);
         setConfirmDeleteModalShow(true);
     };
 
+    const handleConfirmDelete = async () => {
+        // console.log('selectedPromotion:', selectedPromotion?._id);
+        try {
+            const response = await deletePromotionHeaderApi(selectedPromotion?._id); // Xóa chương trình khuyến mãi theo ID
+            if (response) {
+                // Xóa chương trình khuyến mãi khỏi state 'promotion'
+                setPromotion((prevPromotions) =>
+                    prevPromotions.filter((promo) => promo?._id !== selectedPromotion?._id),
+                );
+                toast.success('Xóa chương trình khuyến mãi thành công'); // Hiển thị thông báo thành công
+            } else {
+                toast.error('Xóa chương trình khuyến mãi thất bại'); // Hiển thị thông báo lỗi
+            }
+        } catch (error) {
+            console.error('Lỗi khi xóa chương trình khuyến mãi:', error);
+            toast.error('Có lỗi xảy ra khi xóa chương trình khuyến mãi'); // Hiển thị thông báo lỗi
+        } finally {
+            setConfirmDeleteModalShow(false); // Đóng modal xác nhận xóa
+        }
+    };
+
+    // -------------------------------------------------------
+
+    const handleDeletePromotionLine = (promotionLine) => {
+        setSelectedPromotionHeader(promotionLine);
+        setConfirmDeletePromotionLineModalShow(true);
+    };
+
+    const handleConfirmDeleteLine = async () => {
+        // console.log('selectedPromotion:', selectedPromotion?._id);
+        console.log('Before deletion - Current Selected Promotion Header:', selectedPromotionHeader);
+        try {
+            const response = await deletePromotionApi(selectedPromotionHeader?._id); // Xóa chương trình khuyến mãi theo ID
+            if (response) {
+                // Cập nhật state 'promotion'
+                setPromotion((prevPromotions) =>
+                    prevPromotions.filter((promo) => promo?._id !== selectedPromotionHeader?._id),
+                );
+
+                toast.success('Xóa chương trình khuyến mãi thành công'); // Hiển thị thông báo thành công
+            } else {
+                toast.error('Xóa chương trình khuyến mãi thất bại'); // Hiển thị thông báo lỗi
+            }
+        } catch (error) {
+            console.error('Lỗi khi xóa chương trình khuyến mãi:', error);
+            toast.error('Có lỗi xảy ra khi xóa chương trình khuyến mãi'); // Hiển thị thông báo lỗi
+        } finally {
+            setConfirmDeletePromotionLineModalShow(false); // Đóng modal xác nhận xóa
+        }
+    };
+
     const handleAddPromotionLine = (promotionHeader) => {
+        console.log('Selected promotion header:', promotionHeader);
         setSelectedPromotion(promotionHeader); // Lưu promotion header cho dòng mới
         setAddPromotionModalShow(true);
     };
@@ -82,7 +161,7 @@ const TablePromotion = ({ data = [], itemsPerPage }) => {
         const { discount_type, description, start_date, end_date } = formData;
         try {
             const response = await createPromotionLine(
-                selectedPromotion._id, // ID của promotion header
+                selectedPromotion?._id, // ID của promotion header
                 discount_type,
                 description,
                 new Date(start_date).toISOString(),
@@ -95,10 +174,11 @@ const TablePromotion = ({ data = [], itemsPerPage }) => {
                 // Thêm dòng khuyến mãi mới vào promotion header tương ứng
                 setSelectedPromotionHeader((prevHeaders) => ({
                     ...prevHeaders,
-                    [selectedPromotion._id]: [...(prevHeaders[selectedPromotion._id] || []), newPromotionLine],
+                    [selectedPromotion?._id]: [...(prevHeaders[selectedPromotion?._id] || []), newPromotionLine],
                 }));
 
                 toast.success('Thêm khuyến mãi thành công');
+
                 setAddPromotionModalShow(false);
             } else {
                 toast.error('Lỗi khi thêm khuyến mãi');
@@ -119,13 +199,25 @@ const TablePromotion = ({ data = [], itemsPerPage }) => {
             const response = await putPromotionLine(updatedLine); // Gọi API để cập nhật dòng khuyến mãi
             if (response) {
                 // Cập nhật danh sách promotion lines trong selectedPromotionHeader
-                setSelectedPromotionHeader((prevHeaders) => ({
-                    ...prevHeaders,
-                    [updatedLine.promotion_header_id]: prevHeaders[updatedLine.promotion_header_id].map((line) =>
-                        line._id === updatedLine._id ? updatedLine : line,
-                    ),
-                }));
-                toast.success('Cập nhật thành công');
+                setSelectedPromotionHeader((prevSelected) => {
+                    const updatedSelected = { ...prevSelected };
+
+                    // Tìm và thay thế promotion line được cập nhật
+                    Object.keys(updatedSelected).forEach((headerId) => {
+                        if (Array.isArray(updatedSelected[headerId])) {
+                            updatedSelected[headerId] = updatedSelected[headerId].map((line) =>
+                                line?._id === updatedLine?._id ? updatedLine : line,
+                            );
+                        } else {
+                            console.warn(
+                                `Expected an array for headerId ${headerId}, but received:`,
+                                updatedSelected[headerId],
+                            );
+                        }
+                    });
+
+                    return updatedSelected;
+                });
             }
         } catch (error) {
             console.error('Lỗi khi cập nhật dòng khuyến mãi:', error);
@@ -135,8 +227,53 @@ const TablePromotion = ({ data = [], itemsPerPage }) => {
         }
     };
 
+    // useEffect(() => {
+    //     console.log('Updated Promotions:', promotion);
+    // }, [promotion]);
+
+    // useEffect(() => {
+    //     console.log('Updated Selected Promotion Header:', selectedPromotionHeader);
+    // }, [selectedPromotionHeader]);
+
+    const handleAddPromotionDetail = (promotionLine) => {
+        setSelectedPromotionLine(promotionLine);
+        setAddPromotionDetailModalShow(true);
+    };
+
+    const handleClickDetail = async (promotionId) => {
+        console.log('>> id', promotionId);
+        try {
+            // Gọi API với promotionId
+            const response = await getPromotionDetaiApi({ _id: promotionId });
+            setPromotionDetails(response);
+        } catch (error) {
+            toast.error('Error fetching promotion details:', error);
+        }
+    };
+
+    const handleEditPromotionDetail = (detail) => {
+        setSelectedPromotionDetail(detail);
+        setEditPromotionDetailModalShow(true);
+    };
+
+    const handleUpdatePromotionDetail = async (updatedDetail) => {
+        try {
+            await putPromotionDetail(updatedDetail);
+            setPromotionDetails((prevDetails) =>
+                prevDetails.map((detail) =>
+                    detail._id === updatedDetail._id ? updatedDetail : detail
+                )
+            );
+            setEditPromotionDetailModalShow(false);
+        } catch (error) {
+            console.error("Cập nhật thất bại", error);
+        }
+    };
     return (
         <div className={styles.appointmentCard}>
+            <div className={styles.appointmentCardSearch}>
+                <h4>Tìm kiếm</h4>
+            </div>
             <div>
                 <Table className={styles.tableHeader}>
                     <tbody>
@@ -144,6 +281,10 @@ const TablePromotion = ({ data = [], itemsPerPage }) => {
                             <td className={styles.appointmentCardTd}>MÃ KHUYẾN MÃI</td>
                             <td className={styles.appointmentCardTd}>tên chương trình</td>
                             <td className={styles.appointmentCardTd}>mô tả</td>
+                            <td className={styles.appointmentCardTd}></td>
+                            <td className={styles.appointmentCardTd}></td>
+                            <td className={styles.appointmentCardTd}></td>
+                            <td className={styles.appointmentCardTd}></td>
                             <td className={styles.appointmentCardTd}></td>
                             <td className={styles.appointmentCardTd}></td>
                             <td className={styles.appointmentCardTd}>NGÀY BẮT ĐẦU</td>
@@ -155,7 +296,7 @@ const TablePromotion = ({ data = [], itemsPerPage }) => {
                 </Table>
             </div>
             <Accordion>
-                {promotion.map((promotionHeader, index) => (
+                {promotion?.map((promotionHeader, index) => (
                     <Accordion.Item
                         eventKey={index.toString()}
                         key={promotionHeader?._id + activeIndex}
@@ -165,7 +306,7 @@ const TablePromotion = ({ data = [], itemsPerPage }) => {
                             <Table className={styles.tableHeader}>
                                 <tbody>
                                     <tr>
-                                        <td className={styles.tableTh}>{promotionHeader.promotion_code}</td>
+                                        <td className={styles.tableTh}>{promotionHeader?.promotion_code}</td>
                                         <td className={styles.tableTh}></td>
                                         <td className={styles.tableTh}></td>
                                         <td className={styles.tableTh}></td>
@@ -173,10 +314,10 @@ const TablePromotion = ({ data = [], itemsPerPage }) => {
                                         <td className={styles.tableTh}></td>
                                         <td className={styles.tableTh}></td>
                                         <td className={styles.tableTh}></td>
-                                        <td className={styles.tableTh}>{promotionHeader.name}</td>
-                                        <td className={styles.tableTh}>{promotionHeader.description}</td>
+                                        <td className={styles.tableTh}>{promotionHeader?.name}</td>
+                                        <td className={styles.tableTh}>{promotionHeader?.description}</td>
                                         <td className={styles.tableTh}>
-                                            {new Date(promotionHeader.start_date).toLocaleString('vi-VN', {
+                                            {new Date(promotionHeader?.start_date).toLocaleString('vi-VN', {
                                                 year: 'numeric',
                                                 month: '2-digit',
                                                 day: '2-digit',
@@ -189,7 +330,7 @@ const TablePromotion = ({ data = [], itemsPerPage }) => {
                                         <td className={styles.tableTh}></td>
 
                                         <td className={styles.tableTh}>
-                                            {new Date(promotionHeader.end_date).toLocaleString('vi-VN', {
+                                            {new Date(promotionHeader?.end_date).toLocaleString('vi-VN', {
                                                 year: 'numeric',
                                                 month: '2-digit',
                                                 day: '2-digit',
@@ -200,7 +341,7 @@ const TablePromotion = ({ data = [], itemsPerPage }) => {
                                         <td className={styles.tableTh}></td>
                                         <td className={styles.tableTh}></td>
                                         <td className={styles.tableTh}>
-                                            {promotionHeader.active ? 'hoạt động' : 'ngưng hoạt động'}
+                                            {promotionHeader?.is_active ? 'hoạt động' : 'ngưng hoạt động'}
                                         </td>
                                         <td className={styles.tableTh}>
                                             <div className={styles.dataTableIcon}>
@@ -235,20 +376,10 @@ const TablePromotion = ({ data = [], itemsPerPage }) => {
                         <Accordion.Body>
                             <Table>
                                 <thead>
-                                    <tr>
-                                        <th className={styles.appointmentCardTh}>Mã dòng khuyến mãi</th>
+                                    <tr className={styles.tableLine}>
+                                        {/* <th className={styles.appointmentCardTh}>Mã dòng khuyến mãi</th> */}
                                         <th className={styles.appointmentCardTh}>Loại giảm giá</th>
-                                        <th className={styles.appointmentCardTh}></th>
-                                        <th className={styles.appointmentCardTh}></th>
-                                        <th className={styles.appointmentCardTh}></th>
-                                        <th className={styles.appointmentCardTh}></th>
-                                        <th className={styles.appointmentCardTh}>Mô tả</th>
-                                        <th className={styles.appointmentCardTh}></th>
-                                        <th className={styles.appointmentCardTh}></th>
-                                        <th className={styles.appointmentCardTh}></th>
-                                        <th className={styles.appointmentCardTh}></th>
-                                        <th className={styles.appointmentCardTh}></th>
-                                        <th className={styles.appointmentCardTh}></th>
+                                        <th className={styles.appointmentCardTh}>Mô tả dòng khuyến mãi</th>
                                         <th className={styles.appointmentCardTh}>NGÀY BẮT ĐẦU</th>
                                         <th className={styles.appointmentCardTh}>NGÀY KẾT THÚC</th>
                                         <th className={styles.appointmentCardTh}>KÍCH HOẠT</th>
@@ -256,96 +387,151 @@ const TablePromotion = ({ data = [], itemsPerPage }) => {
                                     </tr>
                                 </thead>
                             </Table>
-                            {selectedPromotionHeader[promotionHeader._id]?.map((promotionLine, index) => (
-                                <Table>
-                                    <tbody>
-                                        <td className={styles.tableBodyTh}>{promotionLine?.promotion_header_id}</td>
-                                        <td className={styles.tableBodyTh}></td>
-                                        <td className={styles.tableBodyTh}></td>
-                                        <td className={styles.tableBodyTh}></td>
-                                        <td className={styles.tableBodyTh}></td>
-                                        <td className={styles.tableBodyTh}></td>
-                                        <td className={styles.tableBodyTh}></td>
-                                        <td className={styles.tableBodyTh}></td>
-                                        <td className={styles.tableBodyTh}></td>
-                                        <td className={styles.tableBodyTh}></td>
-                                        <td className={styles.tableBodyTh}></td>
-                                        <td className={styles.tableBodyTh}></td>
-                                        <td className={styles.tableBodyTh}></td>
-                                        <td className={styles.tableBodyTh}></td>
-                                        <td className={styles.tableBodyTh}></td>
-                                        <td className={styles.tableBodyTh}></td>
-                                        <td className={styles.tableBodyTh}></td>
-                                        <td className={styles.tableBodyTh}></td>
-                                        <td className={styles.tableBodyTh}></td>
-                                        <td className={styles.tableBodyTh}>
-                                            {promotionLine?.discount_type === 1
-                                                ? 'Giảm giá theo phần trăm'
-                                                : 'Giảm giá cố định'}
-                                        </td>
-                                        <td className={styles.tableBodyTh}>{promotionLine?.description}</td>
-                                        <td className={styles.tableBodyTh}>
-                                            {new Date(promotionLine?.start_date).toLocaleDateString()}
-                                        </td>
-                                        <td className={styles.tableBodyTh}></td>
-                                        <td className={styles.tableBodyTh}></td>
-                                        <td className={styles.tableBodyTh}></td>
-                                        <td className={styles.tableBodyTh}></td>
-                                        <td className={styles.tableBodyTh}></td>
-                                        <td className={styles.tableBodyTh}></td>
-                                        <td className={styles.tableBodyTh}></td>
-                                        <td className={styles.tableBodyTh}></td>
-                                        <td className={styles.tableBodyTh}></td>
-                                        <td className={styles.tableBodyTh}></td>
-                                        <td className={styles.tableBodyTh}></td>
-                                        <td className={styles.tableBodyTh}></td>
-                                        <td className={styles.tableBodyTh}>
-                                            {new Date(promotionLine.end_date).toLocaleDateString()}
-                                        </td>
-                                        <td className={styles.tableBodyTh}></td>
-                                        <td className={styles.tableBodyTh}></td>
-                                        <td className={styles.tableBodyTh}></td>
-                                        <td className={styles.tableBodyTh}></td>
-                                        <td className={styles.tableBodyTh}></td>
-                                        <td className={styles.tableBodyTh}></td>
-                                        <td className={styles.tableBodyTh}></td>
-                                        <td className={styles.tableBodyTh}></td>
-                                        <td className={styles.tableBodyTh}></td>
-                                        <td className={styles.tableBodyTh}></td>
-                                        <td className={styles.tableBodyTh}></td>
-                                        <td className={styles.tableBodyTh}></td>
-                                        <td className={styles.tableBodyTh}>
-                                            {promotionLine.active ? 'hoạt động' : 'ngưng hoạt động'}
-                                        </td>
-                                        <td className={styles.tableBodyTh}>
-                                            <div className={styles.dataTableIcon}>
-                                                <FaPen
-                                                    className={styles.iconActionPen}
-                                                    onClick={(e) => {
-                                                        e.stopPropagation();
-                                                        handleEditPromotionLine(promotionLine);  // Truyền dòng khuyến mãi đã chọn
-                                                    }}
-                                                
-                                                />
-                                                <FaTrash
-                                                    className={styles.iconActionTrash}
-                                                    onClick={(e) => {
-                                                        e.stopPropagation();
-                                                        // handleDeleteUser(item);
-                                                    }}
-                                                />
-                                                <FaEye
-                                                    className={styles.iconActionEye}
-                                                    onClick={(e) => {
-                                                        e.stopPropagation();
-                                                        // handleDeleteUser(item);
-                                                    }}
-                                                />
-                                            </div>
-                                        </td>
-                                    </tbody>
-                                </Table>
-                            ))}
+                            <Accordion>
+                                {selectedPromotionHeader[promotionHeader?._id]?.map((promotionLine) => (
+                                    <Accordion.Item eventKey={promotionLine?._id} key={promotionLine?._id}>
+                                        <Accordion.Header
+                                            className={styles.appointmentCardText}
+                                            onClick={() => handleClickDetail(promotionLine?._id)}
+                                        >
+                                            <Table className={styles.tableHeader}>
+                                                <tbody>
+                                                    <tr>
+                                                        <td className={styles.tableBodyTh}>
+                                                            {promotionLine?.discount_type === 1
+                                                                ? 'Giảm giá theo phần trăm'
+                                                                : 'Giảm giá cố định'}
+                                                        </td>
+                                                        <td className={styles.tableBodyTh}>
+                                                            {promotionLine?.description}
+                                                        </td>
+                                                        <td className={styles.tableBodyTh}>
+                                                            {new Date(promotionLine?.start_date).toLocaleDateString()}
+                                                        </td>
+                                                        <td className={styles.tableBodyTh}></td>
+                                                        <td className={styles.tableBodyTh}></td>
+                                                        <td className={styles.tableBodyTh}></td>
+                                                        <td className={styles.tableBodyTh}></td>
+                                                        <td className={styles.tableBodyTh}></td>
+                                                        <td className={styles.tableBodyTh}></td>
+                                                        <td className={styles.tableBodyTh}></td>
+                                                        <td className={styles.tableBodyTh}></td>
+                                                        <td className={styles.tableBodyTh}></td>
+                                                        <td className={styles.tableBodyTh}></td>
+                                                        <td className={styles.tableBodyTh}>
+                                                            {new Date(promotionLine?.end_date).toLocaleDateString()}
+                                                        </td>
+                                                        <td className={styles.tableBodyTh}></td>
+                                                        <td className={styles.tableBodyTh}></td>
+                                                        <td className={styles.tableBodyTh}></td>
+                                                        <td className={styles.tableBodyTh}></td>
+                                                        <td className={styles.tableBodyTh}></td>
+                                                        <td className={styles.tableBodyTh}></td>
+                                                        <td className={styles.tableBodyTh}></td>
+                                                        <td className={styles.tableBodyTh}></td>
+                                                        <td className={styles.tableBodyTh}></td>
+
+                                                        <td className={styles.tableBodyTh}>
+                                                            {promotionLine?.is_active ? 'hoạt động' : 'ngưng hoạt động'}
+                                                        </td>
+                                                        <td className={styles.tableBodyTh}>
+                                                            <div className={styles.dataTableIcon}>
+                                                                <FaPen
+                                                                    className={styles.iconActionPen}
+                                                                    onClick={(e) => {
+                                                                        e.stopPropagation();
+                                                                        handleEditPromotionLine(promotionLine);
+                                                                    }}
+                                                                />
+                                                                <FaTrash
+                                                                    className={styles.iconActionTrash}
+                                                                    onClick={(e) => {
+                                                                        e.stopPropagation();
+                                                                        handleDeletePromotionLine(promotionLine);
+                                                                    }}
+                                                                />
+                                                                <FaPlusCircle
+                                                                    className={styles.iconActionEye}
+                                                                    onClick={(e) => {
+                                                                        e.stopPropagation();
+                                                                        handleAddPromotionDetail(promotionLine);
+                                                                    }}
+                                                                />
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </Table>
+                                        </Accordion.Header>
+                                        <Accordion.Body>
+                                            {promotionDetails.length > 0 ? (
+                                                <Table>
+                                                    <thead>
+                                                        <tr>
+                                                            <th className={styles.tableBodyTh}>Dịch vụ</th>
+                                                            <th className={styles.tableBodyTh}>Cấp bậc</th>
+                                                            <th className={styles.tableBodyTh}>Mô tả</th>
+                                                            <th className={styles.tableBodyTh}>Số tiền giảm giá</th>
+                                                            <th className={styles.tableBodyTh}>Số tiền tối thiểu</th>
+                                                            <th className={styles.tableBodyTh}>Trạng thái</th>
+                                                            <th className={styles.tableBodyTh}>Tác vụ</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        {promotionDetails.map((detail) => (
+                                                            <tr key={detail._id}>
+                                                                <td className={styles.detailTd}>
+                                                                    {detail.service_id?.name}
+                                                                </td>
+                                                                <td className={styles.detailTd}>
+                                                                    {detail.applicable_rank_id?.rank_name}
+                                                                </td>
+                                                                <td className={styles.detailTd}>
+                                                                    {detail.applicable_rank_id?.description}
+                                                                </td>
+                                                                <td className={styles.detailTd}>
+                                                                    {detail?.discount_value}
+                                                                </td>
+                                                                <td className={styles.detailTd}>
+                                                                    {detail?.min_order_value}
+                                                                </td>
+                                                                <td className={styles.detailTd}>
+                                                                    {detail.is_active ? 'hoạt động' : 'ngưng hoạt động'}
+                                                                </td>
+                                                                <td className={styles.tableIcon}>
+                                                                    <FaPen
+                                                                        className={styles.iconActionPen}
+                                                                        onClick={(e) => {
+                                                                            e.stopPropagation();
+                                                                            handleEditPromotionDetail(detail);
+                                                                        }}
+                                                                    />
+                                                                    <FaTrash
+                                                                        className={styles.iconActionTrash}
+                                                                        onClick={(e) => {
+                                                                            e.stopPropagation();
+                                                                            handleDeletePromotionLine(promotionLine);
+                                                                        }}
+                                                                    />
+                                                                    <FaPlusCircle
+                                                                        className={styles.iconActionEye}
+                                                                        onClick={(e) => {
+                                                                            e.stopPropagation();
+                                                                            handleAddPromotionDetail(promotionLine);
+                                                                        }}
+                                                                    />
+                                                                </td>
+                                                            </tr>
+                                                        ))}
+                                                    </tbody>
+                                                </Table>
+                                            ) : (
+                                                <p>Không có chi tiết cho dòng khuyến mãi này</p>
+                                            )}
+                                        </Accordion.Body>
+                                    </Accordion.Item>
+                                ))}
+                            </Accordion>
                         </Accordion.Body>
                     </Accordion.Item>
                 ))}
@@ -360,9 +546,9 @@ const TablePromotion = ({ data = [], itemsPerPage }) => {
             <ConfirmDeleteModal
                 show={confirmDeleteModalShow}
                 onHide={() => setConfirmDeleteModalShow(false)}
-                // onConfirm={handleConfirmDelete}
+                onConfirm={handleConfirmDelete}
             />
-
+            {/* ----------------------------------------- */}
             <AddPromotionLine
                 show={addPromotionModalShow}
                 promotionHeader={selectedPromotion} // Truyền promotion header đã chọn
@@ -375,6 +561,24 @@ const TablePromotion = ({ data = [], itemsPerPage }) => {
                 promotionLine={selectedPromotionLine} // Truyền dòng khuyến mãi đã chọn
                 onHide={() => setEditPromotionLineModalShow(false)} // Đóng modal
                 onUpdate={handleUpdateLinePromotion} // Hàm này để xử lý khi gửi form
+            />
+
+            <ConfirmDeleteModalLine
+                show={confirmDeletePromotionLineModalShow}
+                onHide={() => setConfirmDeletePromotionLineModalShow(false)}
+                onConfirm={handleConfirmDeleteLine}
+            />
+            {/* ----------------------------------------- */}
+            <AddPromotionDetail
+                show={addPromotionDetailModalShow}
+                onHide={() => setAddPromotionDetailModalShow(false)}
+                promotionHeader={selectedPromotionLine}
+            />
+            <EditPromotionDetailModal
+                show={editPromotionDetailModalShow}
+                onHide={() => setEditPromotionDetailModalShow(false)}
+                detail={selectedPromotionDetail}
+                onSave={handleUpdatePromotionDetail}
             />
         </div>
     );

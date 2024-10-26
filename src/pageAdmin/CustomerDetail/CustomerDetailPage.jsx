@@ -203,7 +203,7 @@ const CustomerDetailPage = () => {
                 />
             </div>
             <div className={`${styles.customerDetailWrapper} container mt-4`}>
-                <div
+                {/* <div
                     className={styles.customerDetaiProfile}
                     style={{
                         backgroundColor: rankStyles[currentRankName]?.backgroundColor || '#FFFFFF', // Mặc định màu trắng nếu không có trong danh sách
@@ -239,7 +239,7 @@ const CustomerDetailPage = () => {
                             ))}
                         </Form.Select>
                     </div>
-                </div>
+                </div> */}
                 <div className={styles.vehicleList}>
                     <div className={styles.vehicleItem}>
                         <h3>Danh sách xe của khách hàng</h3>

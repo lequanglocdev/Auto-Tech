@@ -6,8 +6,8 @@ import { deleteRankApi, deleteUserApi, getDetailRank, putCustomerRankApi } from 
 import ModalRank from '../Modal/ModalRank';
 import EditRankModal from '../EditRankModal/EditRankModal';
 import ConfirmDeleteModal from '../ConfirmDeleteModal/ConfirmDeleteModal';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { toast } from 'react-toastify';
+
 const TableRank = ({ data = [], itemsPerPage }) => {
     const { FaEye, FaPen, FaTrash } = icons;
 
@@ -171,7 +171,6 @@ const TableRank = ({ data = [], itemsPerPage }) => {
                 onHide={() => setConfirmDeleteModalShow(false)}
                 onConfirm={handleConfirmDelete}
             />
-            <ToastContainer />
         </div>
     );
 };
