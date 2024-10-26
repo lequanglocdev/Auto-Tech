@@ -2,17 +2,15 @@ import React, { useState, useEffect } from 'react';
 import { Modal, Form, Button } from 'react-bootstrap';
 import { getCarApi, getRankApi, getServicesApi, putPromotionDetail } from '@/utils/api';
 
-const EditPromotionDetailModal = ({ show, onHide, detail }) => {
+const EditPromotionDetailModal = ({ show, onHide, detail, onSave }) => {
     const [services, setServices] = useState([]);
     const [vehicleTypes, setVehicleTypes] = useState([]);
     const [applicableRanks, setApplicableRanks] = useState([]);
-    const [vehicleTypeId, setVehicleTypeId] = useState(detail?.vehicleTypeId || '');
-    const [serviceId, setServiceId] = useState(detail?.serviceId || '');
-    const [applicableRankId, setApplicableRankId] = useState(detail?.applicableRankId || '');
-    const [discountValue, setDiscountValue] = useState(detail?.discountValue || 0);
-    const [minOrderValue, setMinOrderValue] = useState(detail?.minOrderValue || 0);
+    const [serviceId, setServiceId] = useState('');
+    const [applicableRankId, setApplicableRankId] = useState('');
+    const [discountValue, setDiscountValue] = useState(0);
+    const [minOrderValue, setMinOrderValue] = useState(0);
 
-    // Fetch initial data for dropdowns when modal is shown
     useEffect(() => {
         if (show) {
             const fetchInitialData = async () => {
@@ -35,13 +33,12 @@ const EditPromotionDetailModal = ({ show, onHide, detail }) => {
 
     useEffect(() => {
         if (detail) {
-            setServiceId(detail.serviceId);
-            setApplicableRankId(detail.applicableRankId);
-            setDiscountValue(detail.discountValue);
-            setMinOrderValue(detail.minOrderValue);
+            setServiceId(detail.service_id || '');
+            setApplicableRankId(detail.applicable_rank_id || '');
+            setDiscountValue(detail.discount_value || 0);
+            setMinOrderValue(detail.min_order_value || 0);
         }
     }, [detail]);
-   
 
     const handleSubmit = async () => {
         if (!detail?._id) {
@@ -49,7 +46,15 @@ const EditPromotionDetailModal = ({ show, onHide, detail }) => {
             return;
         }
         try {
-            await putPromotionDetail(detail._id, serviceId, applicableRankId, discountValue, minOrderValue);
+            const updatedDetail = {
+                _id: detail._id,
+                service_id: serviceId,
+                applicable_rank_id: applicableRankId,
+                discount_value: discountValue,
+                min_order_value: minOrderValue,
+            };
+            await putPromotionDetail(updatedDetail);
+            onSave(updatedDetail); // Cập nhật danh sách sau khi lưu
             onHide(); // Close modal after successful update
         } catch (error) {
             console.error('Error updating promotion detail:', error);

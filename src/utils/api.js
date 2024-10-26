@@ -240,6 +240,11 @@ const deletePromotionHeaderApi = (promotion) => {
     return axios.delete(URL_API);
 };
 
+const deletePromotionDetailApi = (promotion) => {
+    const URL_API = `/api/promotions/details/${promotion}`;
+    return axios.delete(URL_API);
+};
+
 const deletePriceDetailApi = (price) => {
     const URL_API = `/api/prices/lines/${price._id}`;
     return axios.delete(URL_API);
@@ -503,6 +508,7 @@ export {
     deletePromotionApi,
     deletePromotionHeaderApi,
     deletePriceDetailApi,
+    deletePromotionDetailApi,
     verifyOtpApi,
     createCarApi,
     createServicesApi,

@@ -13,6 +13,7 @@ import {
     getPromotionDetaiHeaderLineDetailApi,
     getPromotionDetaiApi,
     putPromotionDetail,
+    deletePromotionDetailApi,
 } from '@/utils/api';
 import ConfirmDeleteModal from '../ConfirmDeleteModal/ConfirmDeleteModal';
 import AddPromotionLine from '../AddPromotionLine/AddPromotionLine';
@@ -23,6 +24,7 @@ import ConfirmDeleteModalLine from '../ConfirmDeleteModalLine/ConfirmDeleteModal
 import AddPromotionDetail from '../AddPromotionDetail/AddPromotionDetail';
 import { style } from '@mui/system';
 import EditPromotionDetailModal from '../../EditPromotionDetailModal/EditPromotionDetailModal';
+import ConfirmDeleteModalDetail from '../../ConfirmDeleteModalDetail/ConfirmDeleteModalDetail';
 const TablePromotion = ({ data = [], itemsPerPage }) => {
     const { FaPen, FaTrash, FaEye, FaPlusCircle } = icons;
     const [selectedPromotionHeader, setSelectedPromotionHeader] = useState({});
@@ -50,7 +52,8 @@ const TablePromotion = ({ data = [], itemsPerPage }) => {
     const [activeIndex, setActiveIndex] = useState(null); // Theo dõi mục accordion đang mở
     const [editPromotionDetailModalShow, setEditPromotionDetailModalShow] = useState(false);
     const [selectedPromotionDetail, setSelectedPromotionDetail] = useState(null);
-
+    const [confirmDeletePromotionDetailModalShow, setconfirmDeletePromotionDetailModalShow] = useState(false) 
+    
     const handleAccordionClick = async (id) => {
         if (!selectedPromotionHeader[id]) {
             try {
@@ -267,6 +270,21 @@ const TablePromotion = ({ data = [], itemsPerPage }) => {
             setEditPromotionDetailModalShow(false);
         } catch (error) {
             console.error("Cập nhật thất bại", error);
+        }
+    };
+
+    const handleDeletePromotionDetail = (detail) => {
+        setSelectedPromotionDetail(detail?._id)
+        setconfirmDeletePromotionDetailModalShow(true);
+    };
+
+    const handleConfirmDeleteDetail = async () => {
+        try {
+            await deletePromotionDetailApi(selectedPromotionDetail); // Gọi API với ID đã lưu
+            setPromotionDetails((prevDetails) => prevDetails.filter(detail => detail._id !== selectedPromotionDetail));
+            setconfirmDeletePromotionDetailModalShow(false); // Đóng modal
+        } catch (error) {
+            console.error('Xóa thất bại', error);
         }
     };
     return (
@@ -510,16 +528,10 @@ const TablePromotion = ({ data = [], itemsPerPage }) => {
                                                                         className={styles.iconActionTrash}
                                                                         onClick={(e) => {
                                                                             e.stopPropagation();
-                                                                            handleDeletePromotionLine(promotionLine);
+                                                                            handleDeletePromotionDetail(detail);
                                                                         }}
                                                                     />
-                                                                    <FaPlusCircle
-                                                                        className={styles.iconActionEye}
-                                                                        onClick={(e) => {
-                                                                            e.stopPropagation();
-                                                                            handleAddPromotionDetail(promotionLine);
-                                                                        }}
-                                                                    />
+                                                                   
                                                                 </td>
                                                             </tr>
                                                         ))}
@@ -579,6 +591,11 @@ const TablePromotion = ({ data = [], itemsPerPage }) => {
                 onHide={() => setEditPromotionDetailModalShow(false)}
                 detail={selectedPromotionDetail}
                 onSave={handleUpdatePromotionDetail}
+            />
+            <ConfirmDeleteModalDetail
+                show={confirmDeletePromotionDetailModalShow}
+                onHide={() => setconfirmDeletePromotionDetailModalShow(false)}
+                onConfirm={handleConfirmDeleteDetail}
             />
         </div>
     );
