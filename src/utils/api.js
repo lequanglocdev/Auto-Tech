@@ -415,6 +415,14 @@ const createPaymentCustomer = (appointmentId, employeesId) => {
     return axios.post(URL_API, data);
 };
 
+const createPayment = (invoiceId) =>{
+    const URL_API = `/api/payments/create-payment-link/${invoiceId}`
+    const data = {
+        invoiceId: invoiceId,
+    };
+    return axios.post(URL_API, data);
+}
+
 const putEmployeeApi = (user) => {
     const URL_API = `/api/employees/${user._id}`;
     return axios.put(URL_API, user);
@@ -456,7 +464,7 @@ const putPromotionLine = (promotion) => {
 };
 
 const putPromotionDetail =(promotion) =>{
-    const URL_API = `/api//promotions/details/${promotion._id}`;
+    const URL_API = `/api/promotions/details/${promotion._id}`;
     return axios.put(URL_API, promotion);
 }
 
@@ -464,6 +472,22 @@ const putActivePromotion = (promotion) => {
     const URL_API = `/api/promotions/${promotion._id}/toggle-active`;
     return axios.put(URL_API, promotion);
 };
+
+const putActivePromotionHeader = (promotion, isActive) => {
+    const URL_API = `/api/promotions/${promotion}`;
+    return axios.put(URL_API, { is_active: isActive });
+};
+
+const putActivePromotionLine = (promotion, isActive) => {
+    const URL_API = `/api/promotions/lines/${promotion}`;
+    return axios.put(URL_API, { is_active: isActive });
+};
+
+const putActivePromotionDetail = (promotion, isActive) => {
+    const URL_API = `/api/promotions/details/${promotion}`;
+    return axios.put(URL_API, { is_active: isActive });
+};
+
 
 const putPriceApi = (price) => {
     const URL_API = `/api/prices/${price._id}`;
@@ -548,6 +572,7 @@ export {
     createAppointmentCustomer,
     createAppointmentsWithoutSlot,
     createPaymentCustomer,
+    createPayment,
     putEmployeeApi,
     putCustomerApi,
     putCustomerRankApi,
@@ -562,5 +587,8 @@ export {
     putPriceDetailApi,
     putActivePriceApi,
     putActivePriceDetailApi,
+    putActivePromotionHeader,
+    putActivePromotionLine,
+    putActivePromotionDetail,
     findCustomerApi,
 };

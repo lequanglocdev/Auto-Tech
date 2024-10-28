@@ -39,7 +39,7 @@ const handleListServices = () => {
                             onChange={handleChange}
                             isInvalid={!!errors.serviceCode}
                         />
-                        <Form.Control.Feedback type="invalid">{errors.serviceCode}</Form.Control.Feedback>
+                        <Form.Control.Feedback className={styles.errorFeeback} type="invalid">{errors.serviceCode}</Form.Control.Feedback>
                     </Form.Group>
 
                     <Form.Group className="mb-3" controlId="name">
@@ -53,7 +53,7 @@ const handleListServices = () => {
                             onChange={handleChange}
                             isInvalid={!!errors.name}
                         />
-                        <Form.Control.Feedback type="invalid">{errors.name}</Form.Control.Feedback>
+                        <Form.Control.Feedback className={styles.errorFeeback} type="invalid">{errors.name}</Form.Control.Feedback>
                     </Form.Group>
 
                     <Form.Group className="mb-3" controlId="description">
@@ -68,7 +68,7 @@ const handleListServices = () => {
                             isInvalid={!!errors.description}
                             as="textarea" rows={3}
                         />
-                        <Form.Control.Feedback type="invalid">{errors.description}</Form.Control.Feedback>
+                        <Form.Control.Feedback className={styles.errorFeeback} type="invalid">{errors.description}</Form.Control.Feedback>
                     </Form.Group>
 
                     <Form.Group className="mb-3" controlId="timeRequired">
@@ -82,7 +82,7 @@ const handleListServices = () => {
                             onChange={handleChange}
                             isInvalid={!!errors.timeRequired}
                         />
-                        <Form.Control.Feedback type="invalid">{errors.timeRequired}</Form.Control.Feedback>
+                        <Form.Control.Feedback className={styles.errorFeeback} type="invalid">{errors.timeRequired}</Form.Control.Feedback>
                     </Form.Group>
 
                     

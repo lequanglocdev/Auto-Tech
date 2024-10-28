@@ -25,7 +25,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #cb3ce733;
+  /* background-color: #cb3ce733; */
   color: #e84393;
 }
 .dataTableIconPen {
@@ -35,7 +35,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #1a9f5333;
+  /* background-color: #1a9f5333; */
   color: #55efc4;
 }
 
@@ -46,6 +46,6 @@ border-radius: 4px;
 display: flex;
 justify-content: center;
 align-items: center;
-background-color: #f1113333;
+/* background-color: #f1113333; */
 color: #c0392b;
 }

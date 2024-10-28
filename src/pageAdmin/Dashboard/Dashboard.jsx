@@ -6,11 +6,11 @@ import { createAppointmentCustomer, getAppointmentCompleted, getAppointmentWitho
 import BookedWaitModal from './BookedWaitModal/BookedWaitModal';
 import BookedModal from './BookedModal/BookedModal';
 import { toast } from 'react-toastify';
-
+import { useNavigate } from 'react-router-dom';
 const Dashboard = () => {
+    const navigate = useNavigate();
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-
     const [slots, setSlots] = useState([]);
     const [selectedSlotId, setSelectedSlotId] = useState(null);
 
@@ -60,7 +60,7 @@ const Dashboard = () => {
 
             // Gọi các hàm fetch riêng lẻ
             await fetchSlots();
-            // await fetchAppointmentsCompleted();
+            await fetchAppointmentsCompleted();
             await fetchAppointmentsWithoutSlot();
 
             setLoading(false);
@@ -118,11 +118,11 @@ const Dashboard = () => {
                     toast.success('Đã xác nhận lịch hẹn:'); // Log phản hồi từ API
     
                     // Cập nhật state appointments để thêm lịch hẹn mới
-                    // setAppointments(prev => [
-                    //     ...prev,
-                    //     { ...appointment, _id: response?._id } // Giả sử API trả về ID mới, bạn có thể điều chỉnh theo cách trả về của API
-                    // ]);
-                    await fetchAppointmentsCompleted();
+                    setAppointments(prev => [
+                        ...prev,
+                        { ...appointment, _id: response?._id } // Giả sử API trả về ID mới, bạn có thể điều chỉnh theo cách trả về của API
+                    ]);
+                //    await fetchAppointmentsCompleted();
                     setSlots(prevSlots => prevSlots.filter(s => s.slot._id !== slot.slot._id));
                 } catch (error) {
                     toast.error('Lỗi khi xác nhận lịch hẹn:');
@@ -132,7 +132,11 @@ const Dashboard = () => {
             console.log('Không có appointment nào cho slot này.');
         }
     };
-    
+
+   const handleInvoiceClick = (appointmentId) => {
+    console.log('Clicked appointment ID:', appointmentId); // Log ID để kiểm tra
+    navigate(`/invoice/${appointmentId}`);
+};
     if (loading) {
         return (
             <div style={{ display: 'flex', justifyContent: 'center' }}>
@@ -194,11 +198,11 @@ const Dashboard = () => {
                                             <p className={styles.slotBodyText}>
                                                 Biển số xe: {appointment.vehicle_id.license_plate}
                                             </p>
-                                        </div>
+                                        </div>  
                                         <div className={styles.slotFooterCompleted}>
                                             <div
                                                 className={styles.slotCardFooterView}
-                                               
+                                                onClick={() => handleInvoiceClick(appointment._id)} 
                                             >
                                                 <span>Lập hóa đơn</span>
                                             </div>

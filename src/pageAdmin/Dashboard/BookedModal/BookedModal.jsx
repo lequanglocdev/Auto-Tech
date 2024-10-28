@@ -16,6 +16,7 @@ const BookedModal = ({ show, handleClose, slotId, onUpdateSlot }) => {
     const [selectedVehicle, setSelectedVehicle] = useState(null); // Thêm state mới để theo dõi xe đã chọn
 
     const [selectedServices, setSelectedServices] = useState([]);
+    
     useEffect(() => {
         if (slotId) {
             console.log('Received slot ID:', slotId); // Thông báo sẽ chạy khi slotId thay đổi

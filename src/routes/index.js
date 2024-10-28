@@ -79,7 +79,7 @@ export const privateRoute = [
     { path: '/admin/appointments/:id', component: AppointmentDetail },
     {path: '/appointments/completed',component: AppointmentCompleted},
 
-    {path: '/payments/invoice/:appointmentId',component: Invoice},
+    {path: '/invoice/:appointmentId',component: Invoice},
 
     { path: '/price/list', component: ListDetailPrice },
     

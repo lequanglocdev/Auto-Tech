@@ -81,7 +81,7 @@ const CreateCar = () => {
                             onChange={(e) => setVehicleTypeName(e.target.value)}
                             isInvalid={!!errors.vehicleTypeName} 
                         />
-                        <Form.Control.Feedback type="invalid">{errors.vehicleTypeName}</Form.Control.Feedback>
+                        <Form.Control.Feedback className={styles.errorFeeback} type="invalid">{errors.vehicleTypeName}</Form.Control.Feedback>
                     </Form.Group>
 
                     <Form.Group className="mb-3" controlId="formGroupDes">
@@ -96,7 +96,7 @@ const CreateCar = () => {
                             onChange={(e) => setDescription(e.target.value)}
                             isInvalid={!!errors.description} 
                         />
-                        <Form.Control.Feedback type="invalid">{errors.description}</Form.Control.Feedback>
+                        <Form.Control.Feedback className={styles.errorFeeback} type="invalid">{errors.description}</Form.Control.Feedback>
                     </Form.Group>
 
                     <button type="submit" className={styles.btnAdd}>

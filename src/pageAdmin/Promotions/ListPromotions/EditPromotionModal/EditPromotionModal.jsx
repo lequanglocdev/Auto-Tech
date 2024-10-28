@@ -5,7 +5,8 @@ const EditCustomerModal = ({ user, show, onHide, onUpdate }) => {
     const [formData, setFormData] = useState({
         name: '',
         description: '',
-        is_active:''
+        start_date: '',
+        end_date: '',
     });
     useEffect(() => {
         if (user) {
@@ -13,6 +14,8 @@ const EditCustomerModal = ({ user, show, onHide, onUpdate }) => {
                 name: user.name || '',
                 description: user.description || '',
                 is_active: user.is_active ? 'active' : 'inactive', // Chuyển đổi thành chuỗi để hiển thị trong form
+                start_date: user?.start_date ? new Date(user.start_date).toISOString().split('T')[0] : '',
+                end_date: user?.end_date ? new Date(user.end_date).toISOString().split('T')[0] : '',
             });
         }
     }, [user]);
@@ -28,7 +31,9 @@ const EditCustomerModal = ({ user, show, onHide, onUpdate }) => {
             _id: user._id, // Sử dụng ID hiện tại
             name: formData.name || user.name,
             description: formData.description || user.description,
-            is_active: formData.is_active === 'active', // Chuyển đổi trạng thái
+            start_date: new Date(formData.start_date).toISOString(),
+            end_date: new Date(formData.end_date).toISOString(),
+            // is_active: formData.is_active === 'active', // Chuyển đổi trạng thái
         };
         onUpdate(updatedData); // Gửi dữ liệu cập nhật lên component cha
     };
@@ -40,7 +45,6 @@ const EditCustomerModal = ({ user, show, onHide, onUpdate }) => {
             <Modal.Body>
                 {user ? (
                     <Form onSubmit={handleSubmit}>
-
                         <Form.Group className={styles.customerGroup} controlId="name">
                             <Form.Label className={styles.customerLabel}>Tên chương trình</Form.Label>
                             <Form.Control
@@ -61,8 +65,29 @@ const EditCustomerModal = ({ user, show, onHide, onUpdate }) => {
                                 onChange={handleChange}
                             />
                         </Form.Group>
-
-                        <Form.Group className={styles.customerGroup} controlId="is_active">
+                        <Form.Group className={styles.customerGroup} controlId="startDate">
+                            <Form.Label className={styles.customerLabel}>Ngày bắt đầu</Form.Label>
+                            <Form.Control
+                                className={styles.customerControl}
+                                type="date"
+                                name="start_date"
+                                value={formData.start_date}
+                                onChange={handleChange}
+                                required
+                            />
+                        </Form.Group>
+                        <Form.Group className={styles.customerGroup} controlId="endDate">
+                            <Form.Label className={styles.customerLabel}>Ngày kết thúc</Form.Label>
+                            <Form.Control
+                                className={styles.customerControl}
+                                type="date"
+                                name="end_date"
+                                value={formData.end_date}
+                                onChange={handleChange}
+                                required
+                            />
+                        </Form.Group>
+                        {/* <Form.Group className={styles.customerGroup} controlId="is_active">
                             <Form.Label className={styles.customerLabel}>Trạng thái</Form.Label>
                             <Form.Control
                                 className={styles.customerControl}
@@ -74,7 +99,7 @@ const EditCustomerModal = ({ user, show, onHide, onUpdate }) => {
                                 <option value="active">Hoạt động</option>
                                 <option value="inactive">Ngưng hoạt động</option>
                             </Form.Control>
-                        </Form.Group>
+                        </Form.Group> */}
 
                         <div className={styles.btn}>
                             <Button className={`mt-2 ${styles.customerBtn}`} variant="primary" type="submit">

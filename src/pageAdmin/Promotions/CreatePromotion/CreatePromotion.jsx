@@ -39,7 +39,7 @@ const CreatePromotion = () => {
                             onChange={handleChange}
                             isInvalid={!!errors.promotionCode}
                         />
-                        <Form.Control.Feedback type="invalid">{errors.promotionCode}</Form.Control.Feedback>
+                        <Form.Control.Feedback className={styles.errorFeeback}type="invalid">{errors.promotionCode}</Form.Control.Feedback>
                     </Form.Group>
 
                     <Form.Group className="mb-3" controlId="name">
@@ -53,7 +53,7 @@ const CreatePromotion = () => {
                             onChange={handleChange}
                             isInvalid={!!errors.name}
                         />
-                        <Form.Control.Feedback type="invalid">{errors.name}</Form.Control.Feedback>
+                        <Form.Control.Feedback className={styles.errorFeeback} type="invalid">{errors.name}</Form.Control.Feedback>
                     </Form.Group>
                     <Form.Group className="mb-3" controlId="startDate">
                         <Form.Label className={styles.labelText}>Ngày bắt đầu</Form.Label>
@@ -65,7 +65,7 @@ const CreatePromotion = () => {
                             onChange={handleChange}
                             isInvalid={!!errors.startDate}
                         />
-                        <Form.Control.Feedback type="invalid">{errors.startDate}</Form.Control.Feedback>
+                        <Form.Control.Feedback className={styles.errorFeeback} type="invalid">{errors.startDate}</Form.Control.Feedback>
                     </Form.Group>
 
                     <Form.Group className="mb-3" controlId="endDate">
@@ -78,7 +78,7 @@ const CreatePromotion = () => {
                             onChange={handleChange}
                             isInvalid={!!errors.endDate}
                         />
-                         <Form.Control.Feedback type="invalid">{errors.endDate}</Form.Control.Feedback>
+                         <Form.Control.Feedback className={styles.errorFeeback} type="invalid">{errors.endDate}</Form.Control.Feedback>
                     </Form.Group>
 
                     <Form.Group className="mb-3" controlId="description">
@@ -93,7 +93,7 @@ const CreatePromotion = () => {
                             isInvalid={!!errors.description}
                             rows={3}
                         />
-                        <Form.Control.Feedback type="invalid">{errors.description}</Form.Control.Feedback>
+                        <Form.Control.Feedback className={styles.errorFeeback} type="invalid">{errors.description}</Form.Control.Feedback>
                     </Form.Group>
 
                    

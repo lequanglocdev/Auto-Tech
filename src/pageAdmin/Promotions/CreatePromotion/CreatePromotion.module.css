@@ -48,3 +48,7 @@
   background-color: #0652a0;
   transform: scale(0.98);
 }
+
+.errorFeeback{
+  font-size: 1.2rem !important;
+}

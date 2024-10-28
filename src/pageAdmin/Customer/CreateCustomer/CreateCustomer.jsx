@@ -44,7 +44,7 @@ const CreateCustomer = () => {
                             onChange={handleChange}
                             isInvalid={!!errors.username}
                         />
-                        <Form.Control.Feedback type="invalid">{errors.username}</Form.Control.Feedback>
+                        <Form.Control.Feedback className={styles.errorFeeback} type="invalid">{errors.username}</Form.Control.Feedback>
                     </Form.Group>
 
                     <Form.Group className="mb-3" controlId="employeeName">
@@ -58,7 +58,7 @@ const CreateCustomer = () => {
                             onChange={handleChange}
                             isInvalid={!!errors.name}
                         />
-                        <Form.Control.Feedback type="invalid">{errors.name}</Form.Control.Feedback>
+                        <Form.Control.Feedback className={styles.errorFeeback} type="invalid">{errors.name}</Form.Control.Feedback>
                     </Form.Group>
 
                     <Form.Group className="mb-3" controlId="password">
@@ -72,7 +72,7 @@ const CreateCustomer = () => {
                             onChange={handleChange}
                             isInvalid={!!errors.password}
                         />
-                        <Form.Control.Feedback type="invalid">{errors.password}</Form.Control.Feedback>
+                        <Form.Control.Feedback className={styles.errorFeeback} type="invalid">{errors.password}</Form.Control.Feedback>
                     </Form.Group>
 
                     <Form.Group className="mb-3" controlId="email">
@@ -86,7 +86,7 @@ const CreateCustomer = () => {
                             onChange={handleChange}
                             isInvalid={!!errors.email}
                         />
-                        <Form.Control.Feedback type="invalid">{errors.email}</Form.Control.Feedback>
+                        <Form.Control.Feedback className={styles.errorFeeback} type="invalid">{errors.email}</Form.Control.Feedback>
                     </Form.Group>
 
                     <Form.Group className="mb-3" controlId="phone">
@@ -100,7 +100,7 @@ const CreateCustomer = () => {
                             onChange={handleChange}
                             isInvalid={!!errors.phone}
                         />
-                        <Form.Control.Feedback type="invalid">{errors.phone}</Form.Control.Feedback>
+                        <Form.Control.Feedback className={styles.errorFeeback} type="invalid">{errors.phone}</Form.Control.Feedback>
                     </Form.Group>
 
                     <Form.Group className="mb-3" controlId="address">
@@ -114,7 +114,7 @@ const CreateCustomer = () => {
                             onChange={handleChange}
                             isInvalid={!!errors.address}
                         />
-                        <Form.Control.Feedback type="invalid">{errors.address}</Form.Control.Feedback>
+                        <Form.Control.Feedback className={styles.errorFeeback} type="invalid">{errors.address}</Form.Control.Feedback>
                     </Form.Group>
 
                     <button type="submit" className={styles.btnAdd}>

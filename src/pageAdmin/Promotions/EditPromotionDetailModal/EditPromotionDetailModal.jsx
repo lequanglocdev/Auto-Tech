@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Modal, Form, Button } from 'react-bootstrap';
 import { getCarApi, getRankApi, getServicesApi, putPromotionDetail } from '@/utils/api';
-
+import styles from './EditPromotionDetailModal.module.css';
 const EditPromotionDetailModal = ({ show, onHide, detail, onSave }) => {
     const [services, setServices] = useState([]);
     const [vehicleTypes, setVehicleTypes] = useState([]);
@@ -40,7 +40,8 @@ const EditPromotionDetailModal = ({ show, onHide, detail, onSave }) => {
         }
     }, [detail]);
 
-    const handleSubmit = async () => {
+    const handleSubmit = async (e) => {
+        e.preventDefault();
         if (!detail?._id) {
             console.error('Promotion detail ID is missing');
             return;
@@ -64,11 +65,11 @@ const EditPromotionDetailModal = ({ show, onHide, detail, onSave }) => {
     return (
         <Modal show={show} onHide={onHide} centered>
             <Modal.Header closeButton>
-                <Modal.Title>Chỉnh sửa dòng khuyến mãi</Modal.Title>
+                <Modal.Title className={styles.customerTitle}>Chỉnh sửa dòng khuyến mãi</Modal.Title>
             </Modal.Header>
             <Modal.Body>
                 <Form>
-                    <Form.Group>
+                    {/* <Form.Group>
                         <Form.Label>Dịch vụ</Form.Label>
                         <Form.Select value={serviceId} onChange={(e) => setServiceId(e.target.value)}>
                             {services.map((service) => (
@@ -77,11 +78,15 @@ const EditPromotionDetailModal = ({ show, onHide, detail, onSave }) => {
                                 </option>
                             ))}
                         </Form.Select>
-                    </Form.Group>
+                    </Form.Group> */}
 
-                    <Form.Group>
-                        <Form.Label>Cấp bậc áp dụng</Form.Label>
-                        <Form.Select value={applicableRankId} onChange={(e) => setApplicableRankId(e.target.value)}>
+                    <Form.Group className={styles.customerGroup}>
+                        <Form.Label className={styles.customerLabel}>Cấp bậc áp dụng</Form.Label>
+                        <Form.Select
+                            value={applicableRankId}
+                            size="lg"
+                            onChange={(e) => setApplicableRankId(e.target.value)}
+                        >
                             {applicableRanks.map((rank) => (
                                 <option key={rank._id} value={rank._id}>
                                     {rank.rank_name}
@@ -90,27 +95,34 @@ const EditPromotionDetailModal = ({ show, onHide, detail, onSave }) => {
                         </Form.Select>
                     </Form.Group>
 
-                    <Form.Group>
-                        <Form.Label>Giá trị giảm giá</Form.Label>
+                    <Form.Group className={styles.customerGroup}>
+                        <Form.Label className={styles.customerLabel}>Giá trị giảm giá</Form.Label>
                         <Form.Control
+                            className={styles.customerControl}
                             type="number"
                             value={discountValue}
                             onChange={(e) => setDiscountValue(e.target.value)}
                         />
                     </Form.Group>
 
-                    <Form.Group>
-                        <Form.Label>Giá trị đơn hàng tối thiểu</Form.Label>
+                    <Form.Group className={styles.customerGroup}>
+                        <Form.Label  className={styles.customerLabel}>Giá trị đơn hàng tối thiểu</Form.Label>
                         <Form.Control
+                            className={styles.customerControl}
                             type="number"
                             value={minOrderValue}
                             onChange={(e) => setMinOrderValue(e.target.value)}
                         />
                     </Form.Group>
 
-                    <Button variant="primary" onClick={handleSubmit}>
+                    {/* <Button variant="primary" onClick={handleSubmit}>
                         Lưu thay đổi
-                    </Button>
+                    </Button> */}
+                    <div className={styles.btn}>
+                            <Button className={`mt-2 ${styles.customerBtn}`} variant="primary" type="submit" onClick={handleSubmit}>
+                                Cập nhật
+                            </Button>
+                        </div>
                 </Form>
             </Modal.Body>
         </Modal>

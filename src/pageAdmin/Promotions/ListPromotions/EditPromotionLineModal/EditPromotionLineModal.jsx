@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Button, Form, Modal } from "react-bootstrap";
-
+import styles from './EditPromotionLineModal.module.css'
+import { toast } from "react-toastify";
 const EditPromotionLine = ({ promotionLine, show, onHide, onUpdate }) => {
     const [formData, setFormData] = useState({
         discount_type: promotionLine?.discount_type || '1',
@@ -40,19 +41,21 @@ const EditPromotionLine = ({ promotionLine, show, onHide, onUpdate }) => {
             discount_type: parseInt(formData.discount_type),
             active: formData.active === 'active' 
         };
+        toast.success("Xóa chi tiết thành công")
         onUpdate(updatedLine);
     };
 
     return (
         <Modal show={show} onHide={onHide} size="lg" centered>
             <Modal.Header closeButton>
-                <Modal.Title>Chỉnh sửa thông tin khuyến mãi</Modal.Title>
+                <Modal.Title className={styles.customerTitle}>Chỉnh sửa thông tin khuyến mãi</Modal.Title>
             </Modal.Header>
             <Modal.Body>
                 <Form onSubmit={handleSubmit}>
-                    <Form.Group controlId="discountType">
-                        <Form.Label>Loại giảm giá</Form.Label>
+                    <Form.Group className={styles.customerGroup} controlId="discountType">
+                        <Form.Label className={styles.customerLabel}>Loại giảm giá</Form.Label>
                         <Form.Control
+                         className={styles.customerControl}
                             as="select"
                             name="discount_type"
                             value={formData.discount_type}
@@ -62,9 +65,10 @@ const EditPromotionLine = ({ promotionLine, show, onHide, onUpdate }) => {
                             <option value="2">Giá trị cố định</option>
                         </Form.Control>
                     </Form.Group>
-                    <Form.Group controlId="description">
-                        <Form.Label>Mô tả</Form.Label>
+                    <Form.Group className={styles.customerGroup} controlId="description">
+                        <Form.Label className={styles.customerLabel}>Mô tả</Form.Label>
                         <Form.Control
+                         className={styles.customerControl}
                             type="text"
                             name="description"
                             value={formData.description}
@@ -72,9 +76,10 @@ const EditPromotionLine = ({ promotionLine, show, onHide, onUpdate }) => {
                             required
                         />
                     </Form.Group>
-                    <Form.Group controlId="startDate">
-                        <Form.Label>Ngày bắt đầu</Form.Label>
+                    <Form.Group className={styles.customerGroup} controlId="startDate">
+                        <Form.Label className={styles.customerLabel}>Ngày bắt đầu</Form.Label>
                         <Form.Control
+                         className={styles.customerControl}
                             type="date"
                             name="start_date"
                             value={formData.start_date}
@@ -82,9 +87,10 @@ const EditPromotionLine = ({ promotionLine, show, onHide, onUpdate }) => {
                             required
                         />
                     </Form.Group>
-                    <Form.Group controlId="endDate">
-                        <Form.Label>Ngày kết thúc</Form.Label>
+                    <Form.Group className={styles.customerGroup} controlId="endDate">
+                        <Form.Label className={styles.customerLabel}>Ngày kết thúc</Form.Label>
                         <Form.Control
+                         className={styles.customerControl}
                             type="date"
                             name="end_date"
                             value={formData.end_date}
@@ -92,9 +98,10 @@ const EditPromotionLine = ({ promotionLine, show, onHide, onUpdate }) => {
                             required
                         />
                     </Form.Group>
-                    <Form.Group controlId="active">
-                        <Form.Label>Trạng thái</Form.Label>
+                    {/* <Form.Group className={styles.customerGroup} controlId="active">
+                        <Form.Label className={styles.customerLabel}>Trạng thái</Form.Label>
                         <Form.Control
+                         className={styles.customerControl}
                             as="select"
                             name="active"
                             value={formData.active}
@@ -103,10 +110,12 @@ const EditPromotionLine = ({ promotionLine, show, onHide, onUpdate }) => {
                             <option value="active">Hoạt động</option>
                             <option value="inactive">Ngưng hoạt động</option>
                         </Form.Control>
-                    </Form.Group>
-                    <Button className="mt-4" variant="primary" type="submit">
-                        Cập nhật
-                    </Button>
+                    </Form.Group> */}
+                    <div className={styles.btn}>
+                            <Button className={`mt-2 ${styles.customerBtn}`} variant="primary" type="submit">
+                                Cập nhật
+                            </Button>
+                        </div>
                 </Form>
             </Modal.Body>
         </Modal>

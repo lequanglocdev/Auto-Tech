@@ -5,7 +5,7 @@ import { Modal, Form } from 'react-bootstrap';
 import styles from './AddPromotionLine.module.css'
 import icons from '@/utils/icon';
 const AddPromotionLine = ({ show, promotionHeader, onHide, onSubmit }) => {
-  const { FaPen, FaTrash, MdArrowBackIos, FaPlusCircle } = icons;
+  const { FaPlusCircle } = icons;
   const [formData, setFormData] = useState({
         discount_type: 1,
         description: '',

@@ -47,11 +47,11 @@ const SidebarAdmin = ({ isVisible, onSelectMenu }) => {
             icon: FaCar,
             path: '/car'
         },
-        {
-            title: 'Quản lý lịch chăm sóc',
-            icon: FaCalendarAlt,
-            path: '/appointments/completed',
-        },
+        // {
+        //     title: 'Quản lý lịch chăm sóc',
+        //     icon: FaCalendarAlt,
+        //     path: '/appointments/completed',
+        // },
         {
             title: 'Quản lý dịch vụ',
             icon: MdHomeRepairService,

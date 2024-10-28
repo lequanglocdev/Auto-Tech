@@ -203,12 +203,12 @@ const CustomerDetailPage = () => {
                 />
             </div>
             <div className={`${styles.customerDetailWrapper} container mt-4`}>
-                {/* <div
+                <div
                     className={styles.customerDetaiProfile}
-                    style={{
-                        backgroundColor: rankStyles[currentRankName]?.backgroundColor || '#FFFFFF', // Mặc định màu trắng nếu không có trong danh sách
-                        color: rankStyles[currentRankName]?.textColor || '#000000', // Mặc định màu đen nếu không có trong danh sách
-                    }}
+                    // style={{
+                    //     backgroundColor: rankStyles[currentRankName]?.backgroundColor || '#FFFFFF', // Mặc định màu trắng nếu không có trong danh sách
+                    //     color: rankStyles[currentRankName]?.textColor || '#000000', // Mặc định màu đen nếu không có trong danh sách
+                    // }}
                 >
                     <p className={styles.customerDetailTextDes}>
                         <strong>Tên:</strong> {customer.name}
@@ -222,7 +222,7 @@ const CustomerDetailPage = () => {
                     <p className={styles.customerDetailTextDes}>
                         <strong>Địa chỉ:</strong> {customer.address}
                     </p>
-                    <div className={styles.customerDetailRank}>
+                    {/* <div className={styles.customerDetailRank}>
                         <p className={styles.customerDetailTextDes}>
                             <strong>Hạng khách hàng:</strong> {currentRankName}
                         </p>
@@ -238,8 +238,8 @@ const CustomerDetailPage = () => {
                                 </option>
                             ))}
                         </Form.Select>
-                    </div>
-                </div> */}
+                    </div> */}
+                </div>
                 <div className={styles.vehicleList}>
                     <div className={styles.vehicleItem}>
                         <h3>Danh sách xe của khách hàng</h3>

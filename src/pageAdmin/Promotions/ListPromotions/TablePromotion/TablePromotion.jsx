@@ -14,6 +14,9 @@ import {
     getPromotionDetaiApi,
     putPromotionDetail,
     deletePromotionDetailApi,
+    putActivePromotionHeader,
+    putActivePromotionLine,
+    putActivePromotionDetail,
 } from '@/utils/api';
 import ConfirmDeleteModal from '../ConfirmDeleteModal/ConfirmDeleteModal';
 import AddPromotionLine from '../AddPromotionLine/AddPromotionLine';
@@ -31,6 +34,79 @@ const TablePromotion = ({ data = [], itemsPerPage }) => {
 
     const [promotion, setPromotion] = useState(data);
 
+    // Toggle header
+    const [activeStatusHeader, setActiveStatusHeader] = useState(promotion?.map((item) => item.is_active || false));
+    const handleToggleActiveHeader = async (promotionHeader) => {
+        try {
+            const updatedItem = { ...promotionHeader, is_active: !promotionHeader.is_active };
+
+            const response = await putActivePromotionHeader(promotionHeader._id, updatedItem.is_active);
+
+            // Log phản hồi từ API
+            // console.log('Phản hồi từ API:', response);
+
+            if (response) {
+                setPromotion((prev) =>
+                    prev.map((p) => (p._id === promotionHeader._id ? { ...p, is_active: updatedItem.is_active } : p)),
+                );
+                toast.success('Cập nhật trạng thái thành công!'); // Sử dụng toast
+            }
+        } catch (error) {
+            console.error('Lỗi khi cập nhật trạng thái:', error);
+            toast.error('Đã xảy ra lỗi khi cập nhật trạng thái. Vui lòng thử lại sau.'); // Sử dụng toast
+        }
+    };
+    // Toggle Line handleToggleActiveLine
+    const [activeStatusLine, setActiveStatusLine] = useState(promotion?.map((item) => item.is_active || false));
+    const handleToggleActiveLine = async (promotionLine, index) => {
+        try {
+            const updatedItem = { ...promotionLine, is_active: !promotionLine.is_active };
+
+            const response = await putActivePromotionLine(promotionLine._id, updatedItem.is_active);
+
+            if (response) {
+                setPromotion((prev) =>
+                    prev.map((p) => (p._id === promotionLine._id ? { ...p, is_active: updatedItem.is_active } : p)),
+                );
+
+                const newActiveStatus = [...activeStatusLine];
+                newActiveStatus[index] = updatedItem.is_active; // Chỉ cập nhật trạng thái của dòng hiện tại
+                setActiveStatusLine(newActiveStatus); // Cập nhật state với trạng thái mới
+
+                toast.success('Cập nhật trạng thái thành công!');
+            }
+        } catch (error) {
+            console.error('Lỗi khi cập nhật trạng thái:', error);
+            toast.error('Đã xảy ra lỗi khi cập nhật trạng thái. Vui lòng thử lại sau.');
+        }
+    };
+
+    // Toggle Detail
+    const [activeStatusDetail, setActiveStatusDetail] = useState(promotion?.map((item) => item.is_active || false));
+    const handleToggleActiveDetail = async (detail,index) => {
+        try {
+            const updatedItem = { ...detail, is_active: !detail.is_active };
+
+            const response = await putActivePromotionDetail(detail._id, updatedItem.is_active);
+
+            // Log phản hồi từ API
+            // console.log('Phản hồi từ API:', response);
+
+            if (response) {
+                setPromotion((prev) =>
+                    prev.map((p) => (p._id === detail._id ? { ...p, is_active: updatedItem.is_active } : p)),
+                );
+                const newActiveStatus = [...activeStatusLine];
+                newActiveStatus[index] = updatedItem.is_active; // Chỉ cập nhật trạng thái của dòng hiện tại
+                setActiveStatusLine(newActiveStatus); // Cập nhật state với trạng thái mới
+
+                toast.success('Cập nhật trạng thái thành công!'); // Sử dụng toast
+            }
+        } catch (error) {
+            console.error('Lỗi khi cập nhật trạng thái:', error);
+            toast.error('Đã xảy ra lỗi khi cập nhật trạng thái. Vui lòng thử lại sau.'); // Sử dụng toast
+        }
+    };
     // edit promotionHeader , add promotion
     const [selectedPromotion, setSelectedPromotion] = useState(null);
 
@@ -52,8 +128,8 @@ const TablePromotion = ({ data = [], itemsPerPage }) => {
     const [activeIndex, setActiveIndex] = useState(null); // Theo dõi mục accordion đang mở
     const [editPromotionDetailModalShow, setEditPromotionDetailModalShow] = useState(false);
     const [selectedPromotionDetail, setSelectedPromotionDetail] = useState(null);
-    const [confirmDeletePromotionDetailModalShow, setconfirmDeletePromotionDetailModalShow] = useState(false) 
-    
+    const [confirmDeletePromotionDetailModalShow, setconfirmDeletePromotionDetailModalShow] = useState(false);
+
     const handleAccordionClick = async (id) => {
         if (!selectedPromotionHeader[id]) {
             try {
@@ -90,10 +166,11 @@ const TablePromotion = ({ data = [], itemsPerPage }) => {
                 // Nếu data được truyền từ props và không thể sửa tại nguồn
                 // ta cần cập nhật lại data
                 setSelectedPromotion(null);
+                toast.success(response.msg);
                 setEditModalShow(false);
             }
         } catch (error) {
-            console.error('Lỗi khi cập nhật khuyến mãi:', error);
+            toast.error('Lỗi khi cập nhật khuyến mãi:', error);
         }
     };
 
@@ -239,8 +316,22 @@ const TablePromotion = ({ data = [], itemsPerPage }) => {
     // }, [selectedPromotionHeader]);
 
     const handleAddPromotionDetail = (promotionLine) => {
-        setSelectedPromotionLine(promotionLine);
         setAddPromotionDetailModalShow(true);
+        setSelectedPromotionLine(promotionLine);
+    };
+    const handleAddSuccess = (newDetail) => {
+        setPromotionDetails((prevDetails) => [
+            ...prevDetails,
+            {
+                ...newDetail,
+                applicable_rank_id: {
+                    _id: newDetail.applicableRankId,
+                    rank_name: newDetail.applicableRankName, // Thêm tên cấp bậc để hiển thị
+                },
+                discount_value: newDetail.discountValue, // Thêm discountValue
+                min_order_value: newDetail.minOrderValue, // Thêm minOrderValue
+            },
+        ]);
     };
 
     const handleClickDetail = async (promotionId) => {
@@ -263,25 +354,27 @@ const TablePromotion = ({ data = [], itemsPerPage }) => {
         try {
             await putPromotionDetail(updatedDetail);
             setPromotionDetails((prevDetails) =>
-                prevDetails.map((detail) =>
-                    detail._id === updatedDetail._id ? updatedDetail : detail
-                )
+                prevDetails.map((detail) => (detail._id === updatedDetail._id ? updatedDetail : detail)),
             );
+            toast.success('Cập nhật chương trình khuyến mãi thành công');
             setEditPromotionDetailModalShow(false);
         } catch (error) {
-            console.error("Cập nhật thất bại", error);
+            console.error('Cập nhật thất bại', error);
         }
     };
 
     const handleDeletePromotionDetail = (detail) => {
-        setSelectedPromotionDetail(detail?._id)
+        setSelectedPromotionDetail(detail?._id);
         setconfirmDeletePromotionDetailModalShow(true);
     };
 
     const handleConfirmDeleteDetail = async () => {
         try {
             await deletePromotionDetailApi(selectedPromotionDetail); // Gọi API với ID đã lưu
-            setPromotionDetails((prevDetails) => prevDetails.filter(detail => detail._id !== selectedPromotionDetail));
+            setPromotionDetails((prevDetails) =>
+                prevDetails.filter((detail) => detail._id !== selectedPromotionDetail),
+            );
+            toast.success('Xóa chi tiết chương trình khuyến mãi thành công');
             setconfirmDeletePromotionDetailModalShow(false); // Đóng modal
         } catch (error) {
             console.error('Xóa thất bại', error);
@@ -359,7 +452,19 @@ const TablePromotion = ({ data = [], itemsPerPage }) => {
                                         <td className={styles.tableTh}></td>
                                         <td className={styles.tableTh}></td>
                                         <td className={styles.tableTh}>
-                                            {promotionHeader?.is_active ? 'hoạt động' : 'ngưng hoạt động'}
+                                            <label className={styles.switch}>
+                                                <input
+                                                    type="checkbox"
+                                                    checked={activeStatusHeader[index]} // Sử dụng state để kiểm soát giá trị
+                                                    onChange={() => {
+                                                        const newStatus = [...activeStatusHeader];
+                                                        newStatus[index] = !newStatus[index]; // Đổi trạng thái
+                                                        setActiveStatusHeader(newStatus);
+                                                        handleToggleActiveHeader(promotionHeader);
+                                                    }}
+                                                />
+                                                <span className={`${styles.slider} ${styles.round}`}></span>
+                                            </label>
                                         </td>
                                         <td className={styles.tableTh}>
                                             <div className={styles.dataTableIcon}>
@@ -395,7 +500,6 @@ const TablePromotion = ({ data = [], itemsPerPage }) => {
                             <Table>
                                 <thead>
                                     <tr className={styles.tableLine}>
-                                        {/* <th className={styles.appointmentCardTh}>Mã dòng khuyến mãi</th> */}
                                         <th className={styles.appointmentCardTh}>Loại giảm giá</th>
                                         <th className={styles.appointmentCardTh}>Mô tả dòng khuyến mãi</th>
                                         <th className={styles.appointmentCardTh}>NGÀY BẮT ĐẦU</th>
@@ -406,7 +510,7 @@ const TablePromotion = ({ data = [], itemsPerPage }) => {
                                 </thead>
                             </Table>
                             <Accordion>
-                                {selectedPromotionHeader[promotionHeader?._id]?.map((promotionLine) => (
+                                {selectedPromotionHeader[promotionHeader?._id]?.map((promotionLine, index) => (
                                     <Accordion.Item eventKey={promotionLine?._id} key={promotionLine?._id}>
                                         <Accordion.Header
                                             className={styles.appointmentCardText}
@@ -450,7 +554,21 @@ const TablePromotion = ({ data = [], itemsPerPage }) => {
                                                         <td className={styles.tableBodyTh}></td>
 
                                                         <td className={styles.tableBodyTh}>
-                                                            {promotionLine?.is_active ? 'hoạt động' : 'ngưng hoạt động'}
+                                                            <label className={styles.switch}>
+                                                                <input
+                                                                    type="checkbox"
+                                                                    checked={activeStatusLine[index]} // Sử dụng state để kiểm soát giá trị
+                                                                    onChange={() => {
+                                                                        const newStatus = [...activeStatusLine];
+                                                                        newStatus[index] = !newStatus[index]; // Đổi trạng thái
+                                                                        setActiveStatusLine(newStatus);
+                                                                        handleToggleActiveLine(promotionLine, index);
+                                                                    }}
+                                                                />
+                                                                <span
+                                                                    className={`${styles.slider} ${styles.round}`}
+                                                                ></span>
+                                                            </label>
                                                         </td>
                                                         <td className={styles.tableBodyTh}>
                                                             <div className={styles.dataTableIcon}>
@@ -486,9 +604,8 @@ const TablePromotion = ({ data = [], itemsPerPage }) => {
                                                 <Table>
                                                     <thead>
                                                         <tr>
-                                                            <th className={styles.tableBodyTh}>Dịch vụ</th>
                                                             <th className={styles.tableBodyTh}>Cấp bậc</th>
-                                                            <th className={styles.tableBodyTh}>Mô tả</th>
+
                                                             <th className={styles.tableBodyTh}>Số tiền giảm giá</th>
                                                             <th className={styles.tableBodyTh}>Số tiền tối thiểu</th>
                                                             <th className={styles.tableBodyTh}>Trạng thái</th>
@@ -496,17 +613,12 @@ const TablePromotion = ({ data = [], itemsPerPage }) => {
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        {promotionDetails.map((detail) => (
+                                                        {promotionDetails.map((detail,index) => (
                                                             <tr key={detail._id}>
-                                                                <td className={styles.detailTd}>
-                                                                    {detail.service_id?.name}
-                                                                </td>
                                                                 <td className={styles.detailTd}>
                                                                     {detail.applicable_rank_id?.rank_name}
                                                                 </td>
-                                                                <td className={styles.detailTd}>
-                                                                    {detail.applicable_rank_id?.description}
-                                                                </td>
+
                                                                 <td className={styles.detailTd}>
                                                                     {detail?.discount_value}
                                                                 </td>
@@ -514,7 +626,25 @@ const TablePromotion = ({ data = [], itemsPerPage }) => {
                                                                     {detail?.min_order_value}
                                                                 </td>
                                                                 <td className={styles.detailTd}>
-                                                                    {detail.is_active ? 'hoạt động' : 'ngưng hoạt động'}
+                                                                    <label className={styles.switch}>
+                                                                        <input
+                                                                            type="checkbox"
+                                                                            checked={activeStatusDetail[index]} // Sử dụng state để kiểm soát giá trị
+                                                                            onChange={() => {
+                                                                                const newStatus = [
+                                                                                    ...activeStatusDetail,
+                                                                                ];
+                                                                                newStatus[index] = !newStatus[index]; // Đổi trạng thái
+                                                                                setActiveStatusDetail(newStatus);
+                                                                                handleToggleActiveDetail(
+                                                                                    detail,
+                                                                                );
+                                                                            }}
+                                                                        />
+                                                                        <span
+                                                                            className={`${styles.slider} ${styles.round}`}
+                                                                        ></span>
+                                                                    </label>
                                                                 </td>
                                                                 <td className={styles.tableIcon}>
                                                                     <FaPen
@@ -531,7 +661,6 @@ const TablePromotion = ({ data = [], itemsPerPage }) => {
                                                                             handleDeletePromotionDetail(detail);
                                                                         }}
                                                                     />
-                                                                   
                                                                 </td>
                                                             </tr>
                                                         ))}
@@ -585,6 +714,7 @@ const TablePromotion = ({ data = [], itemsPerPage }) => {
                 show={addPromotionDetailModalShow}
                 onHide={() => setAddPromotionDetailModalShow(false)}
                 promotionHeader={selectedPromotionLine}
+                onSuccess={handleAddSuccess}
             />
             <EditPromotionDetailModal
                 show={editPromotionDetailModalShow}
