@@ -92,7 +92,7 @@
     width: 15px;
     left: 2px;
     bottom: 4px;
-    background-color: white;
+    background-color: white !important;
     transition: 0.2s;
 }
 

@@ -6,27 +6,28 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
-.dasboardBody{
+.dasboardBody {
     margin-top: 20px;
     display: flex;
     flex-direction: column;
 }
 
-.dasboardBodyHandle{
+.dasboardBodyHandle {
     width: 100%;
     display: flex;
     justify-content: space-between;
-   
 }
 
-.dasboardBodyEmpty{
+.dasboardBodyEmpty {
     flex: 2;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    max-height: 800px; /* Thiết lập chiều cao tối đa */
+    overflow-y: auto; /* Thêm thanh cuộn dọc khi nội dung vượt quá chiều cao */
 }
 
 .dasboardBodyEmpty h4,
 .dasboardBodyCalender h4,
-.dasboardBodyCompletedHead{
+.dasboardBodyCompletedHead {
     font-size: 2rem;
     font-style: italic;
     font-weight: bold;
@@ -35,18 +36,159 @@
     margin-bottom: 10px;
 }
 
-.dasboardBodyCalender{
+.dasboardBodyCalender {
     flex: 1;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
     padding: 4px;
+    max-height: 800px; /* Thiết lập chiều cao tối đa */
+    overflow-y: auto; /* Thêm thanh cuộn dọc khi nội dung vượt quá chiều cao */
 }
 
-
-.dasboardBodyCompleted{
+.dasboardBodyCompleted {
     flex: 1;
 }
 
-.noSlotsMessage{
+.noSlotsMessage {
     font-size: 1.4rem;
     text-align: center;
+}
+
+/* _______________ */
+.slot {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-top: 20px;
+}
+.wrapperSlot {
+    width: 350px;
+    height: 200px;
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    margin-left: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+}
+
+.slotHeader {
+    width: 100%;
+    height: 40px;
+    padding: 0 10px;
+    display: flex;
+    justify-content: space-between;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    align-items: center;
+    background-image: linear-gradient(to right, rgb(29, 162, 86), rgb(72, 212, 131));
+}
+
+.slotCardHeaderTextLeft {
+    font-size: 1.6rem;
+    font-weight: bold;
+    color: var(--text-primary) !important;
+}
+.bookedStatus {
+    color: red !important;
+    font-size: 1.4rem;
+    font-weight: bold;
+}
+
+.availableStatus {
+    color: var(--text-third) !important;
+    font-size: 1.4rem;
+    font-weight: bold;
+}
+
+.slotBody {
+    flex: 1;
+    background-color: #ecf0f1;
+    padding: 4px;
+}
+
+.slotCardBodyText,
+.slotBodyText {
+    font-size: 1.4rem;
+}
+
+.slotCardFooter {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 40px;
+}
+
+.slotCardFooterView,
+.slotCardFooterDelete,
+.slotCardFooterBook {
+    flex: 1;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--text-primary);
+    font-size: 1.8rem;
+    cursor: pointer;
+}
+.slotCardFooterView {
+    background-color: #f39c12;
+    border-bottom-left-radius: 4px;
+}
+.slotCardFooterDelete {
+    background-color: #e74c3c;
+}
+.slotCardFooterBook {
+    background-color: #3498db;
+}
+
+.calendar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.calendarForm {
+    flex: 1;
+}
+
+.calendarBtn{
+    border: none;
+    outline: none;
+    background-color: #3498db;
+    font-size: 1.3rem;
+    color: #ecf0f1;
+    border-radius: 6px;
+    
+}
+
+.slotArrive{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.slotHeaderCompleted{
+    width: 100%;
+    height: 40px;
+    padding: 0 10px;
+    display: flex;
+    justify-content: center;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    align-items: center;
+    background-image: linear-gradient(to right, rgb(226, 24, 24), rgb(212, 72, 72));
+}
+
+.slotHeaderCompletedText{
+    color: #fff;
+    font-size: 1.4rem;
+    font-weight: bold;
+}
+
+.slotFooterCompleted{
+    background-color: #F79F1F;
 }

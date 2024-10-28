@@ -190,6 +190,11 @@ const getInvoiceDetails = (invoiceId) => {
     return axios.get(URL_API);
 };
 
+const getAppointmentWithoutSlot = () => {
+    const URL_API = `/api/appointments/get/without-slot`;
+    return axios.get(URL_API);
+};
+
 const deleteUserApi = (user) => {
     const URL_API = `/api/users/${user._id}`;
     return axios.delete(URL_API);
@@ -361,10 +366,22 @@ const createPromotionDetail = (
 
     return axios.post(URL_API, data);
 };
-const createAppointments = (slotId, vehicleId, serviceIds, appointmentDatetime) => {
+const createAppointments = (slotId, vehicleId, serviceIds, appointmentDatetime,sumTime) => {
     const URL_API = `/api/appointments`;
     const data = {
         slot_id: slotId,
+        vehicle_id: vehicleId,
+        service_ids: serviceIds,
+        appointment_datetime: appointmentDatetime,
+        sumTime:sumTime
+    };
+
+    return axios.post(URL_API, data);
+};
+
+const createAppointmentsWithoutSlot = (vehicleId, serviceIds, appointmentDatetime) => {
+    const URL_API = `/api/appointments/without-slot`;
+    const data = {
         vehicle_id: vehicleId,
         service_ids: serviceIds,
         appointment_datetime: appointmentDatetime,
@@ -457,6 +474,12 @@ const putActivePriceApi = (priceId, isActive) => {
     const URL_API = `/api/prices/${priceId}`;
     return axios.put(URL_API, { is_active: isActive });
 };
+
+const putActivePriceDetailApi = (priceId, isActive) => {
+    const URL_API = `/api/prices/lines/${priceId}`;
+    return axios.put(URL_API, { is_active: isActive });
+};
+
 const putPriceDetailApi = (price) => {
     const URL_API = `/api/prices/lines/${price._id}`;
     return axios.put(URL_API, price);
@@ -497,6 +520,7 @@ export {
     getAppointmentCompleted,
     getInfoInvoiceCompleted,
     getInvoiceDetails,
+    getAppointmentWithoutSlot,
     deleteUserApi,
     deleteEmployeeApi,
     deleteRankApi,
@@ -522,6 +546,7 @@ export {
     createAppointments,
     createSlot,
     createAppointmentCustomer,
+    createAppointmentsWithoutSlot,
     createPaymentCustomer,
     putEmployeeApi,
     putCustomerApi,
@@ -536,5 +561,6 @@ export {
     putPriceApi,
     putPriceDetailApi,
     putActivePriceApi,
+    putActivePriceDetailApi,
     findCustomerApi,
 };

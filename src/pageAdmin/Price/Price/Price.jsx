@@ -2,7 +2,17 @@ import React, { useState, useEffect } from 'react';
 import { Accordion, Table } from 'react-bootstrap';
 import styles from './Price.module.css';
 import icons from '@/utils/icon';
-import { deletePriceApi, deletePriceDetailApi, getDetailPrice, putActivePriceApi, putPriceApi } from '@/utils/api';
+import {
+    deletePriceApi,
+    deletePriceDetailApi,
+    getCarApi,
+    getDetailPrice,
+    getServicesApi,
+    putActivePriceApi,
+    putActivePriceDetailApi,
+    putPriceApi,
+    putPriceDetailApi,
+} from '@/utils/api';
 import EditPriceModal from '../ListsPrice/EditPriceModal/EditPriceModal';
 import { toast } from 'react-toastify';
 import ConfirmDeleteModal from '../ListDetailPrice/ConfirmDeleteModal/ConfirmDeleteModal';
@@ -15,6 +25,7 @@ const Price = ({ data = [] }) => {
     const [priceData, setPriceData] = useState(data);
     //toggle
     const [activeStatus, setActiveStatus] = useState(priceData?.map((item) => item.is_active || false));
+    const [activeStatusDetail, setActiveStatusDetail] = useState(priceData?.map((item) => item.is_active || false));
     const [priceId, setPriceId] = useState(null); // State to hold the selected price ID
     const [priceDetail, setPriceDetail] = useState([]);
     const [loading, setLoading] = useState(false);
@@ -33,11 +44,11 @@ const Price = ({ data = [] }) => {
     const [services, setServices] = useState([]);
     const [vehicles, setVehicles] = useState([]);
 
-    const[editPriceLineModalShow,setEditPriceLineModalShow] = useState(false)
+    const [editPriceLineModalShow, setEditPriceLineModalShow] = useState(false);
 
     // delete price line
     const [priceDetailToDelete, setPriceDetailToDelete] = useState(null);
-    const [confirmDeleteDetailModalShow,setConfirmDeleteDetailModalShow] = useState(false)
+    const [confirmDeleteDetailModalShow, setConfirmDeleteDetailModalShow] = useState(false);
     // Fetch price details whenever priceId changes
     useEffect(() => {
         if (!priceId) return;
@@ -100,7 +111,7 @@ const Price = ({ data = [] }) => {
     const handleConfirmDelete = async () => {
         if (priceToDelete) {
             try {
-                  await deletePriceApi(priceToDelete);
+                await deletePriceApi(priceToDelete);
                 setPriceData((prev) => prev.filter((emp) => emp._id !== priceToDelete._id));
             } catch (error) {
                 toast.error(error.response.data.msg);
@@ -133,7 +144,57 @@ const Price = ({ data = [] }) => {
         }
     };
 
+    const handleToggleActiveDetail = async (item) => {
+        console.log('Trạng thái hiện tại của is_active trước khi cập nhật:', item.is_active);
+        try {
+            const updatedItemDetail = { ...item, is_active: !item.is_active };
+
+            const response = await putActivePriceDetailApi(item._id, updatedItemDetail.is_active);
+
+            // Log phản hồi từ API
+            // console.log('Phản hồi từ API:', response);
+
+            if (response) {
+                setPriceData((prev) => {
+                    const updatedPriceData = prev.map((p) =>
+                        p._id === item._id ? { ...p, is_active: updatedItemDetail.is_active } : p
+                    );
+                    // console.log('Danh sách priceData sau khi cập nhật:', updatedPriceData); 
+                    return updatedPriceData;
+                });
+                console.log('Trạng thái của is_active sau khi cập nhật:', updatedItemDetail.is_active);
+                toast.success('Cập nhật trạng thái thành công!');
+            }
+        } catch (error) {
+            console.error('Lỗi khi cập nhật trạng thái:', error);
+            toast.error('Đã xảy ra lỗi khi cập nhật trạng thái. Vui lòng thử lại sau.'); // Sử dụng toast
+        }
+    };
+
     // add price line
+
+    const fetchServices = async () => {
+        try {
+            const response = await getServicesApi();
+            setServices(response);
+        } catch (error) {
+            console.error('Error fetching services:', error);
+        }
+    };
+
+    const fetchCars = async () => {
+        try {
+            const response = await getCarApi();
+            setVehicles(response);
+        } catch (error) {
+            console.error('Error fetching vehicles:', error);
+        }
+    };
+
+    useEffect(() => {
+        fetchServices();
+        fetchCars();
+    }, []);
     const handleAddPriceLine = (priceDataHeader) => {
         setSelecpriceLine(priceDataHeader);
         setaddPriceLineModalShow(true);
@@ -143,7 +204,7 @@ const Price = ({ data = [] }) => {
         const { priceLine } = priceDataHeader;
 
         if (!services.length || !vehicles.length) {
-            toast.warn("Dữ liệu dịch vụ hoặc phương tiện chưa sẵn sàng.");
+            toast.warn('Dữ liệu dịch vụ hoặc phương tiện chưa sẵn sàng.');
             return; // Không thực hiện gì nếu dữ liệu chưa sẵn sàng
         }
         const service = services.find((item) => item._id === priceLine?.service_id);
@@ -163,15 +224,13 @@ const Price = ({ data = [] }) => {
 
     // edit price line
     const handleEditPriceDetail = (item) => {
-        setSelecpriceLine(item)
+        setSelecpriceLine(item);
         setEditPriceLineModalShow(true);
     };
 
     const handleUpdatePriceDetail = (updatedPrice) => {
         setPriceDetail((prevDetails) =>
-            prevDetails.map((item) =>
-                item._id === updatedPrice._id ? { ...item, ...updatedPrice } : item
-            )
+            prevDetails.map((item) => (item._id === updatedPrice._id ? { ...item, ...updatedPrice } : item)),
         );
         setEditModalShow(false);
     };
@@ -186,11 +245,9 @@ const Price = ({ data = [] }) => {
             try {
                 // Xóa giá từ API
                 await deletePriceDetailApi(priceDetailToDelete);
-    
+
                 // Cập nhật lại priceDetail để không hiển thị giá đã bị xóa
-                setPriceDetail((prev) => 
-                    prev.filter((item) => item._id !== priceDetailToDelete._id)
-                );
+                setPriceDetail((prev) => prev.filter((item) => item._id !== priceDetailToDelete._id));
                 toast.success('Xóa bảng giá thành công!'); // Thông báo thành công
             } catch (error) {
                 console.error('Error deleting price detail:', error);
@@ -201,7 +258,7 @@ const Price = ({ data = [] }) => {
             }
         }
     };
-    
+
     return (
         <div>
             <Table className={styles.tableHeader}>
@@ -340,19 +397,37 @@ const Price = ({ data = [] }) => {
                                     <tr>
                                         <th className={styles.tableBodyTh}>Tên dịch vụ</th>
                                         <th className={styles.tableBodyTh}>Loại xe</th>
+
                                         <th className={styles.tableBodyTh}>Giá</th>
+
+                                        <th className={styles.tableBodyTh}>Trạng thái</th>
                                         <th className={styles.tableBodyTh}>Tác vụ</th>
                                     </tr>
                                 </thead>
 
                                 <tbody>
-                                    {priceDetail.map((item) => (
+                                    {priceDetail.map((item,indexDetail) => (
                                         <tr key={item._id}>
                                             <td className={styles.tableBodyTd}>{item.service_id?.name}</td>
                                             <td className={styles.tableBodyTd}>
                                                 {item.vehicle_type_id?.vehicle_type_name}
                                             </td>
                                             <td className={styles.tableBodyTd}>{item?.price}</td>
+                                            <td className={styles.tableBodyTd}>
+                                                <label className={styles.switch}>
+                                                    <input
+                                                        type="checkbox"
+                                                        checked={activeStatusDetail[indexDetail]} // Sử dụng state để kiểm soát giá trị
+                                                        onChange={() => {
+                                                            const newStatus = [...activeStatusDetail];
+                                                            newStatus[indexDetail] = !newStatus[indexDetail]; // Đổi trạng thái
+                                                            setActiveStatusDetail(newStatus);
+                                                            handleToggleActiveDetail(item);
+                                                        }}
+                                                    />
+                                                    <span className={`${styles.slider} ${styles.round}`}></span>
+                                                </label>
+                                            </td>
                                             <td className={styles.tableBodyIcon}>
                                                 <FaPen
                                                     className={styles.iconActionPen}
@@ -368,7 +443,6 @@ const Price = ({ data = [] }) => {
                                                         handleDeletePriceDetail(item);
                                                     }}
                                                 />
-                                            
                                             </td>
                                         </tr>
                                     ))}
@@ -406,7 +480,7 @@ const Price = ({ data = [] }) => {
                 onHide={() => setEditPriceLineModalShow(false)}
                 onUpdate={handleUpdatePriceDetail}
             />
-             <ConfirmDeleteDetailPriceModal
+            <ConfirmDeleteDetailPriceModal
                 show={confirmDeleteDetailModalShow}
                 onHide={() => setConfirmDeleteDetailModalShow(false)}
                 onConfirm={handleConfirmDeletePriceLine}
