@@ -26,7 +26,6 @@ const AppointmentCard = ({ appointment }) => {
                         <p className={styles.appointmentCardText}><strong>Email:</strong> {appointment.customer_id.email}</p>
                         <p className={styles.appointmentCardText}><strong>Số điện thoại:</strong> {appointment.customer_id.phone_number}</p>
                         <p className={styles.appointmentCardText}><strong>Địa chỉ:</strong> {appointment.customer_id.address}</p>
-                        <p className={styles.appointmentCardText}><strong>Tổng số tiền:</strong> {Number(appointment.customer_id.total_spending).toLocaleString('vi-VN')}đ</p> 
                     </Accordion.Body>
                 </Accordion.Item>
 

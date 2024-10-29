@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Table, Pagination, Form, Row, Col, Button } from 'react-bootstrap';
 import icons from '@/utils/icon';
 import styles from './TableCustomer.module.css';
-import { deleteUserApi, putCustomerApi } from '@/utils/api';
+import { deleteUserApi, findCustomerApi, putCustomerApi } from '@/utils/api';
 import EditCustomerModal from '../EditCustomerModal/EditCustomerModal';
 import ConfirmDeleteModal from '../ConfirmDeleteModal/ConfirmDeleteModal';
 import { useNavigate } from 'react-router-dom';
@@ -21,10 +21,35 @@ const TableCustomer = ({ data = [], itemsPerPage }) => {
 
     const [customer, setCustomer] = useState(data);
     const currentData = customer.slice(startIndex, startIndex + itemsPerPage);
+
+    const [searchQuery, setSearchQuery] = useState("");
     const handlePageChange = (pageNumber) => {
         setCurrentPage(pageNumber);
     };
 
+    const handleSearch = async () => {
+        try {
+            const queryParam = searchQuery.trim();
+            const isPhoneNumber = /^[0-9]+$/.test(queryParam);
+            const queryString = isPhoneNumber ? `phone_number=${queryParam}` : `email=${queryParam}`;
+    
+            const response = await findCustomerApi(queryString);
+            console.log('Dữ liệu trả về từ API:', response); // Kiểm tra dữ liệu
+    
+            // Cập nhật state với customer
+            if (response.customer) {
+                setCustomer([response.customer]); // Chuyển customer thành mảng
+                setCurrentPage(1); // Đặt lại trang về 1
+            } else {
+                console.error('Không tìm thấy thông tin khách hàng');
+                setCustomer([]); // Nếu không tìm thấy, đặt customer là mảng rỗng
+            }
+        } catch (error) {
+            console.error('Lỗi khi tìm kiếm khách hàng:', error);
+        }
+    };
+    
+    
     const handleDeleteUser = (user) => {
         setCustomerToDelete(user);
         setConfirmDeleteModalShow(true);
@@ -69,7 +94,17 @@ const TableCustomer = ({ data = [], itemsPerPage }) => {
 
     return (
         <div className={styles.dataTableWrapper}>
-          
+            <Form className={styles.searchForm} onSubmit={(e) => e.preventDefault()}>
+                <Form.Control
+                    type="text"
+                    placeholder="Nhập từ khóa tìm kiếm"
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                />
+                <Button variant="primary" onClick={handleSearch}>
+                    Tìm Kiếm
+                </Button>
+            </Form>
             <Table bordered className={styles.dataTable}>
                 <thead>
                     <tr className="">

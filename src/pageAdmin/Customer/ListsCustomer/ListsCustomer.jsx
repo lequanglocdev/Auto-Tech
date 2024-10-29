@@ -37,29 +37,30 @@ const ListsCustomer = () => {
         fetchData();
     }, []);
 
-    const handleSearch = async () => {
-        if (searchQuery.trim() === '') {
-            // Nếu không có gì để tìm kiếm, quay lại danh sách đầy đủ
-            const response = await getUserApi();
-            setUserData(response);
-            return;
-        }
+    // const handleSearch = async () => {
+    //     if (searchQuery.trim() === '') {
+    //         // Nếu không có gì để tìm kiếm, quay lại danh sách đầy đủ
+    //         const response = await getUserApi();
+    //         setUserData(response);
+    //         return;
+    //     }
 
-        setLoading(true);
-        try {
-            const response = await findCustomerApi(`phone=${searchQuery}`);
-            if (response && response.length > 0) {
-                setUserData(response.data); // Cập nhật danh sách với kết quả tìm kiếm
-            } else {
-                toast.info('Không tìm thấy khách hàng với số điện thoại này.');
-                setUserData([]); // Xóa danh sách nếu không tìm thấy
-            }
-        } catch (error) {
-            toast.error('Đã xảy ra lỗi khi tìm kiếm.');
-        } finally {
-            setLoading(false);
-        }
-    };
+    //     setLoading(true);
+    //     try {
+    //         const response = await findCustomerApi(`phone_number=${searchQuery}`);
+    //         console.log('Kết quả tìm kiếm:', response); 
+    //         if (response && response.length > 0) {
+    //             setUserData(response.data); // Cập nhật danh sách với kết quả tìm kiếm
+    //         } else {
+    //             toast.info('Không tìm thấy khách hàng với số điện thoại này.');
+    //             setUserData([]); // Xóa danh sách nếu không tìm thấy
+    //         }
+    //     } catch (error) {
+    //         toast.error('Đã xảy ra lỗi khi tìm kiếm.');
+    //     } finally {
+    //         setLoading(false);
+    //     }
+    // };
     const handleAddCustomer = () => {
         navigate('/addCustomer');
     };
@@ -84,7 +85,7 @@ const ListsCustomer = () => {
             </div>
             <div>
                 <div className={styles.listsCustomerButton}>
-                    <div className={styles.formSearch}>
+                    {/* <div className={styles.formSearch}>
                         <Form.Control
                             type="text"
                             placeholder="Tìm kiếm thông tin khách hàng"
@@ -93,7 +94,7 @@ const ListsCustomer = () => {
                             onChange={(e) => setSearchQuery(e.target.value)}
                         />
                         <button className={styles.formSearchBtn} onClick={handleSearch}>Tìm kiếm</button>
-                    </div>
+                    </div> */}
 
                     <CommonButton onClick={handleAddCustomer} icon={FaPlusCircle} label="Thêm" />
                 </div>

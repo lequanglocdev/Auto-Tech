@@ -67,11 +67,11 @@ const SidebarAdmin = ({ isVisible, onSelectMenu }) => {
             icon: IoPricetag,
             path: '/prices'
         },
-        {
-            title: 'Hóa đơn',
-            icon: FaMoneyBillTrendUp,
-            items: ['Chi tiết hóa đơn'],
-        },
+        // {
+        //     title: 'Hóa đơn',
+        //     icon: FaMoneyBillTrendUp,
+        //     items: ['Chi tiết hóa đơn'],
+        // },
         // {
         //     title: 'Tài khoản',
         //     icon: MdManageAccounts,

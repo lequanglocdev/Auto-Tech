@@ -138,6 +138,7 @@ const BookedModal = ({ show, handleClose, slotId, onUpdateSlot }) => {
                 totalTime,
             );
             toast.success('Lịch hẹn đã được tạo:', response);
+            console.log(' dịch vụ có lưu vào ko', response);
             onUpdateSlot();
             handleClose(); // Đóng modal sau khi tạo thành công
         } catch (error) {
@@ -269,7 +270,19 @@ const BookedModal = ({ show, handleClose, slotId, onUpdateSlot }) => {
                                             <td className={styles.dataTableItem}>{service.time_required} phút</td>
                                             <td className={styles.dataTableItem}>{service.price} VNĐ</td>
                                             <td className={styles.dataTableIcon}>
-                                                <FaPlus onClick={() => handleServiceSelect(service)} />
+                                                {selectedServices.some(
+                                                    (s) => s.priceline_id === service.priceline_id,
+                                                ) ? (
+                                                    <FaTrash
+                                                        onClick={() => handleServiceSelect(service)}
+                                                        style={{ color: 'red', cursor: 'pointer' }}
+                                                    />
+                                                ) : (
+                                                    <FaPlus
+                                                        onClick={() => handleServiceSelect(service)}
+                                                        style={{ color: 'green', cursor: 'pointer' }}
+                                                    />
+                                                )}
                                             </td>
                                         </tr>
                                     ))}

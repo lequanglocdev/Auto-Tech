@@ -393,6 +393,11 @@ const createAppointmentsWithoutSlot = (vehicleId, serviceIds, appointmentDatetim
     return axios.post(URL_API, data);
 };
 
+const createAppointmentsAddWithoutSlot = (withoutSlotId) => {
+    const URL_API = `/api/appointments/slot/addSlotToAppointment/${withoutSlotId}`;
+    return axios.post(URL_API);
+};
+
 const createSlot = (slotDatetime, durationMinutes, status, capacity) => {
     const URL_API = `/api/slots`;
     const data = {
@@ -580,6 +585,7 @@ export {
     createSlot,
     createAppointmentCustomer,
     createAppointmentsWithoutSlot,
+    createAppointmentsAddWithoutSlot,
     createPaymentCustomer,
     createPayment,
     putEmployeeApi,

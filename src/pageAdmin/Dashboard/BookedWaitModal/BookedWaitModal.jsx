@@ -233,7 +233,7 @@ const BookedWaitModal = ({ show, handleClose, onUpdateWithoutSlot }) => {
                                 Tìm kiếm
                             </button>
                         </div>
-
+                        <h4 className="mb-2 mt-2">Bảng dịch vụ </h4>
                         {servicePrice && servicePrice.length > 0 && (
                             <Table className="mt-4">
                                 <thead>
@@ -274,6 +274,7 @@ const BookedWaitModal = ({ show, handleClose, onUpdateWithoutSlot }) => {
                                 </tbody>
                             </Table>
                         )}
+                        <h4 className="mb-2 mt-2">Bảng dịch vụ được chọn </h4>
                         {selectedServices.length > 0 && (
                             <Table className="mt-4">
                                 <thead>
