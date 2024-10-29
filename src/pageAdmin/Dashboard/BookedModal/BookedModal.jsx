@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Modal, Form, Button, Spinner, Table } from 'react-bootstrap';
 import { createAppointments, createAppointmentsWithoutSlot, findCustomerApi, getPriceForService } from '@/utils/api'; // Giả sử bạn có hàm này
 import styles from './BookedModal.module.css';
-import { FaPlus } from 'react-icons/fa6';
+import { FaPlus, FaTrash } from 'react-icons/fa6';
 import { toast } from 'react-toastify';
 
 const BookedModal = ({ show, handleClose, slotId, onUpdateSlot }) => {
@@ -16,7 +16,7 @@ const BookedModal = ({ show, handleClose, slotId, onUpdateSlot }) => {
     const [selectedVehicle, setSelectedVehicle] = useState(null); // Thêm state mới để theo dõi xe đã chọn
 
     const [selectedServices, setSelectedServices] = useState([]);
-    
+
     useEffect(() => {
         if (slotId) {
             console.log('Received slot ID:', slotId); // Thông báo sẽ chạy khi slotId thay đổi
@@ -89,17 +89,16 @@ const BookedModal = ({ show, handleClose, slotId, onUpdateSlot }) => {
         }
     };
 
-
     const handleServiceSelect = (service) => {
         setSelectedServices((prevSelectedServices) => {
             const alreadySelected = prevSelectedServices.find(
-                (selectedService) => selectedService.priceline_id === service.priceline_id
+                (selectedService) => selectedService.priceline_id === service.priceline_id,
             );
 
             if (alreadySelected) {
                 // Nếu đã chọn dịch vụ này rồi, loại bỏ nó
                 return prevSelectedServices.filter(
-                    (selectedService) => selectedService.priceline_id !== service.priceline_id
+                    (selectedService) => selectedService.priceline_id !== service.priceline_id,
                 );
             } else {
                 // Nếu chưa chọn dịch vụ, thêm nó vào danh sách
@@ -118,29 +117,34 @@ const BookedModal = ({ show, handleClose, slotId, onUpdateSlot }) => {
 
     const handleSubmit = async (event) => {
         event.preventDefault(); // Ngăn không cho trang tải lại
-    
+
         // Lấy ngày giờ hiện tại
         const currentDatetime = new Date().toISOString();
-    
+
         if (!selectedVehicle || !servicePrice) {
             toast.error('Vui lòng chọn xe và dịch vụ!');
             return;
         }
-    
+
         const serviceIds = servicePrice.map((service) => service.priceline_id);
-    
+
         try {
             // Gọi API với sumTime là totalTime
-            const response = await createAppointments(slotId, selectedVehicle._id, serviceIds, currentDatetime, totalTime);
+            const response = await createAppointments(
+                slotId,
+                selectedVehicle._id,
+                serviceIds,
+                currentDatetime,
+                totalTime,
+            );
             toast.success('Lịch hẹn đã được tạo:', response);
-            onUpdateSlot()
+            onUpdateSlot();
             handleClose(); // Đóng modal sau khi tạo thành công
         } catch (error) {
             console.error('Có lỗi xảy ra khi tạo lịch hẹn:', error);
             toast.error('Đã xảy ra lỗi. Vui lòng thử lại.');
         }
     };
-    
 
     return (
         <Modal size="lg" show={show} onHide={handleClose} backdrop="static" keyboard={false}>
@@ -243,7 +247,7 @@ const BookedModal = ({ show, handleClose, slotId, onUpdateSlot }) => {
                                 Tìm kiếm
                             </button>
                         </div>
-
+                        <h4 className="mb-2 mt-2">Bảng dịch vụ </h4>
                         {servicePrice && servicePrice.length > 0 && (
                             <Table className="mt-4">
                                 <thead>
@@ -265,8 +269,39 @@ const BookedModal = ({ show, handleClose, slotId, onUpdateSlot }) => {
                                             <td className={styles.dataTableItem}>{service.time_required} phút</td>
                                             <td className={styles.dataTableItem}>{service.price} VNĐ</td>
                                             <td className={styles.dataTableIcon}>
-                                                <FaPlus
-                                                   onClick={() => handleServiceSelect(service)}
+                                                <FaPlus onClick={() => handleServiceSelect(service)} />
+                                            </td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </Table>
+                        )}
+                        <h4 className="mb-2 mt-2">Bảng dịch vụ được chọn </h4>
+                        {selectedServices.length > 0 && (
+                            <Table className="mt-4">
+                                <thead>
+                                    <tr>
+                                        <th className={styles.dataTableHead}>Mã dịch vụ</th>
+                                        <th className={styles.dataTableHead}>Tên dịch vụ</th>
+                                        <th className={styles.dataTableHead}>Thời gian</th>
+                                        <th className={styles.dataTableHead}>Giá</th>
+                                        <th className={styles.dataTableHead}>Hành động</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {selectedServices.map((service) => (
+                                        <tr key={service.priceline_id}>
+                                            <td className={styles.dataTableItem}>{service.service_code}</td>
+                                            <td className={styles.dataTableItem}>{service.service}</td>
+                                            <td className={styles.dataTableItem}>{service.time_required} phút</td>
+                                            <td className={styles.dataTableItem}>
+                                                {service.price.toLocaleString()} VNĐ
+                                            </td>
+                                            <td className={styles.dataTableIcon}>
+                                                <FaTrash
+                                                    style={{ color: 'red', cursor: 'pointer' }}
+                                                    variant="danger"
+                                                    onClick={() => handleServiceSelect(service)}
                                                 />
                                             </td>
                                         </tr>
@@ -276,8 +311,8 @@ const BookedModal = ({ show, handleClose, slotId, onUpdateSlot }) => {
                         )}
                     </Form.Group>
                     <div>
-                    <h4>Tổng thời gian thực hiện dịch vụ: {totalTime} phút</h4>
-                    <h4>Tổng phí dịch vụ: {totalCost.toLocaleString()} VNĐ</h4>
+                        <h4 className={styles.totalText}>Tổng thời gian thực hiện dịch vụ: {totalTime} phút</h4>
+                        <h4 className={styles.totalText}>Tổng phí dịch vụ: {totalCost.toLocaleString()} VNĐ</h4>
                     </div>
                     <button className={styles.btnSubmit} size="lg" onClick={handleSubmit}>
                         Đặt lịch chờ

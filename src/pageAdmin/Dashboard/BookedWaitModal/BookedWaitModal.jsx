@@ -2,10 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { Modal, Form, Button, Spinner, Table } from 'react-bootstrap';
 import { createAppointmentsWithoutSlot, findCustomerApi, getPriceForService } from '@/utils/api'; // Giả sử bạn có hàm này
 import styles from './BookedWaitModal.module.css';
-import { FaPlus } from 'react-icons/fa6';
+import { FaPlus, FaTrash } from 'react-icons/fa6';
 import { toast } from 'react-toastify';
 
-const BookedWaitModal = ({ show, handleClose , onUpdateWithoutSlot}) => {
+const BookedWaitModal = ({ show, handleClose, onUpdateWithoutSlot }) => {
     const [query, setQuery] = useState('');
     const [customerData, setCustomerData] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
@@ -16,7 +16,7 @@ const BookedWaitModal = ({ show, handleClose , onUpdateWithoutSlot}) => {
     const [selectedVehicle, setSelectedVehicle] = useState(null); // Thêm state mới để theo dõi xe đã chọn
 
     const [appointmentDatetime, setAppointmentDatetime] = useState('');
-
+    const [selectedServices, setSelectedServices] = useState([]);
     useEffect(() => {
         if (show) {
             setQuery('');
@@ -28,6 +28,7 @@ const BookedWaitModal = ({ show, handleClose , onUpdateWithoutSlot}) => {
             setServiceQuery('');
             setSelectedVehicle(null);
             setAppointmentDatetime('');
+            setSelectedServices([]);
         }
     }, [show]);
 
@@ -50,6 +51,19 @@ const BookedWaitModal = ({ show, handleClose , onUpdateWithoutSlot}) => {
         }
     };
 
+    const handleAddService = (service) => {
+        setSelectedServices((prev) => [...prev, service]); // Add service to selectedServices
+    };
+
+    const handleAddOrRemoveService = (service) => {
+        setSelectedServices((prevServices) => {
+            if (prevServices.find((s) => s.priceline_id === service.priceline_id)) {
+                return prevServices.filter((s) => s.priceline_id !== service.priceline_id);
+            } else {
+                return [...prevServices, service];
+            }
+        });
+    };
     const handleVehicleSelect = async (vehicle) => {
         setSelectedVehicle(vehicle); // Lưu đối tượng xe đã chọn
         setSelectedVehicleType(vehicle?.vehicle_type_id?.vehicle_type_name); // Cập nhật loại xe đã chọn
@@ -92,24 +106,24 @@ const BookedWaitModal = ({ show, handleClose , onUpdateWithoutSlot}) => {
         event.preventDefault(); // Ngăn không cho trang tải lại
         if (!selectedVehicle || !servicePrice) {
             // Kiểm tra nếu không có xe đã chọn hoặc dịch vụ
-            toast.error("Vui lòng chọn xe và dịch vụ!");
+            toast.error('Vui lòng chọn xe và dịch vụ!');
             return;
         }
-    
-        const serviceIds = servicePrice.map(service => service.priceline_id); // Giả sử bạn lấy danh sách ID dịch vụ từ servicePrice
-        
+
+        const serviceIds = servicePrice.map((service) => service.priceline_id); // Giả sử bạn lấy danh sách ID dịch vụ từ servicePrice
+
         try {
             const response = await createAppointmentsWithoutSlot(selectedVehicle._id, serviceIds, appointmentDatetime);
             toast.success('Lịch hẹn đã được tạo:', response);
-            onUpdateWithoutSlot(); 
+            onUpdateWithoutSlot();
             // Có thể thêm logic để thông báo thành công hoặc đóng modal
             handleClose(); // Đóng modal sau khi tạo thành công
         } catch (error) {
             console.error('Có lỗi xảy ra khi tạo lịch hẹn:', error);
-            toast.error("Đã xảy ra lỗi. Vui lòng thử lại.");
+            toast.error('Đã xảy ra lỗi. Vui lòng thử lại.');
         }
     };
-    
+
     return (
         <Modal size="lg" show={show} onHide={handleClose} backdrop="static" keyboard={false}>
             <Modal.Header className={styles.modalHeader} closeButton>
@@ -122,7 +136,7 @@ const BookedWaitModal = ({ show, handleClose , onUpdateWithoutSlot}) => {
                         <Form.Control
                             size="lg"
                             type="datetime-local"
-                            onChange={(e) => setAppointmentDatetime(e.target.value)} 
+                            onChange={(e) => setAppointmentDatetime(e.target.value)}
                         />
                     </Form.Group>
                     <Form.Group controlId="searchCustomer">
@@ -241,10 +255,49 @@ const BookedWaitModal = ({ show, handleClose , onUpdateWithoutSlot}) => {
                                             <td className={styles.dataTableItem}>{service.time_required} phút</td>
                                             <td className={styles.dataTableItem}>{service.price} VNĐ</td>
                                             <td className={styles.dataTableIcon}>
-                                                <FaPlus
-                                                    onClick={() => {
-                                                        console.log('Service ID:', service.priceline_id); // Log ID của dịch vụ
-                                                    }}
+                                                {selectedServices.some(
+                                                    (s) => s.priceline_id === service.priceline_id,
+                                                ) ? (
+                                                    <FaTrash
+                                                        onClick={() => handleAddOrRemoveService(service)}
+                                                        style={{ color: 'red', cursor: 'pointer' }}
+                                                    />
+                                                ) : (
+                                                    <FaPlus
+                                                        onClick={() => handleAddOrRemoveService(service)}
+                                                        style={{ color: 'green', cursor: 'pointer' }}
+                                                    />
+                                                )}
+                                            </td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </Table>
+                        )}
+                        {selectedServices.length > 0 && (
+                            <Table className="mt-4">
+                                <thead>
+                                    <tr>
+                                        <th className={styles.dataTableHead}>Mã dịch vụ</th>
+                                        <th className={styles.dataTableHead}>Tên dịch vụ</th>
+                                        <th className={styles.dataTableHead}>Loại xe</th>
+                                        <th className={styles.dataTableHead}>Thời gian</th>
+                                        <th className={styles.dataTableHead}>Giá</th>
+                                        <th className={styles.dataTableHead}>Hành động</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {selectedServices.map((service, index) => (
+                                        <tr key={index}>
+                                            <td className={styles.dataTableItem}>{service.service_code}</td>
+                                            <td className={styles.dataTableItem}>{service.service}</td>
+                                            <td className={styles.dataTableItem}>{service.vehicle_type}</td>
+                                            <td className={styles.dataTableItem}>{service.time_required} phút</td>
+                                            <td className={styles.dataTableItem}>{service.price} VNĐ</td>
+                                            <td className={styles.dataTableIcon}>
+                                                <FaTrash
+                                                    onClick={() => handleAddOrRemoveService(service)}
+                                                    style={{ color: 'red', cursor: 'pointer' }}
                                                 />
                                             </td>
                                         </tr>

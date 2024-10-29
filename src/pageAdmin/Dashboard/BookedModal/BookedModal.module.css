@@ -74,7 +74,8 @@
   text-align: center;
 }
 
-.errorText{
+.errorText,
+.totalText{
   color: red;
 }
 
