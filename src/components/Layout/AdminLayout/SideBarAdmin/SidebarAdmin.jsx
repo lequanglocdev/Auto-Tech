@@ -47,11 +47,11 @@ const SidebarAdmin = ({ isVisible, onSelectMenu }) => {
             icon: FaCar,
             path: '/car'
         },
-        // {
-        //     title: 'Quản lý lịch chăm sóc',
-        //     icon: FaCalendarAlt,
-        //     path: '/appointments/completed',
-        // },
+        {
+            title: 'Lịch hoàn thành',
+            icon: FaCalendarAlt,
+            path: '/appointments/completed',
+        },
         {
             title: 'Quản lý dịch vụ',
             icon: MdHomeRepairService,
@@ -67,11 +67,11 @@ const SidebarAdmin = ({ isVisible, onSelectMenu }) => {
             icon: IoPricetag,
             path: '/prices'
         },
-        // {
-        //     title: 'Quản lý hóa đơn',
-        //     icon: FaMoneyBillTrendUp,
-        //     items: ['Chi tiết hóa đơn'],
-        // },
+        {
+            title: 'Hóa đơn',
+            icon: FaMoneyBillTrendUp,
+            items: ['Chi tiết hóa đơn'],
+        },
         // {
         //     title: 'Tài khoản',
         //     icon: MdManageAccounts,

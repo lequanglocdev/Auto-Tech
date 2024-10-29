@@ -1,8 +1,14 @@
 import Breadcrumb from '@/components/UI/Breadcrumb/Breadcrumb';
 import styles from './Dashboard.module.css';
-import { Form, Spinner } from 'react-bootstrap';
+import { Form, Pagination, Spinner, Table } from 'react-bootstrap';
 import { useEffect, useState } from 'react';
-import { createAppointmentCustomer, getAppointmentCompleted, getAppointmentWithoutSlot, getSlot } from '@/utils/api';
+import {
+    createAppointmentCustomer,
+    getAppointmentCompleted,
+    getAppointmentsforDate,
+    getAppointmentWithoutSlot,
+    getSlot,
+} from '@/utils/api';
 import BookedWaitModal from './BookedWaitModal/BookedWaitModal';
 import BookedModal from './BookedModal/BookedModal';
 import { toast } from 'react-toastify';
@@ -20,6 +26,7 @@ const Dashboard = () => {
     const [showModalBookedWait, setShowModalBookedWait] = useState(false);
     const [showModalBooked, setShowModalBooked] = useState(false);
 
+    const [searchDate, setSearchDate] = useState('');
     const fetchSlots = async () => {
         try {
             const slotResponse = await getSlot();
@@ -84,6 +91,22 @@ const Dashboard = () => {
         }
     };
 
+    const handleSearchCalender = async () => {
+        try {
+            const response = await getAppointmentsforDate(searchDate);
+            console.log('>>> lịch hẹn', response);
+            setAppointments(response);
+        } catch (error) {
+            if (error.response && error.response.status === 401) {
+                toast.error('Token đã hết hạn, vui lòng đăng nhập lại.');
+            } else {
+                toast.error('Không tìm thấy dữ liệu cuộc hẹn.');
+            }
+        } finally {
+            setLoading(false); // Dừng loading khi có kết quả hoặc lỗi
+        }
+    };
+
     const handleServiceBooking = (without) => {
         console.log('Thông tin dịch vụ:', without);
     };
@@ -108,35 +131,36 @@ const Dashboard = () => {
     const handleCloseModalBooked = () => setShowModalBooked(false);
 
     const handleConfirm = async (slot) => {
-        console.log('Thông tin slot được xác nhận:', slot); // Log toàn bộ đối tượng slot
-    
+        console.log('Thông tin slot được xác nhận:', slot);
+
         // Kiểm tra nếu slot có appointments
         if (slot?.appointments.length > 0) {
             for (const appointment of slot.appointments) {
                 try {
                     const response = await createAppointmentCustomer(appointment?._id);
                     toast.success('Đã xác nhận lịch hẹn:'); // Log phản hồi từ API
-    
+
                     // Cập nhật state appointments để thêm lịch hẹn mới
-                    setAppointments(prev => [
+                    setAppointments((prev) => [
                         ...prev,
-                        { ...appointment, _id: response?._id } // Giả sử API trả về ID mới, bạn có thể điều chỉnh theo cách trả về của API
+                        { ...appointment, _id: response?._id }, // Giả sử API trả về ID mới, bạn có thể điều chỉnh theo cách trả về của API
                     ]);
-                //    await fetchAppointmentsCompleted();
-                    setSlots(prevSlots => prevSlots.filter(s => s.slot._id !== slot.slot._id));
+                    //    await fetchAppointmentsCompleted();
+                    setSlots((prevSlots) => prevSlots.filter((s) => s.slot._id !== slot.slot._id));
                 } catch (error) {
                     toast.error('Lỗi khi xác nhận lịch hẹn:');
                 }
             }
+            navigate('/appointments/completed');
         } else {
             console.log('Không có appointment nào cho slot này.');
         }
     };
 
-   const handleInvoiceClick = (appointmentId) => {
-    console.log('Clicked appointment ID:', appointmentId); // Log ID để kiểm tra
-    navigate(`/invoice/${appointmentId}`);
-};
+    const handleInvoiceClick = (appointmentId) => {
+        console.log('Clicked appointment ID:', appointmentId); // Log ID để kiểm tra
+        navigate(`/invoice/${appointmentId}`);
+    };
     if (loading) {
         return (
             <div style={{ display: 'flex', justifyContent: 'center' }}>
@@ -180,7 +204,7 @@ const Dashboard = () => {
                                         </div>
                                     </div>
                                 ))}
-                            {appointments.length > 0 ? (
+                            {/* {appointments.length > 0 ? (
                                 appointments.map((appointment) => (
                                     <div className={styles.wrapperSlot} key={appointment._id}>
                                         <div className={styles.slotHeaderCompleted}>
@@ -211,50 +235,162 @@ const Dashboard = () => {
                                 ))
                             ) : (
                                 <p className={styles.slotBodyText}></p>
-                            )}
+                            )} */}
+                            {slots
+                                .filter((slot) => slot.slot.status === 'booked') // Lọc slot có trạng thái 'booked'
+                                .map((slot) => (
+                                    <div className={styles.wrapperSlot} key={slot.slot_id}>
+                                        <div className={styles.slotHeaderCompleted}>
+                                            <p className={styles.slotHeaderCompletedText}>Xác nhận hoàn thành</p>
+                                            <p className={styles.slotHeaderCompletedText}>Đã đặt</p>
+                                        </div>
+                                        <div className={styles.slotBody}>
+                                            <p className={styles.slotBodyText}>
+                                                Thời gian hoàn thành: {slot.slot.duration_minutes} phút
+                                            </p>
+                                            <p className={styles.slotBodyText}>
+                                                Thời gian đặt: {new Date(slot.slot.slot_datetime).toLocaleString()}
+                                            </p>
+                                            {slot.appointments.length > 0 ? (
+                                                <>
+                                                    <p className={styles.slotBodyText}>
+                                                        Tên: {slot.appointments[0].customer_id.name}{' '}
+                                                    </p>
+                                                    <p className={styles.slotBodyText}>
+                                                        Số điện thoại: {slot.appointments[0].customer_id.phone_number}{' '}
+                                                    </p>
+                                                </>
+                                            ) : (
+                                                <p className={styles.slotBodyText}>Chưa có khách hàng</p>
+                                            )}
+                                        </div>
+                                        <div className={styles.slotCardFooter}>
+                                            <div
+                                                className={styles.slotCardFooterView}
+                                                onClick={() => handleConfirm(slot)}
+                                            >
+                                                <span>Hoàn thành</span>
+                                            </div>
+                                           
+                                        </div>
+                                    </div>
+                                ))}
+                        </div>
+                        <div className={styles.slotArrive}>
+                            {/* {slots
+                                .filter((slot) => slot.slot.status === 'booked') // Lọc slot có trạng thái 'booked'
+                                .map((slot) => (
+                                    <div className={styles.wrapperSlot} key={slot.slot_id}>
+                                        <div className={styles.slotHeader}>
+                                            <p className={styles.slotCardHeaderTextLeft}>Xác nhân lịch hẹn</p>
+                                            <p className={styles.availableStatus}>Đã đặt</p>
+                                        </div>
+                                        <div className={styles.slotBody}>
+                                            <p className={styles.slotBodyText}>
+                                                Thời gian hoàn thành: {slot.slot.duration_minutes} phút
+                                            </p>
+                                            <p className={styles.slotBodyText}>
+                                                Thời gian đặt: {new Date(slot.slot.slot_datetime).toLocaleString()}
+                                            </p>
+                                            {slot.appointments.length > 0 ? (
+                                                <>
+                                                    <p className={styles.slotBodyText}>
+                                                        Tên: {slot.appointments[0].customer_id.name}{' '}
+                                                    </p>
+                                                    <p className={styles.slotBodyText}>
+                                                        Số điện thoại: {slot.appointments[0].customer_id.phone_number}{' '}
+                                                    </p>
+                                                </>
+                                            ) : (
+                                                <p className={styles.slotBodyText}>Chưa có khách hàng</p>
+                                            )}
+                                        </div>
+                                        <div className={styles.slotCardFooter}>
+                                            <div
+                                                className={styles.slotCardFooterBook}
+                                                onClick={() => handleConfirm(slot)}
+                                            >
+                                                <span>Xác nhận</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                ))} */}
                         </div>
                     </div>
-                    {/* _______________ */}
+                    {/* ___________________________________________________________________________*/}
+
                     <div className={styles.dasboardBodyCalender}>
-                        <h4>Lịch hẹn</h4>
-                        <div className={styles.calendar}>
-                            <Form.Group className={styles.calendarForm}>
-                                <Form.Control size="lg" type="date" />
-                            </Form.Group>
+                        <div className={styles.dasboardBodyCalenderHeader}>
+                            <h4>Lịch hẹn</h4>
                             <button onClick={handleShowModalBookedWait} className={styles.calendarBtn}>
                                 Đặt lịch chờ
                             </button>
                         </div>
-                        <div className={styles.slot}>
-                            {withoutSlot.map((without) => (
-                                <div className={styles.wrapperSlot} key={without.slot_id}>
-                                    <div className={styles.slotHeader}>
-                                        <p className={styles.slotCardHeaderTextLeft}>Khu vực chăm sóc</p>
-                                        <p className={styles.availableStatus}>{without.status}</p>
-                                    </div>
-                                    <div className={styles.slotBody}>
-                                        <p className={styles.slotBodyText}>Tên: {without.customer_id.name}</p>
-                                        <p className={styles.slotBodyText}>
-                                            Thời gian đặt: {new Date(without.appointment_datetime).toLocaleString()}
-                                        </p>
-                                        <p className={styles.slotBodyText}>
-                                            Biển số xe: {without.vehicle_id.license_plate}
-                                        </p>
-                                    </div>
-                                    <div className={styles.slotCardFooter}>
-                                        <div className={styles.slotCardFooterBook} onClick={() => handleServiceBooking(without)}>
-                                            <span>Đặt dịch vụ</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            ))}
+                        <div className={styles.calendar}>
+                            <Form.Group className={styles.calendarForm}>
+                                <Form.Control
+                                    size="lg"
+                                    type="date"
+                                    value={searchDate}
+                                    onChange={(e) => setSearchDate(e.target.value)}
+                                />
+                            </Form.Group>
+                            <button onClick={handleSearchCalender} className={styles.calendarBtn}>
+                                Tìm kiếm
+                            </button>
                         </div>
+                        {loading ? (
+                            <div
+                                style={{
+                                    display: 'flex',
+                                    justifyContent: 'center',
+                                }}
+                            >
+                                <Spinner
+                                    animation="border"
+                                    variant="primary"
+                                    size="lg"
+                                    role="status"
+                                    aria-hidden="true"
+                                />
+                            </div>
+                        ) : (
+                            appointments.length > 0 && (
+                                <div className={styles.appointmentResults}>
+                                    {appointments.map((appointment) => (
+                                        <div key={appointment._id} className={styles.appointmentResultsBody}>
+                                            <div className={styles.appointmentResultsHeader}>
+                                                <p className={styles.appointmentResultsText}>Lịch hẹn</p>
+                                                <p className={styles.appointmentResultsText}>
+                                                    {appointment.status === 'scheduled' && 'Đã lên lịch'}
+                                                    {appointment.status === 'completed' && 'Đã hoàn thành'}
+                                                    {appointment.status === 'cancelled' && 'Đã hủy'}
+                                                </p>
+                                            </div>
+                                            <p className={styles.appointmentResultsBodyText}>
+                                                Ngày và giờ:{' '}
+                                                {new Date(appointment.appointment_datetime).toLocaleString()}
+                                            </p>
+                                            <p className={styles.appointmentResultsBodyText}>
+                                                Tên: {appointment.customer_id.name}
+                                            </p>
+                                            <p className={styles.appointmentResultsBodyText}>
+                                                Số điện thoại: {appointment.customer_id.phone_number}
+                                            </p>
+                                            <p className={styles.appointmentResultsBodyText}>
+                                                Biển số xe: {appointment.vehicle_id.license_plate}
+                                            </p>
+                                        </div>
+                                    ))}
+                                </div>
+                            )
+                        )}
                     </div>
                     {/* _______________ */}
                 </div>
                 <div className={styles.dasboardBodyCompleted}>
                     <h4 className={styles.dasboardBodyCompletedHead}>Khu vực chờ xác nhận </h4>
-                    <div className={styles.slotArrive}>
+                    {/* <div className={styles.slotArrive}>
                         {slots
                             .filter((slot) => slot.slot.status === 'booked') // Lọc slot có trạng thái 'booked'
                             .map((slot) => (
@@ -291,6 +427,33 @@ const Dashboard = () => {
                                 </div>
                             ))}
                             
+                    </div> */}
+                    <div className={styles.slotArrive}>
+                        {withoutSlot.map((without) => (
+                            <div className={styles.wrapperSlot} key={without.slot_id}>
+                                <div className={styles.slotHeader}>
+                                    <p className={styles.slotCardHeaderTextLeft}>Xác nhận lịch hẹn</p>
+                                    <p className={styles.availableStatus}>{without.status ? 'Chờ xác nhận' : ''}</p>
+                                </div>
+                                <div className={styles.slotBody}>
+                                    <p className={styles.slotBodyText}>Tên: {without.customer_id.name}</p>
+                                    <p className={styles.slotBodyText}>
+                                        Thời gian đặt: {new Date(without.appointment_datetime).toLocaleString()}
+                                    </p>
+                                    <p className={styles.slotBodyText}>
+                                        Biển số xe: {without.vehicle_id.license_plate}
+                                    </p>
+                                </div>
+                                <div className={styles.slotCardFooter}>
+                                    <div
+                                        className={styles.slotCardFooterBook}
+                                        onClick={() => handleServiceBooking(without)}
+                                    >
+                                        <span>Xác nhận</span>
+                                    </div>
+                                </div>
+                            </div>
+                        ))}
                     </div>
                 </div>
             </div>

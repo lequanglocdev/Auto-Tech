@@ -112,6 +112,7 @@
 .slotCardBodyText,
 .slotBodyText {
     font-size: 1.4rem;
+    margin-bottom: 4px;
 }
 
 .slotCardFooter {
@@ -139,10 +140,14 @@
 }
 .slotCardFooterDelete {
     background-color: #e74c3c;
+    flex: 1;
 }
 .slotCardFooterBook {
     background-color: #3498db;
 }
+
+
+
 
 .calendar {
     display: flex;
@@ -155,40 +160,82 @@
     flex: 1;
 }
 
-.calendarBtn{
+.calendarBtn {
     border: none;
     outline: none;
     background-color: #3498db;
     font-size: 1.3rem;
     color: #ecf0f1;
     border-radius: 6px;
-    
+    padding: 6px;
 }
 
-.slotArrive{
+.slotArrive {
     display: flex;
     justify-content: flex-start;
     align-items: center;
 }
 
-.slotHeaderCompleted{
+.slotHeaderCompleted {
     width: 100%;
     height: 40px;
-    padding: 0 10px;
+    padding: 4px 10px;
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
+    align-items: center;
     border-top-left-radius: 8px;
     border-top-right-radius: 8px;
     align-items: center;
     background-image: linear-gradient(to right, rgb(226, 24, 24), rgb(212, 72, 72));
 }
 
-.slotHeaderCompletedText{
+.slotHeaderCompletedText {
     color: #fff;
+    font-size: 1.6rem;
+    font-weight: bold;
+    margin-bottom: 0;
+}
+
+.slotFooterCompleted {
+    background-color: #f79f1f;
+}
+
+.dasboardBodyCalenderHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    margin-bottom: 20px;
+}
+.appointmentResults {
+    margin-bottom: 20px;
+    padding: 16px;
+}
+.appointmentResultsBody {
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+.appointmentResultsHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 4px;
+    padding: 0 20px;
+    height: 30px;
+    background-image: linear-gradient(to right, rgb(29, 162, 86), rgb(72, 212, 131));
+}
+
+.appointmentResultsText {
     font-size: 1.4rem;
+    color: #fff;
+    margin-bottom: 0;
     font-weight: bold;
 }
 
-.slotFooterCompleted{
-    background-color: #F79F1F;
+.appointmentResultsBodyText{
+    font-size: 1.3rem;
+    color: var(--text-third);
+    padding: 4px 12px ;
+    font-weight: 400;
 }

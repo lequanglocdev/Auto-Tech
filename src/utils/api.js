@@ -194,7 +194,10 @@ const getAppointmentWithoutSlot = () => {
     const URL_API = `/api/appointments/get/without-slot`;
     return axios.get(URL_API);
 };
-
+const getPrintPayment = (invoiceId) =>{
+    const URL_API = `/api/payments/invoice/${invoiceId}/pdf`;
+    return axios.get(URL_API);
+}
 const deleteUserApi = (user) => {
     const URL_API = `/api/users/${user._id}`;
     return axios.delete(URL_API);
@@ -514,6 +517,11 @@ const findCustomerApi = (query) => {
     return axios.get(URL_API);
 };
 
+const findPromotionApi = (query) => {
+    const URL_API = `/api/promotions/search?${query}`;
+    return axios.get(URL_API);
+};
+
 export {
     registerAdminApi,
     loginAdminApi,
@@ -545,6 +553,7 @@ export {
     getInfoInvoiceCompleted,
     getInvoiceDetails,
     getAppointmentWithoutSlot,
+    getPrintPayment,
     deleteUserApi,
     deleteEmployeeApi,
     deleteRankApi,
@@ -591,4 +600,5 @@ export {
     putActivePromotionLine,
     putActivePromotionDetail,
     findCustomerApi,
+    findPromotionApi
 };

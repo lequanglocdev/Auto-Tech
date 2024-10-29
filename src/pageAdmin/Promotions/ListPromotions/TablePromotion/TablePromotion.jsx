@@ -17,6 +17,7 @@ import {
     putActivePromotionHeader,
     putActivePromotionLine,
     putActivePromotionDetail,
+    findPromotionApi,
 } from '@/utils/api';
 import ConfirmDeleteModal from '../ConfirmDeleteModal/ConfirmDeleteModal';
 import AddPromotionLine from '../AddPromotionLine/AddPromotionLine';
@@ -31,8 +32,13 @@ import ConfirmDeleteModalDetail from '../../ConfirmDeleteModalDetail/ConfirmDele
 const TablePromotion = ({ data = [], itemsPerPage }) => {
     const { FaPen, FaTrash, FaEye, FaPlusCircle } = icons;
     const [selectedPromotionHeader, setSelectedPromotionHeader] = useState({});
-
     const [promotion, setPromotion] = useState(data);
+
+    const [promotionCode, setPromotionCode] = useState('');
+    const [isActive, setIsActive] = useState('');
+    const [startDate, setStartDate] = useState('');
+    const [endDate, setEndDate] = useState('');
+    const [promotions, setPromotions] = useState([]);
 
     // Toggle header
     const [activeStatusHeader, setActiveStatusHeader] = useState(promotion?.map((item) => item.is_active || false));
@@ -83,7 +89,7 @@ const TablePromotion = ({ data = [], itemsPerPage }) => {
 
     // Toggle Detail
     const [activeStatusDetail, setActiveStatusDetail] = useState(promotion?.map((item) => item.is_active || false));
-    const handleToggleActiveDetail = async (detail,index) => {
+    const handleToggleActiveDetail = async (detail, index) => {
         try {
             const updatedItem = { ...detail, is_active: !detail.is_active };
 
@@ -380,11 +386,54 @@ const TablePromotion = ({ data = [], itemsPerPage }) => {
             console.error('Xóa thất bại', error);
         }
     };
+
+    const handleSearch = async () => {
+        // Tạo query string từ các state
+        const query = new URLSearchParams({
+            promotion_code: promotionCode,
+            is_active: isActive,
+            start_date: startDate,
+            end_date: endDate,
+        }).toString();
+
+        try {
+            const response = await findPromotionApi(query);
+            setPromotions(response); // Cập nhật danh sách khuyến mãi với kết quả tìm kiếm'
+            console.log("Promotions fetched:", response); 
+        } catch (error) {
+            console.error("Error fetching promotions:", error);
+        }
+    };
     return (
         <div className={styles.appointmentCard}>
-            <div className={styles.appointmentCardSearch}>
-                <h4>Tìm kiếm</h4>
-            </div>
+            {/* <div className={styles.appointmentCardSearch}>
+                <div className={styles.searchForm}>
+                    <input
+                        type="text"
+                        placeholder="Mã khuyến mãi"
+                        value={promotionCode}
+                        onChange={(e) => setPromotionCode(e.target.value)}
+                    />
+                    <select value={isActive} onChange={(e) => setIsActive(e.target.value)}>
+                        <option value="">Trạng thái</option>
+                        <option value="true">Kích hoạt</option>
+                        <option value="false">Không kích hoạt</option>
+                    </select>
+                    <input
+                        type="date"
+                        placeholder="Ngày bắt đầu"
+                        value={startDate}
+                        onChange={(e) => setStartDate(e.target.value)}
+                    />
+                    <input
+                        type="date"
+                        placeholder="Ngày kết thúc"
+                        value={endDate}
+                        onChange={(e) => setEndDate(e.target.value)}
+                    />
+                    <button onClick={handleSearch}>Tìm kiếm</button>
+                </div>
+            </div> */}
             <div>
                 <Table className={styles.tableHeader}>
                     <tbody>
@@ -613,7 +662,7 @@ const TablePromotion = ({ data = [], itemsPerPage }) => {
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        {promotionDetails.map((detail,index) => (
+                                                        {promotionDetails.map((detail, index) => (
                                                             <tr key={detail._id}>
                                                                 <td className={styles.detailTd}>
                                                                     {detail.applicable_rank_id?.rank_name}
@@ -636,9 +685,7 @@ const TablePromotion = ({ data = [], itemsPerPage }) => {
                                                                                 ];
                                                                                 newStatus[index] = !newStatus[index]; // Đổi trạng thái
                                                                                 setActiveStatusDetail(newStatus);
-                                                                                handleToggleActiveDetail(
-                                                                                    detail,
-                                                                                );
+                                                                                handleToggleActiveDetail(detail);
                                                                             }}
                                                                         />
                                                                         <span

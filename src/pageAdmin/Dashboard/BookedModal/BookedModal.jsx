@@ -315,7 +315,7 @@ const BookedModal = ({ show, handleClose, slotId, onUpdateSlot }) => {
                         <h4 className={styles.totalText}>Tổng phí dịch vụ: {totalCost.toLocaleString()} VNĐ</h4>
                     </div>
                     <button className={styles.btnSubmit} size="lg" onClick={handleSubmit}>
-                        Đặt lịch chờ
+                        Đặt
                     </button>
                 </Form>
             </Modal.Body>

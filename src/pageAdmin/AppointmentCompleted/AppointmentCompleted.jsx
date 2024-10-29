@@ -1,6 +1,6 @@
 import { getAppointmentCompleted } from '@/utils/api';
 import React, { useEffect, useState } from 'react';
-import { Container, Row, Col } from 'react-bootstrap';
+import { Container, Row, Col, Spinner } from 'react-bootstrap';
 import AppointmentCard from './AppointmentCard/AppointmentCard';
 import SearchBar from './SearchBar/SearchBar';
 import styles from './AppointmentCompleted.module.css';
@@ -16,6 +16,8 @@ const AppointmentCompleted = () => {
                 const response = await getAppointmentCompleted();
                 setAppointments(response);
                 setFilteredAppointments(response);
+                console.log(  ">>>abc",response)
+                
             } catch (err) {
                 setError(err);
             } finally {
@@ -26,25 +28,18 @@ const AppointmentCompleted = () => {
         fetchAppointments();
     }, []);
 
-    const handleSearch = (searchTerm) => {
-        if (!searchTerm) {
-            setFilteredAppointments(appointments);
-        } else {
-            const filtered = appointments.filter((appointment) =>
-                appointment.customer_id.name.toLowerCase().includes(searchTerm.toLowerCase()),
-            );
-            setFilteredAppointments(filtered);
-        }
-    };
-
     if (loading) {
-        return <div>Loading...</div>;
+        return (
+            <div
+                style={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                }}
+            >
+                <Spinner animation="border" variant="primary" size="lg" role="status" aria-hidden="true" />
+            </div>
+        );
     }
-
-    if (error) {
-        return <div>Error: {error.message}</div>;
-    }
-
     return (
         <Container>
             <div className={styles.appointmentHeader}>
@@ -54,7 +49,7 @@ const AppointmentCompleted = () => {
                 />
             </div>
             <div  className={styles.appointmentBody}>
-                <SearchBar onSearch={handleSearch} />
+                {/* <SearchBar onSearch={handleSearch} /> */}
                 <Row>
                     {filteredAppointments.map((appointment) => (
                         <Col key={appointment._id} xs={12} md={6} lg={4}>

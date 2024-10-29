@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import styles from './Invoice.module.css';
-import { createPayment, createPaymentCustomer, getInvoiceDetails } from '@/utils/api'; // Import hàm lấy thông tin hóa đơn
+import { createPayment, createPaymentCustomer, getInvoiceDetails, getPrintPayment } from '@/utils/api'; // Import hàm lấy thông tin hóa đơn
 import { Button, Table } from 'react-bootstrap';
 import { toast } from 'react-toastify';
 
@@ -38,7 +38,7 @@ const Invoice = () => {
                 const checkoutUrl = paymentResponse.paymentLink.checkoutUrl;
                 toast.success('Đã tạo liên kết thanh toán thành công!');
                 console.log('Payment Link:', checkoutUrl);
-    
+
                 // Chuyển hướng người dùng đến trang thanh toán
                 window.location.href = checkoutUrl;
             } catch (err) {
@@ -48,7 +48,31 @@ const Invoice = () => {
             toast.error('Không tìm thấy hóa đơn để thanh toán');
         }
     };
-    
+
+    const handlePrint = async () => {
+        const invoiceId = invoiceDetails?.invoice?._id;
+        if (invoiceId) {
+            try {
+                const response = await getPrintPayment(invoiceId);
+
+                // Kiểm tra xem response có chứa msg
+                if (response.msg) {
+                    // Hiển thị thông báo lỗi từ msg
+                    toast.error(response.msg);
+                } else {
+                    // Nếu không có msg, tiếp tục xử lý PDF
+                    const pdfBlob = new Blob([response.data], { type: 'application/pdf' });
+                    const pdfUrl = URL.createObjectURL(pdfBlob);
+                    window.open(pdfUrl);
+                }
+            } catch (err) {
+                // Nếu có lỗi trong khi gọi API
+                toast.error('In hóa đơn thất bại: ' + (err.response?.data?.msg || err.message));
+            }
+        } else {
+            toast.error('Không tìm thấy hóa đơn để in');
+        }
+    };
 
     useEffect(() => {
         setLoading(false); // Bỏ loading ngay lập tức vì không cần fetch dữ liệu nhân viên
@@ -100,7 +124,9 @@ const Invoice = () => {
                                                 <td className={styles.dataTableItem}>{detail.quantity}</td>
                                                 <td className={styles.dataTableItem}>{detail.price}</td>
                                                 <td className={styles.dataTableItem}>{detail.discount_amount || 0}</td>
-                                                <td className={styles.dataTableItem}>{detail.price * detail.quantity}</td>
+                                                <td className={styles.dataTableItem}>
+                                                    {detail.price * detail.quantity}
+                                                </td>
                                             </tr>
                                         ))
                                     ) : (
@@ -129,8 +155,17 @@ const Invoice = () => {
 
                         <div></div>
                     </div>
-                    <div className={styles.dataTableBtn}>
-                        <button className={styles.btn} onClick={handlePayment}>Thanh toán</button>
+                    <div className={styles.dataTableBill}>
+                        <div className={styles.dataTableBtn}>
+                            <button className={styles.btn} onClick={handlePayment}>
+                                Thanh toán
+                            </button>
+                        </div>
+                        <div className={styles.dataTablePrint}>
+                            <button className={styles.btnPrint} onClick={handlePrint}>
+                                In hóa đơn
+                            </button>
+                        </div>
                     </div>
                 </div>
             )}

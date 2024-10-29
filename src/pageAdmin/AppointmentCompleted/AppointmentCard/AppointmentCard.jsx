@@ -7,13 +7,13 @@ const AppointmentCard = ({ appointment }) => {
     const navigate = useNavigate(); 
 
     const handlePaymentClick = () => {
-        navigate(`/payments/invoice/${appointment._id}`);
+        console.log("Thông tin cuộc hẹn:", appointment);
+        navigate(`/invoice/${appointment._id}`);
     };
-
     return (
         <Card className={styles.appointmentCard}>
             <Card.Header className={styles.appointmentCardHeader}>
-                <h5>Dịch vụ hoàn thành</h5>
+                <h5>{appointment.status ? 'Hoàn thành' : "Chưa hoàn thành"}</h5>
                 <h5>Thời gian: {new Date(appointment.appointment_datetime).toLocaleString()}</h5>
             </Card.Header>
             <Accordion>
@@ -22,18 +22,17 @@ const AppointmentCard = ({ appointment }) => {
                         <h4>Thông tin khách hàng</h4>
                     </Accordion.Header>
                     <Accordion.Body>
-                        <p className={styles.appointmentCardText}><strong>Mã khách hàng:</strong> {appointment.customer_id._id}</p>
                         <p className={styles.appointmentCardText}><strong>Tên:</strong> {appointment.customer_id.name}</p>
                         <p className={styles.appointmentCardText}><strong>Email:</strong> {appointment.customer_id.email}</p>
                         <p className={styles.appointmentCardText}><strong>Số điện thoại:</strong> {appointment.customer_id.phone_number}</p>
                         <p className={styles.appointmentCardText}><strong>Địa chỉ:</strong> {appointment.customer_id.address}</p>
-                        {/* <p className={styles.appointmentCardText}><strong>Total Spending:</strong> {appointment.customer_id.total_spending}</p> */}
+                        <p className={styles.appointmentCardText}><strong>Tổng số tiền:</strong> {Number(appointment.customer_id.total_spending).toLocaleString('vi-VN')}đ</p> 
                     </Accordion.Body>
                 </Accordion.Item>
 
                 <Accordion.Item eventKey="1">
                     <Accordion.Header>
-                        <h4>Thông tin xe khách hàng</h4>
+                        <h4>Thông tin xe </h4>
                     </Accordion.Header>
                     <Accordion.Body>
                         {/* <p className={styles.appointmentCardText}><strong>:</strong> {appointment.vehicle_id._id}</p> */}
@@ -45,7 +44,7 @@ const AppointmentCard = ({ appointment }) => {
                     </Accordion.Body>
                 </Accordion.Item>
 
-                <Accordion.Item eventKey="2">
+                {/* <Accordion.Item eventKey="2">
                     <Accordion.Header>
                         <h4>Thông tin khu vực</h4>
                     </Accordion.Header>
@@ -56,7 +55,7 @@ const AppointmentCard = ({ appointment }) => {
                         <p className={styles.appointmentCardText}><strong>Trạng thái:</strong> {appointment.slot_id.status}</p>
                         <p className={styles.appointmentCardText}><strong>Số lượng:</strong> {appointment.slot_id.capacity}</p>
                     </Accordion.Body>
-                </Accordion.Item>
+                </Accordion.Item> */}
 
                 <Accordion.Item eventKey="3">
                     <Button variant="primary" className={styles.accordionBtn} onClick={handlePaymentClick}>

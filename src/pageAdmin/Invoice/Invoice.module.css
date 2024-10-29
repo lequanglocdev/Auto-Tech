@@ -73,27 +73,46 @@
 .dataTableBtn {
     text-align: right;
     margin-bottom: 40px;
-    margin-right: 100px;
-    
+    margin-right: 40px;
 }
-
+.dataTablePrint{
+    text-align: right;
+    margin-bottom: 40px;
+    margin-right: 20px;
+}
 .btn {
-  border-radius: 6px;
-  padding: 6px 20px;
+    border-radius: 6px;
+    padding: 6px 20px;
     border: none;
     outline: none;
     background-color: #3498db;
     font-size: 1.4rem;
     color: #fff;
 }
-
-.btn:hover{
-  background-color: #4eaeee;
+.btnPrint {
+    border-radius: 6px;
+    padding: 6px 20px;
+    border: none;
+    outline: none;
+    background-color: #db3439;
+    font-size: 1.4rem;
+    color: #fff;
+}
+.btnPrint:hover{
+    background-color: #e45358;
+}
+.btn:hover {
+    background-color: #4eaeee;
 }
 
-.invoicePay{
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  
+.invoicePay {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.dataTableBill {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
 }
