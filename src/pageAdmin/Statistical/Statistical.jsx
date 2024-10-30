@@ -160,7 +160,7 @@ const Statistical = () => {
                         <FaMoneyBillWave />
                     </div>
                     <div>
-                        <p className={styles.statisticalHeaderText}>Tổng số hóa đơn</p>
+                        <p className={styles.statisticalHeaderText}>Tổng số doanh thu</p>
                         <p className={styles.statisticalHeaderText}>
                             {new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(
                                 statistics.totalRevenue,

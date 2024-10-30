@@ -175,24 +175,22 @@ const Dashboard = () => {
         }
     };
 
-    const handleWatingView = async (appointment) => {
-        console.log(appointment);
-        // if (without?.appointments.length > 0) {
-        //     // Giả sử bạn muốn lấy appointment đầu tiên
-        //     const appointment = without.appointments[0];
-
-        //     try {
-        //         // Gọi API để lấy chi tiết appointment
-        //         const response = await getAppointmentsDetailApi(appointment);
-        //         setAppointmentDetail(response); // Lưu dữ liệu vào state
-        //         setShowModal(true); // Mở modal
-        //     } catch (error) {
-        //         console.error('Lỗi khi lấy chi tiết appointment:', error);
-        //     }
-        // } else {
-        //     console.log('Không có appointment nào cho slot này.');
-        // }
+    const handleCalenderView = async (appointmentId) => {
+        console.log('Appointment ID:', appointmentId); // Kiểm tra giá trị của appointmentId
+        if (!appointmentId) {
+            console.error('Appointment ID is null or undefined');
+            return;
+        }
+        try {
+            const response = await getAppointmentsDetailApi(appointmentId);
+            setAppointmentDetail(response);
+            setShowModal(true);
+        } catch (error) {
+            console.error('Lỗi khi lấy chi tiết appointment:', error);
+        }
     };
+    
+    
     const handleConfirm = async (slot) => {
         console.log('Thông tin slot được xác nhận:', slot);
 
@@ -373,6 +371,12 @@ const Dashboard = () => {
                                             {/* <div>
                                                 <Button  onClick={() => handleWatingView(appointment)}>Xem</Button>
                                             </div> */}
+                                            <div
+                                                className={styles.slotCardFooterCalender}
+                                                onClick={() => handleCalenderView(appointment)}
+                                            >
+                                                <span>Xem</span>
+                                            </div>
                                         </div>
                                     ))}
                                 </div>
@@ -481,7 +485,6 @@ const Dashboard = () => {
                                                     <p className={styles.InfoText}>
                                                         Giá: {service.price.toLocaleString()} đ
                                                     </p>
-                                                  
                                                 </div>
                                             ))}
                                         </div>
@@ -491,9 +494,12 @@ const Dashboard = () => {
                                 </div>
                                 <hr />
                                 <div>
-                                    <h4 className={styles.InfoTextTotal}>Tổng thời gian thực hiện: {appointmentDetail?.slot_id?.duration_minutes} phút</h4>
-                                    <h4 className={styles.InfoTextTotal}>Tổng giá tiền: {appointmentDetail?.total_cost.toLocaleString()}đ</h4>
-                                    
+                                    <h4 className={styles.InfoTextTotal}>
+                                        Tổng thời gian thực hiện: {appointmentDetail?.slot_id?.duration_minutes} phút
+                                    </h4>
+                                    <h4 className={styles.InfoTextTotal}>
+                                        Tổng giá tiền: {appointmentDetail?.total_cost.toLocaleString()}đ
+                                    </h4>
                                 </div>
                             </div>
                         ) : (

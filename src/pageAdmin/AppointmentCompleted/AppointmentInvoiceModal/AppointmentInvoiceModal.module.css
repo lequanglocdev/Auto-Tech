@@ -1,0 +1,118 @@
+.slotHeader {
+  text-align: center;
+  font-size: 2rem;
+  font-style: italic;
+  color: var(--text-second);
+  font-weight: bold;
+  width: 100%;
+  height: 40px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+}
+
+.invoiceDetailsTitle {
+  font-size: 1.6rem;
+  font-style: italic;
+  text-transform: uppercase;
+  font-weight: bold;
+  text-align: center;
+}
+.invoiceBody {
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.invoiceEmploy {
+  font-size: 1.4rem;
+  font-weight: bold;
+}
+
+.invoiceEmploySelect {
+  flex: 1;
+}
+
+.invoiceBtn {
+  margin-top: 40px;
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 40px;
+}
+
+.invoiceDetails {
+  width: 100%;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+  border: 1px solid #0000;
+  padding: 0 40px;
+}
+
+.invoiceDetails p {
+  font-size: 1.4rem;
+  color: #333;
+  font-weight: 400;
+}
+
+.invoiceDetailsBody {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  flex: 1;
+}
+
+.dataTableItem,
+.dataTableHead {
+  font-size: 1.4rem;
+  height: 50px;
+  text-align: center;
+  margin-top: auto;
+  margin-bottom: 0;
+}
+
+.dataTableBtn {
+  text-align: right;
+  margin-bottom: 40px;
+  margin-right: 40px;
+}
+.dataTablePrint{
+  text-align: right;
+  margin-bottom: 40px;
+  margin-right: 20px;
+}
+.btn {
+  border-radius: 6px;
+  padding: 6px 20px;
+  border: none;
+  outline: none;
+  background-color: #3498db;
+  font-size: 1.4rem;
+  color: #fff;
+}
+.btnPrint {
+  border-radius: 6px;
+  padding: 6px 20px;
+  border: none;
+  outline: none;
+  background-color: #db3439;
+  font-size: 1.4rem;
+  color: #fff;
+}
+.btnPrint:hover{
+  background-color: #e45358;
+}
+.btn:hover {
+  background-color: #4eaeee;
+}
+
+.invoicePay {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.dataTableBill {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}

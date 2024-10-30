@@ -194,10 +194,11 @@ const getAppointmentWithoutSlot = () => {
     const URL_API = `/api/appointments/get/without-slot`;
     return axios.get(URL_API);
 };
-const getPrintPayment = (invoiceId) =>{
+const getPrintPayment = (invoiceId) => {
     const URL_API = `/api/payments/invoice/${invoiceId}/pdf`;
-    return axios.get(URL_API);
-}
+    return axios.get(URL_API, { responseType: 'blob' });
+};
+
 
 const getRevenueStatistics = (startDate, endDate) => {
     const URL_API = `/api/statistics/revenue?start_date=${startDate}&end_date=${endDate}`;
@@ -211,7 +212,7 @@ const getStatisticAppointmentTotal = (month, year) => {
 
 const getExportStatistic = (startDate, endDate) => {  
     const URL_API = `/api/statistics/export?start_date=${startDate}&end_date=${endDate}`;
-    return axios.get(URL_API, { responseType: 'blob' });
+    return axios.get(URL_API, { responseType: 'arraybuffer' });
 }; 
 const deleteUserApi = (user) => {
     const URL_API = `/api/users/${user._id}`;
