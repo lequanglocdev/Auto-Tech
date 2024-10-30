@@ -1,0 +1,110 @@
+.createRank {
+    width: 100%;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+.statisticalWrapper {
+    /* padding: 0 20px; */
+}
+.statisticalHeader {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    padding-left: 20px;
+}
+
+.statisticalHeaderItem {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    padding: 6px 10px;
+    width: 250px;
+}
+
+.statisticalHeaderIcon {
+    font-size: 3rem;
+    font-weight: 500;
+    color: #e67e22;
+}
+
+.statisticalHeaderText {
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: var(--text-third);
+    margin-bottom: 0;
+}
+
+.statisticalHeaderExportIcon {
+    font-size: 2rem;
+    font-weight: 500;
+    color: #fff;
+}
+
+.statisticalHeaderExport {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    padding: 6px 10px;
+    width: 180px;
+    background-color: #2ecc71;
+    border-radius: 6px;
+    cursor: pointer;
+    color: #fff;
+}
+
+.statisticalHeaderExport:hover {
+    background-color: #48c67c;
+}
+
+.statisticalHeaderExportText {
+    font-size: 1.4rem;
+    margin-bottom: 0;
+}
+
+.statisticalBody {
+    margin-top: 40px;
+    padding: 0px 20px;
+}
+.statisticalBodyForm {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.formSelect {
+    width: 400px !important;
+    height: 40px !important;
+}
+
+.statisticalBodyFormText {
+    font-size: 1.4rem;
+    font-weight: bold;
+}
+
+.statisticalBodyChart {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.chartContainer {
+    width: 400px;
+    height: 300px;
+}
+
+.selectContainer {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    margin-top: 40px;
+    padding-left: 20px;
+}
+
+.selectContainerForm {
+    width: 250px !important;
+    height: 40px !important;
+}

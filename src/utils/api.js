@@ -198,6 +198,21 @@ const getPrintPayment = (invoiceId) =>{
     const URL_API = `/api/payments/invoice/${invoiceId}/pdf`;
     return axios.get(URL_API);
 }
+
+const getRevenueStatistics = (startDate, endDate) => {
+    const URL_API = `/api/statistics/revenue?start_date=${startDate}&end_date=${endDate}`;
+    return axios.get(URL_API);
+};
+
+const getStatisticAppointmentTotal = (month, year) => { 
+    const URL_API = `/api/statistics/monthly?month=${month}&year=${year}`;
+    return axios.get(URL_API);
+};
+
+const getExportStatistic = (startDate, endDate) => {  
+    const URL_API = `/api/statistics/export?start_date=${startDate}&end_date=${endDate}`;
+    return axios.get(URL_API, { responseType: 'blob' });
+}; 
 const deleteUserApi = (user) => {
     const URL_API = `/api/users/${user._id}`;
     return axios.delete(URL_API);
@@ -559,6 +574,8 @@ export {
     getInvoiceDetails,
     getAppointmentWithoutSlot,
     getPrintPayment,
+    getRevenueStatistics,
+    getExportStatistic,
     deleteUserApi,
     deleteEmployeeApi,
     deleteRankApi,
@@ -606,5 +623,6 @@ export {
     putActivePromotionLine,
     putActivePromotionDetail,
     findCustomerApi,
-    findPromotionApi
+    findPromotionApi,
+    getStatisticAppointmentTotal
 };

@@ -146,8 +146,13 @@
     background-color: #3498db;
 }
 
-
-
+.slotCardFooterBook:hover {
+    background-color: #3ea0e1;
+}
+.slotCardFooterView:hover {
+    background-color: #e9a231;
+    border-bottom-left-radius: 4px;
+}
 
 .calendar {
     display: flex;
@@ -244,4 +249,35 @@
 .customerTitle {
     font-size: 1.6rem !important;
     color: #3498db !important;
+}
+
+.InfoCustomer{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 10px;
+
+}
+
+.InfoHeading{
+    font-size: 1.5rem;
+    color: var(--text-third);
+    font-style: italic;
+}
+
+.InfoHeadingServices{
+    font-size: 1.5rem;
+    color: var(--text-third);
+    font-style: italic;
+    padding-left: 10px;
+}
+.InfoText{
+    font-size: 1.4rem;
+    color: var(--text-third);
+}
+
+.InfoTextTotal{
+    font-size: 1.4rem;
+    color: #e74c3c;
+    padding-left: 10px;
 }

@@ -1,0 +1,57 @@
+
+
+.statistical-container {
+  max-width: 1200px;
+  margin: auto;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.statistical-header {
+  text-align: center;
+  color: #333;
+}
+
+.total-revenue {
+  text-align: center;
+  font-size: 1.2em;
+  color: #4caf50;
+}
+
+.year-selection {
+  text-align: center;
+  margin: 20px 0;
+}
+
+.year-selection label {
+  font-weight: bold;
+}
+
+.year-selection input {
+  margin-left: 10px;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.charts-container {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.chart {
+  width: 45%;
+  background-color: #fff;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.chart h3 {
+  text-align: center;
+  margin-bottom: 15px;
+}

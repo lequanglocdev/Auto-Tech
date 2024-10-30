@@ -29,6 +29,7 @@ import AppointmentDetail from '@/pageAdmin/AppointmentDetail/AppointmentDetail';
 import CreateSlot from '@/pageAdmin/Slot/CreateSlot/CreateSlot';
 import AppointmentCompleted from '@/pageAdmin/AppointmentCompleted/AppointmentCompleted';
 import Invoice from '@/pageAdmin/Invoice/Invoice';
+import Statistical from '@/pageAdmin/Statistical/Statistical';
 
 export const publicRoute = [
     { path: '/', component: Home },
@@ -84,4 +85,8 @@ export const privateRoute = [
     { path: '/price/list', component: ListDetailPrice },
     
     { path: '/calendar/:id', component: TotalCalender },
+
+    { path: '/statistical', component: Statistical },
+
+    
 ];

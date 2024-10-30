@@ -96,12 +96,14 @@ const TableCustomer = ({ data = [], itemsPerPage }) => {
         <div className={styles.dataTableWrapper}>
             <Form className={styles.searchForm} onSubmit={(e) => e.preventDefault()}>
                 <Form.Control
+                    className={styles.searchFormInput}
                     type="text"
+                    size='lg'
                     placeholder="Nhập từ khóa tìm kiếm"
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
                 />
-                <Button variant="primary" onClick={handleSearch}>
+                <Button variant="primary" onClick={handleSearch} className={styles.btn}>
                     Tìm Kiếm
                 </Button>
             </Form>

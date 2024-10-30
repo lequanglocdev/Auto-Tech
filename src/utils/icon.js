@@ -6,7 +6,7 @@ import {
     FaCartShopping,
     FaMoneyBillTrendUp,
     FaLocationDot,
-    FaRankingStar 
+    FaRankingStar,
 } from 'react-icons/fa6';
 import {
     FaPhoneAlt,
@@ -29,12 +29,32 @@ import {
     FaTrash,
     FaLock,
     FaPlusCircle,
+    FaRegChartBar,
+    FaMoneyBillWave,
+    FaFileExport
 } from 'react-icons/fa';
-import { MdOutlineArrowForwardIos, MdDashboard, MdHomeRepairService, MdManageAccounts, MdKeyboardDoubleArrowRight, MdArrowBackIos  } from 'react-icons/md';
-import { IoIosArrowUp, IoMdEye, IoMdEyeOff, IoMdRemove, IoIosArrowForward, IoIosArrowDown, IoMdLogOut, IoMdAddCircleOutline  } from 'react-icons/io';
+import {
+    MdOutlineArrowForwardIos,
+    MdDashboard,
+    MdHomeRepairService,
+    MdManageAccounts,
+    MdKeyboardDoubleArrowRight,
+    MdArrowBackIos,
+} from 'react-icons/md';
+import {
+    IoIosArrowUp,
+    IoMdEye,
+    IoMdEyeOff,
+    IoMdRemove,
+    IoIosArrowForward,
+    IoIosArrowDown,
+    IoMdLogOut,
+    IoMdAddCircleOutline,
+} from 'react-icons/io';
 import { CiLocationOn } from 'react-icons/ci';
-import { IoMailOutline, IoTicket, IoPricetag  } from 'react-icons/io5';
+import { IoMailOutline, IoTicket, IoPricetag } from 'react-icons/io5';
 import { HiMiniBars3CenterLeft, HiMiniBars3 } from 'react-icons/hi2';
+import { AiOutlineSchedule } from 'react-icons/ai';
 const icons = {
     FaCalendarDays,
     FaPhoneAlt,
@@ -83,7 +103,11 @@ const icons = {
     FaLock,
     FaPlusCircle,
     IoMdAddCircleOutline,
-    MdArrowBackIos     
+    MdArrowBackIos,
+    FaRegChartBar,
+    AiOutlineSchedule,
+    FaMoneyBillWave,
+    FaFileExport,
 };
 
 export default icons;

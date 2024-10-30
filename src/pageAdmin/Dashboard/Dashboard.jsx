@@ -434,49 +434,66 @@ const Dashboard = () => {
             {showModal && (
                 <Modal centered show={showModal} onHide={() => setShowModal(false)}>
                     <Modal.Header closeButton>
-                        <Modal.Title className={styles.customerTitle}>
-                            Chi tiết cuộc hẹn {appointmentDetail.customer_id.name}
-                        </Modal.Title>
+                        <Modal.Title className={styles.customerTitle}>Thông tin chi tiết cuộc hẹn</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
                         {appointmentDetail ? (
                             <div>
-                                <div>
-                                    <h5>Thông tin khách hàng</h5>
-                                    {/* <p>ID: {appointmentDetail._id}</p>
-                                    <p>
-                                        Thời gian: {new Date(appointmentDetail.appointment_datetime).toLocaleString()}
-                                    </p> */}
-                                    {/* <p>Trạng thái: {appointmentDetail.status}</p> */}
-                                    <p>Khách hàng: {appointmentDetail.customer_id.name}</p>
-
-                                    {/* Thêm các thông tin khác nếu cần */}
+                                <div className={styles.InfoCustomer}>
+                                    <div>
+                                        <h4 className={styles.InfoHeading}>Thông tin khách hàng</h4>
+                                        <p className={styles.InfoText}>Tên: {appointmentDetail?.customer_id?.name}</p>
+                                        <p className={styles.InfoText}>
+                                            Số điện thoại: {appointmentDetail?.customer_id?.phone_number}
+                                        </p>
+                                        <p className={styles.InfoText}>
+                                            Email: {appointmentDetail?.customer_id?.email}
+                                        </p>
+                                        <p className={styles.InfoText}>
+                                            Địa chỉ: {appointmentDetail?.customer_id?.address}
+                                        </p>
+                                    </div>
+                                    <div>
+                                        <h4 className={styles.InfoHeading}>Thông tin xe của khách</h4>
+                                        <p className={styles.InfoText}>
+                                            Biển số: {appointmentDetail?.vehicle_id?.license_plate}
+                                        </p>
+                                        <p className={styles.InfoText}>
+                                            Tên xe: {appointmentDetail?.vehicle_id?.manufacturer}
+                                        </p>
+                                        <p className={styles.InfoText}>
+                                            Dòng xe: {appointmentDetail?.vehicle_id?.model}
+                                        </p>
+                                        <p className={styles.InfoText}>
+                                            Màu sắc: {appointmentDetail?.vehicle_id?.color}
+                                        </p>
+                                    </div>
                                 </div>
+                                <hr />
                                 <div>
-                                    <h5>Thông tin xe</h5>
-                                    <p>Xe: {appointmentDetail.vehicle_id.license_plate}</p>
-                                </div>
-                                <div>
-                                    <h5>Thông tin dịch vụ</h5>
-                                    {appointmentDetail.services && appointmentDetail.services.length > 0 ? (
-                                        <ul>
-                                            {appointmentDetail.services.map((service) => (
-                                                <li key={service._id}>
-                                                    <p>
-                                                        <strong>Tên dịch vụ:</strong> {service.name}
+                                    <h4 className={styles.InfoHeadingServices}>Dịch vụ sử dụng</h4>
+                                    {appointmentDetail?.services && appointmentDetail?.services.length > 0 ? (
+                                        <div className={styles.InfoCustomer}>
+                                            {appointmentDetail?.services.map((service) => (
+                                                <div key={service?._id}>
+                                                    <p className={styles.InfoText}>Tên dịch vụ: {service?.name}</p>
+                                                    <p className={styles.InfoText}>Mô tả: {service?.description}</p>
+                                                    <p className={styles.InfoText}>
+                                                        Giá: {service.price.toLocaleString()} đ
                                                     </p>
-                                                    <p>
-                                                        <strong>Mô tả:</strong> {service.description}
-                                                    </p>
-                                                    <p>
-                                                        <strong>Giá:</strong> {service.price.toLocaleString()} VND
-                                                    </p>
-                                                </li>
+                                                  
+                                                </div>
                                             ))}
-                                        </ul>
+                                        </div>
                                     ) : (
                                         <p>Không có dịch vụ nào được cung cấp.</p>
                                     )}
+                                </div>
+                                <hr />
+                                <div>
+                                    <h4 className={styles.InfoTextTotal}>Tổng thời gian thực hiện: {appointmentDetail?.slot_id?.duration_minutes} phút</h4>
+                                    <h4 className={styles.InfoTextTotal}>Tổng giá tiền: {appointmentDetail?.total_cost.toLocaleString()}đ</h4>
+                                    
                                 </div>
                             </div>
                         ) : (
