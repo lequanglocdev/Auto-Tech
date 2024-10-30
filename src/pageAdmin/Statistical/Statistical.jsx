@@ -94,7 +94,7 @@ const Statistical = () => {
         labels: Object.keys(monthlyRevenue),
         datasets: [
             {
-                label: 'Doanh thu hàng tháng',
+                label: 'Doanh thu hằng tháng',
                 data: Object.values(monthlyRevenue),
                 backgroundColor: ['rgba(75, 192, 192, 0.6)'],
                 borderColor: ['rgba(75, 192, 192, 1)'],

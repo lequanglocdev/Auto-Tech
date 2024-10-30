@@ -5,7 +5,7 @@ import { createPayment } from '@/utils/api';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 const AppointmentInvoiceModal = ({ show, handleClose, invoiceDetails }) => {
-  const navigate = useNavigate();
+    const navigate = useNavigate();
     const handlePayment = async () => {
         try {
             // Gọi API để thực hiện thanh toán
@@ -14,10 +14,10 @@ const AppointmentInvoiceModal = ({ show, handleClose, invoiceDetails }) => {
             await createPayment(invoiceId);
             const checkoutUrl = invoiceId.paymentLink.checkoutUrl;
             if (checkoutUrl) {
-              toast.success('Đã tạo liên kết thanh toán thành công!');
-              navigate(checkoutUrl);  // Điều hướng không tải lại trang
+                toast.success('Đã tạo liên kết thanh toán thành công!');
+                navigate(checkoutUrl); // Điều hướng không tải lại trang
             } else {
-              toast.error('Không thể tạo liên kết thanh toán. Vui lòng thử lại.');
+                toast.error('Không thể tạo liên kết thanh toán. Vui lòng thử lại.');
             }
         } catch (error) {
             console.error('Lỗi khi thanh toán:', error);
@@ -72,6 +72,20 @@ const AppointmentInvoiceModal = ({ show, handleClose, invoiceDetails }) => {
                                         )}
                                     </tbody>
                                 </Table>
+                                <div className={styles.invoicePay}>
+                                    <p className={styles.invoicePayText}>Tiền dịch vụ</p>
+                                    <p>{Number(invoiceDetails.invoice.total_amount).toLocaleString('vi-VN')}đ</p>
+                                </div>
+                                <hr />
+                                <div className={styles.invoicePay}>
+                                    <p className={styles.invoicePayText}>Khuyến mãi</p>
+                                    <p>{Number(invoiceDetails.invoice.discount_amount).toLocaleString('vi-VN')}đ</p>
+                                </div>
+                                <hr />
+                                <div className={styles.invoicePay}>
+                                    <p className={styles.invoicePayText}>Tổng số tiền phải trả</p>
+                                    <p>{Number(invoiceDetails.invoice.final_amount).toLocaleString('vi-VN')}đ</p>
+                                </div>
                             </div>
                         </div>
                     </div>

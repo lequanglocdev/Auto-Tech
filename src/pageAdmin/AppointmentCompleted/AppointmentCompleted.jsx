@@ -28,6 +28,19 @@ const AppointmentCompleted = () => {
         fetchAppointments();
     }, []);
 
+    const updateAppointment = (updatedAppointment) => {
+        setAppointments((prevAppointments) =>
+            prevAppointments.map((app) =>
+                app._id === updatedAppointment._id ? updatedAppointment : app
+            )
+        );
+        // Cập nhật filteredAppointments nếu cần
+        setFilteredAppointments((prevAppointments) =>
+            prevAppointments.map((app) =>
+                app._id === updatedAppointment._id ? updatedAppointment : app
+            )
+        );
+    };
     if (loading) {
         return (
             <div
@@ -53,7 +66,7 @@ const AppointmentCompleted = () => {
                 <Row>
                     {filteredAppointments.map((appointment) => (
                         <Col key={appointment._id} xs={12} md={6} lg={4}>
-                            <AppointmentCard appointment={appointment} />
+                            <AppointmentCard appointment={appointment} updateAppointment={updateAppointment}/>
                         </Col>
                     ))}
                 </Row>

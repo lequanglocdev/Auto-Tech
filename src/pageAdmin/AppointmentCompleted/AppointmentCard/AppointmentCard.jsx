@@ -6,7 +6,7 @@ import AppointmentInvoiceModal from '../AppointmentInvoiceModal/AppointmentInvoi
 import { createPayment, createPaymentCustomer, getInvoiceDetails, getPrintPayment } from '@/utils/api';
 import { toast } from 'react-toastify';
 
-const AppointmentCard = ({ appointment }) => {
+const AppointmentCard = ({ appointment, updateAppointment  }) => {
     const navigate = useNavigate();
     const [showInvoiceModal, setShowInvoiceModal] = useState(false);
     const [invoiceDetails, setInvoiceDetails] = useState(null);
@@ -24,6 +24,7 @@ const AppointmentCard = ({ appointment }) => {
             setInvoiceDetails(invoiceResponse);
             setShowInvoiceModal(true);
             toast.success('Hóa đơn đã được tạo thành công!');
+            updateAppointment({ ...appointment, invoice: invoiceResponse });
             // Mở modal
         } catch (error) {
             console.error('Lỗi khi tạo hóa đơn hoặc lấy chi tiết hóa đơn:', error);
