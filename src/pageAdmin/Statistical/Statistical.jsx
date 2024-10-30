@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import styles from './Statistical.module.css';
 import icons from '@/utils/icon';
 import { Bar, Pie } from 'react-chartjs-2';
-import { getExportStatistic, getRevenueStatistics, getStatisticAppointmentTotal } from '@/utils/api';
+import { getExportStatistic, getExportStatisticMY, getRevenueStatistics, getStatisticAppointmentTotal } from '@/utils/api';
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, ArcElement, Tooltip, Legend } from 'chart.js';
 import { Form } from 'react-bootstrap';
 import Breadcrumb from '@/components/UI/Breadcrumb/Breadcrumb';
@@ -58,11 +58,8 @@ const Statistical = () => {
             return;
         }
     
-        const startDate = `${year}-${month}-01`;
-        const endDate = `${year}-${month}-31`;
-    
         try {
-            const response = await getExportStatistic(startDate, endDate);
+            const response = await getExportStatisticMY(year, month);
     
             // Log response để kiểm tra
             console.log(response);
@@ -73,21 +70,21 @@ const Statistical = () => {
                 return;
             }
     
-            const blob = new Blob([response], {
-                type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+            const blob = new Blob([response], { // Sử dụng response.data
+                type: 'application/pdf', // Thay đổi MIME type
             });
     
             const url = window.URL.createObjectURL(blob);
             const link = document.createElement('a');
             link.href = url;
-            link.setAttribute('download', `thong-ke-doanh-thu_${year}_${month}.xlsx`); // Đặt tên file tải xuống
+            link.setAttribute('download', `thong-ke-doanh-thu_${year}_${month}.xlsx`); // Thay đổi đuôi file
             document.body.appendChild(link);
             link.click();
-
         } catch (error) {
             toast.error('Không tìm thấy dữ liệu trong khoảng thời gian này');
         }
     };
+    
     
 
     const chartData = {

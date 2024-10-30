@@ -214,6 +214,12 @@ const getExportStatistic = (startDate, endDate) => {
     const URL_API = `/api/statistics/export?start_date=${startDate}&end_date=${endDate}`;
     return axios.get(URL_API, { responseType: 'arraybuffer' });
 }; 
+
+const getExportStatisticMY = (year, month) => {  
+    const URL_API = `/api/statistics/export2?year=${year}&month=${month}`;
+    return axios.get(URL_API, { responseType: 'arraybuffer' });
+};
+
 const deleteUserApi = (user) => {
     const URL_API = `/api/users/${user._id}`;
     return axios.delete(URL_API);
@@ -577,6 +583,7 @@ export {
     getPrintPayment,
     getRevenueStatistics,
     getExportStatistic,
+    getExportStatisticMY,
     deleteUserApi,
     deleteEmployeeApi,
     deleteRankApi,
