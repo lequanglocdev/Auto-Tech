@@ -143,7 +143,7 @@ const AppointmentCard = ({ appointment, updateAppointment  }) => {
                         className={styles.accordionBtnPrint}
                         onClick={handlePrint}
                     >
-                        Xuất hóa đơn
+                        In hóa đơn
                     </button>
                 )}
             </div>
