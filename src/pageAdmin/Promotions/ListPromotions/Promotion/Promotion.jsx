@@ -472,7 +472,7 @@ const TestComponent = () => {
                     <Form.Control size="lg" type="date" onChange={(e) => setEndDate(e.target.value)} />
                 </div>
             </div>
-            <div style={{ maxHeight: '680px', overflowY: 'auto', overflowX: 'hidden' }}>
+            <div style={{ maxHeight: '400px', overflowY: 'auto', overflowX: 'hidden' }}>
                 <table border="1" cellPadding="10" cellSpacing="0" style={{ width: '100%' }}>
                     <thead>
                         <tr>
