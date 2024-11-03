@@ -18,7 +18,7 @@ const EditPromotionLine = ({ promotionLine, show, onHide, onUpdate }) => {
                 description: promotionLine.description,
                 start_date: promotionLine.start_date ? new Date(promotionLine.start_date).toISOString().split('T')[0] : '',
                 end_date: promotionLine.end_date ? new Date(promotionLine.end_date).toISOString().split('T')[0] : '',
-                active: promotionLine.active ? 'active' : 'inactive'
+                
             });
         }
     }, [promotionLine]);
@@ -39,10 +39,10 @@ const EditPromotionLine = ({ promotionLine, show, onHide, onUpdate }) => {
             start_date: new Date(formData.start_date).toISOString(),
             end_date: new Date(formData.end_date).toISOString(),
             discount_type: parseInt(formData.discount_type),
-            active: formData.active === 'active' 
+    
         };
-        toast.success("Xóa chi tiết thành công")
         onUpdate(updatedLine);
+         onHide();
     };
 
     return (

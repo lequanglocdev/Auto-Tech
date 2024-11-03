@@ -157,9 +157,9 @@ const Price = ({ data = [] }) => {
             if (response) {
                 setPriceData((prev) => {
                     const updatedPriceData = prev.map((p) =>
-                        p._id === item._id ? { ...p, is_active: updatedItemDetail.is_active } : p
+                        p._id === item._id ? { ...p, is_active: updatedItemDetail.is_active } : p,
                     );
-                    // console.log('Danh sách priceData sau khi cập nhật:', updatedPriceData); 
+                    // console.log('Danh sách priceData sau khi cập nhật:', updatedPriceData);
                     return updatedPriceData;
                 });
                 console.log('Trạng thái của is_active sau khi cập nhật:', updatedItemDetail.is_active);
@@ -261,26 +261,26 @@ const Price = ({ data = [] }) => {
 
     return (
         <div>
-            <Table className={styles.tableHeader}>
-                <thead>
-                    <tr>
-                        <th className={styles.dataTableHead}></th>
-                        <th className={styles.dataTableHead}></th>
-                        <th className={styles.dataTableHead}></th>
-                        <th className={styles.dataTableHead}>Tên bảng giá </th>
-                        <th className={styles.dataTableHead}></th>
-                        <th className={styles.dataTableHead}></th>
-                        <th className={styles.dataTableHead}></th>
-                        <th className={styles.dataTableHead}></th>
-                        <th className={styles.dataTableHead}>Ngày bắt đầu</th>
-
-                        <th className={styles.dataTableHead}>Ngày kết thúc</th>
-                        <th className={styles.dataTableHead}>Trạng thái</th>
-                        <th className={styles.dataTableHead}>Tác vụ</th>
-                    </tr>
-                </thead>
-            </Table>
             <Accordion defaultActiveKey="0">
+                <Table className={styles.tableHeader}>
+                    <thead>
+                        <tr>
+                            <th className={styles.dataTableHead}></th>
+                            <th className={styles.dataTableHead}></th>
+                            <th className={styles.dataTableHead}></th>
+                            <th className={styles.dataTableHead}>Tên bảng giá </th>
+                            <th className={styles.dataTableHead}></th>
+                            <th className={styles.dataTableHead}></th>
+                            <th className={styles.dataTableHead}></th>
+                            <th className={styles.dataTableHead}></th>
+                            <th className={styles.dataTableHead}>Ngày bắt đầu</th>
+
+                            <th className={styles.dataTableHead}>Ngày kết thúc</th>
+                            <th className={styles.dataTableHead}>Trạng thái</th>
+                            <th className={styles.dataTableHead}>Tác vụ</th>
+                        </tr>
+                    </thead>
+                </Table>
                 {priceData?.map((priceDataHeader, index) => (
                     <Accordion.Item
                         key={priceDataHeader._id}
@@ -392,62 +392,64 @@ const Price = ({ data = [] }) => {
                             </Table>
                         </Accordion.Header>
                         <Accordion.Body>
-                            <Table className={styles.tableBody}>
-                                <thead>
-                                    <tr>
-                                        <th className={styles.tableBodyTh}>Tên dịch vụ</th>
-                                        <th className={styles.tableBodyTh}>Loại xe</th>
+                            <div className={styles.scrollTable}>
+                                <Table className={styles.tableBody}>
+                                    <thead>
+                                        <tr>
+                                            <th className={styles.tableBodyTh}>Tên dịch vụ</th>
+                                            <th className={styles.tableBodyTh}>Loại xe</th>
 
-                                        <th className={styles.tableBodyTh}>Giá</th>
+                                            <th className={styles.tableBodyTh}>Giá</th>
 
-                                        <th className={styles.tableBodyTh}>Trạng thái</th>
-                                        <th className={styles.tableBodyTh}>Tác vụ</th>
-                                    </tr>
-                                </thead>
+                                            <th className={styles.tableBodyTh}>Trạng thái</th>
+                                            <th className={styles.tableBodyTh}>Tác vụ</th>
+                                        </tr>
+                                    </thead>
 
-                                <tbody>
-                                    {priceDetail.map((item,indexDetail) => (
-                                        <tr key={item._id}>
-                                            <td className={styles.tableBodyTd}>{item.service_id?.name}</td>
-                                            <td className={styles.tableBodyTd}>
-                                                {item.vehicle_type_id?.vehicle_type_name}
-                                            </td>
-                                            <td className={styles.tableBodyTd}>{item?.price}</td>
-                                            <td className={styles.tableBodyTd}>
-                                                <label className={styles.switch}>
-                                                    <input
-                                                        type="checkbox"
-                                                        checked={activeStatusDetail[indexDetail]} // Sử dụng state để kiểm soát giá trị
-                                                        onChange={() => {
-                                                            const newStatus = [...activeStatusDetail];
-                                                            newStatus[indexDetail] = !newStatus[indexDetail]; // Đổi trạng thái
-                                                            setActiveStatusDetail(newStatus);
-                                                            handleToggleActiveDetail(item);
+                                    <tbody>
+                                        {priceDetail.map((item, indexDetail) => (
+                                            <tr key={item._id}>
+                                                <td className={styles.tableBodyTd}>{item.service_id?.name}</td>
+                                                <td className={styles.tableBodyTd}>
+                                                    {item.vehicle_type_id?.vehicle_type_name}
+                                                </td>
+                                                <td className={styles.tableBodyTd}>{item?.price}</td>
+                                                <td className={styles.tableBodyTd}>
+                                                    <label className={styles.switch}>
+                                                        <input
+                                                            type="checkbox"
+                                                            checked={activeStatusDetail[indexDetail]} // Sử dụng state để kiểm soát giá trị
+                                                            onChange={() => {
+                                                                const newStatus = [...activeStatusDetail];
+                                                                newStatus[indexDetail] = !newStatus[indexDetail]; // Đổi trạng thái
+                                                                setActiveStatusDetail(newStatus);
+                                                                handleToggleActiveDetail(item);
+                                                            }}
+                                                        />
+                                                        <span className={`${styles.slider} ${styles.round}`}></span>
+                                                    </label>
+                                                </td>
+                                                <td className={styles.tableBodyIcon}>
+                                                    <FaPen
+                                                        className={styles.iconActionPen}
+                                                        onClick={(e) => {
+                                                            e.stopPropagation();
+                                                            handleEditPriceDetail(item);
                                                         }}
                                                     />
-                                                    <span className={`${styles.slider} ${styles.round}`}></span>
-                                                </label>
-                                            </td>
-                                            <td className={styles.tableBodyIcon}>
-                                                <FaPen
-                                                    className={styles.iconActionPen}
-                                                    onClick={(e) => {
-                                                        e.stopPropagation();
-                                                        handleEditPriceDetail(item);
-                                                    }}
-                                                />
-                                                <FaTrash
-                                                    className={styles.iconActionTrash}
-                                                    onClick={(e) => {
-                                                        e.stopPropagation();
-                                                        handleDeletePriceDetail(item);
-                                                    }}
-                                                />
-                                            </td>
-                                        </tr>
-                                    ))}
-                                </tbody>
-                            </Table>
+                                                    <FaTrash
+                                                        className={styles.iconActionTrash}
+                                                        onClick={(e) => {
+                                                            e.stopPropagation();
+                                                            handleDeletePriceDetail(item);
+                                                        }}
+                                                    />
+                                                </td>
+                                            </tr>
+                                        ))}
+                                    </tbody>
+                                </Table>
+                            </div>
                         </Accordion.Body>
                     </Accordion.Item>
                 ))}

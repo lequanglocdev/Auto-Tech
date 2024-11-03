@@ -399,63 +399,27 @@ const TablePromotion = ({ data = [], itemsPerPage }) => {
         try {
             const response = await findPromotionApi(query);
             setPromotions(response); // Cập nhật danh sách khuyến mãi với kết quả tìm kiếm'
-            console.log("Promotions fetched:", response); 
+            console.log('Promotions fetched:', response);
         } catch (error) {
-            console.error("Error fetching promotions:", error);
+            console.error('Error fetching promotions:', error);
         }
     };
     return (
         <div className={styles.appointmentCard}>
-            {/* <div className={styles.appointmentCardSearch}>
-                <div className={styles.searchForm}>
-                    <input
-                        type="text"
-                        placeholder="Mã khuyến mãi"
-                        value={promotionCode}
-                        onChange={(e) => setPromotionCode(e.target.value)}
-                    />
-                    <select value={isActive} onChange={(e) => setIsActive(e.target.value)}>
-                        <option value="">Trạng thái</option>
-                        <option value="true">Kích hoạt</option>
-                        <option value="false">Không kích hoạt</option>
-                    </select>
-                    <input
-                        type="date"
-                        placeholder="Ngày bắt đầu"
-                        value={startDate}
-                        onChange={(e) => setStartDate(e.target.value)}
-                    />
-                    <input
-                        type="date"
-                        placeholder="Ngày kết thúc"
-                        value={endDate}
-                        onChange={(e) => setEndDate(e.target.value)}
-                    />
-                    <button onClick={handleSearch}>Tìm kiếm</button>
-                </div>
-            </div> */}
-            <div>
+            <Accordion>
                 <Table className={styles.tableHeader}>
-                    <tbody>
-                        <tr className={styles.appointmentCardHeader}>
+                    <thead>
+                        <tr >
                             <td className={styles.appointmentCardTd}>MÃ KHUYẾN MÃI</td>
-                            <td className={styles.appointmentCardTd}>tên chương trình</td>
-                            <td className={styles.appointmentCardTd}>mô tả</td>
-                            <td className={styles.appointmentCardTd}></td>
-                            <td className={styles.appointmentCardTd}></td>
-                            <td className={styles.appointmentCardTd}></td>
-                            <td className={styles.appointmentCardTd}></td>
-                            <td className={styles.appointmentCardTd}></td>
-                            <td className={styles.appointmentCardTd}></td>
+                            {/* <td className={styles.appointmentCardTd}>tên chương trình </td> */}
+                            <td className={styles.appointmentCardTd}>mô tả </td>
                             <td className={styles.appointmentCardTd}>NGÀY BẮT ĐẦU</td>
                             <td className={styles.appointmentCardTd}>NGÀY KẾT THÚC</td>
                             <td className={styles.appointmentCardTd}>Trạng thái</td>
                             <td className={styles.appointmentCardTd}>Tác vụ</td>
                         </tr>
-                    </tbody>
+                    </thead>
                 </Table>
-            </div>
-            <Accordion>
                 {promotion?.map((promotionHeader, index) => (
                     <Accordion.Item
                         eventKey={index.toString()}
@@ -467,14 +431,7 @@ const TablePromotion = ({ data = [], itemsPerPage }) => {
                                 <tbody>
                                     <tr>
                                         <td className={styles.tableTh}>{promotionHeader?.promotion_code}</td>
-                                        <td className={styles.tableTh}></td>
-                                        <td className={styles.tableTh}></td>
-                                        <td className={styles.tableTh}></td>
-                                        <td className={styles.tableTh}></td>
-                                        <td className={styles.tableTh}></td>
-                                        <td className={styles.tableTh}></td>
-                                        <td className={styles.tableTh}></td>
-                                        <td className={styles.tableTh}>{promotionHeader?.name}</td>
+                                        {/* <td className={styles.tableTh}>{promotionHeader?.name}</td> */}
                                         <td className={styles.tableTh}>{promotionHeader?.description}</td>
                                         <td className={styles.tableTh}>
                                             {new Date(promotionHeader?.start_date).toLocaleString('vi-VN', {
@@ -779,3 +736,39 @@ const TablePromotion = ({ data = [], itemsPerPage }) => {
 };
 
 export default TablePromotion;
+
+
+// const handleAddPromotionLineSubmit = async (formData) => {
+//     const { discount_type, description, start_date, end_date } = formData;
+//     try {
+//         const response = await createPromotionLine(
+//             selectedPromotion?._id, // ID của promotion header
+//             discount_type,
+//             description,
+//             new Date(start_date).toISOString(),
+//             new Date(end_date).toISOString(),
+//         );
+
+//         if (response && response.promotionLine) {
+//             const newPromotionLine = response.promotionLine;
+
+//             // Thêm dòng khuyến mãi mới vào promotion header tương ứng
+//             setPromotions((prevPromotions) =>
+//                 prevPromotions.map((header) =>
+//                     header._id === selectedPromotion._id
+//                         ? { ...header, lines: [...header.lines, newPromotionLine] }
+//                         : header,
+//                 ),
+//             );
+
+//             toast.success('Thêm khuyến mãi thành công');
+
+//             setAddPromotionModalShow(false);
+//         } else {
+//             toast.error('Lỗi khi thêm khuyến mãi');
+//         }
+//     } catch (error) {
+//         console.error('Lỗi khi tạo dòng khuyến mãi:', error);
+//         toast.error('Chương trình khuyến mãi đã hết');
+//     }
+// };

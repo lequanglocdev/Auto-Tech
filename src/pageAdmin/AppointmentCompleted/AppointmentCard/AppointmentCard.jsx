@@ -1,13 +1,10 @@
 import React, { useState } from 'react';
-import { Card, Accordion, Button } from 'react-bootstrap';
-import { useNavigate } from 'react-router-dom';
 import styles from './appointmentCard.module.css';
 import AppointmentInvoiceModal from '../AppointmentInvoiceModal/AppointmentInvoiceModal';
 import { createPayment, createPaymentCustomer, getInvoiceDetails, getPrintPayment } from '@/utils/api';
 import { toast } from 'react-toastify';
 
 const AppointmentCard = ({ appointment, updateAppointment  }) => {
-    const navigate = useNavigate();
     const [showInvoiceModal, setShowInvoiceModal] = useState(false);
     const [invoiceDetails, setInvoiceDetails] = useState(null);
     const fixedEmployeeId = '6707e7ecd6e37f3cfa5e4ce8';
@@ -16,7 +13,7 @@ const AppointmentCard = ({ appointment, updateAppointment  }) => {
         try {
             // Gọi API để tạo hóa đơn
             const response = await createPaymentCustomer(appointment._id, fixedEmployeeId);
-            console.log('res', response);
+            // console.log('res', response);
             const invoiceId = response.invoice?._id; // Lấy ID của hóa đơn vừa tạo từ kết quả API
             console.log('Create Invoice Response:', invoiceId);
             // Gọi API để lấy chi tiết hóa đơn
@@ -97,11 +94,8 @@ const AppointmentCard = ({ appointment, updateAppointment  }) => {
 
                 <div>
                     {/* Hiển thị thông tin hóa đơn nếu đã có invoice */}
-                    {appointment.invoice ? (
+                    {appointment?.invoice ? (
                         <>
-                            {/* <h4>
-                                Hóa đơn: {appointment.invoice.status === "paid" ? "Đã thanh toán" : "Chưa thanh toán"}
-                            </h4> */}
                             {/* Hiển thị chi tiết hóa đơn nếu chưa thanh toán */}
                             {appointment.invoice.status !== 'paid' && (
                                 <>

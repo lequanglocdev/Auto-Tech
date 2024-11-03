@@ -52,7 +52,7 @@ const ListsCar = () => {
     return (
         <div>
             <div className={styles.listCar}>
-                <Breadcrumb items={['Quản lý xe', 'Danh sách xe']} activeItem="Danh sách xe" />
+                <Breadcrumb items={['Quản lý loại xe', 'Danh sách loại xe']} activeItem="Danh sách loại xe" />
             </div>
             <div>
                 <div className={styles.listsCarButton}>

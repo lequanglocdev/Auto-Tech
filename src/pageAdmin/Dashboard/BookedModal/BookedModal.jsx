@@ -1,21 +1,30 @@
 import React, { useEffect, useState } from 'react';
-import { Modal, Form, Button, Spinner, Table } from 'react-bootstrap';
-import { createAppointments, createAppointmentsWithoutSlot, findCustomerApi, getPriceForService } from '@/utils/api'; // Giả sử bạn có hàm này
+import { Modal, Form, Spinner, Table } from 'react-bootstrap';
+import { createAppointments, findCustomerApi, getPriceForService } from '@/utils/api'; // Giả sử bạn có hàm này
 import styles from './BookedModal.module.css';
 import { FaPlus, FaTrash } from 'react-icons/fa6';
 import { toast } from 'react-toastify';
+import { debounce } from 'lodash';
 
 const BookedModal = ({ show, handleClose, slotId, onUpdateSlot }) => {
     const [query, setQuery] = useState('');
     const [customerData, setCustomerData] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState('');
+
+    const [isLoadingService, setIsLoadingService] = useState(false);
+    const [errorService, setErrorService] = useState('');
+
     const [selectedVehicleType, setSelectedVehicleType] = useState('');
     const [servicePrice, setServicePrice] = useState(null);
     const [serviceQuery, setServiceQuery] = useState('');
     const [selectedVehicle, setSelectedVehicle] = useState(null); // Thêm state mới để theo dõi xe đã chọn
 
     const [selectedServices, setSelectedServices] = useState([]);
+    const [serviceError, setServiceError] = useState('');
+
+    const totalTime = selectedServices.reduce((acc, service) => acc + service.time_required, 0);
+    const totalCost = selectedServices.reduce((acc, service) => acc + service.price, 0);
 
     useEffect(() => {
         if (slotId) {
@@ -36,6 +45,31 @@ const BookedModal = ({ show, handleClose, slotId, onUpdateSlot }) => {
             setSelectedServices([]);
         }
     }, [show]);
+
+    // Tự động gọi API tìm kiếm khách hàng khi nhập thông tin
+    useEffect(() => {
+        const handleDebouncedSearchCustomer = debounce(async () => {
+            if (query.trim()) await searchCustomer();
+        }, 500);
+
+        handleDebouncedSearchCustomer();
+
+        return () => handleDebouncedSearchCustomer.cancel();
+    }, [query]);
+
+    // Tự động gọi API tìm kiếm dịch vụ khi nhập thông tin
+    useEffect(() => {
+        const handleDebouncedSearchService = debounce(async () => {
+            if (serviceQuery.trim() && selectedVehicleType) {
+                await searchService(serviceQuery, selectedVehicleType);
+            }
+        }, 500); // 500ms delay
+
+        handleDebouncedSearchService();
+
+        return () => handleDebouncedSearchService.cancel();
+    }, [serviceQuery, selectedVehicleType]);
+
     const searchCustomer = async () => {
         setIsLoading(true);
         setError('');
@@ -56,36 +90,46 @@ const BookedModal = ({ show, handleClose, slotId, onUpdateSlot }) => {
     };
 
     const handleVehicleSelect = async (vehicle) => {
-        setSelectedVehicle(vehicle); // Lưu đối tượng xe đã chọn
-        setSelectedVehicleType(vehicle?.vehicle_type_id?.vehicle_type_name); // Cập nhật loại xe đã chọn
+        setSelectedVehicle(vehicle);
+        setSelectedVehicleType(vehicle?.vehicle_type_id?.vehicle_type_name);
 
-        // Gọi API lấy giá dịch vụ dựa trên loại xe đã chọn
+        // Bắt đầu tải dữ liệu
+        setIsLoadingService(true);
+        setErrorService('');
         try {
             const response = await getPriceForService(null, vehicle?.vehicle_type_id?.vehicle_type_name);
-            console.log('>> Dữ liệu dịch vụ:', response);
             if (response.length > 0) {
                 setServicePrice(response);
             } else {
-                setServicePrice([]); // Nếu không có dữ liệu, gán thành mảng rỗng
+                setServicePrice([]);
+                setErrorService('Không tìm thấy dịch vụ nào cho loại xe này.');
             }
         } catch (err) {
             console.error('Không thể lấy giá dịch vụ:', err);
-            setServicePrice([]); // Đảm bảo không có lỗi
+            setServicePrice([]);
+            setErrorService('Đã xảy ra lỗi khi lấy giá dịch vụ.');
+        } finally {
+            setIsLoadingService(false); // Kết thúc quá trình tải
         }
     };
 
-    const searchService = async (serviceName) => {
+    const searchService = async (serviceName, vehicleType) => {
+        setIsLoadingService(true);
+        setErrorService('');
         try {
-            const response = await getPriceForService(serviceName, selectedVehicleType); // Gọi API với tên dịch vụ và loại xe
-            console.log('>> Dữ liệu dịch vụ tìm kiếm:', response);
+            const response = await getPriceForService(serviceName, vehicleType);
             if (response.length > 0) {
                 setServicePrice(response);
             } else {
-                setServicePrice([]); // Không có dữ liệu
+                setServicePrice([]);
+                setErrorService('Không tìm thấy dịch vụ nào.');
             }
         } catch (err) {
             console.error('Không thể tìm kiếm dịch vụ:', err);
-            setServicePrice([]); // Đảm bảo không có lỗi
+            setServicePrice([]);
+            setErrorService('Đã xảy ra lỗi khi tìm kiếm dịch vụ.');
+        } finally {
+            setIsLoadingService(false);
         }
     };
 
@@ -107,18 +151,8 @@ const BookedModal = ({ show, handleClose, slotId, onUpdateSlot }) => {
         });
     };
 
-    const totalTime = selectedServices.reduce((acc, service) => acc + service.time_required, 0);
-    const totalCost = selectedServices.reduce((acc, service) => acc + service.price, 0);
-
-    const handleSearchClick = (event) => {
-        event.preventDefault();
-        searchCustomer();
-    };
-
     const handleSubmit = async (event) => {
-        event.preventDefault(); // Ngăn không cho trang tải lại
-
-        // Lấy ngày giờ hiện tại
+        event.preventDefault();
         const currentDatetime = new Date().toISOString();
 
         if (!selectedVehicle || !servicePrice) {
@@ -164,19 +198,23 @@ const BookedModal = ({ show, handleClose, slotId, onUpdateSlot }) => {
                                 onChange={(e) => setQuery(e.target.value)}
                                 placeholder="Số điện thoại hoặc email"
                             />
-                            <button className={styles.customerBtn} onClick={handleSearchClick}>
+                            {/* <button className={styles.customerBtn} onClick={handleSearchClick}>
                                 Tìm kiếm
-                            </button>
+                            </button> */}
                         </div>
                         {isLoading && (
-                            <Spinner
-                                animation="border"
-                                variant="primary"
-                                size="lg"
-                                role="status"
-                                aria-hidden="true"
-                                centered
-                            />
+                            <div
+                                className="d-flex justify-content-center align-items-center"
+                                style={{ minHeight: '30px' }}
+                            >
+                                <Spinner
+                                    animation="border"
+                                    variant="primary"
+                                    size="lg"
+                                    role="status"
+                                    aria-hidden="true"
+                                />
+                            </div>
                         )}
                         {error && <p>{error}</p>}
 
@@ -184,12 +222,12 @@ const BookedModal = ({ show, handleClose, slotId, onUpdateSlot }) => {
                             <div className={styles.customer}>
                                 <div>
                                     <h4>Thông tin khách hàng</h4>
-                                    <p className={styles.customerText}>Tên: {customerData.customer.name}</p>
-                                    <p className={styles.customerText}>Email: {customerData.customer.email}</p>
+                                    <p className={styles.customerText}>Tên: {customerData.customer?.name}</p>
+                                    <p className={styles.customerText}>Email: {customerData.customer?.email}</p>
                                     <p className={styles.customerText}>
-                                        Số điện thoại: {customerData.customer.phone_number}
+                                        Số điện thoại: {customerData.customer?.phone_number}
                                     </p>
-                                    <p className={styles.customerText}>Địa chỉ: {customerData.customer.address}</p>
+                                    <p className={styles.customerText}>Địa chỉ: {customerData.customer?.address}</p>
                                 </div>
                                 <div>
                                     <h4 style={{ textAlign: 'center' }}>Thông tin xe:</h4>
@@ -198,13 +236,13 @@ const BookedModal = ({ show, handleClose, slotId, onUpdateSlot }) => {
                                             {customerData.vehicles.map((vehicle) => (
                                                 <div key={vehicle?._id}>
                                                     <p className={styles.customerText}>
-                                                        Tên xe: {vehicle.manufacturer}{' '}
+                                                        Tên xe: {vehicle?.manufacturer}
                                                     </p>
                                                     <p className={styles.customerText}>
-                                                        Biển số: {vehicle.license_plate}
+                                                        Biển số: {vehicle?.license_plate}
                                                     </p>
                                                     <p className={styles.customerText}>
-                                                        Loại xe: {vehicle?.vehicle_type_id?.vehicle_type_name}{' '}
+                                                        Loại xe: {vehicle?.vehicle_type_id?.vehicle_type_name}
                                                     </p>
                                                     <button
                                                         className={styles.carBtn}
@@ -214,13 +252,13 @@ const BookedModal = ({ show, handleClose, slotId, onUpdateSlot }) => {
                                                         }}
                                                         style={{
                                                             backgroundColor:
-                                                                selectedVehicle && selectedVehicle._id === vehicle._id
+                                                                selectedVehicle && selectedVehicle?._id === vehicle?._id
                                                                     ? '#2ecc71'
                                                                     : '#3498db', // Đổi màu sắc
                                                             color: 'white', // Màu chữ
                                                         }}
                                                     >
-                                                        {selectedVehicle && selectedVehicle._id === vehicle._id
+                                                        {selectedVehicle && selectedVehicle?._id === vehicle?._id
                                                             ? 'Đã chọn xe'
                                                             : 'Chọn xe này'}
                                                     </button>
@@ -237,90 +275,114 @@ const BookedModal = ({ show, handleClose, slotId, onUpdateSlot }) => {
                     <Form.Group className="mb-4 mt-4">
                         <Form.Label className={styles.labelForm}>Tìm kiếm dịch vụ</Form.Label>
                         <div className={styles.formCustomer}>
-                            <Form.Control size="lg" type="Tìm kiếm" onChange={(e) => setServiceQuery(e.target.value)} />
-                            <button
-                                className={styles.customerBtn}
-                                onClick={(e) => {
-                                    e.preventDefault();
-                                    searchService(serviceQuery); // Gọi hàm tìm kiếm
-                                }}
-                            >
-                                Tìm kiếm
-                            </button>
+                            <Form.Control
+                                size="lg"
+                                type="text"
+                                onChange={(e) => setServiceQuery(e.target.value)} // Cập nhật state
+                                placeholder="Tìm kiếm dịch vụ"
+                            />
                         </div>
-                        <h4 className="mb-2 mt-2">Bảng dịch vụ </h4>
-                        {servicePrice && servicePrice.length > 0 && (
-                            <Table className="mt-4">
-                                <thead>
-                                    <tr>
-                                        <th className={styles.dataTableHead}>Mã dịch vụ</th>
-                                        <th className={styles.dataTableHead}>Tên dịch vụ</th>
-                                        <th className={styles.dataTableHead}>Loại xe</th>
-                                        <th className={styles.dataTableHead}>Thời gian</th>
-                                        <th className={styles.dataTableHead}>Giá</th>
-                                        <th className={styles.dataTableHead}>Hành động</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {servicePrice.map((service) => (
-                                        <tr key={service.priceline_id}>
-                                            <td className={styles.dataTableItem}>{service.service_code}</td>
-                                            <td className={styles.dataTableItem}>{service.service}</td>
-                                            <td className={styles.dataTableItem}>{service.vehicle_type}</td>
-                                            <td className={styles.dataTableItem}>{service.time_required} phút</td>
-                                            <td className={styles.dataTableItem}>{service.price} VNĐ</td>
-                                            <td className={styles.dataTableIcon}>
-                                                {selectedServices.some(
-                                                    (s) => s.priceline_id === service.priceline_id,
-                                                ) ? (
-                                                    <FaTrash
-                                                        onClick={() => handleServiceSelect(service)}
-                                                        style={{ color: 'red', cursor: 'pointer' }}
-                                                    />
-                                                ) : (
-                                                    <FaPlus
-                                                        onClick={() => handleServiceSelect(service)}
-                                                        style={{ color: 'green', cursor: 'pointer' }}
-                                                    />
-                                                )}
-                                            </td>
-                                        </tr>
-                                    ))}
-                                </tbody>
-                            </Table>
+                        {isLoadingService && (
+                            <div
+                                className="d-flex justify-content-center align-items-center"
+                                style={{ minHeight: '30px' }}
+                            >
+                                <Spinner
+                                    animation="border"
+                                    variant="primary"
+                                    size="lg"
+                                    role="status"
+                                    aria-hidden="true"
+                                />
+                            </div>
                         )}
-                        <h4 className="mb-2 mt-2">Bảng dịch vụ được chọn </h4>
+                        {errorService && <p>{errorService}</p>}
+                        {servicePrice && servicePrice.length > 0 && (
+                            <div>
+                                <h4 className="mt-4">Bảng dịch vụ </h4>
+                                <div className={styles.scroolSelect}>
+                                    <Table>
+                                        <thead>
+                                            <tr>
+                                                <th className={styles.dataTableHead}>Mã dịch vụ</th>
+                                                <th className={styles.dataTableHead}>Tên dịch vụ</th>
+                                                <th className={styles.dataTableHead}>Loại xe</th>
+                                                <th className={styles.dataTableHead}>Thời gian</th>
+                                                <th className={styles.dataTableHead}>Giá</th>
+                                                <th className={styles.dataTableHead}>Hành động</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {servicePrice.map((service) => (
+                                                <tr key={service.priceline_id}>
+                                                    <td className={styles.dataTableItem}>{service?.service_code}</td>
+                                                    <td className={styles.dataTableItem}>{service?.service}</td>
+                                                    <td className={styles.dataTableItem}>{service?.vehicle_type}</td>
+                                                    <td className={styles.dataTableItem}>
+                                                        {service?.time_required} phút
+                                                    </td>
+                                                    <td className={styles.dataTableItem}>{service?.price} VNĐ</td>
+                                                    <td className={styles.dataTableIcon}>
+                                                        {selectedServices.some(
+                                                            (s) => s.priceline_id === service?.priceline_id,
+                                                        ) ? (
+                                                            <FaTrash
+                                                                onClick={() => handleServiceSelect(service)}
+                                                                style={{ color: 'red', cursor: 'pointer' }}
+                                                            />
+                                                        ) : (
+                                                            <FaPlus
+                                                                onClick={() => handleServiceSelect(service)}
+                                                                style={{ color: 'green', cursor: 'pointer' }}
+                                                            />
+                                                        )}
+                                                    </td>
+                                                </tr>
+                                            ))}
+                                        </tbody>
+                                    </Table>
+                                </div>
+                            </div>
+                        )}
+
                         {selectedServices.length > 0 && (
-                            <Table className="mt-4">
-                                <thead>
-                                    <tr>
-                                        <th className={styles.dataTableHead}>Mã dịch vụ</th>
-                                        <th className={styles.dataTableHead}>Tên dịch vụ</th>
-                                        <th className={styles.dataTableHead}>Thời gian</th>
-                                        <th className={styles.dataTableHead}>Giá</th>
-                                        <th className={styles.dataTableHead}>Hành động</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {selectedServices.map((service) => (
-                                        <tr key={service.priceline_id}>
-                                            <td className={styles.dataTableItem}>{service.service_code}</td>
-                                            <td className={styles.dataTableItem}>{service.service}</td>
-                                            <td className={styles.dataTableItem}>{service.time_required} phút</td>
-                                            <td className={styles.dataTableItem}>
-                                                {service.price.toLocaleString()} VNĐ
-                                            </td>
-                                            <td className={styles.dataTableIcon}>
-                                                <FaTrash
-                                                    style={{ color: 'red', cursor: 'pointer' }}
-                                                    variant="danger"
-                                                    onClick={() => handleServiceSelect(service)}
-                                                />
-                                            </td>
-                                        </tr>
-                                    ))}
-                                </tbody>
-                            </Table>
+                            <div>
+                                <h4 className="mt-4">Bảng dịch vụ được chọn </h4>
+                                <div className={styles.scroolSelect}>
+                                    <Table>
+                                        <thead>
+                                            <tr>
+                                                <th className={styles.dataTableHead}>Mã dịch vụ</th>
+                                                <th className={styles.dataTableHead}>Tên dịch vụ</th>
+                                                <th className={styles.dataTableHead}>Thời gian</th>
+                                                <th className={styles.dataTableHead}>Giá</th>
+                                                <th className={styles.dataTableHead}>Chọn</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {selectedServices.map((service) => (
+                                                <tr key={service.priceline_id}>
+                                                    <td className={styles.dataTableItem}>{service.service_code}</td>
+                                                    <td className={styles.dataTableItem}>{service.service}</td>
+                                                    <td className={styles.dataTableItem}>
+                                                        {service.time_required} phút
+                                                    </td>
+                                                    <td className={styles.dataTableItem}>
+                                                        {service.price.toLocaleString()} VNĐ
+                                                    </td>
+                                                    <td className={styles.dataTableIcon}>
+                                                        <FaTrash
+                                                            style={{ color: 'red', cursor: 'pointer' }}
+                                                            variant="danger"
+                                                            onClick={() => handleServiceSelect(service)}
+                                                        />
+                                                    </td>
+                                                </tr>
+                                            ))}
+                                        </tbody>
+                                    </Table>
+                                </div>
+                            </div>
                         )}
                     </Form.Group>
                     <div>

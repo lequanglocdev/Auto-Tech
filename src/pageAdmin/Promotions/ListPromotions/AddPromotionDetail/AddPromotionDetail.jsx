@@ -1,9 +1,9 @@
-import { createPromotionDetail, getRankApi } from '@/utils/api';
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Modal, Form } from 'react-bootstrap';
-import styles from './AddPromotionDetail.module.css';
-import icons from '@/utils/icon';
 import { toast } from 'react-toastify';
+import icons from '@/utils/icon';
+import styles from './AddPromotionDetail.module.css';
+import { createPromotionDetail, getRankApi } from '@/utils/api';
 
 const AddPromotionDetail = ({ show, promotionHeader, onHide, onSuccess }) => {
     const [applicableRanks, setApplicableRanks] = useState([]);
@@ -15,13 +15,12 @@ const AddPromotionDetail = ({ show, promotionHeader, onHide, onSuccess }) => {
     const [loading, setLoading] = useState(true);
     const { FaPlusCircle } = icons;
 
-    // Gọi API khi modal mở
     useEffect(() => {
         if (show) {
             const fetchInitialData = async () => {
                 try {
                     const ranksResponse = await getRankApi();
-                    setApplicableRanks(ranksResponse);
+                    setApplicableRanks(ranksResponse || []);
                 } catch (error) {
                     toast.error('Lỗi khi tải dữ liệu cấp bậc');
                 } finally {
@@ -38,45 +37,45 @@ const AddPromotionDetail = ({ show, promotionHeader, onHide, onSuccess }) => {
             toast.error('Không tìm thấy mã chương trình khuyến mãi');
             return;
         }
-    
+
+        setLoading(true);
         try {
-            await createPromotionDetail(
+            const newDetail = await createPromotionDetail(
                 promotionHeader._id,
-                vehicleTypeId,
-                serviceId,
+                vehicleTypeId || '',
+                serviceId || '',
                 applicableRankId,
                 discountValue,
-                minOrderValue
+                minOrderValue,
             );
-    
-            toast.success("Tạo chi tiết chương trình khuyến mãi thành công");
-    
-            // Lấy tên cấp bậc từ applicableRanks
-            const rank = applicableRanks.find(rank => rank._id === applicableRankId);
+
+            const rank = applicableRanks.find((rank) => rank._id === applicableRankId);
             const rankName = rank ? rank.rank_name : '';
-    
-            // Reset form và gọi hàm onSuccess để cập nhật giao diện
+
             setVehicleTypeId('');
             setServiceId('');
             setApplicableRankId('');
             setDiscountValue(0);
             setMinOrderValue(0);
+            toast.success('Thêm chi tiết khuyến mãi thành công');
             onHide();
-    
+
             if (onSuccess) {
                 onSuccess({
                     applicableRankId,
-                    applicableRankName: rankName, // Truyền tên cấp bậc
+                    applicableRankName: rankName,
                     discountValue,
                     minOrderValue,
                 });
             }
         } catch (error) {
+            console.error('Lỗi khi tạo chi tiết khuyến mãi:', error);
             toast.error('Lỗi khi tạo chi tiết khuyến mãi');
+        } finally {
+            setLoading(false);
         }
     };
-    
-    
+
     return (
         <Modal show={show} onHide={onHide} centered>
             <Modal.Header closeButton>
@@ -90,6 +89,7 @@ const AddPromotionDetail = ({ show, promotionHeader, onHide, onSuccess }) => {
                             size="lg"
                             value={applicableRankId}
                             onChange={(e) => setApplicableRankId(e.target.value)}
+                            required
                         >
                             <option value="">Chọn cấp bậc</option>
                             {applicableRanks.map((rank) => (
@@ -107,6 +107,7 @@ const AddPromotionDetail = ({ show, promotionHeader, onHide, onSuccess }) => {
                             type="number"
                             value={discountValue}
                             onChange={(e) => setDiscountValue(e.target.value)}
+                            required
                         />
                     </Form.Group>
 
@@ -117,11 +118,12 @@ const AddPromotionDetail = ({ show, promotionHeader, onHide, onSuccess }) => {
                             type="number"
                             value={minOrderValue}
                             onChange={(e) => setMinOrderValue(e.target.value)}
+                            required
                         />
                     </Form.Group>
 
-                    <button type="submit" className={styles.btnAdd}>
-                        <FaPlusCircle /> Thêm
+                    <button type="submit" className={styles.btnAdd} disabled={loading}>
+                        <FaPlusCircle /> {loading ? 'Đang thêm...' : 'Thêm'}
                     </button>
                 </Form>
             </Modal.Body>

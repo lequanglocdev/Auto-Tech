@@ -40,14 +40,14 @@ const CreateCar = () => {
 
         try {
             const response = await createCarApi(vehicleTypeName, description);
-            console.log('>>> API Response:', response);
+            // console.log('>>> API Response:', response);
             toast.success('Xe đã được thêm thành công!');
             setVehicleTypeName('');
             setDescription('');
             setErrors({ vehicleTypeName: '', description: '' }); // Reset lỗi
         } catch (error) {
-            if (error.response && error.response.data) {
-                const errorMsg = error.response.data.msg;
+            if (error.response && error.response?.data) {
+                const errorMsg = error.response?.data?.msg;
                 if (errorMsg === "Loại xe này đã tồn tại") {
                     toast.error('Loại xe này đã tồn tại!');
                 } else {

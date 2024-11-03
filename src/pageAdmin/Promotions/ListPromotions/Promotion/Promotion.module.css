@@ -1,0 +1,123 @@
+.searchPromotion{
+    margin-bottom: 40px;
+    margin-left: 40px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 40px;
+}
+.searchPromotion > div {
+    flex: 1;
+}
+.labelSearch{
+    font-size: 1.4rem;
+    font-weight: 500;
+    color: var(--text-third);
+}
+.tableHeadTh{
+    font-size: 1.4rem;
+    font-weight: bold;
+    color: var(--text-primary);
+    text-transform: uppercase;
+    background: linear-gradient(135deg, #48c6ef 0%, #6f86d6 100%);
+}
+
+.tableBodyTd{
+    font-size: 1.4rem;
+    font-weight: 500;
+    color: var(--text-third);
+
+}
+
+.tableHeadLineTh{
+    font-size: 1.3rem;
+    font-weight: bold;
+  
+    text-transform: uppercase;
+}
+
+.tableBodyLineTd{
+    font-size: 1.3rem;
+}
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 47px;
+    height: 19px;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: 0.2s;
+}
+
+.slider:before {
+    position: absolute;
+    content: '';
+    height: 12px;
+    width: 15px;
+    left: 2px;
+    bottom: 4px;
+    background-color: white;
+    transition: 0.2s;
+}
+
+input:checked + .slider {
+    background-color: #2196f3;
+}
+
+input:checked + .slider:before {
+    transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+    border-radius: 34px;
+}
+
+.slider.round:before {
+    border-radius: 50%;
+}
+
+.dataTableIcon {
+    display: flex;
+    /* justify-content: flex-end; */
+    align-items: center;
+    gap: 20px;
+}
+
+.tableIcon{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 20px;
+}
+
+.iconActionPen {
+    font-size: 1.6rem;
+    color: #2ecc71;
+}
+.iconActionTrash {
+    font-size: 1.6rem;
+    color: #e74c3c;
+}
+.iconActionEye{
+    font-size: 1.6rem;
+    color: #3498db;
+}
+.iconActionAdd{
+    font-size: 1.6rem;
+    color: #e67e22;
+}

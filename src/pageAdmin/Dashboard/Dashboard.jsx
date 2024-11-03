@@ -279,10 +279,10 @@ const Dashboard = () => {
                                             {slot.appointments.length > 0 ? (
                                                 <>
                                                     <p className={styles.slotBodyText}>
-                                                        Tên: {slot.appointments[0].customer_id.name}{' '}
+                                                        Tên: {slot.appointments[0]?.customer_id?.name}{' '}
                                                     </p>
                                                     <p className={styles.slotBodyText}>
-                                                        Số điện thoại: {slot.appointments[0].customer_id.phone_number}{' '}
+                                                        Số điện thoại: {slot.appointments[0]?.customer_id?.phone_number}{' '}
                                                     </p>
                                                 </>
                                             ) : (
@@ -360,13 +360,13 @@ const Dashboard = () => {
                                                 {new Date(appointment.appointment_datetime).toLocaleString()}
                                             </p>
                                             <p className={styles.appointmentResultsBodyText}>
-                                                Tên: {appointment.customer_id.name}
+                                                Tên: {appointment?.customer_id?.name}
                                             </p>
                                             <p className={styles.appointmentResultsBodyText}>
-                                                Số điện thoại: {appointment.customer_id.phone_number}
+                                                Số điện thoại: {appointment?.customer_id?.phone_number}
                                             </p>
                                             <p className={styles.appointmentResultsBodyText}>
-                                                Biển số xe: {appointment.vehicle_id.license_plate}
+                                                Biển số xe: {appointment?.vehicle_id?.license_plate}
                                             </p>
                                             {/* <div>
                                                 <Button  onClick={() => handleWatingView(appointment)}>Xem</Button>
@@ -396,12 +396,12 @@ const Dashboard = () => {
                                     <p className={styles.availableStatus}> {getStatusText(without.status)}</p>
                                 </div>
                                 <div className={styles.slotBody}>
-                                    <p className={styles.slotBodyText}>Tên: {without.customer_id.name}</p>
+                                    <p className={styles.slotBodyText}>Tên: {without?.customer_id?.name}</p>
                                     <p className={styles.slotBodyText}>
-                                        Thời gian đặt: {new Date(without.appointment_datetime).toLocaleString()}
+                                        Thời gian đặt: {new Date(without?.appointment_datetime).toLocaleString()}
                                     </p>
                                     <p className={styles.slotBodyText}>
-                                        Biển số xe: {without.vehicle_id.license_plate}
+                                        Biển số xe: {without?.vehicle_id?.license_plate}
                                     </p>
                                 </div>
                                 <div className={styles.slotCardFooter}>
@@ -483,7 +483,7 @@ const Dashboard = () => {
                                                     <p className={styles.InfoText}>Tên dịch vụ: {service?.name}</p>
                                                     <p className={styles.InfoText}>Mô tả: {service?.description}</p>
                                                     <p className={styles.InfoText}>
-                                                        Giá: {service.price.toLocaleString()} đ
+                                                        Giá: {service?.price.toLocaleString()} đ
                                                     </p>
                                                 </div>
                                             ))}

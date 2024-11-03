@@ -2,7 +2,6 @@ import { getAppointmentCompleted } from '@/utils/api';
 import React, { useEffect, useState } from 'react';
 import { Container, Row, Col, Spinner } from 'react-bootstrap';
 import AppointmentCard from './AppointmentCard/AppointmentCard';
-import SearchBar from './SearchBar/SearchBar';
 import styles from './AppointmentCompleted.module.css';
 import Breadcrumb from '@/components/UI/Breadcrumb/Breadcrumb';
 const AppointmentCompleted = () => {
@@ -34,7 +33,6 @@ const AppointmentCompleted = () => {
                 app._id === updatedAppointment._id ? updatedAppointment : app
             )
         );
-        // Cập nhật filteredAppointments nếu cần
         setFilteredAppointments((prevAppointments) =>
             prevAppointments.map((app) =>
                 app._id === updatedAppointment._id ? updatedAppointment : app
@@ -62,7 +60,6 @@ const AppointmentCompleted = () => {
                 />
             </div>
             <div  className={styles.appointmentBody}>
-                {/* <SearchBar onSearch={handleSearch} /> */}
                 <Row>
                     {filteredAppointments.map((appointment) => (
                         <Col key={appointment._id} xs={12} md={6} lg={4}>

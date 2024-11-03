@@ -1,16 +1,17 @@
+import TablePromotion from './TablePromotion/TablePromotion';
 import React, { useEffect, useState } from 'react';
 import styles from './ListPromotions.module.css';
 import Breadcrumb from '@/components/UI/Breadcrumb/Breadcrumb';
-import {  toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import { getPromotionApi } from '@/utils/api';
 import CommonButton from '@/components/UI/CommonButton/CommonButton ';
 import { useNavigate } from 'react-router-dom';
 import icons from '@/utils/icon';
 import { Spinner } from 'react-bootstrap';
-import TablePromotion from './TablePromotion/TablePromotion';
+import TestComponent from '@/pageAdmin/Promotions/ListPromotions/Promotion/Promotion';
 const ListsPromotions = () => {
     const navigate = useNavigate();
-    const [userData, setUserData] = useState([]);
+    const [userData, setPromotionData] = useState([]);
     const [loading, setLoading] = useState(true);
     const { FaPlusCircle } = icons;
     useEffect(() => {
@@ -18,7 +19,7 @@ const ListsPromotions = () => {
             try {
                 const response = await getPromotionApi();
                 console.log('dataTable', response);
-                setUserData(response);
+                setPromotionData(response);
                 setLoading(false);
             } catch (error) {
                 if (error.response && error.response.status === 401) {
@@ -34,7 +35,6 @@ const ListsPromotions = () => {
         fetchData();
     }, []);
 
-    
     const handleAddCustomer = () => {
         navigate('/addPromotion');
     };
@@ -64,8 +64,8 @@ const ListsPromotions = () => {
                 <div className={styles.listsPromotionButton}>
                     <CommonButton onClick={handleAddCustomer} icon={FaPlusCircle} label="Thêm" />
                 </div>
-                <TablePromotion data={userData} itemsPerPage={5} />
-              
+                {/* <TablePromotion data={userData} itemsPerPage={5} /> */}
+                <TestComponent />
             </div>
         </div>
     );

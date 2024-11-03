@@ -70,8 +70,8 @@ const AddVehicleModal = ({ show, onClose, customerId, onSave }) => {
             console.log('New Vehicle Info:', newVehicle);
             createVehicleApi(customerId, newVehicle)
                 .then((response) => {
-                    console.log('Vehicle added successfully:', response);
-                    const addedVehicle = response.vehicle; // Lấy xe mới từ response
+                    // console.log('Vehicle added successfully:', response);
+                    const addedVehicle = response?.vehicle; // Lấy xe mới từ response
                     onSave(addedVehicle);
                     onClose(); // Close the modal after saving
                 })
@@ -123,7 +123,7 @@ const AddVehicleModal = ({ show, onClose, customerId, onSave }) => {
                     </Form.Group>
 
                     <Form.Group className={styles.formGroup} controlId="manufacturer">
-                        <Form.Label className={styles.formLabel}>tên xe</Form.Label>
+                        <Form.Label className={styles.formLabel}>Tên xe</Form.Label>
                         <Form.Control
                             type="text"
                             placeholder="Nhập tên xe"

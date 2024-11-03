@@ -71,6 +71,7 @@ const SidebarAdmin = ({ isVisible, onSelectMenu }) => {
             icon: FaRegChartBar,
             path:'/statistical'
         },
+      
     ];
 
     const [openMenuIndex, setOpenMenuIndex] = useState(null);

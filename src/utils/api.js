@@ -145,7 +145,6 @@ const getPromotionDetaiApi = (promotion) => {
     return axios.get(URL_API);
 };
 
-
 const getPromotionDetaiHeaderLineDetailApi = (promotionId) => {
     const URL_API = `/api/promotions/${promotionId}/details`;
     return axios.get(URL_API);
@@ -199,23 +198,22 @@ const getPrintPayment = (invoiceId) => {
     return axios.get(URL_API, { responseType: 'blob' });
 };
 
-
 const getRevenueStatistics = (startDate, endDate) => {
     const URL_API = `/api/statistics/revenue?start_date=${startDate}&end_date=${endDate}`;
     return axios.get(URL_API);
 };
 
-const getStatisticAppointmentTotal = (month, year) => { 
+const getStatisticAppointmentTotal = (month, year) => {
     const URL_API = `/api/statistics/monthly?month=${month}&year=${year}`;
     return axios.get(URL_API);
 };
 
-const getExportStatistic = (startDate, endDate) => {  
+const getExportStatistic = (startDate, endDate) => {
     const URL_API = `/api/statistics/export?start_date=${startDate}&end_date=${endDate}`;
     return axios.get(URL_API, { responseType: 'arraybuffer' });
-}; 
+};
 
-const getExportStatisticMY = (year, month) => {  
+const getExportStatisticMY = (year, month) => {
     const URL_API = `/api/statistics/export2?year=${year}&month=${month}`;
     return axios.get(URL_API, { responseType: 'arraybuffer' });
 };
@@ -391,14 +389,14 @@ const createPromotionDetail = (
 
     return axios.post(URL_API, data);
 };
-const createAppointments = (slotId, vehicleId, serviceIds, appointmentDatetime,sumTime) => {
+const createAppointments = (slotId, vehicleId, serviceIds, appointmentDatetime, sumTime) => {
     const URL_API = `/api/appointments`;
     const data = {
         slot_id: slotId,
         vehicle_id: vehicleId,
         service_ids: serviceIds,
         appointment_datetime: appointmentDatetime,
-        sumTime:sumTime
+        sumTime: sumTime,
     };
 
     return axios.post(URL_API, data);
@@ -445,13 +443,13 @@ const createPaymentCustomer = (appointmentId, employeesId) => {
     return axios.post(URL_API, data);
 };
 
-const createPayment = (invoiceId) =>{
-    const URL_API = `/api/payments/create-payment-link/${invoiceId}`
+const createPayment = (invoiceId) => {
+    const URL_API = `/api/payments/create-payment-link/${invoiceId}`;
     const data = {
         invoiceId: invoiceId,
     };
     return axios.post(URL_API, data);
-}
+};
 
 const putEmployeeApi = (user) => {
     const URL_API = `/api/employees/${user._id}`;
@@ -493,10 +491,10 @@ const putPromotionLine = (promotion) => {
     return axios.put(URL_API, promotion);
 };
 
-const putPromotionDetail =(promotion) =>{
+const putPromotionDetail = (promotion) => {
     const URL_API = `/api/promotions/details/${promotion._id}`;
     return axios.put(URL_API, promotion);
-}
+};
 
 const putActivePromotion = (promotion) => {
     const URL_API = `/api/promotions/${promotion._id}/toggle-active`;
@@ -517,7 +515,6 @@ const putActivePromotionDetail = (promotion, isActive) => {
     const URL_API = `/api/promotions/details/${promotion}`;
     return axios.put(URL_API, { is_active: isActive });
 };
-
 
 const putPriceApi = (price) => {
     const URL_API = `/api/prices/${price._id}`;
@@ -548,6 +545,7 @@ const findPromotionApi = (query) => {
     const URL_API = `/api/promotions/search?${query}`;
     return axios.get(URL_API);
 };
+
 
 export {
     registerAdminApi,
@@ -632,5 +630,5 @@ export {
     putActivePromotionDetail,
     findCustomerApi,
     findPromotionApi,
-    getStatisticAppointmentTotal
+    getStatisticAppointmentTotal,
 };

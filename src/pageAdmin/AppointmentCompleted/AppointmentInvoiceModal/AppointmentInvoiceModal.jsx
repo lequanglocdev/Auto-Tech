@@ -1,5 +1,5 @@
 import React from 'react';
-import { Modal, Button, Table } from 'react-bootstrap';
+import { Modal, Table } from 'react-bootstrap';
 import styles from './AppointmentInvoiceModal.module.css';
 import { createPayment } from '@/utils/api';
 import { toast } from 'react-toastify';
