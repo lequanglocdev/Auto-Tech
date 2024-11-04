@@ -1,4 +1,4 @@
-.searchPromotion{
+.searchPromotion {
     margin-bottom: 40px;
     margin-left: 40px;
     display: flex;
@@ -9,12 +9,22 @@
 .searchPromotion > div {
     flex: 1;
 }
-.labelSearch{
+.tableWrapper {
+    width: 100%;
+   
+}
+.tableWrapperTb {
+    max-height: 400px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    cursor: pointer;
+}
+.labelSearch {
     font-size: 1.4rem;
     font-weight: 500;
     color: var(--text-third);
 }
-.tableHeadTh{
+.tableHeadTh {
     font-size: 1.4rem;
     font-weight: bold;
     color: var(--text-primary);
@@ -22,21 +32,20 @@
     background: linear-gradient(135deg, #48c6ef 0%, #6f86d6 100%);
 }
 
-.tableBodyTd{
+.tableBodyTd {
     font-size: 1.4rem;
     font-weight: 500;
     color: var(--text-third);
-
 }
 
-.tableHeadLineTh{
+.tableHeadLineTh {
     font-size: 1.3rem;
     font-weight: bold;
-  
+
     text-transform: uppercase;
 }
 
-.tableBodyLineTd{
+.tableBodyLineTd {
     font-size: 1.3rem;
 }
 .switch {
@@ -98,7 +107,7 @@ input:checked + .slider:before {
     gap: 20px;
 }
 
-.tableIcon{
+.tableIcon {
     display: flex;
     justify-content: flex-start;
     align-items: center;
@@ -113,11 +122,11 @@ input:checked + .slider:before {
     font-size: 1.6rem;
     color: #e74c3c;
 }
-.iconActionEye{
+.iconActionEye {
     font-size: 1.6rem;
     color: #3498db;
 }
-.iconActionAdd{
+.iconActionAdd {
     font-size: 1.6rem;
     color: #e67e22;
 }

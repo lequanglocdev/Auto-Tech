@@ -55,13 +55,12 @@ const EditPromotionDetailModal = ({ show, onHide, detail, onSave }) => {
                 min_order_value: minOrderValue,
             };
             await putPromotionDetail(updatedDetail);
-            onSave(updatedDetail); // Cập nhật danh sách sau khi lưu
+            onSave(updatedDetail); // Pass updated detail to the parent component
             onHide(); // Close modal after successful update
         } catch (error) {
             console.error('Error updating promotion detail:', error);
         }
     };
-
     return (
         <Modal show={show} onHide={onHide} centered>
             <Modal.Header closeButton>

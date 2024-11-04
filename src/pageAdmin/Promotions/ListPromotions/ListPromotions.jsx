@@ -1,4 +1,3 @@
-import TablePromotion from './TablePromotion/TablePromotion';
 import React, { useEffect, useState } from 'react';
 import styles from './ListPromotions.module.css';
 import Breadcrumb from '@/components/UI/Breadcrumb/Breadcrumb';

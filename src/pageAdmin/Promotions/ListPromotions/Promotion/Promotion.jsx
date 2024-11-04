@@ -53,7 +53,9 @@ const TestComponent = () => {
     const [editPromotionDetailModalShow, setEditPromotionDetailModalShow] = useState(false);
     const [confirmDeletePromotionDetailModalShow, setconfirmDeletePromotionDetailModalShow] = useState(false);
     const [addPromotionDetailModalShow, setAddPromotionDetailModalShow] = useState(false);
+    const [promotionDetails, setPromotionDetails] = useState([]);
     // Hàm gọi API để lấy dữ liệu khuyến mãi
+
     const fetchPromotions = async () => {
         try {
             const response = await getPromotionApi(); // Thay đổi đường dẫn API nếu cần
@@ -75,21 +77,17 @@ const TestComponent = () => {
     useEffect(() => {
         console.log('Dữ liệu promotions đã được cập nhật:', promotions);
     }, [promotions]); // Theo dõi sự thay đổi của promotions
-    // Hàm để toggle trạng thái mở/đóng của từng dòng ở mỗi cấp
+
     const toggleHeader = async (headerId) => {
         if (!openHeaders[headerId]) {
             // Nếu header chưa mở, gọi API để lấy dữ liệu
             try {
                 const response = await getPromotionDetaiHeaderLineDetailApi(headerId);
-                // const data = response; // Dữ liệu trả về
-                // Thêm dữ liệu promotionLines vào state hoặc một state mới
-
-                // console.log('Dữ liệu từ API:', data);
 
                 setPromotions((prevPromotions) => {
                     return prevPromotions.map((header) => {
                         if (header?._id === headerId) {
-                            return { ...header, lines: response.promotionLines }; // Cập nhật lines
+                            return { ...header, lines: response.promotionLines };
                         }
                         return header;
                     });
@@ -376,9 +374,20 @@ const TestComponent = () => {
     const handleUpdatePromotionDetail = async (updatedDetail) => {
         try {
             await putPromotionDetail(updatedDetail);
-            setPromotions((prevDetails) =>
-                prevDetails.map((detail) => (detail._id === updatedDetail._id ? updatedDetail : detail)),
+
+            // Update the promotion detail in state
+            setPromotions((prevPromotions) =>
+                prevPromotions.map((header) => ({
+                    ...header,
+                    lines: header.lines.map((line) => ({
+                        ...line,
+                        promotionDetails: line.promotionDetails.map((detail) =>
+                            detail._id === updatedDetail._id ? updatedDetail : detail,
+                        ),
+                    })),
+                })),
             );
+
             toast.success('Cập nhật chương trình khuyến mãi thành công');
             setEditPromotionDetailModalShow(false);
         } catch (error) {
@@ -393,37 +402,63 @@ const TestComponent = () => {
 
     const handleConfirmDeleteDetail = async () => {
         try {
-            await deletePromotionDetailApi(selectedPromotionDetail); // Gọi API với ID đã lưu
-            setPromotions((prevDetails) => prevDetails.filter((detail) => detail._id !== selectedPromotionDetail));
+            await deletePromotionDetailApi(selectedPromotionDetail);
+
+            // Remove the promotion detail from state
+            setPromotions((prevPromotions) =>
+                prevPromotions.map((header) => ({
+                    ...header,
+                    lines: header.lines.map((line) => ({
+                        ...line,
+                        promotionDetails: line.promotionDetails.filter(
+                            (detail) => detail._id !== selectedPromotionDetail,
+                        ),
+                    })),
+                })),
+            );
+
             toast.success('Xóa chi tiết chương trình khuyến mãi thành công');
-            setconfirmDeletePromotionDetailModalShow(false); // Đóng modal
+            setconfirmDeletePromotionDetailModalShow(false);
         } catch (error) {
             console.error('Xóa thất bại', error);
         }
     };
 
-    const handleAddPromotionDetail = (promotionLine) => {
-        setAddPromotionDetailModalShow(true);
-        setSelectedPromotionLine(promotionLine);
+    const handleAddPromotionDetail = (line) => {
+        console.log('Selected Promotion Line:', selectedPromotionLine);
+        setSelectedPromotionLine(line); // Chọn dòng khuyến mãi để thêm chi tiết
+        setAddPromotionDetailModalShow(true); // Hiện modal
     };
 
-    // Hàm này sẽ được gọi khi thêm chi tiết mới thành công
     const handleAddSuccess = (newDetail) => {
+        console.log('Adding new detail:', newDetail);
+
+        // Cập nhật selectedPromotionLine
+        setSelectedPromotionLine((prevLine) => ({
+            ...prevLine,
+            details: [...(prevLine.details || []), newDetail.promotionDetail],
+        }));
+
+        // Cập nhật promotions
         setPromotions((prevPromotions) => {
             return prevPromotions.map((header) => {
-                // Kiểm tra xem header hiện tại có khớp với promotionHeader hay không
-                if (header._id === selectedPromotionLine._id) {
+                if (header._id === selectedPromotionLine.promotion_header_id) {
                     return {
                         ...header,
-                        lines: [...header.lines, newDetail], // Thêm chi tiết mới vào danh sách lines
+                        lines: header.lines.map((line) => {
+                            if (line._id === selectedPromotionLine._id) {
+                                return {
+                                    ...line,
+                                    promotionDetails: [...(line.promotionDetails || []), newDetail.promotionDetail],
+                                };
+                            }
+                            return line;
+                        }),
                     };
                 }
-                return header; // Trả về header gốc nếu không có thay đổi
+                return header;
             });
         });
-
-        toast.success('Thêm chi tiết khuyến mãi thành công'); // Thông báo thành công
-        setAddPromotionDetailModalShow(false); // Đóng modal sau khi thêm thành công
     };
 
     const [searchCode, setSearchCode] = useState('');
@@ -449,7 +484,7 @@ const TestComponent = () => {
                     <Form.Control size="lg" type="text" onChange={(e) => setSearchCode(e.target.value)} />
                 </div>
                 <div>
-                    <Form.Label className={styles.labelSearch} >Trạng thái</Form.Label>
+                    <Form.Label className={styles.labelSearch}>Trạng thái</Form.Label>
                     <Form.Select
                         size="lg"
                         value={isActive ? 'active' : 'inactive'}
@@ -472,8 +507,8 @@ const TestComponent = () => {
                     <Form.Control size="lg" type="date" onChange={(e) => setEndDate(e.target.value)} />
                 </div>
             </div>
-            <div style={{ maxHeight: '400px', overflowY: 'auto', overflowX: 'hidden' }}>
-                <table border="1" cellPadding="10" cellSpacing="0" style={{ width: '100%' }}>
+            <div className={styles.tableWrapperTb}>
+                <table border="1" cellPadding="10" cellSpacing="0" className={styles.tableWrapper}>
                     <thead>
                         <tr>
                             <th className={styles.tableHeadTh}>Mã khuyến mãi</th>
@@ -503,9 +538,7 @@ const TestComponent = () => {
                                         {new Date(header?.end_date).toLocaleDateString()}
                                     </td>
                                     <td className={styles.tableBodyTd}>
-                                        {/* {header?.is_active === 'true' ? 'hoạt động' : 'Ngừng hoạt động'} */}
                                         <div onClick={(e) => e.stopPropagation()}>
-                                            {/* Ngăn chặn sự kiện click lan ra ngoài */}
                                             <label className={styles.switch}>
                                                 <input
                                                     type="checkbox"
@@ -708,12 +741,12 @@ const TestComponent = () => {
                                                                                         </tr>
                                                                                     </thead>
                                                                                     <tbody>
-                                                                                        {line.promotionDetails.map(
+                                                                                        {line?.promotionDetails?.map(
                                                                                             (
                                                                                                 detail, // Sử dụng promotionDetails
                                                                                             ) => (
                                                                                                 <tr
-                                                                                                    key={detail?._id}
+                                                                                                    key={detail._id}
                                                                                                     style={{
                                                                                                         backgroundColor:
                                                                                                             '#f9f9f9',
@@ -724,7 +757,9 @@ const TestComponent = () => {
                                                                                                             styles.tableBodyLineTd
                                                                                                         }
                                                                                                     >
-                                                                                                        {detail?.applicableRankName ||
+                                                                                                        {detail
+                                                                                                            ?.applicable_rank_id
+                                                                                                            ?.rank_name ||
                                                                                                             'Không có cấp bậc'}
                                                                                                     </td>
                                                                                                     <td
@@ -885,7 +920,7 @@ const TestComponent = () => {
                 show={addPromotionDetailModalShow}
                 onHide={() => setAddPromotionDetailModalShow(false)}
                 promotionHeader={selectedPromotionLine}
-                onSuccess={handleAddSuccess}
+                onSuccess={handleAddSuccess} // Đảm bảo hàm này được gọi khi thêm thành công
             />
             <EditPromotionDetailModal
                 show={editPromotionDetailModalShow}

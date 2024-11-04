@@ -48,7 +48,7 @@ const AddPromotionDetail = ({ show, promotionHeader, onHide, onSuccess }) => {
                 discountValue,
                 minOrderValue,
             );
-
+            console.log("Kết quả từ API createPromotionDetail:", newDetail);
             const rank = applicableRanks.find((rank) => rank._id === applicableRankId);
             const rankName = rank ? rank.rank_name : '';
 
@@ -57,15 +57,14 @@ const AddPromotionDetail = ({ show, promotionHeader, onHide, onSuccess }) => {
             setApplicableRankId('');
             setDiscountValue(0);
             setMinOrderValue(0);
-            toast.success('Thêm chi tiết khuyến mãi thành công');
             onHide();
 
             if (onSuccess) {
+                console.log("Calling onSuccess with:", { ...newDetail, applicableRankName: rankName });
                 onSuccess({
+                    ...newDetail,
                     applicableRankId,
                     applicableRankName: rankName,
-                    discountValue,
-                    minOrderValue,
                 });
             }
         } catch (error) {
