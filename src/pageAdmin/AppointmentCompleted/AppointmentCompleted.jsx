@@ -14,6 +14,7 @@ const AppointmentCompleted = () => {
             try {
                 const response = await getAppointmentCompleted();
                 // Sắp xếp các cuộc hẹn theo thời gian, mới nhất trước
+                console.log("clg",response)
                 const sortedAppointments = response.sort(
                     (a, b) => new Date(b.appointment_datetime) - new Date(a.appointment_datetime),
                 );

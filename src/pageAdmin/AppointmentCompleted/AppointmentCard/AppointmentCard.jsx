@@ -85,7 +85,7 @@ const AppointmentCard = ({ appointment, updateAppointment, isLatest }) => {
 
     return (
         <div className={styles.appointmentCard}>
-            {isLatest && <div className={styles.newestLabel}>Gần đây</div>}
+            {/* {isLatest && <div className={styles.newestLabel}>Gần đây</div>} */}
             <div className={styles.appointmentCardHeader}>
                 <h5>{appointment.status ? 'Hoàn thành' : 'Chưa hoàn thành'}</h5>
                 <h5>Thời gian đặt lịch: {new Date(appointment?.appointment_datetime).toLocaleString()}</h5>
@@ -135,7 +135,7 @@ const AppointmentCard = ({ appointment, updateAppointment, isLatest }) => {
                         <button className={styles.accordionBtnPrint} onClick={handlePrint}>
                             In hóa đơn
                         </button>
-                        <button className={styles.accordionBtnPrint} onClick={() => setShowRefundModal(true)}>
+                        <button className={styles.accordionBtnReturn} onClick={() => setShowRefundModal(true)}>
                             Trả hóa đơn
                         </button>
                     </div>
