@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import {
     createAppointmentCustomer,
     createAppointmentsAddWithoutSlot,
+    deleteAppointmentsApi,
     getAppointmentCompleted,
     getAppointmentsDetailApi,
     getAppointmentsforDate,
@@ -16,6 +17,7 @@ import BookedModal from './BookedModal/BookedModal';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 import { getCurrentDate } from '@/utils/dateTime';
+import ConfirmCancelModal from './ConfirmCancelModal/ConfirmCancelModal';
 const Dashboard = () => {
     const navigate = useNavigate();
     const [loading, setLoading] = useState(true);
@@ -33,6 +35,9 @@ const Dashboard = () => {
 
     const [appointmentDetail, setAppointmentDetail] = useState(null);
     const [showModal, setShowModal] = useState(false);
+
+    const [showCancelModal, setShowCancelModal] = useState(false);
+    const [selectedAppointmentId, setSelectedAppointmentId] = useState(null);
 
     const statusMapping = {
         scheduled: 'Đã lên lịch hẹn',
@@ -189,8 +194,7 @@ const Dashboard = () => {
             console.error('Lỗi khi lấy chi tiết appointment:', error);
         }
     };
-    
-    
+
     const handleConfirm = async (slot) => {
         console.log('Thông tin slot được xác nhận:', slot);
 
@@ -217,6 +221,45 @@ const Dashboard = () => {
             console.log('Không có appointment nào cho slot này.');
         }
     };
+
+    const handleServiceCancel = (without) => {
+        setSelectedAppointmentId(without._id);
+        setShowCancelModal(true);
+    };
+
+    const handleConfirmDelete = () => {
+        console.log('Xác nhận xóa được gọi', selectedAppointmentId); // Kiểm tra giá trị ID
+        if (selectedAppointmentId) {
+            deleteAppointmentsApi(selectedAppointmentId)
+                .then((response) => {
+                    console.log('Lịch hẹn đã được hủy thành công:', response);
+                    setWithoutSlot(withoutSlot.filter((item) => item.slot_id !== selectedAppointmentId));
+                    setShowCancelModal(false);
+                    // Hiển thị thông báo thành công
+                    toast.success('Lịch hẹn đã được hủy thành công.');
+                })
+                .catch((error) => {
+                    // Kiểm tra lỗi và hiển thị thông báo lỗi
+                    if (error.response) {
+                        // Có phản hồi từ máy chủ
+                        console.error('Lỗi khi hủy lịch hẹn:', error.response.data.msg);
+                        toast.error(`Lỗi: ${error.response.data.msg}`); // Hiển thị thông báo lỗi
+                    } else if (error.request) {
+                        // Không có phản hồi từ máy chủ
+                        console.error('Không có phản hồi từ máy chủ:', error.request);
+                        toast.error('Lỗi: Không có phản hồi từ máy chủ.');
+                    } else {
+                        // Lỗi khác
+                        console.error('Lỗi:', error.message);
+                        toast.error(`Lỗi: ${error.message}`);
+                    }
+                });
+        } else {
+            console.error('Không có ID lịch hẹn nào được chọn để xóa.');
+            toast.error('Không có ID lịch hẹn nào được chọn để xóa.');
+        }
+    };
+    
     if (loading) {
         return (
             <div style={{ display: 'flex', justifyContent: 'center' }}>
@@ -392,7 +435,7 @@ const Dashboard = () => {
                         {withoutSlot.map((without) => (
                             <div className={styles.wrapperSlot} key={without.slot_id}>
                                 <div className={styles.slotHeader}>
-                                    <p className={styles.slotCardHeaderTextLeft}>Xác nhận lịch hẹn</p>
+                                    <p className={styles.slotCardHeaderTextLeft}>Lịch hẹn khách hàng</p>
                                     <p className={styles.availableStatus}> {getStatusText(without.status)}</p>
                                 </div>
                                 <div className={styles.slotBody}>
@@ -411,12 +454,12 @@ const Dashboard = () => {
                                     >
                                         <span>Xác nhận</span>
                                     </div>
-                                    {/* <div
-                                        className={styles.slotCardFooterBook}
-                                       
+                                    <div
+                                        className={styles.slotCardFooterDelete}
+                                        onClick={() => handleServiceCancel(without)}
                                     >
-                                        <span>Xem</span>
-                                    </div> */}
+                                        <span>Hủy lịch hẹn</span>
+                                    </div>
                                 </div>
                             </div>
                         ))}
@@ -435,6 +478,7 @@ const Dashboard = () => {
                 handleClose={handleCloseModalBooked}
                 slotId={selectedSlotId}
             />
+
             {showModal && (
                 <Modal centered show={showModal} onHide={() => setShowModal(false)}>
                     <Modal.Header closeButton>
@@ -508,6 +552,13 @@ const Dashboard = () => {
                     </Modal.Body>
                 </Modal>
             )}
+
+            <ConfirmCancelModal
+                show={showCancelModal}
+                onHide={() => setShowCancelModal(false)}
+                onConfirm={handleConfirmDelete}
+            />
+           
         </div>
     );
 };

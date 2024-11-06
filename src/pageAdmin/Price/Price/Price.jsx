@@ -265,16 +265,8 @@ const Price = ({ data = [] }) => {
                 <Table className={styles.tableHeader}>
                     <thead>
                         <tr>
-                            <th className={styles.dataTableHead}></th>
-                            <th className={styles.dataTableHead}></th>
-                            <th className={styles.dataTableHead}></th>
                             <th className={styles.dataTableHead}>Tên bảng giá </th>
-                            <th className={styles.dataTableHead}></th>
-                            <th className={styles.dataTableHead}></th>
-                            <th className={styles.dataTableHead}></th>
-                            <th className={styles.dataTableHead}></th>
                             <th className={styles.dataTableHead}>Ngày bắt đầu</th>
-
                             <th className={styles.dataTableHead}>Ngày kết thúc</th>
                             <th className={styles.dataTableHead}>Trạng thái</th>
                             <th className={styles.dataTableHead}>Tác vụ</th>
@@ -294,13 +286,6 @@ const Price = ({ data = [] }) => {
                                         <td className={styles.dataTablepriceDataHeader}>
                                             {priceDataHeader.price_list_name}
                                         </td>
-                                        <td className={styles.dataTablepriceDataHeader}></td>
-                                        <td className={styles.dataTablepriceDataHeader}></td>
-                                        <td className={styles.dataTablepriceDataHeader}></td>
-                                        <td className={styles.dataTablepriceDataHeader}></td>
-                                        <td className={styles.dataTablepriceDataHeader}></td>
-                                        <td className={styles.dataTablepriceDataHeader}></td>
-
                                         <td className={styles.dataTablepriceDataHeader}>
                                             {new Date(priceDataHeader.start_date).toLocaleString('vi-VN', {
                                                 year: 'numeric',
@@ -308,18 +293,6 @@ const Price = ({ data = [] }) => {
                                                 day: '2-digit',
                                             })}
                                         </td>
-
-                                        <td className={styles.dataTablepriceDataHeader}></td>
-                                        <td className={styles.dataTablepriceDataHeader}></td>
-                                        <td className={styles.dataTablepriceDataHeader}></td>
-                                        <td className={styles.dataTablepriceDataHeader}></td>
-                                        <td className={styles.dataTablepriceDataHeader}></td>
-                                        <td className={styles.dataTablepriceDataHeader}></td>
-                                        <td className={styles.dataTablepriceDataHeader}></td>
-                                        <td className={styles.dataTablepriceDataHeader}></td>
-                                        <td className={styles.dataTablepriceDataHeader}></td>
-                                        <td className={styles.dataTablepriceDataHeader}></td>
-                                        <td className={styles.dataTablepriceDataHeader}></td>
                                         <td className={styles.dataTablepriceDataHeader}>
                                             {new Date(priceDataHeader.end_date).toLocaleString('vi-VN', {
                                                 year: 'numeric',
@@ -327,20 +300,7 @@ const Price = ({ data = [] }) => {
                                                 day: '2-digit',
                                             })}
                                         </td>
-                                        <td className={styles.dataTablepriceDataHeader}></td>
-                                        <td className={styles.dataTablepriceDataHeader}></td>
-                                        <td className={styles.dataTablepriceDataHeader}></td>
-                                        <td className={styles.dataTablepriceDataHeader}></td>
-                                        <td className={styles.dataTablepriceDataHeader}></td>
-                                        <td className={styles.dataTablepriceDataHeader}></td>
-                                        <td className={styles.dataTablepriceDataHeader}></td>
-                                        <td className={styles.dataTablepriceDataHeader}></td>
-                                        <td className={styles.dataTablepriceDataHeader}></td>
-                                        <td className={styles.dataTablepriceDataHeader}></td>
-                                        <td className={styles.dataTablepriceDataHeader}></td>
-                                        <td className={styles.dataTablepriceDataHeader}></td>
-                                        <td className={styles.dataTablepriceDataHeader}></td>
-                                        <td className={styles.dataTablepriceDataHeader}></td>
+
                                         <td className={styles.dataTablepriceDataHeader}>
                                             <label className={styles.switch}>
                                                 <input
@@ -356,12 +316,7 @@ const Price = ({ data = [] }) => {
                                                 <span className={`${styles.slider} ${styles.round}`}></span>
                                             </label>
                                         </td>
-                                        <td className={styles.dataTablepriceDataHeader}></td>
-                                        <td className={styles.dataTablepriceDataHeader}></td>
-                                        <td className={styles.dataTablepriceDataHeader}></td>
-                                        <td className={styles.dataTablepriceDataHeader}></td>
-                                        <td className={styles.dataTablepriceDataHeader}></td>
-                                        <td className={styles.dataTablepriceDataHeader}></td>
+
                                         <td className={styles.dataTablepriceDataHeader}>
                                             <div className={styles.dataTableIcon}>
                                                 <FaPen

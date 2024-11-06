@@ -53,30 +53,25 @@ const TestComponent = () => {
     const [editPromotionDetailModalShow, setEditPromotionDetailModalShow] = useState(false);
     const [confirmDeletePromotionDetailModalShow, setconfirmDeletePromotionDetailModalShow] = useState(false);
     const [addPromotionDetailModalShow, setAddPromotionDetailModalShow] = useState(false);
-    const [promotionDetails, setPromotionDetails] = useState([]);
     // Hàm gọi API để lấy dữ liệu khuyến mãi
 
-    const fetchPromotions = async () => {
-        try {
-            const response = await getPromotionApi(); // Thay đổi đường dẫn API nếu cần
-            const promotionsWithLines = response.map((header) => ({
-                ...header,
-                lines: header.lines || [], // Nếu không có lines, khởi tạo thành mảng rỗng
-            }));
-            setPromotions(promotionsWithLines);
-            setActiveStatusHeader(promotionsWithLines.map((item) => item?.is_active || false)); // Cập nhật trạng thái ban đầu
-        } catch (error) {
-            console.error('Error fetching promotions:', error);
-        }
-    };
-
-    // Gọi API khi component được mount
     useEffect(() => {
+        const fetchPromotions = async () => {
+            try {
+                const response = await getPromotionApi(); // Thay đổi đường dẫn API nếu cần
+                const promotionsWithLines = response.map((header) => ({
+                    ...header,
+                    lines: header.lines || [], // Nếu không có lines, khởi tạo thành mảng rỗng
+                }));
+                setPromotions(promotionsWithLines);
+                setActiveStatusHeader(promotionsWithLines.map((item) => item?.is_active || false)); // Cập nhật trạng thái ban đầu
+            } catch (error) {
+                console.error('Error fetching promotions:', error);
+            }
+        };
+    
         fetchPromotions();
     }, []);
-    useEffect(() => {
-        console.log('Dữ liệu promotions đã được cập nhật:', promotions);
-    }, [promotions]); // Theo dõi sự thay đổi của promotions
 
     const toggleHeader = async (headerId) => {
         if (!openHeaders[headerId]) {

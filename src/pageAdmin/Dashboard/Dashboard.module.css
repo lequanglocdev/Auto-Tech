@@ -154,6 +154,10 @@
     border-bottom-left-radius: 4px;
 }
 
+.slotCardFooterDelete:hover {
+    background-color: #ee4f3d;
+}
+
 .calendar {
     display: flex;
     justify-content: center;

@@ -20,8 +20,6 @@ import { CreatePrice, ListsPrice, ListDetailPrice } from '@/pageAdmin/Price/inde
 import CustomerDetailPage from '@/pageAdmin/CustomerDetail/CustomerDetailPage';
 import PriceDetailPage from '@/pageAdmin/PriceDetail/PriceDetailPage';
 import EmployeesDetail from '@/pageAdmin/EmployeesDetail/EmployeesDetail';
-import PromotionLine from '@/pageAdmin/PromotionLine/ListPromotionLine/PromotionLine';
-import PromotionDetail from '@/pageAdmin/PromotionDetail/PromotionDetail';
 import AppointmentCompleted from '@/pageAdmin/AppointmentCompleted/AppointmentCompleted';
 import Invoice from '@/pageAdmin/Invoice/Invoice';
 import Statistical from '@/pageAdmin/Statistical/Statistical';
@@ -62,8 +60,7 @@ export const privateRoute = [
 
     { path: '/promotion', component: ListsPromotion },
     { path: '/addPromotion', component: CreatePromotion },
-    { path: '/promotion/:id', component: PromotionLine },
-    { path: '/promotions/:id', component: PromotionDetail },
+
 
     { path: '/appointments/completed', component: AppointmentCompleted },
 

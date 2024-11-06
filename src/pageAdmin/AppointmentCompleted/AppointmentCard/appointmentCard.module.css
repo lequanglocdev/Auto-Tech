@@ -11,8 +11,17 @@
   margin-bottom: 20px;
   margin-top: 20px;
   border: 4px;
+  border-radius: 6px;
+  
 }
-
+.newestLabel{
+  width: 100px;
+  height: 20px;
+  background-color: #e74c3c;
+  color: #fff;
+  font-size: 1.3rem;
+  font-weight: bold;
+}
 .accordionBtn{
   border-radius: 6px;
   border: none;
@@ -70,6 +79,13 @@
   margin-top: 10px;
 }
 
+.appointment{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+}
+
 .accordionBtnPrint{
   border-radius: 6px;
   border: none;
@@ -84,4 +100,23 @@
 
 .accordionBtnPrint:hover{
   background: linear-gradient(45deg, #2196F3, #00BCD4);
+}
+
+.customerTitle {
+  font-size: 1.8rem !important;
+  color: #e74c3c !important;
+}
+
+.customerLabel {
+  font-size: 1.6rem !important;
+}
+
+.customerBtn {  
+  width: 100px;
+  height: 34px;
+  font-size: 1.6rem !important;
+}
+
+.formText{
+  font-size: 1.4rem;
 }

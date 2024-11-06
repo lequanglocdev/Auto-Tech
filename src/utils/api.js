@@ -278,6 +278,11 @@ const deletePriceDetailApi = (price) => {
     return axios.delete(URL_API);
 };
 
+const deleteAppointmentsApi = (appointmentId) => {
+    const URL_API = `/api/appointments/${appointmentId}`;
+    return axios.delete(URL_API);
+};
+
 const createCarApi = (vehicleTypeName, description) => {
     const URL_API = '/api/vehicle-types';
     const data = {
@@ -451,6 +456,16 @@ const createPayment = (invoiceId) => {
     return axios.post(URL_API, data);
 };
 
+const returnPayment = (invoiceId, note) => {
+    const URL_API = `/api/payments/refundInvoice`;
+    const data = {
+        invoiceId: invoiceId,
+        note: note
+    };
+    return axios.post(URL_API, data);
+};
+
+
 const putEmployeeApi = (user) => {
     const URL_API = `/api/employees/${user._id}`;
     return axios.put(URL_API, user);
@@ -546,7 +561,6 @@ const findPromotionApi = (query) => {
     return axios.get(URL_API);
 };
 
-
 export {
     registerAdminApi,
     loginAdminApi,
@@ -594,6 +608,7 @@ export {
     deletePromotionHeaderApi,
     deletePriceDetailApi,
     deletePromotionDetailApi,
+    deleteAppointmentsApi,
     verifyOtpApi,
     createCarApi,
     createServicesApi,
@@ -611,6 +626,7 @@ export {
     createAppointmentsAddWithoutSlot,
     createPaymentCustomer,
     createPayment,
+    returnPayment,
     putEmployeeApi,
     putCustomerApi,
     putCustomerRankApi,

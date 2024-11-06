@@ -63,7 +63,6 @@ const ListsPromotions = () => {
                 <div className={styles.listsPromotionButton}>
                     <CommonButton onClick={handleAddCustomer} icon={FaPlusCircle} label="Thêm" />
                 </div>
-                {/* <TablePromotion data={userData} itemsPerPage={5} /> */}
                 <TestComponent />
             </div>
         </div>
