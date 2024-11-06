@@ -135,9 +135,9 @@ const AppointmentCard = ({ appointment, updateAppointment, isLatest }) => {
                         <button className={styles.accordionBtnPrint} onClick={handlePrint}>
                             In hóa đơn
                         </button>
-                        <button className={styles.accordionBtnReturn} onClick={() => setShowRefundModal(true)}>
+                        {/* <button className={styles.accordionBtnReturn} onClick={() => setShowRefundModal(true)}>
                             Trả hóa đơn
-                        </button>
+                        </button> */}
                     </div>
                 )}
             </div>

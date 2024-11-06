@@ -12,15 +12,23 @@
   margin-top: 20px;
   border: 4px;
   border-radius: 6px;
+  position: relative;
   
 }
 .newestLabel{
+  position: absolute;
+  top: 10px; /* Điều chỉnh giá trị này để thay đổi khoảng cách so với cạnh trên của appointmentCard */
+  right: 10px; /* Điều chỉnh giá trị này để thay đổi khoảng cách so với cạnh phải của appointmentCard */
   width: 100px;
   height: 20px;
   background-color: #e74c3c;
   color: #fff;
   font-size: 1.3rem;
   font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 5px; /* Thêm bo tròn góc nếu cần */
 }
 .accordionBtn{
   border-radius: 6px;
