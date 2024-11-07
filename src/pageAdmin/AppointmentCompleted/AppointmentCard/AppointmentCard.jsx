@@ -135,9 +135,9 @@ const AppointmentCard = ({ appointment, updateAppointment, isLatest }) => {
                         <button className={styles.accordionBtnPrint} onClick={handlePrint}>
                             In hóa đơn
                         </button>
-                        {/* <button className={styles.accordionBtnReturn} onClick={() => setShowRefundModal(true)}>
+                        <button className={styles.accordionBtnReturn} onClick={() => setShowRefundModal(true)}>
                             Trả hóa đơn
-                        </button> */}
+                        </button>
                     </div>
                 )}
             </div>
@@ -157,7 +157,7 @@ const AppointmentCard = ({ appointment, updateAppointment, isLatest }) => {
                 </Modal.Header>
                 <Modal.Body className={styles.customerLabel}>
                   
-                    <Form.Control as="textarea" className={styles.formText}  placeholder="Nhập lý do..." rows={3} onChange={(e) => setRefundNote(e.target.value)} />
+                    <Form.Control size='lg' as="textarea" className={styles.formText}  placeholder="Nhập lý do..." rows={3} onChange={(e) => setRefundNote(e.target.value)} />
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="danger" className={styles.customerBtn} onClick={handlePayBill}>

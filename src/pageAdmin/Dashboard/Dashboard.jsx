@@ -18,6 +18,7 @@ import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 import { getCurrentDate } from '@/utils/dateTime';
 import ConfirmCancelModal from './ConfirmCancelModal/ConfirmCancelModal';
+import ProgressModal from './ProgressModal/ProgressModal';
 const Dashboard = () => {
     const navigate = useNavigate();
     const [loading, setLoading] = useState(true);
@@ -30,6 +31,8 @@ const Dashboard = () => {
 
     const [showModalBookedWait, setShowModalBookedWait] = useState(false);
     const [showModalBooked, setShowModalBooked] = useState(false);
+
+    const [showModalProgress, setShowModalProgress] = useState(false);
 
     const [searchDate, setSearchDate] = useState(getCurrentDate());
 
@@ -98,6 +101,7 @@ const Dashboard = () => {
 
     const handleShowModalBookedWait = () => setShowModalBookedWait(true);
     const handleCloseModalBookedWait = () => setShowModalBookedWait(false);
+    const handleCloseModalProgress = () => setShowModalProgress(false);
 
     const updateWithoutSlot = async () => {
         try {
@@ -259,7 +263,7 @@ const Dashboard = () => {
             toast.error('Không có ID lịch hẹn nào được chọn để xóa.');
         }
     };
-    
+
     if (loading) {
         return (
             <div style={{ display: 'flex', justifyContent: 'center' }}>
@@ -479,86 +483,13 @@ const Dashboard = () => {
                 slotId={selectedSlotId}
             />
 
-            {showModal && (
-                <Modal centered show={showModal} onHide={() => setShowModal(false)}>
-                    <Modal.Header closeButton>
-                        <Modal.Title className={styles.customerTitle}>Thông tin chi tiết cuộc hẹn</Modal.Title>
-                    </Modal.Header>
-                    <Modal.Body>
-                        {appointmentDetail ? (
-                            <div>
-                                <div className={styles.InfoCustomer}>
-                                    <div>
-                                        <h4 className={styles.InfoHeading}>Thông tin khách hàng</h4>
-                                        <p className={styles.InfoText}>Tên: {appointmentDetail?.customer_id?.name}</p>
-                                        <p className={styles.InfoText}>
-                                            Số điện thoại: {appointmentDetail?.customer_id?.phone_number}
-                                        </p>
-                                        <p className={styles.InfoText}>
-                                            Email: {appointmentDetail?.customer_id?.email}
-                                        </p>
-                                        <p className={styles.InfoText}>
-                                            Địa chỉ: {appointmentDetail?.customer_id?.address}
-                                        </p>
-                                    </div>
-                                    <div>
-                                        <h4 className={styles.InfoHeading}>Thông tin xe của khách</h4>
-                                        <p className={styles.InfoText}>
-                                            Biển số: {appointmentDetail?.vehicle_id?.license_plate}
-                                        </p>
-                                        <p className={styles.InfoText}>
-                                            Tên xe: {appointmentDetail?.vehicle_id?.manufacturer}
-                                        </p>
-                                        <p className={styles.InfoText}>
-                                            Dòng xe: {appointmentDetail?.vehicle_id?.model}
-                                        </p>
-                                        <p className={styles.InfoText}>
-                                            Màu sắc: {appointmentDetail?.vehicle_id?.color}
-                                        </p>
-                                    </div>
-                                </div>
-                                <hr />
-                                <div>
-                                    <h4 className={styles.InfoHeadingServices}>Dịch vụ sử dụng</h4>
-                                    {appointmentDetail?.services && appointmentDetail?.services.length > 0 ? (
-                                        <div className={styles.InfoCustomer}>
-                                            {appointmentDetail?.services.map((service) => (
-                                                <div key={service?._id}>
-                                                    <p className={styles.InfoText}>Tên dịch vụ: {service?.name}</p>
-                                                    <p className={styles.InfoText}>Mô tả: {service?.description}</p>
-                                                    <p className={styles.InfoText}>
-                                                        Giá: {service?.price.toLocaleString()} đ
-                                                    </p>
-                                                </div>
-                                            ))}
-                                        </div>
-                                    ) : (
-                                        <p>Không có dịch vụ nào được cung cấp.</p>
-                                    )}
-                                </div>
-                                <hr />
-                                <div>
-                                    <h4 className={styles.InfoTextTotal}>
-                                        Tổng thời gian thực hiện: {appointmentDetail?.slot_id?.duration_minutes} phút
-                                    </h4>
-                                    <h4 className={styles.InfoTextTotal}>
-                                        Tổng giá tiền: {appointmentDetail?.total_cost.toLocaleString()}đ
-                                    </h4>
-                                </div>
-                            </div>
-                        ) : (
-                            <p>Đang tải dữ liệu...</p>
-                        )}
-                    </Modal.Body>
-                </Modal>
-            )}
+            <ProgressModal show={showModal} onClose={() => setShowModal(false)} appointmentDetail={appointmentDetail} />
 
             <ConfirmCancelModal
                 show={showCancelModal}
                 onHide={() => setShowCancelModal(false)}
                 onConfirm={handleConfirmDelete}
             />
-           
         </div>
     );
 };

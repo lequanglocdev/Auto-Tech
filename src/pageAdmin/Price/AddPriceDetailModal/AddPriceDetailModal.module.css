@@ -1,0 +1,23 @@
+
+.customerLabel {
+  font-size: 1.4rem !important;
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+
+
+.btn {
+  display: flex !important;
+  justify-content: flex-end !important;
+  align-items: center;
+}
+
+.customerBtn {
+  width: 100px;
+  height: 34px;
+  font-size: 1.6rem !important;
+}
+
+.formControl{
+  font-size: 1.3rem !important;
+}

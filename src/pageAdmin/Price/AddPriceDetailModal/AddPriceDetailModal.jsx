@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { Modal, Button } from 'react-bootstrap';
+import { Modal, Button, Form } from 'react-bootstrap';
 import { createPriceLineApi } from '@/utils/api';
 import { toast } from 'react-toastify';
-
+import styles from './AddPriceDetailModal.module.css';
 const AddPriceDetailModal = ({ show, onHide, priceId, onUpdatePriceDetail, services, vehicles }) => {
     const [addedVehicles, setAddedVehicles] = useState([]);
     const [selectedServiceId, setSelectedServiceId] = useState('');
@@ -50,11 +50,16 @@ const AddPriceDetailModal = ({ show, onHide, priceId, onUpdatePriceDetail, servi
                 <Modal.Title>Thêm Thông Tin Bảng Giá</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                <form onSubmit={handleSubmit}>
-                    <div className="mb-3">
-                        <label htmlFor="serviceSelect" className="form-label">Chọn Dịch Vụ</label>
-                        <select
-                            className="form-select"
+                <Form onSubmit={handleSubmit}>
+                    <Form.Group className="mb-3">
+                        <Form.Label htmlFor="serviceSelect" className={styles.customerLabel}>
+                            Chọn Dịch Vụ
+                        </Form.Label>
+                        <Form.Control
+                           
+                            as="select"
+                            size="lg"
+                            className={styles.formControl}
                             id="serviceSelect"
                             value={selectedServiceId}
                             onChange={(e) => setSelectedServiceId(e.target.value)}
@@ -65,12 +70,16 @@ const AddPriceDetailModal = ({ show, onHide, priceId, onUpdatePriceDetail, servi
                                     {service.name}
                                 </option>
                             ))}
-                        </select>
-                    </div>
-                    <div className="mb-3">
-                        <label htmlFor="vehicleSelect" className="form-label">Chọn Loại Xe</label>
-                        <select
-                            className="form-select"
+                        </Form.Control>
+                    </Form.Group>
+                    <Form.Group className="mb-3">
+                        <Form.Label htmlFor="vehicleSelect" className={styles.customerLabel}>
+                            Chọn Loại Xe
+                        </Form.Label>
+                        <Form.Control
+                            size="lg"
+                            as="select"
+                            className={styles.formControl}
                             id="vehicleSelect"
                             value={selectedVehicleId}
                             onChange={(e) => setSelectedVehicleId(e.target.value)}
@@ -81,12 +90,15 @@ const AddPriceDetailModal = ({ show, onHide, priceId, onUpdatePriceDetail, servi
                                     {vehicle.vehicle_type_name}
                                 </option>
                             ))}
-                        </select>
+                        </Form.Control>
                         {vehicleError && <div className="text-danger">{vehicleError}</div>}
-                    </div>
-                    <div className="mb-3">
-                        <label htmlFor="price" className="form-label">Giá</label>
-                        <input
+                    </Form.Group>
+                    <Form.Group className="mb-3">
+                        <Form.Label htmlFor="price" className={styles.customerLabel}>
+                            Giá
+                        </Form.Label>
+                        <Form.Control
+                            size="lg"
                             type="number"
                             className="form-control"
                             id="price"
@@ -95,13 +107,15 @@ const AddPriceDetailModal = ({ show, onHide, priceId, onUpdatePriceDetail, servi
                             onChange={(e) => setPrice(e.target.value)}
                         />
                         {priceError && <div className="text-danger">{priceError}</div>}
+                    </Form.Group>
+
+                    <div className={styles.btn}>
+                        <Button className={`mt-2 ${styles.customerBtn}`} variant="primary" type="submit">
+                            Thêm
+                        </Button>
                     </div>
-                    <Button variant="primary" type="submit">Lưu Thông Tin</Button>
-                </form>
+                </Form>
             </Modal.Body>
-            <Modal.Footer>
-                <Button variant="secondary" onClick={onHide}>Đóng</Button>
-            </Modal.Footer>
         </Modal>
     );
 };

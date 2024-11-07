@@ -24,8 +24,8 @@ const Price = ({ data = [] }) => {
 
     const [priceData, setPriceData] = useState(data);
     //toggle
-    const [activeStatus, setActiveStatus] = useState(priceData?.map((item) => item.is_active || false));
-    const [activeStatusDetail, setActiveStatusDetail] = useState(priceData?.map((item) => item.is_active || false));
+    const [activeStatus, setActiveStatus] = useState(priceData?.map((item) => item?.is_active || false));
+    const [activeStatusDetail, setActiveStatusDetail] = useState(priceData?.map((item) => item?.is_active || false));
     const [priceId, setPriceId] = useState(null); // State to hold the selected price ID
     const [priceDetail, setPriceDetail] = useState([]);
     const [loading, setLoading] = useState(false);
@@ -67,7 +67,7 @@ const Price = ({ data = [] }) => {
 
         fetchPriceDetail();
     }, [priceId]);
-
+    
     const handleEditPriceHeader = (priceLine) => {
         setSelectedPrice(priceLine);
         setEditModalShow(true);
@@ -112,7 +112,7 @@ const Price = ({ data = [] }) => {
         if (priceToDelete) {
             try {
                 await deletePriceApi(priceToDelete);
-                setPriceData((prev) => prev.filter((emp) => emp._id !== priceToDelete._id));
+                setPriceData((prev) => prev.filter((emp) => emp?._id !== priceToDelete?._id));
             } catch (error) {
                 toast.error(error.response.data.msg);
             } finally {
@@ -125,9 +125,9 @@ const Price = ({ data = [] }) => {
     //Edit toggle active
     const handleToggleActive = async (priceDataHeader) => {
         try {
-            const updatedItem = { ...priceDataHeader, is_active: !priceDataHeader.is_active };
+            const updatedItem = { ...priceDataHeader, is_active: !priceDataHeader?.is_active };
 
-            const response = await putActivePriceApi(priceDataHeader._id, updatedItem.is_active);
+            const response = await putActivePriceApi(priceDataHeader?._id, updatedItem?.is_active);
 
             // Log phản hồi từ API
             // console.log('Phản hồi từ API:', response);
@@ -145,11 +145,11 @@ const Price = ({ data = [] }) => {
     };
 
     const handleToggleActiveDetail = async (item) => {
-        console.log('Trạng thái hiện tại của is_active trước khi cập nhật:', item.is_active);
+        console.log('Trạng thái hiện tại của is_active trước khi cập nhật:', item?.is_active);
         try {
-            const updatedItemDetail = { ...item, is_active: !item.is_active };
+            const updatedItemDetail = { ...item, is_active: !item?.is_active };
 
-            const response = await putActivePriceDetailApi(item._id, updatedItemDetail.is_active);
+            const response = await putActivePriceDetailApi(item?._id, updatedItemDetail?.is_active);
 
             // Log phản hồi từ API
             // console.log('Phản hồi từ API:', response);
@@ -195,6 +195,11 @@ const Price = ({ data = [] }) => {
         fetchServices();
         fetchCars();
     }, []);
+
+    useEffect(() => {
+        setActiveStatusDetail(priceData?.map((item) => item.is_active || false));
+    }, [priceData]);
+
     const handleAddPriceLine = (priceDataHeader) => {
         setSelecpriceLine(priceDataHeader);
         setaddPriceLineModalShow(true);
@@ -373,7 +378,7 @@ const Price = ({ data = [] }) => {
                                                     <label className={styles.switch}>
                                                         <input
                                                             type="checkbox"
-                                                            checked={activeStatusDetail[indexDetail]} // Sử dụng state để kiểm soát giá trị
+                                                            checked={activeStatusDetail[indexDetail] || false} // Sử dụng state để kiểm soát giá trị
                                                             onChange={() => {
                                                                 const newStatus = [...activeStatusDetail];
                                                                 newStatus[indexDetail] = !newStatus[indexDetail]; // Đổi trạng thái

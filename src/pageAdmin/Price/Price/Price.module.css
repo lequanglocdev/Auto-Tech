@@ -100,7 +100,7 @@
     width: 15px;
     left: 2px;
     bottom: 4px;
-    background-color: white !important;
+    background-color: white ;
     transition: 0.2s;
 }
 
