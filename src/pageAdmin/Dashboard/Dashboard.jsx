@@ -19,6 +19,7 @@ import { useNavigate } from 'react-router-dom';
 import { getCurrentDate } from '@/utils/dateTime';
 import ConfirmCancelModal from './ConfirmCancelModal/ConfirmCancelModal';
 import ProgressModal from './ProgressModal/ProgressModal';
+import CompletedViewModal from './CompletedViewModal/CompletedViewModal';
 const Dashboard = () => {
     const navigate = useNavigate();
     const [loading, setLoading] = useState(true);
@@ -33,6 +34,7 @@ const Dashboard = () => {
     const [showModalBooked, setShowModalBooked] = useState(false);
 
     const [showModalProgress, setShowModalProgress] = useState(false);
+    const [showCompletedViewModal,setShowCompletedViewModal] =useState(false)
 
     const [searchDate, setSearchDate] = useState(getCurrentDate());
 
@@ -102,6 +104,7 @@ const Dashboard = () => {
     const handleShowModalBookedWait = () => setShowModalBookedWait(true);
     const handleCloseModalBookedWait = () => setShowModalBookedWait(false);
     const handleCloseModalProgress = () => setShowModalProgress(false);
+    const handleCompletedViewModal = () => setShowCompletedViewModal(false);
 
     const updateWithoutSlot = async () => {
         try {
@@ -175,7 +178,7 @@ const Dashboard = () => {
                 // Gọi API để lấy chi tiết appointment
                 const response = await getAppointmentsDetailApi(appointment);
                 setAppointmentDetail(response); // Lưu dữ liệu vào state
-                setShowModal(true); // Mở modal
+                setShowModalProgress(true); // Mở modal
             } catch (error) {
                 console.error('Lỗi khi lấy chi tiết appointment:', error);
             }
@@ -193,7 +196,7 @@ const Dashboard = () => {
         try {
             const response = await getAppointmentsDetailApi(appointmentId);
             setAppointmentDetail(response);
-            setShowModal(true);
+            setShowCompletedViewModal(true);
         } catch (error) {
             console.error('Lỗi khi lấy chi tiết appointment:', error);
         }
@@ -483,7 +486,8 @@ const Dashboard = () => {
                 slotId={selectedSlotId}
             />
 
-            <ProgressModal show={showModal} onClose={() => setShowModal(false)} appointmentDetail={appointmentDetail} />
+            <ProgressModal show={showModalProgress} onClose={() => setShowModalProgress(false)} appointmentDetail={appointmentDetail} />
+            <CompletedViewModal show={showCompletedViewModal} onClose={() => setShowCompletedViewModal(false)} appointmentDetail={appointmentDetail} />
 
             <ConfirmCancelModal
                 show={showCancelModal}

@@ -1,0 +1,53 @@
+customerTitle {
+  font-size: 1.6rem !important;
+  color: #3498db !important;
+}
+
+.InfoCustomer{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 10px;
+
+}
+
+.InfoHeading{
+  font-size: 1.5rem;
+  color: var(--text-third);
+  font-style: italic;
+}
+
+.InfoHeadingServices{
+  font-size: 1.5rem;
+  color: var(--text-third);
+  font-style: italic;
+  padding-left: 10px;
+}
+.InfoText{
+  font-size: 1.4rem;
+  color: var(--text-third);
+}
+
+.InfoTextTotal{
+  font-size: 1.4rem;
+  color: #e74c3c;
+  padding-left: 10px;
+}
+
+.slotCardFooterCalender{
+  height: 40px;
+  background-color: #3498db;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-bottom-left-radius: 4px;
+  border-bottom-right-radius: 4px;
+  font-size: 1.8rem;
+  color: #fff;
+  font-weight: 400;
+  cursor: pointer;
+}
+
+.slotCardFooterCalender:hover{
+  background-color: #44acf2;
+}

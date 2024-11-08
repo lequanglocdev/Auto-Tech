@@ -25,10 +25,12 @@ import Invoice from '@/pageAdmin/Invoice/Invoice';
 import Statistical from '@/pageAdmin/Statistical/Statistical';
 import TestCompoment from '@/pageAdmin/Promotions/ListPromotions/Promotion/Promotion';
 
+
 export const publicRoute = [
     { path: '/', component: Home },
     { path: '/auth', component: Auth, layout: null },
     { path: '/login', component: Login, layout: null },
+   
     { path: '/register', component: Register, layout: null },
     { path: '/otp', component: Otp, layout: null },
     { path: '/services', component: CareServices },

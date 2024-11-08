@@ -1,10 +1,31 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Modal } from 'react-bootstrap';
+
 import styles from './ProgressModal.module.css';
 
 const ProgressModal = ({ show, onClose, appointmentDetail }) => {
+    const [totalTime, setTotalTime] = useState(0);
+
+    useEffect(() => {
+        if (appointmentDetail) {
+            let totalMinutes = 0;
+
+            // Cộng dồn thời gian của từng dịch vụ
+            appointmentDetail.services?.forEach((service) => {
+                totalMinutes += service.time_required;
+            });
+
+            setTotalTime(totalMinutes); // Lưu tổng thời gian của các dịch vụ
+        }
+    }, [appointmentDetail]);
+
+    const getFormattedTime = (startDate, minutesToAdd) => {
+        const start = new Date(startDate);
+        const end = new Date(start.getTime() + minutesToAdd * 60000); // Thêm phút vào thời gian tiếp nhận
+        return end.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit', hour12: false });
+    };
     return (
-        <Modal centered show={show} onHide={onClose}>
+        <Modal centered show={show} onHide={onClose} size="lg" className={styles.modalSize}>
             <Modal.Header closeButton>
                 <Modal.Title className={styles.customerTitle}>Thông tin chi tiết cuộc hẹn</Modal.Title>
             </Modal.Header>
@@ -32,38 +53,49 @@ const ProgressModal = ({ show, onClose, appointmentDetail }) => {
                             </div>
                         </div>
                         <hr />
-                        <div>
-                            <h4 className={styles.InfoHeadingServices}>Dịch vụ sử dụng</h4>
+                        <div className={styles.bodyData}>
+                            <h4 className={styles.InfoHeadingServices}>Tiến trình thực hiện</h4>
                             {appointmentDetail?.services && appointmentDetail?.services.length > 0 ? (
-                                <div className={styles.InfoCustomer}>
-                                    {appointmentDetail?.services.map((service) => (
-                                        <div>
-                                            <div key={service?._id}>
-                                                <p className={styles.InfoText}>Tên dịch vụ: {service?.name}</p>
-                                                <p className={styles.InfoText}>Mô tả: {service?.description}</p>
-                                                <p className={styles.InfoText}>
-                                                    Giá: {service?.price.toLocaleString()} đ
-                                                </p>
-                                            </div>
-                                            <div>
-                                                <hr />
-                                                <span>Thời gian tiếp nhận</span>
-                                                <span>Dịch vụ: {service?.name}</span>
-                                                <span>Thời gian dự kiến {service.time_required}</span>
-                                                <span></span>
-                                            </div>
+                                <div className={styles.serviceItemBody}>
+                                    <p className={styles.completed}>
+                                        <span className={styles.step}>1</span>
+                                        <strong>
+                                            Thời gian tiếp nhận: <br />
+                                            {new Date(appointmentDetail?.slot_id?.updated_at).toLocaleTimeString(
+                                                'en-GB',
+                                                {
+                                                    hour: '2-digit',
+                                                    minute: '2-digit',
+                                                    hour12: false,
+                                                },
+                                            )}
+                                        </strong>
+                                    </p>
+
+                                    {appointmentDetail.services.map((service, index) => (
+                                        <div key={service?._id} className={styles.serviceItem}>
+                                            <p className={styles.completed}>
+                                                <span className={styles.step}>2</span>
+                                                <strong>
+                                                    {service?.name} <br /> Thời gian: {service?.time_required} phút{' '}
+                                                </strong>
+                                            </p>
                                         </div>
                                     ))}
+                                    <p className={styles.InfoText}>
+                                        <span className={styles.step}>3</span>
+                                        <strong>
+                                            {' '}
+                                            Thời gian hoàn thành ước tính:{' '}
+                                            {getFormattedTime(appointmentDetail?.slot_id?.updated_at, totalTime)}
+                                        </strong>
+                                    </p>
                                 </div>
                             ) : (
                                 <p>Không có dịch vụ nào được cung cấp.</p>
                             )}
                         </div>
-                        <hr />
                         <div>
-                            <h4 className={styles.InfoTextTotal}>
-                                Tổng thời gian thực hiện: {appointmentDetail?.slot_id?.duration_minutes} phút
-                            </h4>
                             <h4 className={styles.InfoTextTotal}>
                                 Tổng giá tiền: {appointmentDetail?.total_cost.toLocaleString()} đ
                             </h4>
