@@ -119,9 +119,17 @@
   background: linear-gradient(45deg, #2196F3, #00BCD4);
 }
 
+.accordionBtnReturn:hover{
+  background: linear-gradient(90deg, #ff9999, #ff4d4d, #ff0000); 
+}
 .customerTitle {
   font-size: 1.8rem !important;
   color: #e74c3c !important;
+}
+
+.paymentTitle{
+  font-size: 1.8rem !important;
+
 }
 
 .customerLabel {
@@ -136,4 +144,29 @@
 
 .formText{
   font-size: 1.4rem;
+}
+
+.cashPayment{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.accordionBtnPayCash{
+  border-radius: 6px;
+  border: none;
+  outline: none;
+  width: 100%;
+  height: 34px;
+  font-size: 1.5rem !important;
+  font-weight: bold;
+  background: linear-gradient(120deg, #40e8df, #e1648c);
+
+}
+.accordionBtnPayCash:hover{
+  background: linear-gradient(120deg, #e1648c, #40e8df); 
 }

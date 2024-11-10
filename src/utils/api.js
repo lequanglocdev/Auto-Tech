@@ -465,6 +465,13 @@ const returnPayment = (invoiceId, note) => {
     return axios.post(URL_API, data);
 };
 
+const cashPayment = (invoiceId,) =>{
+    const URL_API = `/api/payments/paylive/${invoiceId}`;
+    const data = {
+        invoiceId: invoiceId
+    }
+    return axios.post(URL_API, data);
+}
 
 const putEmployeeApi = (user) => {
     const URL_API = `/api/employees/${user._id}`;
@@ -627,6 +634,7 @@ export {
     createPaymentCustomer,
     createPayment,
     returnPayment,
+    cashPayment,
     putEmployeeApi,
     putCustomerApi,
     putCustomerRankApi,

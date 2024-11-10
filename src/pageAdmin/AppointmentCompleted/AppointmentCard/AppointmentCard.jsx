@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styles from './appointmentCard.module.css';
 import AppointmentInvoiceModal from '../AppointmentInvoiceModal/AppointmentInvoiceModal';
-import { createPayment, createPaymentCustomer, getInvoiceDetails, getPrintPayment, returnPayment } from '@/utils/api';
+import { cashPayment, createPayment, createPaymentCustomer, getInvoiceDetails, getPrintPayment, returnPayment } from '@/utils/api';
 import { toast } from 'react-toastify';
 import { Button, Form, Modal } from 'react-bootstrap';
 
@@ -13,6 +13,8 @@ const AppointmentCard = ({ appointment, updateAppointment, isLatest }) => {
 
     const [showRefundModal, setShowRefundModal] = useState(false);
     const [refundNote, setRefundNote] = useState('');
+
+    const [showPaymentModal, setShowPaymentModal] = useState(false);
 
     const handlePaymentInvoice = async () => {
         try {
@@ -44,9 +46,7 @@ const AppointmentCard = ({ appointment, updateAppointment, isLatest }) => {
             toast.error('Không tìm thấy hóa đơn để xem.');
         }
     };
-    const handleClose = () => {
-        setShowInvoiceModal(false);
-    };
+ 
 
     const handlePaymentInvoiceBill = async () => {
         const invoiceId = appointment?.invoice?._id;
@@ -56,6 +56,23 @@ const AppointmentCard = ({ appointment, updateAppointment, isLatest }) => {
                 const checkoutUrl = paymentResponse?.paymentLink?.checkoutUrl;
                 toast.success('Đã tạo liên kết thanh toán thành công!');
                 window.location.href = checkoutUrl;
+            } catch (err) {
+                toast.error('Tạo liên kết thanh toán thất bại: ' + (err.response?.data?.message || err?.message));
+            }
+        } else {
+            toast.error('Không tìm thấy ID của hóa đơn.');
+        }
+    };
+
+    const handlePaymentCashInvoiceBill = async () => {
+        const invoiceId = appointment?.invoice?._id;
+        if (invoiceId) {
+            try {
+                const paymentCashResponse = await cashPayment(invoiceId);
+                console.log("paymentCashResponse",paymentCashResponse)
+                toast.success(paymentCashResponse.msg);
+                updateAppointment({ ...appointment, invoice: { ...appointment.invoice, status: 'paid' } });
+                setShowPaymentModal(false); // Đóng modal sau khi thanh toán thành công
             } catch (err) {
                 toast.error('Tạo liên kết thanh toán thất bại: ' + (err.response?.data?.message || err?.message));
             }
@@ -141,10 +158,10 @@ const AppointmentCard = ({ appointment, updateAppointment, isLatest }) => {
                 )}
                 {appointment?.invoice && appointment?.invoice?.status !== 'paid' && (
                     <div className={styles.appointment}>
-                        <button className={styles.accordionBtnPay} onClick={handlePaymentInvoiceBill}>
+                        <button className={styles.accordionBtnPay} onClick={() => setShowPaymentModal(true)}>
                             Thanh toán
                         </button>
-                        <button className={styles.accordionBtnPay} onClick={handleViewInvoice}>
+                        <button className={styles.accordionBtnPayCash} onClick={handleViewInvoice}>
                             Xem hóa đơn
                         </button>
                     </div>
@@ -189,6 +206,27 @@ const AppointmentCard = ({ appointment, updateAppointment, isLatest }) => {
                         Xác nhận trả hóa đơn
                     </Button>
                 </Modal.Footer>
+            </Modal>
+
+            <Modal
+                centered
+                show={showPaymentModal}
+                onHide={() => setShowPaymentModal(false)}
+                contentLabel="Lý do trả hóa đơn"
+            >
+                <Modal.Header closeButton>
+                    <Modal.Title className={styles.paymentTitle}>Phương thức thanh toán</Modal.Title>
+                </Modal.Header>
+                <Modal.Body className={styles.customerLabel}>
+                    <div className={styles.cashPayment}>
+                        <Button className={styles.accordionBtnPrint} onClick={handlePaymentCashInvoiceBill}>
+                            Tiền mặt
+                        </Button>
+                        <Button className={styles.accordionBtnPrint} onClick={handlePaymentInvoiceBill}>
+                            Chuyển khoản
+                        </Button>
+                    </div>
+                </Modal.Body>
             </Modal>
         </div>
     );
