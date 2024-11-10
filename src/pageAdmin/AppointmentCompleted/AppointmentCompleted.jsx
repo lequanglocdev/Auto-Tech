@@ -48,8 +48,9 @@ const AppointmentCompleted = () => {
     }
 
     // Phân loại các cuộc hẹn dựa trên `invoice`
-    const appointmentsWithInvoice = filteredAppointments.filter((appointment) => appointment.invoice !== null);
-    const appointmentsWithoutInvoice = filteredAppointments.filter((appointment) => appointment.invoice === null);
+    const appointmentsWithInvoice = filteredAppointments.filter((appointment) => appointment?.invoice !== null);
+    const appointmentsWithoutInvoice = filteredAppointments.filter((appointment) => appointment?.invoice === null);
+    console.log("Ko có null",appointmentsWithoutInvoice)
 
     return (
         <Container>
@@ -63,9 +64,9 @@ const AppointmentCompleted = () => {
                 {/* Phần hiển thị các cuộc hẹn không có invoice */}
                 <Row>
                     {appointmentsWithoutInvoice.length > 0 ? (
-                        <div>
+                        <div className={styles.noInvoice}>
                             {appointmentsWithoutInvoice.map((appointment,index) => (
-                                <Col key={appointment._id} xs={12} md={6} lg={4}>
+                                <Col key={appointment?._id} xs={12} md={6} lg={4}>
                                     <AppointmentCard
                                         appointment={appointment}
                                         updateAppointment={updateAppointment}
@@ -82,7 +83,7 @@ const AppointmentCompleted = () => {
                 {/* Phần hiển thị các cuộc hẹn có invoice */}
                 <Row>
                     {appointmentsWithInvoice.map((appointment, index) => (
-                        <Col key={appointment._id} xs={12} md={6} lg={4}>
+                        <Col key={appointment?._id} xs={12} md={6} lg={4}>
                             <AppointmentCard
                                 appointment={appointment}
                                 updateAppointment={updateAppointment}

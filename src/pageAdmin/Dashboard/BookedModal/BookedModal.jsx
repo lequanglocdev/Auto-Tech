@@ -134,15 +134,16 @@ const BookedModal = ({ show, handleClose, slotId, onUpdateSlot }) => {
     };
 
     const handleServiceSelect = (service) => {
+        console.log('dịch vụ chọn',service)
         setSelectedServices((prevSelectedServices) => {
             const alreadySelected = prevSelectedServices.find(
-                (selectedService) => selectedService.priceline_id === service.priceline_id,
+                (selectedService) => selectedService?.priceline_id === service?.priceline_id,
             );
 
             if (alreadySelected) {
                 // Nếu đã chọn dịch vụ này rồi, loại bỏ nó
                 return prevSelectedServices.filter(
-                    (selectedService) => selectedService.priceline_id !== service.priceline_id,
+                    (selectedService) => selectedService?.priceline_id !== service?.priceline_id,
                 );
             } else {
                 // Nếu chưa chọn dịch vụ, thêm nó vào danh sách
@@ -160,8 +161,8 @@ const BookedModal = ({ show, handleClose, slotId, onUpdateSlot }) => {
             return;
         }
 
-        const serviceIds = servicePrice.map((service) => service.priceline_id);
-
+        const serviceIds = selectedServices.map((service) => service?.priceline_id);
+        console.log("dịch vụ chon",serviceIds)
         try {
             // Gọi API với sumTime là totalTime
             const response = await createAppointments(
@@ -361,14 +362,14 @@ const BookedModal = ({ show, handleClose, slotId, onUpdateSlot }) => {
                                         </thead>
                                         <tbody>
                                             {selectedServices.map((service) => (
-                                                <tr key={service.priceline_id}>
-                                                    <td className={styles.dataTableItem}>{service.service_code}</td>
-                                                    <td className={styles.dataTableItem}>{service.service}</td>
+                                                <tr key={service?.priceline_id}>
+                                                    <td className={styles.dataTableItem}>{service?.service_code}</td>
+                                                    <td className={styles.dataTableItem}>{service?.service}</td>
                                                     <td className={styles.dataTableItem}>
-                                                        {service.time_required} phút
+                                                        {service?.time_required} phút
                                                     </td>
                                                     <td className={styles.dataTableItem}>
-                                                        {service.price.toLocaleString()} VNĐ
+                                                        {service?.price.toLocaleString()} VNĐ
                                                     </td>
                                                     <td className={styles.dataTableIcon}>
                                                         <FaTrash

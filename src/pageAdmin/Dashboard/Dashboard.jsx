@@ -163,7 +163,6 @@ const Dashboard = () => {
     };
 
     const handleShowModalBooked = (slotId) => {
-        console.log('Clicked slot ID:', slotId); // Kiểm tra slotId khi click
         setSelectedSlotId(slotId);
         setShowModalBooked(true);
     };
@@ -177,6 +176,7 @@ const Dashboard = () => {
             try {
                 // Gọi API để lấy chi tiết appointment
                 const response = await getAppointmentsDetailApi(appointment);
+                console.log("lấy từng dịch vụ",response)
                 setAppointmentDetail(response); // Lưu dữ liệu vào state
                 setShowModalProgress(true); // Mở modal
             } catch (error) {
@@ -312,27 +312,27 @@ const Dashboard = () => {
                                 ))}
 
                             {slots
-                                .filter((slot) => slot.slot.status === 'booked') // Lọc slot có trạng thái 'booked'
+                                .filter((slot) => slot?.slot?.status === 'booked') // Lọc slot có trạng thái 'booked'
                                 .map((slot) => (
-                                    <div className={styles.wrapperSlot} key={slot.slot_id}>
+                                    <div className={styles.wrapperSlot} key={slot?.slot_id}>
                                         <div className={styles.slotHeaderCompleted}>
                                             <p className={styles.slotHeaderCompletedText}>Xác nhận hoàn thành</p>
                                             <p className={styles.slotHeaderCompletedText}>Đã đặt</p>
                                         </div>
                                         <div className={styles.slotBody}>
                                             <p className={styles.slotBodyText}>
-                                                Thời gian hoàn thành: {slot.slot.duration_minutes} phút
+                                                Thời gian hoàn thành: {slot?.slot?.duration_minutes} phút
                                             </p>
                                             <p className={styles.slotBodyText}>
-                                                Thời gian đặt: {new Date(slot.slot.slot_datetime).toLocaleString()}
+                                                Thời gian đặt: {new Date(slot?.slot?.slot_datetime).toLocaleString()}
                                             </p>
-                                            {slot.appointments.length > 0 ? (
+                                            {slot?.appointments.length > 0 ? (
                                                 <>
                                                     <p className={styles.slotBodyText}>
-                                                        Tên: {slot.appointments[0]?.customer_id?.name}{' '}
+                                                        Tên: {slot?.appointments[0]?.customer_id?.name}{' '}
                                                     </p>
                                                     <p className={styles.slotBodyText}>
-                                                        Số điện thoại: {slot.appointments[0]?.customer_id?.phone_number}{' '}
+                                                        Số điện thoại: {slot?.appointments[0]?.customer_id?.phone_number}{' '}
                                                     </p>
                                                 </>
                                             ) : (
@@ -398,16 +398,16 @@ const Dashboard = () => {
                             appointments.length > 0 && (
                                 <div className={styles.appointmentResults}>
                                     {appointments.map((appointment) => (
-                                        <div key={appointment._id} className={styles.appointmentResultsBody}>
+                                        <div key={appointment?._id} className={styles.appointmentResultsBody}>
                                             <div className={styles.appointmentResultsHeader}>
                                                 <p className={styles.appointmentResultsText}>Lịch hẹn</p>
                                                 <p className={styles.appointmentResultsText}>
-                                                    {getStatusText(appointment.status)}
+                                                    {getStatusText(appointment?.status)}
                                                 </p>
                                             </div>
                                             <p className={styles.appointmentResultsBodyText}>
                                                 Ngày và giờ:{' '}
-                                                {new Date(appointment.appointment_datetime).toLocaleString()}
+                                                {new Date(appointment?.appointment_datetime).toLocaleString()}
                                             </p>
                                             <p className={styles.appointmentResultsBodyText}>
                                                 Tên: {appointment?.customer_id?.name}

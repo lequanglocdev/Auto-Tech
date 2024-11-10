@@ -73,7 +73,7 @@ const ProgressModal = ({ show, onClose, appointmentDetail }) => {
                                     </p>
 
                                     {appointmentDetail.services.map((service, index) => (
-                                        <div key={service?._id} className={styles.serviceItem}>
+                                        <div key={index} className={styles.serviceItem}>
                                             <p className={styles.completed}>
                                                 <span className={styles.step}>2</span>
                                                 <strong>
@@ -85,8 +85,8 @@ const ProgressModal = ({ show, onClose, appointmentDetail }) => {
                                     <p className={styles.InfoText}>
                                         <span className={styles.step}>3</span>
                                         <strong>
-                                            {' '}
-                                            Thời gian hoàn thành ước tính:{' '}
+                                         
+                                            Thời gian hoàn thành ước tính:
                                             {getFormattedTime(appointmentDetail?.slot_id?.updated_at, totalTime)}
                                         </strong>
                                     </p>

@@ -1,29 +1,8 @@
 import React from 'react';
 import { Modal, Table } from 'react-bootstrap';
 import styles from './AppointmentInvoiceModal.module.css';
-import { createPayment } from '@/utils/api';
-import { toast } from 'react-toastify';
-import { useNavigate } from 'react-router-dom';
+
 const AppointmentInvoiceModal = ({ show, handleClose, invoiceDetails }) => {
-    const navigate = useNavigate();
-    const handlePayment = async () => {
-        try {
-            // Gọi API để thực hiện thanh toán
-            const invoiceId = invoiceDetails.invoice?._id;
-            console.log(invoiceId);
-            await createPayment(invoiceId);
-            const checkoutUrl = invoiceId.paymentLink.checkoutUrl;
-            if (checkoutUrl) {
-                toast.success('Đã tạo liên kết thanh toán thành công!');
-                navigate(checkoutUrl); // Điều hướng không tải lại trang
-            } else {
-                toast.error('Không thể tạo liên kết thanh toán. Vui lòng thử lại.');
-            }
-        } catch (error) {
-            console.error('Lỗi khi thanh toán:', error);
-            toast.error('Thanh toán thất bại! Vui lòng thử lại.');
-        }
-    };
     return (
         <Modal show={show} onHide={handleClose} centered>
             <Modal.Header closeButton>
