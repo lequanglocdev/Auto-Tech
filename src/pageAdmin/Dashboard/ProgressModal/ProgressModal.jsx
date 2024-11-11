@@ -86,8 +86,7 @@ const ProgressModal = ({ show, onClose, appointmentDetail }) => {
                                         <span className={styles.step}>3</span>
                                         <strong>
                                          
-                                            Thời gian hoàn thành ước tính:
-                                            {getFormattedTime(appointmentDetail?.slot_id?.updated_at, totalTime)}
+                                            Thời gian hoàn thành ước tính:  {getFormattedTime(appointmentDetail?.slot_id?.updated_at, totalTime)}
                                         </strong>
                                     </p>
                                 </div>

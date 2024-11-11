@@ -29,13 +29,14 @@
     font-weight: bold;
     color: var(--text-primary);
     text-transform: uppercase;
-    background: linear-gradient(135deg, #48c6ef 0%, #6f86d6 100%);
+    background: #3498db;
 }
 
 .tableBodyTd {
     font-size: 1.4rem;
     font-weight: 500;
     color: var(--text-third);
+    /* background-color: #cfe2ff; */
 }
 
 .tableHeadLineTh {
@@ -129,4 +130,8 @@ input:checked + .slider:before {
 .iconActionAdd {
     font-size: 1.6rem;
     color: #e67e22;
+}
+
+.clicked {
+    background-color: #cfe2ff; /* Màu nền sau khi click */
 }

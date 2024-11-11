@@ -48,13 +48,15 @@ const TestComponent = () => {
     const [confirmDeletePromotionLineModalShow, setConfirmDeletePromotionLineModalShow] = useState(false);
     const [addPromotionModalShow, setAddPromotionModalShow] = useState(false);
     // DETAIL
-    const [activeStatusDetail, setActiveStatusDetail] = useState('');
+    const [activeStatusDetail, setActiveStatusDetail] = useState([]); // Khởi tạo mảng
     const [selectedPromotionDetail, setSelectedPromotionDetail] = useState(null);
     const [editPromotionDetailModalShow, setEditPromotionDetailModalShow] = useState(false);
     const [confirmDeletePromotionDetailModalShow, setconfirmDeletePromotionDetailModalShow] = useState(false);
     const [addPromotionDetailModalShow, setAddPromotionDetailModalShow] = useState(false);
     // Hàm gọi API để lấy dữ liệu khuyến mãi
-
+    // const [activeStatusDetail, setActiveStatusDetail] = useState(
+    //     line?.promotionDetails?.map(detail => detail?.is_active || false) || [] // Khởi tạo giá trị mặc định là false nếu không có giá trị is_active
+    // );
     useEffect(() => {
         const fetchPromotions = async () => {
             try {
@@ -69,7 +71,7 @@ const TestComponent = () => {
                 console.error('Error fetching promotions:', error);
             }
         };
-    
+
         fetchPromotions();
     }, []);
 
@@ -339,27 +341,30 @@ const TestComponent = () => {
     const handleToggleActiveDetail = async (promotionDetail, index) => {
         try {
             const updatedItem = { ...promotionDetail, is_active: !promotionDetail?.is_active };
-
+            
+            // Gọi API cập nhật trạng thái
             const response = await putActivePromotionDetail(promotionDetail?._id, updatedItem?.is_active);
-
-            // Log phản hồi từ API
-            // console.log('Phản hồi từ API:', response);
-
+    
             if (response) {
+                // Cập nhật state `promotions`
                 setPromotions((prev) =>
                     prev.map((p) =>
-                        p?._id === promotionDetail?._id ? { ...p, is_active: updatedItem?.is_active } : p,
+                        p._id === promotionDetail._id ? { ...p, is_active: updatedItem.is_active } : p,
                     ),
                 );
-                const newActiveStatus = [...activeStatusLine];
-                newActiveStatus[index] = updatedItem?.is_active; // Chỉ cập nhật trạng thái của dòng hiện tại
-                setActiveStatusLine(newActiveStatus); // Cập nhật state với trạng thái mới
-
-                toast.success('Cập nhật trạng thái thành công!'); // Sử dụng toast
+    
+                // Cập nhật trạng thái `activeStatusDetail` cho phần tử hiện tại
+                setActiveStatusDetail((prevStatus) => {
+                    const newStatus = [...prevStatus];
+                    newStatus[index] = updatedItem.is_active;
+                    return newStatus;
+                });
+    
+                toast.success('Cập nhật trạng thái thành công!');
             }
         } catch (error) {
             console.error('Lỗi khi cập nhật trạng thái:', error);
-            toast.error('Đã xảy ra lỗi khi cập nhật trạng thái. Vui lòng thử lại sau.'); // Sử dụng toast
+            toast.error('Đã xảy ra lỗi khi cập nhật trạng thái. Vui lòng thử lại sau.');
         }
     };
     const handleEditPromotionDetail = (detail) => {
@@ -455,6 +460,14 @@ const TestComponent = () => {
             });
         });
     };
+    const [clickedRows, setClickedRows] = useState({});
+
+    const handleRowClick = (id) => {
+        setClickedRows((prevState) => ({
+            ...prevState,
+            [id]: !prevState[id], // Toggle trạng thái click
+        }));
+    };
 
     const [searchCode, setSearchCode] = useState('');
     const [isActive, setIsActive] = useState(false);
@@ -520,8 +533,13 @@ const TestComponent = () => {
                             <React.Fragment key={header?._id}>
                                 {/* Cấp 1: Header */}
                                 <tr
-                                    onClick={() => toggleHeader(header?._id)}
-                                    className={`${styles.headerRow} ${openHeaders[header?._id] ? styles.open : ''}`}
+                                     onClick={() => {
+                                        toggleHeader(header?._id);
+                                        handleRowClick(header?._id);
+                                    }}
+                                    className={`${styles.headerRow} ${openHeaders[header?._id] ? styles.open : ''} ${
+                                        clickedRows[header?._id] ? styles.clicked : ''
+                                    }`}
                                 >
                                     <td className={styles.tableBodyTd}>{header?.promotion_code}</td>
                                     <td className={styles.tableBodyTd}>{header?.name}</td>
@@ -682,7 +700,7 @@ const TestComponent = () => {
                                                                         </div>
                                                                     </td>
                                                                 </tr>
-                                                                {openLines[header._id]?.[line._id] && ( // Sử dụng line._id
+                                                                {openLines[header?._id]?.[line._id] && ( // Sử dụng line._id
                                                                     <tr>
                                                                         <td colSpan="6">
                                                                             {/* Bảng cấp 3: Detail */}
@@ -738,10 +756,10 @@ const TestComponent = () => {
                                                                                     <tbody>
                                                                                         {line?.promotionDetails?.map(
                                                                                             (
-                                                                                                detail, // Sử dụng promotionDetails
+                                                                                                detail,  promotionDetails
                                                                                             ) => (
                                                                                                 <tr
-                                                                                                    key={detail._id}
+                                                                                                    key={detail?._id}
                                                                                                     style={{
                                                                                                         backgroundColor:
                                                                                                             '#f9f9f9',
@@ -798,7 +816,7 @@ const TestComponent = () => {
                                                                                                                     type="checkbox"
                                                                                                                     checked={
                                                                                                                         activeStatusDetail[
-                                                                                                                            index
+                                                                                                                            promotionDetails
                                                                                                                         ]
                                                                                                                     } // Sử dụng state để kiểm soát giá trị
                                                                                                                     onChange={() => {

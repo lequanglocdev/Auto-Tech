@@ -1,12 +1,19 @@
 import React, { useEffect, useState } from 'react';
-import styles from './Statistical.module.css';
 import icons from '@/utils/icon';
 import { Bar, Pie } from 'react-chartjs-2';
-import { getExportStatistic, getExportStatisticMY, getRevenueStatistics, getStatisticAppointmentTotal } from '@/utils/api';
+import {
+    getExportStatistic,
+    getExportStatisticMY,
+    getRevenueStatistics,
+    getStatisticAppointmentTotal,
+} from '@/utils/api';
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, ArcElement, Tooltip, Legend } from 'chart.js';
-import { Form } from 'react-bootstrap';
+import { Button, Form, Modal } from 'react-bootstrap';
 import Breadcrumb from '@/components/UI/Breadcrumb/Breadcrumb';
 import { toast } from 'react-toastify';
+// import Calendar from 'react-calendar';
+// import 'react-calendar/dist/Calendar.css';
+import styles from './Statistical.module.css';
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, ArcElement, Tooltip, Legend);
 
@@ -21,6 +28,10 @@ const Statistical = () => {
     const [month, setMonth] = useState('');
     const [year, setYear] = useState('');
     const [statistics, setStatistics] = useState({ appointmentsCount: 0, totalRevenue: 0 });
+
+    const [showExportModal, setShowExportModal] = useState(false);
+    const [startDate, setStartDate] = useState('');
+    const [endDate, setEndDate] = useState('');
 
     useEffect(() => {
         const fetchData = async () => {
@@ -52,40 +63,40 @@ const Statistical = () => {
         fetchData();
     }, [month, year]);
 
+    const handleOpenExportModal = () => {
+        setShowExportModal(true);
+    };
+
     const handleExport = async () => {
-        if (!month || !year) {
-            toast.error('Vui lòng chọn tháng và năm');
+        if (!startDate || !endDate) {
+            toast.error('Vui lòng chọn ngày bắt đầu và ngày kết thúc');
             return;
         }
-    
+
         try {
-            const response = await getExportStatisticMY(year, month);
-    
-            // Log response để kiểm tra
-            console.log(response);
-    
-            // Kiểm tra xem response có dữ liệu hay không
+            const response = await getExportStatistic(startDate, endDate);
+
             if (response && response.msg) {
-                toast.error(response.msg); // Hiển thị thông báo từ API
+                toast.error(response.msg);
                 return;
             }
-    
-            const blob = new Blob([response], { // Sử dụng response.data
-                type: 'application/pdf', // Thay đổi MIME type
+
+            const blob = new Blob([response], {
+                type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', // MIME type for Excel
             });
-    
+
             const url = window.URL.createObjectURL(blob);
             const link = document.createElement('a');
             link.href = url;
-            link.setAttribute('download', `thong-ke-doanh-thu_${year}_${month}.xlsx`); // Thay đổi đuôi file
+            link.setAttribute('download', `thong-ke-doanh-thu_${startDate}_to_${endDate}.xlsx`);
             document.body.appendChild(link);
             link.click();
+
+            setShowExportModal(false); // Close modal after export
         } catch (error) {
             toast.error('Không tìm thấy dữ liệu trong khoảng thời gian này');
         }
     };
-    
-    
 
     const chartData = {
         labels: Object.keys(monthlyRevenue),
@@ -114,11 +125,15 @@ const Statistical = () => {
     return (
         <div className={styles.statisticalWrapper}>
             <div className={styles.createRank}>
-                <Breadcrumb
-                    items={['Quản lý thống kê doanh thu']}
-                    activeItem="Quản lý thống kê doanh thu"
-                />
+                <Breadcrumb items={['Quản lý thống kê doanh thu']} activeItem="Quản lý thống kê doanh thu" />
             </div>
+            <div className={styles.export}>
+                <div className={styles.statisticalHeaderExport} onClick={handleOpenExportModal}>
+                    <FaFileExport className={styles.statisticalHeaderExportIcon} />
+                    <p className={styles.statisticalHeaderExportText}>Xuất thống kê</p>
+                </div>
+            </div>
+
             <div className={styles.selectContainer}>
                 <Form.Group className={styles.selectContainerForm}>
                     <Form.Select value={month} onChange={(e) => setMonth(e.target.value)} required size="lg">
@@ -165,21 +180,10 @@ const Statistical = () => {
                         </p>
                     </div>
                 </div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div className={styles.statisticalHeaderExport} onClick={handleExport}>
-                    <div className={styles.statisticalHeaderExportIcon}>
-                        <FaFileExport />
-                    </div>
-                    <div>
-                        <p className={styles.statisticalHeaderExportText}>Xuất thống kê</p>
-                    </div>
-                </div>
+
+                {/* <div>
+                    <Calendar onChange={onChange} value={date} />
+                </div> */}
             </div>
             <div className={styles.statisticalBody}>
                 <div className="">
@@ -208,6 +212,44 @@ const Statistical = () => {
                     </div>
                 </div>
             </div>
+            <Modal centered show={showExportModal} onHide={() => setShowExportModal(false)}>
+                <Modal.Header closeButton>
+                    <Modal.Title className={styles.customerTitle}>Chọn khoảng thời gian xuất thống kê</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <Form.Group className={styles.customerGroup} controlId="startDate">
+                        <Form.Label className={styles.customerLabel}>Ngày bắt đầu</Form.Label>
+                        <Form.Control
+                            className={styles.customerControl}
+                            type="date"
+                            value={startDate}
+                            onChange={(e) => setStartDate(e.target.value)}
+                        />
+                    </Form.Group>
+                    <Form.Group controlId="endDate" className="mt-3">
+                        <Form.Label className={styles.customerLabel}>Ngày kết thúc</Form.Label>
+                        <Form.Control
+                            className={styles.customerControl}
+                            type="date"
+                            value={endDate}
+                            onChange={(e) => setEndDate(e.target.value)}
+                        />
+                    </Form.Group>
+                    <div className={styles.btn}>
+                        <Button className={`mt-2 ${styles.customerBtn}`} variant="primary" onClick={handleExport}>
+                            Xuất file
+                        </Button>
+                    </div>
+                </Modal.Body>
+                {/* <Modal.Footer>
+                    <Button variant="secondary" onClick={() => setShowExportModal(false)}>
+                        Hủy
+                    </Button>
+                    <Button variant="primary" onClick={handleExport}>
+                        Xuất file
+                    </Button>
+                </Modal.Footer> */}
+            </Modal>
         </div>
     );
 };

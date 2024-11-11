@@ -12,8 +12,8 @@ const ConfirmCancelModal = ({ show, onHide, onConfirm }) => {
                 <p>Bạn muốn hủy lịch này không?</p>
             </Modal.Body>
             <Modal.Footer>
-                <Button variant="secondary" className={styles.customerBtn} onClick={onHide}>Hủy</Button>
-                <Button variant="danger" className={styles.customerBtn} onClick={onConfirm}>Xóa</Button>
+                <Button variant="secondary" className={styles.customerBtn} onClick={onHide}>Không</Button>
+                <Button variant="danger" className={styles.customerBtn} onClick={onConfirm}>Hủy</Button>
             </Modal.Footer>
         </Modal>
     );

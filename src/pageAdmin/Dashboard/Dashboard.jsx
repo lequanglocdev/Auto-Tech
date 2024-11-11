@@ -231,7 +231,7 @@ const Dashboard = () => {
 
     const handleServiceCancel = (without) => {
         console.log("Hủy lịch hen",without)
-        setSelectedAppointmentId(without._id);
+        setSelectedAppointmentId(without?._id);
         setShowCancelModal(true);
     };
 
@@ -241,17 +241,20 @@ const Dashboard = () => {
             deleteAppointmentsApi(selectedAppointmentId)
                 .then((response) => {
                     console.log('Lịch hẹn đã được hủy thành công:', response);
-                    setWithoutSlot(withoutSlot.filter((item) => item.slot_id !== selectedAppointmentId));
+                    setWithoutSlot(prevWithoutSlot => 
+                        prevWithoutSlot.filter((item) => item?._id !== selectedAppointmentId)
+                    );
+                    
                     setShowCancelModal(false);
-                    // Hiển thị thông báo thành công
+                    
                     toast.success('Lịch hẹn đã được hủy thành công.');
                 })
                 .catch((error) => {
                     // Kiểm tra lỗi và hiển thị thông báo lỗi
                     if (error.response) {
                         // Có phản hồi từ máy chủ
-                        console.error('Lỗi khi hủy lịch hẹn:', error.response.data.msg);
-                        toast.error(`Lỗi: ${error.response.data.msg}`); // Hiển thị thông báo lỗi
+                        console.error('Lỗi khi hủy lịch hẹn:', error.response?.data?.msg);
+                        toast.error(`Lỗi: ${error.response?.data?.msg}`); // Hiển thị thông báo lỗi
                     } else if (error.request) {
                         // Không có phản hồi từ máy chủ
                         console.error('Không có phản hồi từ máy chủ:', error.request);

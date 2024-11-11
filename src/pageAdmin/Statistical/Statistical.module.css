@@ -5,12 +5,12 @@
     align-items: center;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
-.statisticalWrapper {
-    /* padding: 0 20px; */
-}
+
 .statisticalHeader {
     display: flex;
     align-items: center;
+    justify-content: flex-start;
+    padding: 0 10px;
     gap: 40px;
     padding-left: 20px;
 }
@@ -27,7 +27,7 @@
 .statisticalHeaderIcon {
     font-size: 3rem;
     font-weight: 500;
-    color: #e67e22;
+    color: #e74c3c;
 }
 
 .statisticalHeaderText {
@@ -43,6 +43,12 @@
     color: #fff;
 }
 
+.export {
+    display: flex;
+    justify-content: flex-end;
+    padding: 8px 20px;
+}
+
 .statisticalHeaderExport {
     display: flex;
     align-items: center;
@@ -51,14 +57,14 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
     padding: 6px 10px;
     width: 180px;
-    background-color: #2ecc71;
+    background-color: #167cdc;
     border-radius: 6px;
     cursor: pointer;
     color: #fff;
 }
 
 .statisticalHeaderExport:hover {
-    background-color: #48c67c;
+    background-color: #309dea;
 }
 
 .statisticalHeaderExportText {
@@ -107,4 +113,38 @@
 .selectContainerForm {
     width: 250px !important;
     height: 40px !important;
+}
+
+.customerTitle {
+    font-size: 1.8rem !important;
+    color: #3498db !important;
+}
+
+.customerLabel {
+    font-size: 1.6rem !important;
+}
+
+.customerControl {
+    font-size: 1.4rem !important;
+}
+
+.customerLabel,
+.customerControl {
+    color: var(--text-third) !important;
+}
+
+.customerGroup {
+    padding: 6px;
+}
+
+.btn {
+    display: flex !important;
+    justify-content: flex-end !important;
+    align-items: center;
+}
+
+.customerBtn {
+    width: 100px;
+    height: 34px;
+    font-size: 1.6rem !important;
 }
