@@ -90,3 +90,8 @@
   font-size: 1.4rem;
   font-weight: 500;
 }
+
+.scroolSelect{
+    max-height: 200px !important;
+    overflow-y: auto !important;
+}

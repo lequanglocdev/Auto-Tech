@@ -23,9 +23,11 @@ const Price = ({ data = [] }) => {
     const { FaPen, FaTrash, FaEye, FaPlusCircle } = icons;
 
     const [priceData, setPriceData] = useState(data);
+
     //toggle
-    const [activeStatus, setActiveStatus] = useState(priceData?.map((item) => item.is_active || false));
-    const [activeStatusDetail, setActiveStatusDetail] = useState(priceData?.map((item) => item.is_active || false));
+    const [activeStatus, setActiveStatus] = useState(priceData?.map((item) => item?.is_active || false));
+    const [activeStatusDetail, setActiveStatusDetail] = useState({});
+    // const [activeStatusDetail, setActiveStatusDetail] = useState(priceData?.map((item) => item?.is_active || false));
     const [priceId, setPriceId] = useState(null); // State to hold the selected price ID
     const [priceDetail, setPriceDetail] = useState([]);
     const [loading, setLoading] = useState(false);
@@ -77,7 +79,7 @@ const Price = ({ data = [] }) => {
             const response = await putPriceApi(updatedPrice);
             if (response) {
                 setPriceData((prev) =>
-                    prev.map((cust) => (cust._id === updatedPrice._id ? { ...cust, ...updatedPrice } : cust)),
+                    prev.map((cust) => (cust?._id === updatedPrice?._id ? { ...cust, ...updatedPrice } : cust)),
                 );
                 setEditPriceLineModalShow(false);
             }
@@ -143,31 +145,38 @@ const Price = ({ data = [] }) => {
             toast.error('Đã xảy ra lỗi khi cập nhật trạng thái. Vui lòng thử lại sau.'); // Sử dụng toast
         }
     };
+    useEffect(() => {
+        if (priceDetail.length) {
+            const initialDetailStatus = priceDetail.map((item) => item.is_active);
+            setActiveStatusDetail(initialDetailStatus);
+        }
+    }, [priceDetail]);
 
-    const handleToggleActiveDetail = async (item) => {
-        console.log('Trạng thái hiện tại của is_active trước khi cập nhật:', item.is_active);
+    // Toggle function for each detail item
+    const handleToggleActiveDetail = async (item, index) => {
+        const newActiveStatus = !activeStatusDetail[index];
+        console.log('Current is_active status before updating:', newActiveStatus);
+
         try {
-            const updatedItemDetail = { ...item, is_active: !item.is_active };
-
-            const response = await putActivePriceDetailApi(item._id, updatedItemDetail.is_active);
-
-            // Log phản hồi từ API
-            // console.log('Phản hồi từ API:', response);
+            const response = await putActivePriceDetailApi(item._id, newActiveStatus);
 
             if (response) {
-                setPriceData((prev) => {
-                    const updatedPriceData = prev.map((p) =>
-                        p._id === item._id ? { ...p, is_active: updatedItemDetail.is_active } : p,
-                    );
-                    // console.log('Danh sách priceData sau khi cập nhật:', updatedPriceData);
-                    return updatedPriceData;
+                // Update `priceDetail` để phản ánh sự thay đổi trong `is_active`
+                setPriceDetail((prev) => prev.map((p, i) => (i === index ? { ...p, is_active: newActiveStatus } : p)));
+
+                // Cập nhật `activeStatusDetail` để phản ánh trạng thái mới
+                setActiveStatusDetail((prevStatus) => {
+                    const updatedStatus = [...prevStatus];
+                    updatedStatus[index] = newActiveStatus;
+                    return updatedStatus;
                 });
-                console.log('Trạng thái của is_active sau khi cập nhật:', updatedItemDetail.is_active);
+
+                console.log('Updated is_active status:', newActiveStatus);
                 toast.success('Cập nhật trạng thái thành công!');
             }
         } catch (error) {
             console.error('Lỗi khi cập nhật trạng thái:', error);
-            toast.error('Đã xảy ra lỗi khi cập nhật trạng thái. Vui lòng thử lại sau.'); // Sử dụng toast
+            toast.error('Đã xảy ra lỗi khi cập nhật trạng thái. Vui lòng thử lại sau.');
         }
     };
 
@@ -353,9 +362,7 @@ const Price = ({ data = [] }) => {
                                         <tr>
                                             <th className={styles.tableBodyTh}>Tên dịch vụ</th>
                                             <th className={styles.tableBodyTh}>Loại xe</th>
-
                                             <th className={styles.tableBodyTh}>Giá</th>
-
                                             <th className={styles.tableBodyTh}>Trạng thái</th>
                                             <th className={styles.tableBodyTh}>Tác vụ</th>
                                         </tr>
@@ -364,22 +371,17 @@ const Price = ({ data = [] }) => {
                                     <tbody>
                                         {priceDetail.map((item, indexDetail) => (
                                             <tr key={item._id}>
-                                                <td className={styles.tableBodyTd}>{item.service_id?.name}</td>
+                                                <td className={styles.tableBodyTd}>{item?.service_id?.name}</td>
                                                 <td className={styles.tableBodyTd}>
-                                                    {item.vehicle_type_id?.vehicle_type_name}
+                                                    {item?.vehicle_type_id?.vehicle_type_name}
                                                 </td>
                                                 <td className={styles.tableBodyTd}>{item?.price}</td>
                                                 <td className={styles.tableBodyTd}>
                                                     <label className={styles.switch}>
                                                         <input
                                                             type="checkbox"
-                                                            checked={activeStatusDetail[indexDetail]} // Sử dụng state để kiểm soát giá trị
-                                                            onChange={() => {
-                                                                const newStatus = [...activeStatusDetail];
-                                                                newStatus[indexDetail] = !newStatus[indexDetail]; // Đổi trạng thái
-                                                                setActiveStatusDetail(newStatus);
-                                                                handleToggleActiveDetail(item);
-                                                            }}
+                                                            checked={activeStatusDetail[indexDetail] ?? false} // Đảm bảo giá trị mặc định là false nếu `activeStatusDetail[index]` chưa tồn tại
+                                                            onChange={() => handleToggleActiveDetail(item, indexDetail)} // Truyền item và index vào hàm
                                                         />
                                                         <span className={`${styles.slider} ${styles.round}`}></span>
                                                     </label>

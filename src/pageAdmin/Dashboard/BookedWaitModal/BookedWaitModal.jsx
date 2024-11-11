@@ -133,7 +133,7 @@ const BookedWaitModal = ({ show, handleClose, onUpdateWithoutSlot }) => {
             return;
         }
 
-        const serviceIds = servicePrice.map((service) => service.priceline_id); // Giả sử bạn lấy danh sách ID dịch vụ từ servicePrice
+        const serviceIds = selectedServices.map((service) => service.priceline_id); // Giả sử bạn lấy danh sách ID dịch vụ từ servicePrice
 
         try {
             const response = await createAppointmentsWithoutSlot(selectedVehicle._id, serviceIds, appointmentDatetime);
@@ -275,79 +275,87 @@ const BookedWaitModal = ({ show, handleClose, onUpdateWithoutSlot }) => {
                         {servicePrice && servicePrice.length > 0 && (
                             <div>
                                 <h4 className="mb-2 mt-2">Bảng dịch vụ </h4>
-                                <Table className="mt-4">
-                                    <thead>
-                                        <tr>
-                                            <th className={styles.dataTableHead}>Mã dịch vụ</th>
-                                            <th className={styles.dataTableHead}>Tên dịch vụ</th>
-                                            <th className={styles.dataTableHead}>Loại xe</th>
-                                            <th className={styles.dataTableHead}>Thời gian</th>
-                                            <th className={styles.dataTableHead}>Giá</th>
-                                            <th className={styles.dataTableHead}>Hành động</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {servicePrice.map((service) => (
-                                            <tr key={service.priceline_id}>
-                                                <td className={styles.dataTableItem}>{service.service_code}</td>
-                                                <td className={styles.dataTableItem}>{service.service}</td>
-                                                <td className={styles.dataTableItem}>{service.vehicle_type}</td>
-                                                <td className={styles.dataTableItem}>{service.time_required} phút</td>
-                                                <td className={styles.dataTableItem}>{service.price} VNĐ</td>
-                                                <td className={styles.dataTableIcon}>
-                                                    {selectedServices.some(
-                                                        (s) => s.priceline_id === service.priceline_id,
-                                                    ) ? (
-                                                        <FaTrash
-                                                            onClick={() => handleAddOrRemoveService(service)}
-                                                            style={{ color: 'red', cursor: 'pointer' }}
-                                                        />
-                                                    ) : (
-                                                        <FaPlus
-                                                            onClick={() => handleAddOrRemoveService(service)}
-                                                            style={{ color: 'green', cursor: 'pointer' }}
-                                                        />
-                                                    )}
-                                                </td>
+                                <div className={styles.scroolSelect}>
+                                    <Table>
+                                        <thead>
+                                            <tr>
+                                                <th className={styles.dataTableHead}>Mã dịch vụ</th>
+                                                <th className={styles.dataTableHead}>Tên dịch vụ</th>
+                                                <th className={styles.dataTableHead}>Loại xe</th>
+                                                <th className={styles.dataTableHead}>Thời gian</th>
+                                                <th className={styles.dataTableHead}>Giá</th>
+                                                <th className={styles.dataTableHead}>Hành động</th>
                                             </tr>
-                                        ))}
-                                    </tbody>
-                                </Table>
+                                        </thead>
+                                        <tbody>
+                                            {servicePrice.map((service) => (
+                                                <tr key={service.priceline_id}>
+                                                    <td className={styles.dataTableItem}>{service.service_code}</td>
+                                                    <td className={styles.dataTableItem}>{service.service}</td>
+                                                    <td className={styles.dataTableItem}>{service.vehicle_type}</td>
+                                                    <td className={styles.dataTableItem}>
+                                                        {service.time_required} phút
+                                                    </td>
+                                                    <td className={styles.dataTableItem}>{service.price} VNĐ</td>
+                                                    <td className={styles.dataTableIcon}>
+                                                        {selectedServices.some(
+                                                            (s) => s.priceline_id === service.priceline_id,
+                                                        ) ? (
+                                                            <FaTrash
+                                                                onClick={() => handleAddOrRemoveService(service)}
+                                                                style={{ color: 'red', cursor: 'pointer' }}
+                                                            />
+                                                        ) : (
+                                                            <FaPlus
+                                                                onClick={() => handleAddOrRemoveService(service)}
+                                                                style={{ color: 'green', cursor: 'pointer' }}
+                                                            />
+                                                        )}
+                                                    </td>
+                                                </tr>
+                                            ))}
+                                        </tbody>
+                                    </Table>
+                                </div>
                             </div>
                         )}
 
                         {selectedServices.length > 0 && (
                             <div>
                                 <h4 className="mb-2 mt-2">Bảng dịch vụ được chọn </h4>
-                                <Table className="mt-4">
-                                    <thead>
-                                        <tr>
-                                            <th className={styles.dataTableHead}>Mã dịch vụ</th>
-                                            <th className={styles.dataTableHead}>Tên dịch vụ</th>
-                                            <th className={styles.dataTableHead}>Loại xe</th>
-                                            <th className={styles.dataTableHead}>Thời gian</th>
-                                            <th className={styles.dataTableHead}>Giá</th>
-                                            <th className={styles.dataTableHead}>Hành động</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {selectedServices.map((service, index) => (
-                                            <tr key={index}>
-                                                <td className={styles.dataTableItem}>{service.service_code}</td>
-                                                <td className={styles.dataTableItem}>{service.service}</td>
-                                                <td className={styles.dataTableItem}>{service.vehicle_type}</td>
-                                                <td className={styles.dataTableItem}>{service.time_required} phút</td>
-                                                <td className={styles.dataTableItem}>{service.price} VNĐ</td>
-                                                <td className={styles.dataTableIcon}>
-                                                    <FaTrash
-                                                        onClick={() => handleAddOrRemoveService(service)}
-                                                        style={{ color: 'red', cursor: 'pointer' }}
-                                                    />
-                                                </td>
+                                <div className={styles.scroolSelect}>
+                                    <Table>
+                                        <thead>
+                                            <tr>
+                                                <th className={styles.dataTableHead}>Mã dịch vụ</th>
+                                                <th className={styles.dataTableHead}>Tên dịch vụ</th>
+                                                <th className={styles.dataTableHead}>Loại xe</th>
+                                                <th className={styles.dataTableHead}>Thời gian</th>
+                                                <th className={styles.dataTableHead}>Giá</th>
+                                                <th className={styles.dataTableHead}>Hành động</th>
                                             </tr>
-                                        ))}
-                                    </tbody>
-                                </Table>
+                                        </thead>
+                                        <tbody>
+                                            {selectedServices.map((service, index) => (
+                                                <tr key={index}>
+                                                    <td className={styles.dataTableItem}>{service.service_code}</td>
+                                                    <td className={styles.dataTableItem}>{service.service}</td>
+                                                    <td className={styles.dataTableItem}>{service.vehicle_type}</td>
+                                                    <td className={styles.dataTableItem}>
+                                                        {service.time_required} phút
+                                                    </td>
+                                                    <td className={styles.dataTableItem}>{service.price} VNĐ</td>
+                                                    <td className={styles.dataTableIcon}>
+                                                        <FaTrash
+                                                            onClick={() => handleAddOrRemoveService(service)}
+                                                            style={{ color: 'red', cursor: 'pointer' }}
+                                                        />
+                                                    </td>
+                                                </tr>
+                                            ))}
+                                        </tbody>
+                                    </Table>
+                                </div>
                             </div>
                         )}
                     </Form.Group>

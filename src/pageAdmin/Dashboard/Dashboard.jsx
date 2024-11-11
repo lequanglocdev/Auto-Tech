@@ -230,6 +230,7 @@ const Dashboard = () => {
     };
 
     const handleServiceCancel = (without) => {
+        console.log("Hủy lịch hen",without)
         setSelectedAppointmentId(without._id);
         setShowCancelModal(true);
     };
@@ -440,10 +441,10 @@ const Dashboard = () => {
 
                     <div className={styles.slotArrive}>
                         {withoutSlot.map((without) => (
-                            <div className={styles.wrapperSlot} key={without.slot_id}>
+                            <div className={styles.wrapperSlot} key={without?.slot_id}>
                                 <div className={styles.slotHeader}>
                                     <p className={styles.slotCardHeaderTextLeft}>Lịch hẹn khách hàng</p>
-                                    <p className={styles.availableStatus}> {getStatusText(without.status)}</p>
+                                    <p className={styles.availableStatus}> {getStatusText(without?.status)}</p>
                                 </div>
                                 <div className={styles.slotBody}>
                                     <p className={styles.slotBodyText}>Tên: {without?.customer_id?.name}</p>

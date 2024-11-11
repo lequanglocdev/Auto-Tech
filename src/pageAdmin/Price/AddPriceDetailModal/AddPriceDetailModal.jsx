@@ -17,8 +17,8 @@ const AddPriceDetailModal = ({ show, onHide, priceId, onUpdatePriceDetail, servi
         setVehicleError('');
 
         // Kiểm tra giá
-        if (parseFloat(price) < 0) {
-            setPriceError('Giá không được nhỏ hơn 0.');
+        if (parseFloat(price) <= 0) {
+            setPriceError('Giá không được nhỏ hơn và bằng 0.');
             return;
         }
 
