@@ -32,10 +32,10 @@ const AppointmentCompleted = () => {
 
     const updateAppointment = (updatedAppointment) => {
         setAppointments((prevAppointments) =>
-            prevAppointments.map((app) => (app._id === updatedAppointment._id ? updatedAppointment : app)),
+            prevAppointments.map((app) => (app?._id === updatedAppointment?._id ? updatedAppointment : app)),
         );
         setFilteredAppointments((prevAppointments) =>
-            prevAppointments.map((app) => (app._id === updatedAppointment._id ? updatedAppointment : app)),
+            prevAppointments.map((app) => (app?._id === updatedAppointment?._id ? updatedAppointment : app)),
         );
     };
 
@@ -50,7 +50,7 @@ const AppointmentCompleted = () => {
     // Phân loại các cuộc hẹn dựa trên `invoice`
     const appointmentsWithInvoice = filteredAppointments.filter((appointment) => appointment?.invoice !== null);
     const appointmentsWithoutInvoice = filteredAppointments.filter((appointment) => appointment?.invoice === null);
-    console.log("Ko có null",appointmentsWithoutInvoice)
+    // console.log("Ko có null",appointmentsWithoutInvoice)
 
     return (
         <Container>
@@ -76,7 +76,7 @@ const AppointmentCompleted = () => {
                             ))}
                         </div>
                     ) : (
-                        <div>Không có cuộc hẹn nào chưa được lập hóa đơn</div>
+                        ''
                     )}
                 </Row>
 

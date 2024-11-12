@@ -37,6 +37,7 @@ const Statistical = () => {
         const fetchData = async () => {
             try {
                 const response = await getRevenueStatistics(`${selectedYear}-01-01`, `${selectedYear}-12-31`);
+                console.log("thong ke",response)
                 setMonthlyRevenue(response.monthlyRevenue);
                 setGrowthRates(response.growthRates);
             } catch (error) {
@@ -53,6 +54,7 @@ const Statistical = () => {
 
             try {
                 const response = await getStatisticAppointmentTotal(month, year);
+                console.log("Thông kê 2",response)
                 setStatistics(response || { appointmentsCount: 0, totalRevenue: 0 });
             } catch (error) {
                 toast.error('Lỗi khi lấy dữ liệu thống kê:', error);
@@ -104,8 +106,8 @@ const Statistical = () => {
             {
                 label: 'Doanh thu hằng tháng',
                 data: Object.values(monthlyRevenue),
-                backgroundColor: ['rgba(75, 192, 192, 0.6)'],
-                borderColor: ['rgba(75, 192, 192, 1)'],
+                backgroundColor: ['rgba(255, 99, 132, 0.6)'],
+                borderColor: ['rgba(255, 99, 132, 1)'],
                 borderWidth: 1,
             },
         ],

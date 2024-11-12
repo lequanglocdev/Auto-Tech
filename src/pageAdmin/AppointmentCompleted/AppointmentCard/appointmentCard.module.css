@@ -12,6 +12,7 @@
   margin-top: 20px;
   border: 4px;
   border-radius: 6px;
+  /* position: relative; */
 }
 .newestLabel{
   position: absolute;
@@ -82,6 +83,7 @@
 }
 
 .appointmentFooder{
+  position: relative;
   margin-top: 10px;
 }
 
@@ -170,3 +172,27 @@
 .accordionBtnPayCash:hover{
   background: linear-gradient(120deg, #e1648c, #40e8df); 
 }
+
+.disabledButton {
+  opacity: 0.6;       /* Làm mờ nút */
+  cursor: not-allowed; /* Thay đổi con trỏ chuột */
+  pointer-events: none; /* Ngăn người dùng click */
+}
+
+/* .loadingSpinner {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: 4px solid rgba(255, 255, 255, 0.3);
+  border-top: 4px solid #3498db;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+} */

@@ -320,7 +320,7 @@ const Dashboard = () => {
                                 .map((slot) => (
                                     <div className={styles.wrapperSlot} key={slot?.slot_id}>
                                         <div className={styles.slotHeaderCompleted}>
-                                            <p className={styles.slotHeaderCompletedText}>Xác nhận hoàn thành</p>
+                                            <p className={styles.slotHeaderCompletedText}>Hoàn thành</p>
                                             <p className={styles.slotHeaderCompletedText}>Đã đặt</p>
                                         </div>
                                         <div className={styles.slotBody}>
@@ -348,7 +348,7 @@ const Dashboard = () => {
                                                 className={styles.slotCardFooterView}
                                                 onClick={() => handleConfirm(slot)}
                                             >
-                                                <span>Hoàn thành</span>
+                                                <span>Xác nhận</span>
                                             </div>
                                             <div
                                                 className={styles.slotCardFooterBook}

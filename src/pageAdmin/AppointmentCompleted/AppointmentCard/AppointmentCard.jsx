@@ -1,9 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import styles from './appointmentCard.module.css';
 import AppointmentInvoiceModal from '../AppointmentInvoiceModal/AppointmentInvoiceModal';
-import { cashPayment, createPayment, createPaymentCustomer, getInvoiceDetails, getPrintPayment, returnPayment } from '@/utils/api';
+import {
+    cashPayment,
+    createPayment,
+    createPaymentCustomer,
+    getInvoiceDetails,
+    getPrintPayment,
+    returnPayment,
+} from '@/utils/api';
 import { toast } from 'react-toastify';
-import { Button, Form, Modal } from 'react-bootstrap';
+import { Button, Form, Modal, Spinner } from 'react-bootstrap';
 
 const AppointmentCard = ({ appointment, updateAppointment, isLatest }) => {
     const [showInvoiceModal, setShowInvoiceModal] = useState(false);
@@ -16,7 +23,18 @@ const AppointmentCard = ({ appointment, updateAppointment, isLatest }) => {
 
     const [showPaymentModal, setShowPaymentModal] = useState(false);
 
+    const [loading, setLoading] = useState({
+        createInvoice: false,
+        viewInvoice: false,
+        paymentInvoice: false,
+        cashPayment: false,
+        printInvoice: false,
+        refundInvoice: false,
+    });
+
     const handlePaymentInvoice = async () => {
+        console.log('Setting loading to true');
+        setLoading((prev) => ({ ...prev, createInvoice: true }));
         try {
             const response = await createPaymentCustomer(appointment?._id, fixedEmployeeId);
             const invoiceId = response?.invoice?._id;
@@ -28,10 +46,14 @@ const AppointmentCard = ({ appointment, updateAppointment, isLatest }) => {
         } catch (error) {
             console.error('Lỗi khi tạo hóa đơn:', error);
             toast.error('Lỗi khi tạo hóa đơn');
+        } finally {
+            console.log('Setting loading to false');
+            setLoading((prev) => ({ ...prev, paymentInvoice: false })); // Đảm bảo reset loading
         }
     };
 
     const handleViewInvoice = async () => {
+        setLoading((prev) => ({ ...prev, viewInvoice: true }));
         const invoiceId = appointment?.invoice?._id;
         if (invoiceId) {
             try {
@@ -46,9 +68,9 @@ const AppointmentCard = ({ appointment, updateAppointment, isLatest }) => {
             toast.error('Không tìm thấy hóa đơn để xem.');
         }
     };
- 
 
     const handlePaymentInvoiceBill = async () => {
+        setLoading((prev) => ({ ...prev, paymentInvoice: true }));
         const invoiceId = appointment?.invoice?._id;
         if (invoiceId) {
             try {
@@ -65,16 +87,17 @@ const AppointmentCard = ({ appointment, updateAppointment, isLatest }) => {
     };
 
     const handlePaymentCashInvoiceBill = async () => {
+        setLoading((prev) => ({ ...prev, cashPayment: true }));
         const invoiceId = appointment?.invoice?._id;
         if (invoiceId) {
             try {
                 const paymentCashResponse = await cashPayment(invoiceId);
-                console.log("paymentCashResponse",paymentCashResponse)
+                console.log('paymentCashResponse', paymentCashResponse);
                 toast.success(paymentCashResponse.msg);
                 updateAppointment({ ...appointment, invoice: { ...appointment.invoice, status: 'paid' } });
                 setShowPaymentModal(false); // Đóng modal sau khi thanh toán thành công
             } catch (err) {
-                toast.error('Tạo liên kết thanh toán thất bại: ' + (err.response?.data?.message || err?.message));
+                toast.error(err.response?.data?.msg || err?.message);
             }
         } else {
             toast.error('Không tìm thấy ID của hóa đơn.');
@@ -82,6 +105,7 @@ const AppointmentCard = ({ appointment, updateAppointment, isLatest }) => {
     };
 
     const handlePrint = async () => {
+        setLoading((prev) => ({ ...prev, printInvoice: true }));
         const invoiceId = appointment?.invoice?._id;
         if (invoiceId) {
             try {
@@ -99,6 +123,7 @@ const AppointmentCard = ({ appointment, updateAppointment, isLatest }) => {
     };
 
     const handlePayBill = async () => {
+        setLoading((prev) => ({ ...prev, refundInvoice: true }));
         const invoiceId = appointment?.invoice?._id;
         if (invoiceId && refundNote) {
             try {
@@ -107,7 +132,7 @@ const AppointmentCard = ({ appointment, updateAppointment, isLatest }) => {
                 setShowRefundModal(false); // Đóng modal sau khi refund thành công
                 updateAppointment({ ...appointment, invoice: { ...appointment?.invoice, status: 'refunded' } });
             } catch (error) {
-                toast.error('Trả hóa đơn thất bại: ' + (error?.response?.data?.message || error.message));
+                toast.error('Trả hóa đơn thất bại: ' + (error?.response?.msg || error.message));
             }
         } else {
             toast.error('Vui lòng nhập lý do trả hóa đơn.');
@@ -152,15 +177,42 @@ const AppointmentCard = ({ appointment, updateAppointment, isLatest }) => {
             </div>
             <div className={styles.appointmentFooter}>
                 {!appointment?.invoice && (
-                    <button className={styles.accordionBtn} onClick={handlePaymentInvoice}>
-                        Lập hóa đơn
-                    </button>
+                    <div style={{ display: 'flex', alignItems: 'center' }}>
+                        <button className={styles.accordionBtn} onClick={handlePaymentInvoice}>
+                            Lập hóa đơn
+                        </button>
+                        {loading.paymentInvoice && (
+                            <Spinner
+                                animation="border"
+                                role="status"
+                                size="sm"
+                                className="text-primary"
+                                style={{ width: '20px', height: '20px', zIndex: 10000 }}
+                            >
+                                <span className="sr-only">Đang tạo hóa đơn...</span>
+                            </Spinner>
+                        )}
+                    </div>
                 )}
                 {appointment?.invoice && appointment?.invoice?.status !== 'paid' && (
                     <div className={styles.appointment}>
-                        <button className={styles.accordionBtnPay} onClick={() => setShowPaymentModal(true)}>
+                        {loading.paymentInvoiceBill && (
+                            <div className="loadingSpinner">Đang tạo liên kết thanh toán...</div>
+                        )}{' '}
+                        {/* Spinner khi đang tạo liên kết thanh toán */}
+                        <button
+                            className={`${styles.accordionBtnPay} ${
+                                appointment?.invoice?.status === 'refunded' ? styles.disabledButton : ''
+                            }`}
+                            onClick={
+                                appointment?.invoice?.status !== 'refunded' ? () => setShowPaymentModal(true) : null
+                            }
+                            disabled={appointment?.invoice?.status === 'refunded'}
+                        >
                             Thanh toán
                         </button>
+                        {loading.viewInvoice && <div className="loadingSpinner">Đang tải hóa đơn...</div>}{' '}
+                        {/* Spinner khi đang tải hóa đơn */}
                         <button className={styles.accordionBtnPayCash} onClick={handleViewInvoice}>
                             Xem hóa đơn
                         </button>
@@ -168,10 +220,18 @@ const AppointmentCard = ({ appointment, updateAppointment, isLatest }) => {
                 )}
                 {appointment?.invoice && appointment?.invoice?.status === 'paid' && (
                     <div className={styles.appointment}>
+                        {loading.print && <div className="loadingSpinner">Đang in hóa đơn...</div>}{' '}
+                        {/* Spinner khi in hóa đơn */}
                         <button className={styles.accordionBtnPrint} onClick={handlePrint}>
                             In hóa đơn
                         </button>
-                        <button className={styles.accordionBtnReturn} onClick={() => setShowRefundModal(true)}>
+                        {loading.payBill && <div className="loadingSpinner">Đang trả hóa đơn...</div>}{' '}
+                        {/* Spinner khi trả hóa đơn */}
+                        <button
+                            className={styles.accordionBtnReturn}
+                            onClick={() => setShowRefundModal(true)}
+                            disabled={appointment?.invoice?.status === 'refunded'}
+                        >
                             Trả hóa đơn
                         </button>
                     </div>
