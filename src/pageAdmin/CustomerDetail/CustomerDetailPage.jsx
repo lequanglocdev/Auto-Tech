@@ -66,8 +66,8 @@ const CustomerDetailPage = () => {
             try {
                 const response = await getRankApi();
                 const formattedRanks = response.map((rank) => ({
-                    value: rank._id,
-                    label: rank.rank_name,
+                    value: rank?._id,
+                    label: rank?.rank_name,
                 }));
                 setRankOptions(formattedRanks);
             } catch (error) {
@@ -131,13 +131,13 @@ const CustomerDetailPage = () => {
 
     const handleUpdateCustomer = async (updatedVehicle) => {
         try {
-            const response = await putVehicleForCustomer(id, updatedVehicle._id, updatedVehicle); // id là customerId, updatedVehicle._id là vehicleId
+            const response = await putVehicleForCustomer(id, updatedVehicle?._id, updatedVehicle); // id là customerId, updatedVehicle._id là vehicleId
 
             if (response) {
                 // Cập nhật lại danh sách xe của khách hàng nếu cập nhật thành công
                 setVehicles((prevVehicles) =>
                     prevVehicles.map((vehicle) =>
-                        vehicle._id === updatedVehicle._id ? { ...vehicle, ...updatedVehicle } : vehicle,
+                        vehicle?._id === updatedVehicle?._id ? { ...vehicle, ...updatedVehicle } : vehicle,
                     ),
                 );
 
@@ -159,10 +159,10 @@ const CustomerDetailPage = () => {
         if (customerToDelete) {
             try {
                 // Xóa xe với id của khách hàng và id của xe
-                await deleteVehicleForCustomer(id, customerToDelete._id);
+                await deleteVehicleForCustomer(id, customerToDelete?._id);
 
                 // Cập nhật lại danh sách xe sau khi xóa thành công
-                setVehicles((prevVehicles) => prevVehicles.filter((vehicle) => vehicle._id !== customerToDelete._id));
+                setVehicles((prevVehicles) => prevVehicles.filter((vehicle) => vehicle?._id !== customerToDelete?._id));
                 toast.success('Xóa xe thành công!');
             } catch (error) {
                 console.error('Lỗi khi xóa xe:', error);
@@ -211,16 +211,16 @@ const CustomerDetailPage = () => {
                     // }}
                 >
                     <p className={styles.customerDetailTextDes}>
-                        <strong>Tên:</strong> {customer.name}
+                        <strong>Tên:</strong> {customer?.name}
                     </p>
                     <p className={styles.customerDetailTextDes}>
-                        <strong>Email:</strong> {customer.email}
+                        <strong>Email:</strong> {customer?.email}
                     </p>
                     <p className={styles.customerDetailTextDes}>
-                        <strong>Số điện thoại:</strong> {customer.phone_number}
+                        <strong>Số điện thoại:</strong> {customer?.phone_number}
                     </p>
                     <p className={styles.customerDetailTextDes}>
-                        <strong>Địa chỉ:</strong> {customer.address}
+                        <strong>Địa chỉ:</strong> {customer?.address}
                     </p>
                     {/* <div className={styles.customerDetailRank}>
                         <p className={styles.customerDetailTextDes}>
@@ -262,13 +262,13 @@ const CustomerDetailPage = () => {
                                 </thead>
                                 <tbody>
                                     {vehicles.map((vehicle, index) => (
-                                        <tr key={vehicle._id}>
-                                            <td>{vehicle.license_plate}</td>
+                                        <tr key={vehicle?._id}>
+                                            <td>{vehicle?.license_plate}</td>
                                             {/* <td>{vehicle?.vehicle_type_id}</td> */}
-                                            <td>{vehicle.manufacturer}</td>
-                                            <td>{vehicle.model}</td>
-                                            <td>{vehicle.year}</td>
-                                            <td>{vehicle.color}</td>
+                                            <td>{vehicle?.manufacturer}</td>
+                                            <td>{vehicle?.model}</td>
+                                            <td>{vehicle?.year}</td>
+                                            <td>{vehicle?.color}</td>
                                             <td className={styles.dataTableItemAction}>
                                                 <div
                                                     className={styles.dataTableIconPen}

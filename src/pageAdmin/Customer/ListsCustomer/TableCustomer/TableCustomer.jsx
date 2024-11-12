@@ -60,7 +60,7 @@ const TableCustomer = ({ data = [], itemsPerPage }) => {
             try {
                 await deleteUserApi(customerToDelete);
                 console.log('Xóa thành công:', customerToDelete);
-                setCustomer((prev) => prev.filter((emp) => emp._id !== customerToDelete._id));
+                setCustomer((prev) => prev.filter((emp) => emp?._id !== customerToDelete?._id));
             } catch (error) {
                 console.error('Lỗi khi xóa nhân viên:', error);
             } finally {
@@ -71,7 +71,7 @@ const TableCustomer = ({ data = [], itemsPerPage }) => {
     };
 
     const handleShowUserDetail = (user) => {
-        navigate(`/customer/${user._id}`);
+        navigate(`/customer/${user?._id}`);
     };
     const handleEditUser = (user) => {
         setSelectedUser(user);
@@ -82,7 +82,7 @@ const TableCustomer = ({ data = [], itemsPerPage }) => {
             const response = await putCustomerApi(updatedCustomer);
             if (response) {
                 setCustomer((prev) =>
-                    prev.map((cust) => (cust._id === updatedCustomer._id ? { ...cust, ...updatedCustomer } : cust)),
+                    prev.map((cust) => (cust?._id === updatedCustomer?._id ? { ...cust, ...updatedCustomer } : cust)),
                 );
 
                 setEditModalShow(false);
@@ -119,11 +119,11 @@ const TableCustomer = ({ data = [], itemsPerPage }) => {
                 </thead>
                 <tbody>
                     {currentData.map((item) => (
-                        <tr key={item._id} className={styles.dataTableRow} onClick={() => handleShowUserDetail(item)}>
-                            <td className={styles.dataTableItem}>{item.name}</td>
-                            <td className={styles.dataTableItem}>{item.email}</td>
-                            <td className={styles.dataTableItem}>{item.phone_number}</td>
-                            <td className={styles.dataTableItem}>{item.address}</td>
+                        <tr key={item?._id} className={styles.dataTableRow} onClick={() => handleShowUserDetail(item)}>
+                            <td className={styles.dataTableItem}>{item?.name}</td>
+                            <td className={styles.dataTableItem}>{item?.email}</td>
+                            <td className={styles.dataTableItem}>{item?.phone_number}</td>
+                            <td className={styles.dataTableItem}>{item?.address}</td>
                             <td className={styles.dataTableItemAction}>
                                 <div
                                     className={styles.dataTableIconPen}

@@ -102,8 +102,8 @@ const AddVehicleModal = ({ show, onClose, customerId, onSave }) => {
                         >
                             <option value="">Chọn hãng xe</option>
                             {vehicleTypes.map((type) => (
-                                <option key={type.id} value={type._id}>
-                                    {type.vehicle_type_name}
+                                <option key={type.id} value={type?._id}>
+                                    {type?.vehicle_type_name}
                                 </option>
                             ))}
                         </Form.Control>

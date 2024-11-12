@@ -23,8 +23,8 @@ const BookedModal = ({ show, handleClose, slotId, onUpdateSlot }) => {
     const [selectedServices, setSelectedServices] = useState([]);
     const [serviceError, setServiceError] = useState('');
 
-    const totalTime = selectedServices.reduce((acc, service) => acc + service.time_required, 0);
-    const totalCost = selectedServices.reduce((acc, service) => acc + service.price, 0);
+    const totalTime = selectedServices.reduce((acc, service) => acc + service?.time_required, 0);
+    const totalCost = selectedServices.reduce((acc, service) => acc + service?.price, 0);
 
     useEffect(() => {
         if (slotId) {

@@ -32,14 +32,14 @@ const AppointmentInvoiceModal = ({ show, handleClose, invoiceDetails }) => {
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {Array.isArray(invoiceDetails.invoice.details) &&
-                                        invoiceDetails.invoice.details.length > 0 ? (
+                                        {Array.isArray(invoiceDetails?.invoice?.details) &&
+                                        invoiceDetails?.invoice?.details.length > 0 ? (
                                             invoiceDetails.invoice.details.map((detail) => (
-                                                <tr key={detail._id}>
-                                                    <td>{detail.service_id.name}</td>
-                                                    <td>{detail.quantity}</td>
-                                                    <td>{detail.price.toLocaleString()}đ</td>
-                                                    <td>{(detail.price * detail.quantity).toLocaleString()}đ</td>
+                                                <tr key={detail?._id}>
+                                                    <td>{detail?.service_id?.name}</td>
+                                                    <td>{detail?.quantity}</td>
+                                                    <td>{detail?.price.toLocaleString()}đ</td>
+                                                    <td>{(detail?.price * detail?.quantity).toLocaleString()}đ</td>
                                                 </tr>
                                             ))
                                         ) : (
@@ -53,17 +53,17 @@ const AppointmentInvoiceModal = ({ show, handleClose, invoiceDetails }) => {
                                 </Table>
                                 <div className={styles.invoicePay}>
                                     <p className={styles.invoicePayText}>Tiền dịch vụ</p>
-                                    <p>{Number(invoiceDetails.invoice.total_amount).toLocaleString('vi-VN')}đ</p>
+                                    <p>{Number(invoiceDetails?.invoice?.total_amount).toLocaleString('vi-VN')}đ</p>
                                 </div>
                                 <hr />
                                 <div className={styles.invoicePay}>
                                     <p className={styles.invoicePayText}>Khuyến mãi</p>
-                                    <p>{Number(invoiceDetails.invoice.discount_amount).toLocaleString('vi-VN')}đ</p>
+                                    <p>{Number(invoiceDetails?.invoice?.discount_amount).toLocaleString('vi-VN')}đ</p>
                                 </div>
                                 <hr />
                                 <div className={styles.invoicePay}>
                                     <p className={styles.invoicePayText}>Tổng số tiền phải trả</p>
-                                    <p>{Number(invoiceDetails.invoice.final_amount).toLocaleString('vi-VN')}đ</p>
+                                    <p>{Number(invoiceDetails?.invoice?.final_amount).toLocaleString('vi-VN')}đ</p>
                                 </div>
                             </div>
                         </div>

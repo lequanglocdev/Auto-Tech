@@ -185,7 +185,7 @@ const TestComponent = () => {
             }
         } catch (error) {
             console.error('Lỗi khi xóa chương trình khuyến mãi:', error);
-            toast.error('Có lỗi xảy ra khi xóa chương trình khuyến mãi'); // Hiển thị thông báo lỗi
+            toast.error(error.response.data.msg); // Hiển thị thông báo lỗi
         } finally {
             setConfirmDeleteModalShow(false); // Đóng modal xác nhận xóa
         }
@@ -217,7 +217,7 @@ const TestComponent = () => {
                 // Thêm dòng khuyến mãi mới vào promotion header tương ứng
                 setPromotions((prevPromotions) =>
                     prevPromotions.map((header) =>
-                        header._id === selectedPromotion._id
+                        header._id === selectedPromotion?._id
                             ? { ...header, lines: [...header.lines, newPromotionLine] }
                             : header,
                     ),
@@ -258,7 +258,7 @@ const TestComponent = () => {
             if (error.response && error.response.data && error.response.data.msg) {
                 toast.error(error.response.data.msg);
             } else {
-                toast.error('Đã xảy ra lỗi khi cập nhật trạng thái. Vui lòng thử lại sau.');
+                toast.error('Bạn không có quyền thực hiện hành động này');
             }
         }
     };
@@ -277,7 +277,7 @@ const TestComponent = () => {
 
                 setPromotions((prevPromotions) =>
                     prevPromotions.map((header) => {
-                        if (header._id === updatedPromotionLine.promotion_header_id) {
+                        if (header?._id === updatedPromotionLine.promotion_header_id) {
                             // Tìm header tương ứng
                             return {
                                 ...header,
@@ -387,7 +387,7 @@ const TestComponent = () => {
                     lines: header.lines.map((line) => ({
                         ...line,
                         promotionDetails: line.promotionDetails.map((detail) =>
-                            detail._id === updatedDetail._id ? updatedDetail : detail,
+                            detail?._id === updatedDetail?._id ? updatedDetail : detail,
                         ),
                     })),
                 })),

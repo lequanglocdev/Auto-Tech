@@ -8,13 +8,13 @@ import TableCustomer from './TableCustomer/TableCustomer';
 import CommonButton from '@/components/UI/CommonButton/CommonButton ';
 import { useNavigate } from 'react-router-dom';
 import icons from '@/utils/icon';
-import { Button, Col, Form, InputGroup, Row, Spinner } from 'react-bootstrap';
+import {  Spinner } from 'react-bootstrap';
 const ListsCustomer = () => {
     const navigate = useNavigate();
     const [userData, setUserData] = useState([]);
     const [loading, setLoading] = useState(true);
 
-    const [searchQuery, setSearchQuery] = useState(''); 
+  
     const { FaPlusCircle } = icons;
     useEffect(() => {
         const fetchData = async () => {
@@ -37,30 +37,6 @@ const ListsCustomer = () => {
         fetchData();
     }, []);
 
-    // const handleSearch = async () => {
-    //     if (searchQuery.trim() === '') {
-    //         // Nếu không có gì để tìm kiếm, quay lại danh sách đầy đủ
-    //         const response = await getUserApi();
-    //         setUserData(response);
-    //         return;
-    //     }
-
-    //     setLoading(true);
-    //     try {
-    //         const response = await findCustomerApi(`phone_number=${searchQuery}`);
-    //         console.log('Kết quả tìm kiếm:', response); 
-    //         if (response && response.length > 0) {
-    //             setUserData(response.data); // Cập nhật danh sách với kết quả tìm kiếm
-    //         } else {
-    //             toast.info('Không tìm thấy khách hàng với số điện thoại này.');
-    //             setUserData([]); // Xóa danh sách nếu không tìm thấy
-    //         }
-    //     } catch (error) {
-    //         toast.error('Đã xảy ra lỗi khi tìm kiếm.');
-    //     } finally {
-    //         setLoading(false);
-    //     }
-    // };
     const handleAddCustomer = () => {
         navigate('/addCustomer');
     };

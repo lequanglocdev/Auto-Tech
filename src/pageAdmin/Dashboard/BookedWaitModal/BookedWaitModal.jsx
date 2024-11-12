@@ -193,12 +193,12 @@ const BookedWaitModal = ({ show, handleClose, onUpdateWithoutSlot }) => {
                             <div className={styles.customer}>
                                 <div>
                                     <h4>Thông tin khách hàng</h4>
-                                    <p className={styles.customerText}>Tên: {customerData.customer.name}</p>
-                                    <p className={styles.customerText}>Email: {customerData.customer.email}</p>
+                                    <p className={styles.customerText}>Tên: {customerData?.customer?.name}</p>
+                                    <p className={styles.customerText}>Email: {customerData?.customer?.email}</p>
                                     <p className={styles.customerText}>
-                                        Số điện thoại: {customerData.customer.phone_number}
+                                        Số điện thoại: {customerData?.customer?.phone_number}
                                     </p>
-                                    <p className={styles.customerText}>Địa chỉ: {customerData.customer.address}</p>
+                                    <p className={styles.customerText}>Địa chỉ: {customerData?.customer?.address}</p>
                                 </div>
                                 <div>
                                     <h4 style={{ textAlign: 'center' }}>Thông tin xe:</h4>
@@ -223,13 +223,13 @@ const BookedWaitModal = ({ show, handleClose, onUpdateWithoutSlot }) => {
                                                         }}
                                                         style={{
                                                             backgroundColor:
-                                                                selectedVehicle && selectedVehicle._id === vehicle._id
+                                                                selectedVehicle && selectedVehicle?._id === vehicle?._id
                                                                     ? '#2ecc71'
                                                                     : '#3498db', // Đổi màu sắc
                                                             color: 'white', // Màu chữ
                                                         }}
                                                     >
-                                                        {selectedVehicle && selectedVehicle._id === vehicle._id
+                                                        {selectedVehicle && selectedVehicle?._id === vehicle?._id
                                                             ? 'Đã chọn xe'
                                                             : 'Chọn xe này'}
                                                     </button>
@@ -290,13 +290,13 @@ const BookedWaitModal = ({ show, handleClose, onUpdateWithoutSlot }) => {
                                         <tbody>
                                             {servicePrice.map((service) => (
                                                 <tr key={service.priceline_id}>
-                                                    <td className={styles.dataTableItem}>{service.service_code}</td>
-                                                    <td className={styles.dataTableItem}>{service.service}</td>
-                                                    <td className={styles.dataTableItem}>{service.vehicle_type}</td>
+                                                    <td className={styles.dataTableItem}>{service?.service_code}</td>
+                                                    <td className={styles.dataTableItem}>{service?.service}</td>
+                                                    <td className={styles.dataTableItem}>{service?.vehicle_type}</td>
                                                     <td className={styles.dataTableItem}>
-                                                        {service.time_required} phút
+                                                        {service?.time_required} phút
                                                     </td>
-                                                    <td className={styles.dataTableItem}>{service.price} VNĐ</td>
+                                                    <td className={styles.dataTableItem}>{service?.price} VNĐ</td>
                                                     <td className={styles.dataTableIcon}>
                                                         {selectedServices.some(
                                                             (s) => s.priceline_id === service.priceline_id,
@@ -338,13 +338,13 @@ const BookedWaitModal = ({ show, handleClose, onUpdateWithoutSlot }) => {
                                         <tbody>
                                             {selectedServices.map((service, index) => (
                                                 <tr key={index}>
-                                                    <td className={styles.dataTableItem}>{service.service_code}</td>
-                                                    <td className={styles.dataTableItem}>{service.service}</td>
-                                                    <td className={styles.dataTableItem}>{service.vehicle_type}</td>
+                                                    <td className={styles.dataTableItem}>{service?.service_code}</td>
+                                                    <td className={styles.dataTableItem}>{service?.service}</td>
+                                                    <td className={styles.dataTableItem}>{service?.vehicle_type}</td>
                                                     <td className={styles.dataTableItem}>
-                                                        {service.time_required} phút
+                                                        {service?.time_required} phút
                                                     </td>
-                                                    <td className={styles.dataTableItem}>{service.price} VNĐ</td>
+                                                    <td className={styles.dataTableItem}>{service?.price} VNĐ</td>
                                                     <td className={styles.dataTableIcon}>
                                                         <FaTrash
                                                             onClick={() => handleAddOrRemoveService(service)}

@@ -35,7 +35,7 @@ const TableCar = ({ data = [], itemsPerPage }) => {
         if (carToDelete) {
             try {
                 await deleteCarApi(carToDelete);
-                setCar((prev) => prev.filter((emp) => emp._id !== carToDelete._id));
+                setCar((prev) => prev.filter((emp) => emp?._id !== carToDelete?._id));
             } catch (error) {
                 console.log(error);
             } finally {
@@ -54,7 +54,7 @@ const TableCar = ({ data = [], itemsPerPage }) => {
         try {
             const response = await putCarApi(updatedCar);
             if (response) {
-                setCar((prev) => prev.map((cust) => (cust._id === updatedCar._id ? { ...cust, ...updatedCar } : cust)));
+                setCar((prev) => prev.map((cust) => (cust?._id === updatedCar?._id ? { ...cust, ...updatedCar } : cust)));
                 setEditModalShow(false);
             }
         } catch (error) {
@@ -97,9 +97,9 @@ const TableCar = ({ data = [], itemsPerPage }) => {
                 </thead>
                 <tbody>
                     {currentData.map((item, index) => (
-                        <tr key={item._id}>
-                            <td className={styles.dataTableItem}>{item.vehicle_type_name}</td>
-                            <td className={styles.dataTableItem}>{item.description}</td>
+                        <tr key={item?._id}>
+                            <td className={styles.dataTableItem}>{item?.vehicle_type_name}</td>
+                            <td className={styles.dataTableItem}>{item?.description}</td>
                             <td className={styles.dataTableItemAction}>
                                 <div className={styles.dataTableIconPen} onClick={() => handleEditUser(item)}>
                                     <FaPen />
