@@ -48,7 +48,7 @@ const TestComponent = () => {
     const [confirmDeletePromotionLineModalShow, setConfirmDeletePromotionLineModalShow] = useState(false);
     const [addPromotionModalShow, setAddPromotionModalShow] = useState(false);
     // DETAIL
-    const [activeStatusDetail, setActiveStatusDetail] = useState([]); // Khởi tạo mảng
+    const [activeStatusDetail, setActiveStatusDetail] = useState({});
     const [selectedPromotionDetail, setSelectedPromotionDetail] = useState(null);
     const [editPromotionDetailModalShow, setEditPromotionDetailModalShow] = useState(false);
     const [confirmDeletePromotionDetailModalShow, setconfirmDeletePromotionDetailModalShow] = useState(false);
@@ -338,27 +338,31 @@ const TestComponent = () => {
     };
 
     //_________________________________________________
-    const handleToggleActiveDetail = async (promotionDetail, index) => {
+    const handleToggleActiveDetail = async (detail) => {
+        const detailId = detail?._id;
+        const newActiveStatus = !activeStatusDetail[detailId];
         try {
-            const updatedItem = { ...promotionDetail, is_active: !promotionDetail?.is_active };
-            
-            // Gọi API cập nhật trạng thái
-            const response = await putActivePromotionDetail(promotionDetail?._id, updatedItem?.is_active);
+            // Gọi API để cập nhật trạng thái
+            const response = await putActivePromotionDetail(detailId, newActiveStatus);
     
             if (response) {
-                // Cập nhật state `promotions`
+                // Cập nhật trạng thái `is_active` của `promotions`
                 setPromotions((prev) =>
-                    prev.map((p) =>
-                        p._id === promotionDetail._id ? { ...p, is_active: updatedItem.is_active } : p,
-                    ),
+                    prev.map((p) => ({
+                        ...p,
+                        promotionDetails: p.promotionDetails
+                            ? p.promotionDetails.map((d) =>
+                                  d?._id === detailId ? { ...d, is_active: newActiveStatus } : d
+                              )
+                            : [], // Giá trị mặc định là mảng rỗng nếu `promotionDetails` không tồn tại
+                    }))
                 );
     
-                // Cập nhật trạng thái `activeStatusDetail` cho phần tử hiện tại
-                setActiveStatusDetail((prevStatus) => {
-                    const newStatus = [...prevStatus];
-                    newStatus[index] = updatedItem.is_active;
-                    return newStatus;
-                });
+                // Cập nhật `activeStatusDetail` cho `detail` hiện tại bằng `detailId`
+                setActiveStatusDetail((prevStatus) => ({
+                    ...prevStatus,
+                    [detailId]: newActiveStatus,
+                }));
     
                 toast.success('Cập nhật trạng thái thành công!');
             }
@@ -367,6 +371,7 @@ const TestComponent = () => {
             toast.error('Đã xảy ra lỗi khi cập nhật trạng thái. Vui lòng thử lại sau.');
         }
     };
+    
     const handleEditPromotionDetail = (detail) => {
         setSelectedPromotionDetail(detail);
         setEditPromotionDetailModalShow(true);
@@ -700,7 +705,7 @@ const TestComponent = () => {
                                                                         </div>
                                                                     </td>
                                                                 </tr>
-                                                                {openLines[header?._id]?.[line._id] && ( // Sử dụng line._id
+                                                                {openLines[header?._id]?.[line?._id] && ( // Sử dụng line._id
                                                                     <tr>
                                                                         <td colSpan="6">
                                                                             {/* Bảng cấp 3: Detail */}
@@ -756,7 +761,7 @@ const TestComponent = () => {
                                                                                     <tbody>
                                                                                         {line?.promotionDetails?.map(
                                                                                             (
-                                                                                                detail,  promotionDetails
+                                                                                                detail,  indexDetails
                                                                                             ) => (
                                                                                                 <tr
                                                                                                     key={detail?._id}
@@ -814,28 +819,11 @@ const TestComponent = () => {
                                                                                                             >
                                                                                                                 <input
                                                                                                                     type="checkbox"
-                                                                                                                    checked={
-                                                                                                                        activeStatusDetail[
-                                                                                                                            promotionDetails
-                                                                                                                        ]
-                                                                                                                    } // Sử dụng state để kiểm soát giá trị
+                                                                                                                    checked={activeStatusDetail[detail?._id] ?? detail.is_active}
                                                                                                                     onChange={() => {
-                                                                                                                        const newStatus =
-                                                                                                                            [
-                                                                                                                                ...activeStatusDetail,
-                                                                                                                            ];
-                                                                                                                        newStatus[
-                                                                                                                            index
-                                                                                                                        ] =
-                                                                                                                            !newStatus[
-                                                                                                                                index
-                                                                                                                            ]; // Đổi trạng thái
-                                                                                                                        setActiveStatusDetail(
-                                                                                                                            newStatus,
-                                                                                                                        );
                                                                                                                         handleToggleActiveDetail(
                                                                                                                             detail,
-                                                                                                                            index,
+                                                                                                                            indexDetails,
                                                                                                                         );
                                                                                                                     }}
                                                                                                                 />

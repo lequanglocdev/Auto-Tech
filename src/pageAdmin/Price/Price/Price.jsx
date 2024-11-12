@@ -370,7 +370,7 @@ const Price = ({ data = [] }) => {
 
                                     <tbody>
                                         {priceDetail.map((item, indexDetail) => (
-                                            <tr key={item._id}>
+                                            <tr key={item?._id}>
                                                 <td className={styles.tableBodyTd}>{item?.service_id?.name}</td>
                                                 <td className={styles.tableBodyTd}>
                                                     {item?.vehicle_type_id?.vehicle_type_name}
