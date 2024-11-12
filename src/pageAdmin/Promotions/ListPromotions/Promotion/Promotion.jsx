@@ -733,7 +733,7 @@ const TestComponent = () => {
                                                                                                     styles.tableHeadLineTh
                                                                                                 }
                                                                                             >
-                                                                                                Số tiền giảm giá
+                                                                                                Phần trăm giảm giá
                                                                                             </th>
                                                                                             <th
                                                                                                 className={
