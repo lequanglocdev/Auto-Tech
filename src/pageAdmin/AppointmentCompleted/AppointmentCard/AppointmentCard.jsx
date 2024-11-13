@@ -22,7 +22,7 @@ const AppointmentCard = ({ appointment, updateAppointment, isLatest }) => {
     const [refundNote, setRefundNote] = useState('');
 
     const [showPaymentModal, setShowPaymentModal] = useState(false);
-
+    const [disabled, setDisabled] = useState(false);
     const [loading, setLoading] = useState({
         createInvoice: false,
         viewInvoice: false,
@@ -31,6 +31,13 @@ const AppointmentCard = ({ appointment, updateAppointment, isLatest }) => {
         printInvoice: false,
         refundInvoice: false,
     });
+
+    useEffect(() => {
+        // Kiểm tra lại trạng thái invoice khi component mount lại
+        if (appointment?.invoice?.status === 'back') {
+            setDisabled(true);
+        }
+    }, [appointment?.invoice?.status]);
 
     const handlePaymentInvoice = async () => {
         console.log('Setting loading to true');
@@ -205,13 +212,13 @@ const AppointmentCard = ({ appointment, updateAppointment, isLatest }) => {
                                 appointment?.invoice?.status === 'refunded' ? styles.disabledButton : ''
                             }`}
                             onClick={
-                                appointment?.invoice?.status !== 'refunded' ? () => setShowPaymentModal(true) : null
+                                !disabled ? () => setShowPaymentModal(true) : null
                             }
-                            disabled={appointment?.invoice?.status === 'refunded'}
+                            disabled={disabled}
                         >
                             Thanh toán
                         </button>
-                        {loading.viewInvoice && <div className="loadingSpinner">Đang tải hóa đơn...</div>}{' '}
+                        {/* {loading.viewInvoice && <div className="loadingSpinner">Đang tải hóa đơn...</div>} */}
                         {/* Spinner khi đang tải hóa đơn */}
                         <button className={styles.accordionBtnPayCash} onClick={handleViewInvoice}>
                             Xem hóa đơn

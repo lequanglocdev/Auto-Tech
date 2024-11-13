@@ -15,9 +15,13 @@ const AppointmentCompleted = () => {
         const fetchAppointments = async () => {
             try {
                 const response = await getAppointmentCompleted();
-                const sortedAppointments = response.sort(
-                    (a, b) => new Date(b.appointment_datetime) - new Date(a.appointment_datetime),
-                );
+                console.log('abc', response);
+                const sortedAppointments = response.sort((a, b) => {
+                    if (!a.invoice && b.invoice) return -1;
+                    if (a.invoice && !b.invoice) return 1;
+                    if (a.invoice?.status === 'paid') return 1;
+                    return -1;
+                });
                 setAppointments(sortedAppointments);
                 setFilteredAppointments(sortedAppointments);
             } catch (err) {
@@ -65,7 +69,7 @@ const AppointmentCompleted = () => {
                 <Row>
                     {appointmentsWithoutInvoice.length > 0 ? (
                         <div className={styles.noInvoice}>
-                            {appointmentsWithoutInvoice.map((appointment,index) => (
+                            {appointmentsWithoutInvoice.map((appointment, index) => (
                                 <Col key={appointment?._id} xs={12} md={6} lg={4}>
                                     <AppointmentCard
                                         appointment={appointment}

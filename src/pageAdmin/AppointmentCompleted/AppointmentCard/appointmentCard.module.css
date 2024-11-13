@@ -174,7 +174,7 @@
 }
 
 .disabledButton {
-  opacity: 0.6;       /* Làm mờ nút */
+  opacity: 0.6 !;       /* Làm mờ nút */
   cursor: not-allowed; /* Thay đổi con trỏ chuột */
   pointer-events: none; /* Ngăn người dùng click */
 }
