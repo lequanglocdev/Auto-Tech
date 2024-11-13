@@ -209,7 +209,7 @@ const getStatisticAppointmentTotal = (month, year) => {
 };
 
 const getExportStatistic = (startDate, endDate) => {
-    const URL_API = `/api/statistics/export?start_date=${startDate}&end_date=${endDate}`;
+    const URL_API = `/api/statistics/export2?start_date=${startDate}&end_date=${endDate}`;
     return axios.get(URL_API, { responseType: 'arraybuffer' });
 };
 
