@@ -41,23 +41,32 @@ const AppointmentCard = ({ appointment, updateAppointment, isLatest }) => {
 
     const handlePaymentInvoice = async () => {
         console.log('Setting loading to true');
-        setLoading((prev) => ({ ...prev, createInvoice: true }));
+        setLoading((prev) => ({ ...prev, createInvoice: true })); // Sử dụng đồng nhất createInvoice
+    
         try {
+            // Gọi API để tạo hóa đơn
             const response = await createPaymentCustomer(appointment?._id, fixedEmployeeId);
             const invoiceId = response?.invoice?._id;
-
+    
             if (!invoiceId) throw new Error('Không tìm thấy ID của hóa đơn.');
-            setInvoiceId(invoiceId); // Lưu lại invoiceId để sử dụng trong modal
+    
+            // Lưu invoiceId để sử dụng sau này (ví dụ trong modal)
+            setInvoiceId(invoiceId); 
+    
+            // Hiển thị thông báo thành công
             toast.success('Hóa đơn đã được tạo thành công!');
+    
+            // Cập nhật danh sách cuộc hẹn với hóa đơn mới tạo
             updateAppointment({ ...appointment, invoice: response.invoice });
         } catch (error) {
             console.error('Lỗi khi tạo hóa đơn:', error);
             toast.error('Lỗi khi tạo hóa đơn');
         } finally {
             console.log('Setting loading to false');
-            setLoading((prev) => ({ ...prev, paymentInvoice: false })); // Đảm bảo reset loading
+            setLoading((prev) => ({ ...prev, createInvoice: false })); // Reset đúng key loading
         }
     };
+    
 
     const handleViewInvoice = async () => {
         setLoading((prev) => ({ ...prev, viewInvoice: true }));

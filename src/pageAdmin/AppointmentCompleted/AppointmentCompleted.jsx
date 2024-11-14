@@ -35,12 +35,15 @@ const AppointmentCompleted = () => {
     }, []);
 
     const updateAppointment = (updatedAppointment) => {
-        setAppointments((prevAppointments) =>
-            prevAppointments.map((app) => (app?._id === updatedAppointment?._id ? updatedAppointment : app)),
-        );
-        setFilteredAppointments((prevAppointments) =>
-            prevAppointments.map((app) => (app?._id === updatedAppointment?._id ? updatedAppointment : app)),
-        );
+        setAppointments((prevAppointments) => {
+            const filteredAppointments = prevAppointments.filter(app => app?._id !== updatedAppointment?._id);
+            return [updatedAppointment, ...filteredAppointments]; // Đưa cuộc hẹn mới lập hóa đơn lên đầu
+        });
+        
+        setFilteredAppointments((prevAppointments) => {
+            const filteredAppointments = prevAppointments.filter(app => app?._id !== updatedAppointment?._id);
+            return [updatedAppointment, ...filteredAppointments];
+        });
     };
 
     if (loading) {

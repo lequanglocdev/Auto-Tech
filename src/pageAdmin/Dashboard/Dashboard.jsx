@@ -320,8 +320,8 @@ const Dashboard = () => {
                                 .map((slot) => (
                                     <div className={styles.wrapperSlot} key={slot?.slot_id}>
                                         <div className={styles.slotHeaderCompleted}>
-                                            <p className={styles.slotHeaderCompletedText}>Hoàn thành</p>
-                                            <p className={styles.slotHeaderCompletedText}>Đã đặt</p>
+                                            <p className={styles.slotHeaderCompletedText}>Khu vực chăm sóc</p>
+                                            <p className={styles.slotHeaderCompletedText}>Đang xử lý</p>
                                         </div>
                                         <div className={styles.slotBody}>
                                             <p className={styles.slotBodyText}>
@@ -363,7 +363,7 @@ const Dashboard = () => {
                     </div>
                     {/* ___________________________________________________________________________*/}
 
-                    <div className={styles.dasboardBodyCalender}>
+                    {/* <div className={styles.dasboardBodyCalender}>
                         <div className={styles.dasboardBodyCalenderHeader}>
                             <h4>Lịch hẹn</h4>
                             <button onClick={handleShowModalBookedWait} className={styles.calendarBtn}>
@@ -422,9 +422,7 @@ const Dashboard = () => {
                                             <p className={styles.appointmentResultsBodyText}>
                                                 Biển số xe: {appointment?.vehicle_id?.license_plate}
                                             </p>
-                                            {/* <div>
-                                                <Button  onClick={() => handleWatingView(appointment)}>Xem</Button>
-                                            </div> */}
+                                           
                                             <div
                                                 className={styles.slotCardFooterCalender}
                                                 onClick={() => handleCalenderView(appointment)}
@@ -436,8 +434,7 @@ const Dashboard = () => {
                                 </div>
                             )
                         )}
-                    </div>
-                    {/* _______________ */}
+                    </div> */}
                 </div>
                 <div className={styles.dasboardBodyCompleted}>
                     <h4 className={styles.dasboardBodyCompletedHead}>Khu vực chờ xác nhận </h4>
