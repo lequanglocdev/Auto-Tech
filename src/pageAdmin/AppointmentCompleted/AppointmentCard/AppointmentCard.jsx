@@ -31,7 +31,11 @@ const AppointmentCard = ({ appointment, updateAppointment, isLatest }) => {
         printInvoice: false,
         refundInvoice: false,
     });
+    const [isRefunded, setIsRefunded] = useState(appointment?.invoice?.status === 'refunded');
 
+    useEffect(() => {
+      setIsRefunded(appointment?.invoice?.status === 'refunded');
+    }, [appointment]);
     useEffect(() => {
         // Kiểm tra lại trạng thái invoice khi component mount lại
         if (appointment?.invoice?.status === 'back') {
@@ -146,6 +150,7 @@ const AppointmentCard = ({ appointment, updateAppointment, isLatest }) => {
                 await returnPayment(invoiceId, refundNote);
                 toast.success('Đã trả hóa đơn thành công!');
                 setShowRefundModal(false); // Đóng modal sau khi refund thành công
+                setDisabled(true)
                 updateAppointment({ ...appointment, invoice: { ...appointment?.invoice, status: 'refunded' } });
             } catch (error) {
                 toast.error('Trả hóa đơn thất bại: ' + (error?.response?.msg || error.message));
