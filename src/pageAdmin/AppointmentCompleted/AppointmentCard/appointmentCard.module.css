@@ -73,6 +73,13 @@
   font-size: 1.4rem;
   color: var( --text-third) !important;
   font-weight: 500 !important;
+  margin: 0;
+}
+
+.appointmentCardHeader span{
+  font-size: 1.2rem;
+  color: var( --text-third) !important;
+  font-weight: 500 !important;
 }
 
 .appointmentCardBody{
@@ -174,6 +181,8 @@
 }
 
 .disabledButton {
+  display: none;
+  visibility: hidden;
   opacity: 0.6 ;       /* Làm mờ nút */
   cursor: not-allowed; /* Thay đổi con trỏ chuột */
   pointer-events: none; /* Ngăn người dùng click */

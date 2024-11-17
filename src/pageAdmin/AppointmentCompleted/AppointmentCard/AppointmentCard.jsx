@@ -34,7 +34,7 @@ const AppointmentCard = ({ appointment, updateAppointment, isLatest }) => {
     const [isRefunded, setIsRefunded] = useState(appointment?.invoice?.status === 'refunded');
 
     useEffect(() => {
-      setIsRefunded(appointment?.invoice?.status === 'refunded');
+        setIsRefunded(appointment?.invoice?.status === 'refunded');
     }, [appointment]);
     useEffect(() => {
         // Kiểm tra lại trạng thái invoice khi component mount lại
@@ -45,21 +45,30 @@ const AppointmentCard = ({ appointment, updateAppointment, isLatest }) => {
 
     const handlePaymentInvoice = async () => {
         console.log('Setting loading to true');
-        setLoading((prev) => ({ ...prev, createInvoice: true })); // Sử dụng đồng nhất createInvoice
-    
+        setLoading((prev) => ({ ...prev, createInvoice: true })); // Bật trạng thái loading
+
         try {
             // Gọi API để tạo hóa đơn
             const response = await createPaymentCustomer(appointment?._id, fixedEmployeeId);
             const invoiceId = response?.invoice?._id;
-    
+
             if (!invoiceId) throw new Error('Không tìm thấy ID của hóa đơn.');
-    
-            // Lưu invoiceId để sử dụng sau này (ví dụ trong modal)
-            setInvoiceId(invoiceId); 
-    
+
+            // Lưu invoiceId để sử dụng sau này (nếu cần)
+            setInvoiceId(invoiceId);
+
+            // Gọi API để lấy chi tiết hóa đơn
+            const invoiceDetails = await getInvoiceDetails(invoiceId);
+            console.log('Invoice Details:', invoiceDetails);
+            setInvoiceDetails(invoiceDetails); // Lưu thông tin hóa đơn vào state
+
+            // Hiển thị modal
+            setShowInvoiceModal(true);
+            console.log('Đã bật modal, giá trị hiện tại:', showInvoiceModal);
             // Hiển thị thông báo thành công
-            toast.success('Hóa đơn đã được tạo thành công!');
-    
+            setTimeout(() => {
+                toast.success('Hóa đơn đã được tạo thành công!');
+            }, 1000); // Hiển thị thông báo sau
             // Cập nhật danh sách cuộc hẹn với hóa đơn mới tạo
             updateAppointment({ ...appointment, invoice: response.invoice });
         } catch (error) {
@@ -67,10 +76,9 @@ const AppointmentCard = ({ appointment, updateAppointment, isLatest }) => {
             toast.error('Lỗi khi tạo hóa đơn');
         } finally {
             console.log('Setting loading to false');
-            setLoading((prev) => ({ ...prev, createInvoice: false })); // Reset đúng key loading
+            setLoading((prev) => ({ ...prev, createInvoice: false })); // Tắt trạng thái loading
         }
     };
-    
 
     const handleViewInvoice = async () => {
         setLoading((prev) => ({ ...prev, viewInvoice: true }));
@@ -150,7 +158,7 @@ const AppointmentCard = ({ appointment, updateAppointment, isLatest }) => {
                 await returnPayment(invoiceId, refundNote);
                 toast.success('Đã trả hóa đơn thành công!');
                 setShowRefundModal(false); // Đóng modal sau khi refund thành công
-                setDisabled(true)
+                setDisabled(true);
                 updateAppointment({ ...appointment, invoice: { ...appointment?.invoice, status: 'refunded' } });
             } catch (error) {
                 toast.error('Trả hóa đơn thất bại: ' + (error?.response?.msg || error.message));
@@ -164,8 +172,16 @@ const AppointmentCard = ({ appointment, updateAppointment, isLatest }) => {
         <div className={styles.appointmentCard}>
             {/* {isLatest && <div className={styles.newestLabel}>Gần đây</div>} */}
             <div className={styles.appointmentCardHeader}>
-                <h5>{appointment?.status ? 'Hoàn thành' : 'Chưa hoàn thành'}</h5>
-                <h5>Thời gian đặt lịch: {new Date(appointment?.appointment_datetime).toLocaleString()}</h5>
+                <h5>
+                    {!appointment?.invoice
+                        ? 'Chưa lập hóa đơn'
+                        : appointment?.invoice?.status === 'paid'
+                        ? 'Đã thanh toán'
+                        : appointment?.invoice?.status === 'pending'
+                        ? 'Chưa thanh toán'
+                        : 'Hóa đơn trả'}
+                </h5>
+                <span>Thời gian đặt lịch: {new Date(appointment?.appointment_datetime).toLocaleString()}</span>
             </div>
             <div className={styles.appointmentCardBody}>
                 <div>
@@ -225,18 +241,23 @@ const AppointmentCard = ({ appointment, updateAppointment, isLatest }) => {
                             className={`${styles.accordionBtnPay} ${
                                 appointment?.invoice?.status === 'refunded' ? styles.disabledButton : ''
                             }`}
-                            onClick={
-                                !disabled ? () => setShowPaymentModal(true) : null
-                            }
+                            onClick={!disabled ? () => setShowPaymentModal(true) : null}
                             disabled={disabled}
                         >
                             Thanh toán
                         </button>
                         {/* {loading.viewInvoice && <div className="loadingSpinner">Đang tải hóa đơn...</div>} */}
                         {/* Spinner khi đang tải hóa đơn */}
-                        <button className={styles.accordionBtnPayCash} onClick={handleViewInvoice}>
-                            Xem hóa đơn
-                        </button>
+                        {appointment?.invoice &&
+                            (appointment?.invoice?.status === 'back' ? (
+                                <button className={styles.accordionBtnPayCash} onClick={handlePrint}>In hóa đơn trả</button>
+                            ) : (
+                                appointment?.invoice?.status !== 'paid' && (
+                                    <button className={styles.accordionBtnPayCash} onClick={handleViewInvoice}>
+                                        Xem hóa đơn
+                                    </button>
+                                )
+                            ))}
                     </div>
                 )}
                 {appointment?.invoice && appointment?.invoice?.status === 'paid' && (
@@ -258,11 +279,13 @@ const AppointmentCard = ({ appointment, updateAppointment, isLatest }) => {
                     </div>
                 )}
             </div>
-            <AppointmentInvoiceModal
-                show={showInvoiceModal}
-                handleClose={() => setShowInvoiceModal(false)}
-                invoiceDetails={invoiceDetails}
-            />
+            {showInvoiceModal && (
+                <AppointmentInvoiceModal
+                    show={showInvoiceModal}
+                    handleClose={() => setShowInvoiceModal(false)}
+                    invoiceDetails={invoiceDetails}
+                />
+            )}
             <Modal
                 centered
                 show={showRefundModal}

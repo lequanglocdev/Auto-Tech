@@ -32,6 +32,7 @@
 }
 
 .InfoTextTotal{
+  margin-top: 40px;
   font-size: 1.6rem;
   color: #e74c3c;
   padding-left: 10px;
@@ -73,7 +74,7 @@
   height: 20px;
   border-radius: 10px;
   background: linear-gradient(#6cb1df, #3498db)0
-              9px/90% 4px no-repeat,
+              9px/100% 4px no-repeat,
               linear-gradient(#ddd,#ddd)0 9px/
               100% 4px no-repeat ;
   transition: background-size 0.5s ease;
@@ -97,13 +98,13 @@
 }
 
 .serviceItemBody p .step{
-  width: 20px;
-  height: 20px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #ccc;
+  background-color: #3333;
   border: 2px solid #44acf2;
   transition: 
     background 0.3s ease 0.3s
@@ -112,7 +113,12 @@
 
 .serviceItemBody .completed .step{
   background-color: #3498db;
-  color: #fff;
+  color: #ffff;
+}
+
+.serviceItemBody .completed .step2{
+  background-color: #3498db;
+  color: #0000;
 }
 
 .footer{

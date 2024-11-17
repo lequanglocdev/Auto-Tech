@@ -76,7 +76,16 @@
 
 .errorText,
 .totalText{
-  color: red;
+  color:#e74c3c;
+  font-weight: 500;
+}
+
+.validate{
+    text-align: center;
+    font-size: 1.2rem;
+    color: #e74c3c;
+    font-weight: 600;
+    margin-top: 10px;
 }
 
 .btnSubmit{

@@ -7,6 +7,7 @@ import {
     FaMoneyBillTrendUp,
     FaLocationDot,
     FaRankingStar,
+    FaCheck 
 } from 'react-icons/fa6';
 import {
     FaPhoneAlt,
@@ -31,7 +32,9 @@ import {
     FaPlusCircle,
     FaRegChartBar,
     FaMoneyBillWave,
-    FaFileExport
+    FaFileExport,
+    FaRegCalendarAlt,
+    FaBriefcase 
 } from 'react-icons/fa';
 import {
     MdOutlineArrowForwardIos,
@@ -108,6 +111,9 @@ const icons = {
     AiOutlineSchedule,
     FaMoneyBillWave,
     FaFileExport,
+    FaCheck,
+    FaRegCalendarAlt,
+    FaBriefcase
 };
 
 export default icons;

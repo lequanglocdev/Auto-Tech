@@ -22,6 +22,7 @@ const AppointmentInvoiceModal = ({ show, handleClose, invoiceDetails }) => {
                                 <p>
                                     <strong>Thu ngân:</strong> Lê Thành Dương
                                 </p>
+                              
                                 <Table striped bordered hover>
                                     <thead>
                                         <tr>

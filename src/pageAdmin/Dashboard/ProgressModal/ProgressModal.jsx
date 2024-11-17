@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { Modal } from 'react-bootstrap';
-
+import icons from '@/utils/icon';
 import styles from './ProgressModal.module.css';
 
 const ProgressModal = ({ show, onClose, appointmentDetail }) => {
     const [totalTime, setTotalTime] = useState(0);
-
+    const {FaCheck, FaRegCalendarAlt, FaBriefcase  } = icons
     useEffect(() => {
         if (appointmentDetail) {
             let totalMinutes = 0;
@@ -58,7 +58,7 @@ const ProgressModal = ({ show, onClose, appointmentDetail }) => {
                             {appointmentDetail?.services && appointmentDetail?.services.length > 0 ? (
                                 <div className={styles.serviceItemBody}>
                                     <p className={styles.completed}>
-                                        <span className={styles.step}>1</span>
+                                        <span className={styles.step}><FaRegCalendarAlt size={20}/></span>
                                         <strong>
                                             Thời gian tiếp nhận: <br />
                                             {new Date(appointmentDetail?.slot_id?.updated_at).toLocaleTimeString(
@@ -75,7 +75,7 @@ const ProgressModal = ({ show, onClose, appointmentDetail }) => {
                                     {appointmentDetail.services.map((service, index) => (
                                         <div key={index} className={styles.serviceItem}>
                                             <p className={styles.completed}>
-                                                <span className={styles.step}>2</span>
+                                                <span className={styles.step}><FaBriefcase size={20}/></span>
                                                 <strong>
                                                     {service?.name} <br /> Thời gian: {service?.time_required} phút{' '}
                                                 </strong>
@@ -83,18 +83,20 @@ const ProgressModal = ({ show, onClose, appointmentDetail }) => {
                                         </div>
                                     ))}
                                     <p className={styles.InfoText}>
-                                        <span className={styles.step}>3</span>
-                                        <strong>
-                                         
-                                            Thời gian hoàn thành ước tính:  {getFormattedTime(appointmentDetail?.slot_id?.updated_at, totalTime)}
-                                        </strong>
+                                        <p className={styles.completed}>
+                                            <span className={styles.step}> <FaCheck size={20}/>  </span>
+                                            <strong>
+                                                Thời gian ước tính hoàn thành:
+                                                {getFormattedTime(appointmentDetail?.slot_id?.updated_at, totalTime)}
+                                            </strong>
+                                        </p>
                                     </p>
                                 </div>
                             ) : (
                                 <p>Không có dịch vụ nào được cung cấp.</p>
                             )}
                         </div>
-                        <div>
+                        <div className={styles}>
                             <h4 className={styles.InfoTextTotal}>
                                 Tổng giá tiền: {appointmentDetail?.total_cost.toLocaleString()} đ
                             </h4>

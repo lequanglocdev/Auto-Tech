@@ -17,10 +17,16 @@ const AppointmentCompleted = () => {
                 const response = await getAppointmentCompleted();
                 console.log('abc', response);
                 const sortedAppointments = response.sort((a, b) => {
-                    if (!a.invoice && b.invoice) return -1;
-                    if (a.invoice && !b.invoice) return 1;
-                    if (a.invoice?.status === 'paid') return 1;
-                    return -1;
+                    // Cuộc hẹn đã thanh toán sẽ nằm đầu danh sách
+                    if (a.invoice?.status === 'paid' && b.invoice?.status === 'paid') return -1;
+                    if (b.invoice?.status === 'paid' && a.invoice?.status === 'paid') return 1;
+                
+                    // Cuộc hẹn không có invoice sẽ nằm sau các cuộc hẹn có invoice
+                    if (!a.invoice && b.invoice) return 1;
+                    if (a.invoice && !b.invoice) return -1;
+                
+                    // Mặc định giữ nguyên thứ tự
+                    return 0;
                 });
                 setAppointments(sortedAppointments);
                 setFilteredAppointments(sortedAppointments);

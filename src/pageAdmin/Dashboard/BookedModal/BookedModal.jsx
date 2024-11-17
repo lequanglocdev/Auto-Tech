@@ -82,8 +82,15 @@ const BookedModal = ({ show, handleClose, slotId, onUpdateSlot }) => {
             console.log('>>> dữ liệu trả về');
             setCustomerData(response); // Cập nhật với dữ liệu từ API
         } catch (err) {
-            setError('Không tìm thấy khách hàng.');
+            setError(
+                <p className={styles.validate}>
+                    Không tìm thấy khách hàng.
+                </p>
+            );
             setCustomerData(null);
+            setSelectedVehicle(null); // Reset xe đã chọn
+            setSelectedServices([]); // Xóa danh sách dịch vụ
+            // toast.warning('Không tìm thấy khách hàng!');
         } finally {
             setIsLoading(false);
         }
@@ -134,7 +141,7 @@ const BookedModal = ({ show, handleClose, slotId, onUpdateSlot }) => {
     };
 
     const handleServiceSelect = (service) => {
-        console.log('dịch vụ chọn',service)
+        console.log('dịch vụ chọn', service);
         setSelectedServices((prevSelectedServices) => {
             const alreadySelected = prevSelectedServices.find(
                 (selectedService) => selectedService?.priceline_id === service?.priceline_id,
@@ -162,7 +169,7 @@ const BookedModal = ({ show, handleClose, slotId, onUpdateSlot }) => {
         }
 
         const serviceIds = selectedServices.map((service) => service?.priceline_id);
-        console.log("dịch vụ chon",serviceIds)
+        console.log('dịch vụ chon', serviceIds);
         try {
             // Gọi API với sumTime là totalTime
             const response = await createAppointments(
@@ -298,52 +305,67 @@ const BookedModal = ({ show, handleClose, slotId, onUpdateSlot }) => {
                             </div>
                         )}
                         {errorService && <p>{errorService}</p>}
-                        {servicePrice && servicePrice.length > 0 && (
-                            <div>
-                                <h4 className="mt-4">Bảng dịch vụ </h4>
-                                <div className={styles.scroolSelect}>
-                                    <Table>
-                                        <thead>
-                                            <tr>
-                                                <th className={styles.dataTableHead}>Mã dịch vụ</th>
-                                                <th className={styles.dataTableHead}>Tên dịch vụ</th>
-                                                <th className={styles.dataTableHead}>Loại xe</th>
-                                                <th className={styles.dataTableHead}>Thời gian</th>
-                                                <th className={styles.dataTableHead}>Giá</th>
-                                                <th className={styles.dataTableHead}>Hành động</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            {servicePrice.map((service) => (
-                                                <tr key={service.priceline_id}>
-                                                    <td className={styles.dataTableItem}>{service?.service_code}</td>
-                                                    <td className={styles.dataTableItem}>{service?.service}</td>
-                                                    <td className={styles.dataTableItem}>{service?.vehicle_type}</td>
-                                                    <td className={styles.dataTableItem}>
-                                                        {service?.time_required} phút
-                                                    </td>
-                                                    <td className={styles.dataTableItem}>{service?.price} VNĐ</td>
-                                                    <td className={styles.dataTableIcon}>
-                                                        {selectedServices.some(
-                                                            (s) => s.priceline_id === service?.priceline_id,
-                                                        ) ? (
-                                                            <FaTrash
-                                                                onClick={() => handleServiceSelect(service)}
-                                                                style={{ color: 'red', cursor: 'pointer' }}
-                                                            />
-                                                        ) : (
-                                                            <FaPlus
-                                                                onClick={() => handleServiceSelect(service)}
-                                                                style={{ color: 'green', cursor: 'pointer' }}
-                                                            />
-                                                        )}
-                                                    </td>
-                                                </tr>
-                                            ))}
-                                        </tbody>
-                                    </Table>
-                                </div>
-                            </div>
+                        {customerData ? (
+                            <>
+                                {errorService && <p>{errorService}</p>}
+                                {servicePrice && servicePrice.length > 0 ? (
+                                    <div>
+                                        <h4 className="mt-4">Bảng dịch vụ </h4>
+                                        <div className={styles.scroolSelect}>
+                                            <Table>
+                                                <thead>
+                                                    <tr>
+                                                        <th className={styles.dataTableHead}>Mã dịch vụ</th>
+                                                        <th className={styles.dataTableHead}>Tên dịch vụ</th>
+                                                        <th className={styles.dataTableHead}>Loại xe</th>
+                                                        <th className={styles.dataTableHead}>Thời gian</th>
+                                                        <th className={styles.dataTableHead}>Giá</th>
+                                                        <th className={styles.dataTableHead}>Hành động</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    {servicePrice.map((service) => (
+                                                        <tr key={service.priceline_id}>
+                                                            <td className={styles.dataTableItem}>
+                                                                {service?.service_code}
+                                                            </td>
+                                                            <td className={styles.dataTableItem}>{service?.service}</td>
+                                                            <td className={styles.dataTableItem}>
+                                                                {service?.vehicle_type}
+                                                            </td>
+                                                            <td className={styles.dataTableItem}>
+                                                                {service?.time_required} phút
+                                                            </td>
+                                                            <td className={styles.dataTableItem}>
+                                                                {service?.price} VNĐ
+                                                            </td>
+                                                            <td className={styles.dataTableIcon}>
+                                                                {selectedServices.some(
+                                                                    (s) => s.priceline_id === service?.priceline_id,
+                                                                ) ? (
+                                                                    <FaTrash
+                                                                        onClick={() => handleServiceSelect(service)}
+                                                                        style={{ color: 'red', cursor: 'pointer' }}
+                                                                    />
+                                                                ) : (
+                                                                    <FaPlus
+                                                                        onClick={() => handleServiceSelect(service)}
+                                                                        style={{ color: 'green', cursor: 'pointer' }}
+                                                                    />
+                                                                )}
+                                                            </td>
+                                                        </tr>
+                                                    ))}
+                                                </tbody>
+                                            </Table>
+                                        </div>
+                                    </div>
+                                ) : (
+                                    <p className={styles.validate}>Chưa chọn xe</p> // Hiển thị nếu không có dịch vụ
+                                )}
+                            </>
+                        ) : (
+                            <p className="text-center"></p> // Hiển thị nếu không có thông tin khách hàng
                         )}
 
                         {selectedServices.length > 0 && (
