@@ -134,7 +134,7 @@
 }
 
 .customerGroup {
-    padding: 6px;
+    flex: 1;
 }
 
 .btn {
@@ -147,4 +147,73 @@
     width: 100px;
     height: 34px;
     font-size: 1.6rem !important;
+}
+
+/* _______________________ */
+
+.statisticalDate{
+    margin-top: 20px;
+    padding: 0 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.headTable{
+    text-align: center;
+}
+.headTable h4{
+    text-transform: uppercase;
+    font-size: 1.6rem;
+    font-weight: 500;
+}
+.headeTableDate{
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 40px;
+    font-size: 1.5rem;
+
+}
+
+.bodyTableDateTh{
+    font-size: 1.4rem;
+
+}
+
+.bodyTableDateTd{
+    font-size: 1.4rem;
+}
+
+.tableContainer {
+    max-height: 400px; /* Giới hạn chiều cao của phần tử chứa bảng */
+    overflow-y: auto; /* Hiển thị thanh cuộn dọc */
+    display: block; /* Đảm bảo phần tử có thể cuộn */
+}
+
+.scrollableTableBody {
+ /* Đảm bảo tbody có thể cuộn */
+    max-height: 400px; /* Giới hạn chiều cao của phần thân bảng */
+    overflow-y: auto; /* Hiển thị thanh cuộn dọc */
+}
+
+.scrollableTable {
+    width: 100%; /* Đảm bảo bảng chiếm toàn bộ chiều rộng */
+}
+
+.scrollableTable th, .scrollableTable td {
+    width: 100%; /* Hoặc kích thước phù hợp cho cột */
+    text-align: center;
+    padding: 8px; /* Khoảng cách trong các ô */
+}
+
+.scrollableTable thead, .scrollableTable tbody {
+    display: block;
+}
+
+.scrollableTable thead {
+    background-color: #f4f4f4; /* Màu nền của header */
+    z-index: 1; /* Đảm bảo header luôn hiển thị trên body */
 }

@@ -218,6 +218,11 @@ const getExportStatisticMY = (year, month) => {
     return axios.get(URL_API, { responseType: 'arraybuffer' });
 };
 
+const getAllTableStatistic = (startDate, endDate) => {
+    const URL_API = `/api/statistics/getAll/revenue?start_date=${startDate}&end_date=${endDate}`;
+    return axios.get(URL_API, { responseType: 'arraybuffer' });
+};
+
 const deleteUserApi = (user) => {
     const URL_API = `/api/users/${user._id}`;
     return axios.delete(URL_API);
@@ -603,6 +608,7 @@ export {
     getRevenueStatistics,
     getExportStatistic,
     getExportStatisticMY,
+    getAllTableStatistic,
     deleteUserApi,
     deleteEmployeeApi,
     deleteRankApi,

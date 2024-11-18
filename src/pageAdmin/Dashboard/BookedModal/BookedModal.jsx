@@ -337,7 +337,7 @@ const BookedModal = ({ show, handleClose, slotId, onUpdateSlot }) => {
                                                                 {service?.time_required} phút
                                                             </td>
                                                             <td className={styles.dataTableItem}>
-                                                                {service?.price} VNĐ
+                                                                {service?.price.toLocaleString('vi-VN')}
                                                             </td>
                                                             <td className={styles.dataTableIcon}>
                                                                 {selectedServices.some(
@@ -391,7 +391,7 @@ const BookedModal = ({ show, handleClose, slotId, onUpdateSlot }) => {
                                                         {service?.time_required} phút
                                                     </td>
                                                     <td className={styles.dataTableItem}>
-                                                        {service?.price.toLocaleString()} VNĐ
+                                                        {service?.price.toLocaleString()} 
                                                     </td>
                                                     <td className={styles.dataTableIcon}>
                                                         <FaTrash
@@ -410,7 +410,7 @@ const BookedModal = ({ show, handleClose, slotId, onUpdateSlot }) => {
                     </Form.Group>
                     <div>
                         <h4 className={styles.totalText}>Tổng thời gian thực hiện dịch vụ: {totalTime} phút</h4>
-                        <h4 className={styles.totalText}>Tổng phí dịch vụ: {totalCost.toLocaleString()} VNĐ</h4>
+                        <h4 className={styles.totalText}>Tổng phí dịch vụ: {totalCost.toLocaleString()} </h4>
                     </div>
                     <button className={styles.btnSubmit} size="lg" onClick={handleSubmit}>
                         Đặt

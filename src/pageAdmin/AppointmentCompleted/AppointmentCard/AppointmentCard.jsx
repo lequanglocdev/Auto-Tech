@@ -172,15 +172,26 @@ const AppointmentCard = ({ appointment, updateAppointment, isLatest }) => {
         <div className={styles.appointmentCard}>
             {/* {isLatest && <div className={styles.newestLabel}>Gần đây</div>} */}
             <div className={styles.appointmentCardHeader}>
-                <h5>
+                <h5
+                    className={
+                        !appointment?.invoice
+                            ? styles.textYellow
+                            : appointment?.invoice?.status === 'paid'
+                            ? styles.textGreen
+                            : appointment?.invoice?.status === 'pending'
+                            ? styles.textYellow
+                            : styles.textRed
+                    }
+                >
                     {!appointment?.invoice
                         ? 'Chưa lập hóa đơn'
                         : appointment?.invoice?.status === 'paid'
                         ? 'Đã thanh toán'
                         : appointment?.invoice?.status === 'pending'
                         ? 'Chưa thanh toán'
-                        : 'Hóa đơn trả'}
+                        : 'Đã hoàn trả'}
                 </h5>
+
                 <span>Thời gian đặt lịch: {new Date(appointment?.appointment_datetime).toLocaleString()}</span>
             </div>
             <div className={styles.appointmentCardBody}>
@@ -231,35 +242,33 @@ const AppointmentCard = ({ appointment, updateAppointment, isLatest }) => {
                         )}
                     </div>
                 )}
-                {appointment?.invoice && appointment?.invoice?.status !== 'paid' && (
-                    <div className={styles.appointment}>
-                        {loading.paymentInvoiceBill && (
-                            <div className="loadingSpinner">Đang tạo liên kết thanh toán...</div>
-                        )}{' '}
-                        {/* Spinner khi đang tạo liên kết thanh toán */}
-                        <button
-                            className={`${styles.accordionBtnPay} ${
-                                appointment?.invoice?.status === 'refunded' ? styles.disabledButton : ''
-                            }`}
-                            onClick={!disabled ? () => setShowPaymentModal(true) : null}
-                            disabled={disabled}
-                        >
-                            Thanh toán
-                        </button>
-                        {/* {loading.viewInvoice && <div className="loadingSpinner">Đang tải hóa đơn...</div>} */}
-                        {/* Spinner khi đang tải hóa đơn */}
-                        {appointment?.invoice &&
-                            (appointment?.invoice?.status === 'back' ? (
-                                <button className={styles.accordionBtnPayCash} onClick={handlePrint}>In hóa đơn trả</button>
-                            ) : (
-                                appointment?.invoice?.status !== 'paid' && (
-                                    <button className={styles.accordionBtnPayCash} onClick={handleViewInvoice}>
-                                        Xem hóa đơn
-                                    </button>
-                                )
-                            ))}
-                    </div>
+                {appointment?.invoice &&
+                    appointment?.invoice?.status !== 'paid' &&
+                    appointment?.invoice?.status !== 'back' && (
+                        <div className={styles.appointment}>
+                            {loading.paymentInvoiceBill && (
+                                <div className="loadingSpinner">Đang tạo liên kết thanh toán...</div>
+                            )}
+                            <button
+                                className={`${styles.accordionBtnPay} ${
+                                    appointment?.invoice?.status === 'refunded' ? styles.disabledButton : ''
+                                }`}
+                                onClick={!disabled ? () => setShowPaymentModal(true) : null}
+                                disabled={disabled}
+                            >
+                                Thanh toán
+                            </button>
+                            <button className={styles.accordionBtnPayCash} onClick={handleViewInvoice}>
+                                Xem hóa đơn
+                            </button>
+                        </div>
+                    )}
+                {appointment?.invoice?.status === 'back' && (
+                    <button className={styles.accordionBtnBack} onClick={handlePrint}>
+                        In hóa đơn trả
+                    </button>
                 )}
+
                 {appointment?.invoice && appointment?.invoice?.status === 'paid' && (
                     <div className={styles.appointment}>
                         {loading.print && <div className="loadingSpinner">Đang in hóa đơn...</div>}{' '}

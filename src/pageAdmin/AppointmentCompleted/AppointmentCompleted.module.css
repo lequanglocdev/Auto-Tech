@@ -19,3 +19,45 @@
   font-size: 1.6rem;
   border-bottom: 1px solid #0000 ;
 }
+
+.filterContainer{
+  margin-top: 20px;
+  display: flex;
+  justify-content:space-between;
+  align-items: center;
+  gap: 10px;
+}
+
+.filterGroup{
+  flex: 1;
+
+}
+
+.filterLabel{
+  font-size: 1.4rem;
+  font-weight: 500;
+}
+
+.noResults{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.noResultsText{
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #e74c3c;
+}
+
+.resetButton{
+  font-size: 1.4rem;
+  padding: 4px 10px;
+  border-radius: 6px;
+  border: none;
+  outline: none;
+  background-color: #3498db;
+  color: #fff;
+}
+
+

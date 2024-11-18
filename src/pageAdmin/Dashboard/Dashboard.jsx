@@ -348,7 +348,7 @@ const Dashboard = () => {
                                                 className={styles.slotCardFooterView}
                                                 onClick={() => handleConfirm(slot)}
                                             >
-                                                <span>Xác nhận</span>
+                                                <span>Hoàn tất chăm sóc</span>
                                             </div>
                                             <div
                                                 className={styles.slotCardFooterBook}

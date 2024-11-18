@@ -2,17 +2,18 @@ import React, { useEffect, useState } from 'react';
 import icons from '@/utils/icon';
 import { Bar, Pie } from 'react-chartjs-2';
 import {
+    getAllTableStatistic,
     getExportStatistic,
     getExportStatisticMY,
     getRevenueStatistics,
     getStatisticAppointmentTotal,
 } from '@/utils/api';
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, ArcElement, Tooltip, Legend } from 'chart.js';
-import { Button, Form, Modal } from 'react-bootstrap';
+import { Button, Form, Modal, Table } from 'react-bootstrap';
 import Breadcrumb from '@/components/UI/Breadcrumb/Breadcrumb';
 import { toast } from 'react-toastify';
-// import Calendar from 'react-calendar';
-// import 'react-calendar/dist/Calendar.css';
+import Calendar from 'react-calendar';
+import 'react-calendar/dist/Calendar.css';
 import styles from './Statistical.module.css';
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, ArcElement, Tooltip, Legend);
@@ -32,12 +33,12 @@ const Statistical = () => {
     const [showExportModal, setShowExportModal] = useState(false);
     const [startDate, setStartDate] = useState('');
     const [endDate, setEndDate] = useState('');
-
+    const [statisticsData, setStatisticsData] = useState([]);
     useEffect(() => {
         const fetchData = async () => {
             try {
                 const response = await getRevenueStatistics(`${selectedYear}-01-01`, `${selectedYear}-12-31`);
-                console.log("thong ke",response)
+                console.log('thong ke', response);
                 setMonthlyRevenue(response.monthlyRevenue);
                 setGrowthRates(response.growthRates);
             } catch (error) {
@@ -54,7 +55,7 @@ const Statistical = () => {
 
             try {
                 const response = await getStatisticAppointmentTotal(month, year);
-                console.log("Thông kê 2",response)
+                console.log('Thông kê 2', response);
                 setStatistics(response || { appointmentsCount: 0, totalRevenue: 0 });
             } catch (error) {
                 toast.error('Lỗi khi lấy dữ liệu thống kê:', error);
@@ -65,9 +66,7 @@ const Statistical = () => {
         fetchData();
     }, [month, year]);
 
-    const handleOpenExportModal = () => {
-        setShowExportModal(true);
-    };
+   
 
     const handleExport = async () => {
         if (!startDate || !endDate) {
@@ -99,7 +98,24 @@ const Statistical = () => {
             toast.error('Không tìm thấy dữ liệu trong khoảng thời gian này');
         }
     };
+    useEffect(() => {
+        // Tự động gọi API khi `startDate` hoặc `endDate` thay đổi
+        const fetchStatistics = async () => {
+            if (!startDate || !endDate) return;
 
+            try {
+                const response = await getAllTableStatistic(startDate, endDate);
+                const decodedData = new TextDecoder().decode(response); // Decode array buffer
+                const parsedData = JSON.parse(decodedData);
+                setStatisticsData(parsedData.data || []);
+            } catch (error) {
+                console.error('Lỗi khi lấy dữ liệu:', error);
+                toast.error('Không tìm thấy dữ liệu trong khoảng thời gian này');
+            }
+        };
+
+        fetchStatistics();
+    }, [startDate, endDate]);
     const chartData = {
         labels: Object.keys(monthlyRevenue),
         datasets: [
@@ -129,14 +145,28 @@ const Statistical = () => {
             <div className={styles.createRank}>
                 <Breadcrumb items={['Quản lý thống kê doanh thu']} activeItem="Quản lý thống kê doanh thu" />
             </div>
-            <div className={styles.export}>
-                <div className={styles.statisticalHeaderExport} onClick={handleOpenExportModal}>
-                    <FaFileExport className={styles.statisticalHeaderExportIcon} />
-                    <p className={styles.statisticalHeaderExportText}>Xuất thống kê</p>
-                </div>
+            <div className={styles.statisticalDate}>
+                <Form.Group className={styles.customerGroup} controlId="startDate">
+                    <Form.Label className={styles.customerLabel}>Ngày bắt đầu</Form.Label>
+                    <Form.Control
+                        className={styles.customerControl}
+                        type="date"
+                        value={startDate}
+                        onChange={(e) => setStartDate(e.target.value)}
+                    />
+                </Form.Group>
+                <Form.Group controlId="endDate" className={styles.customerGroup}>
+                    <Form.Label className={styles.customerLabel}>Ngày kết thúc</Form.Label>
+                    <Form.Control
+                        className={styles.customerControl}
+                        type="date"
+                        value={endDate}
+                        onChange={(e) => setEndDate(e.target.value)}
+                    />
+                </Form.Group>
             </div>
 
-            <div className={styles.selectContainer}>
+            {/* <div className={styles.selectContainer}>
                 <Form.Group className={styles.selectContainerForm}>
                     <Form.Select value={month} onChange={(e) => setMonth(e.target.value)} required size="lg">
                         <option value="">Chọn tháng</option>
@@ -182,13 +212,9 @@ const Statistical = () => {
                         </p>
                     </div>
                 </div>
-
-                {/* <div>
-                    <Calendar onChange={onChange} value={date} />
-                </div> */}
-            </div>
+            </div> */}
             <div className={styles.statisticalBody}>
-                <div className="">
+                {/* <div className="">
                     <Form.Group className={styles.statisticalBodyForm} controlId="year-select">
                         <Form.Label className={styles.statisticalBodyFormText}>Chọn năm:</Form.Label>
                         <Form.Select
@@ -210,48 +236,130 @@ const Statistical = () => {
                         <Bar data={chartData} options={{ responsive: true, maintainAspectRatio: false }} />
                     </div>
                     <div className={styles.chartContainer}>
-                        {/* <Pie data={pieData} options={{ responsive: true, maintainAspectRatio: false }} /> */}
+                       
+                    </div>
+                </div> */}
+                <div className={styles.headTable}>
+                    <h4>Doanh số bán hàng theo ngày</h4>
+                    <p className={styles.headeTableDate}>
+                        <p>
+                            Từ ngày: <b>{startDate}</b>
+                        </p>
+                        <p>
+                            Đến ngày: <b>{endDate}</b>{' '}
+                        </p>
+                    </p>
+                    <div className={styles.export}>
+                        <div className={styles.statisticalHeaderExport} onClick={handleExport}>
+                            <FaFileExport className={styles.statisticalHeaderExportIcon} />
+                            <p className={styles.statisticalHeaderExportText}>Xuất thống kê</p>
+                        </div>
                     </div>
                 </div>
+                <div className={styles.tableContainer}>
+                    <Table striped bordered hover>
+                        <thead>
+                            <tr>
+                                <th style={{ width: '150px', fontSize: '14px' }}>STT</th>
+                                <th className={styles.bodyTableDateTh}>NVBH</th>
+                                <th className={styles.bodyTableDateTh}>Tên NVBH</th>
+                                <th className={styles.bodyTableDateTh}>Ngày</th>
+                                <th className={styles.bodyTableDateTh}>Chiết khấu</th>
+                                <th className={styles.bodyTableDateTh}>Doanh số trước CK</th>
+                                <th className={styles.bodyTableDateTh}>Doanh số sau CK</th>
+                            </tr>
+                        </thead>
+                        <tbody className={styles.scrollableTableBody}>
+                            {statisticsData.map((dayData, index) => {
+                                // Tính tổng cho từng ngày
+                                const totalDiscount = dayData.transactions.reduce(
+                                    (sum, transaction) => sum + transaction.discount,
+                                    0,
+                                );
+                                const totalRevenueBefore = dayData.transactions.reduce(
+                                    (sum, transaction) => sum + transaction.revenueBeforeDiscount,
+                                    0,
+                                );
+                                const totalRevenueAfter = dayData.transactions.reduce(
+                                    (sum, transaction) => sum + transaction.revenueAfterDiscount,
+                                    0,
+                                );
+
+                                return (
+                                    <React.Fragment key={index}>
+                                        <tr>
+                                            <td colSpan={7} className={styles.bodyTableDateTd}>
+                                                <strong>Ngày: {dayData.date}</strong>
+                                            </td>
+                                        </tr>
+                                        {dayData.transactions.map((transaction, idx) => (
+                                            <tr key={`${index}-${idx}`}>
+                                                <td className={styles.bodyTableDateTd}>{idx + 1}</td>
+                                                <td className={styles.bodyTableDateTd}>{transaction.employeeCode}</td>
+                                                <td className={styles.bodyTableDateTd}>{transaction.employeeName}</td>
+                                                <td className={styles.bodyTableDateTd}>{dayData.date}</td>
+                                                <td className={styles.bodyTableDateTd}>
+                                                    {transaction.discount.toLocaleString('vi-VN')}
+                                                </td>
+                                                <td className={styles.bodyTableDateTd}>
+                                                    {transaction.revenueBeforeDiscount.toLocaleString('vi-VN')}
+                                                </td>
+                                                <td className={styles.bodyTableDateTd}>
+                                                    {transaction.revenueAfterDiscount.toLocaleString('vi-VN')}
+                                                </td>
+                                            </tr>
+                                        ))}
+                                        {/* Hàng tổng cuối mỗi ngày */}
+                                        <tr style={{ fontWeight: 'bold' }}>
+                                            <td
+                                                className={styles.bodyTableDateTd}
+                                                colSpan={4}
+                                                style={{ textAlign: 'right' }}
+                                            >
+                                                Tổng cộng theo ngày:
+                                            </td>
+                                            <td className={styles.bodyTableDateTd}>
+                                                {totalDiscount.toLocaleString('vi-VN')}
+                                            </td>
+                                            <td className={styles.bodyTableDateTd}>
+                                                {totalRevenueBefore.toLocaleString('vi-VN')}
+                                            </td>
+                                            <td className={styles.bodyTableDateTd}>
+                                                {totalRevenueAfter.toLocaleString('vi-VN')}
+                                            </td>
+                                        </tr>
+                                    </React.Fragment>
+                                );
+                            })}
+
+                            {/* Tính tổng cho tất cả các ngày */}
+                            <tr style={{ fontWeight: 'bold', backgroundColor: '#f7f7f7' }}>
+                                <td colSpan={4} style={{ textAlign: 'left', fontSize: '14px' }}>
+                                    Tổng cộng tất cả:
+                                </td>
+                                <td className={styles.bodyTableDateTd}>
+                                    {statisticsData
+                                        .flatMap((day) => day.transactions)
+                                        .reduce((sum, transaction) => sum + transaction.discount, 0)
+                                        .toLocaleString('vi-VN')}
+                                </td>
+                                <td className={styles.bodyTableDateTd}>
+                                    {statisticsData
+                                        .flatMap((day) => day.transactions)
+                                        .reduce((sum, transaction) => sum + transaction.revenueBeforeDiscount, 0)
+                                        .toLocaleString('vi-VN')}
+                                </td>
+                                <td className={styles.bodyTableDateTd}>
+                                    {statisticsData
+                                        .flatMap((day) => day.transactions)
+                                        .reduce((sum, transaction) => sum + transaction.revenueAfterDiscount, 0)
+                                        .toLocaleString('vi-VN')}
+                                </td>
+                            </tr>
+                        </tbody>
+                    </Table>
+                </div>
             </div>
-            <Modal centered show={showExportModal} onHide={() => setShowExportModal(false)}>
-                <Modal.Header closeButton>
-                    <Modal.Title className={styles.customerTitle}>Chọn khoảng thời gian xuất thống kê</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                    <Form.Group className={styles.customerGroup} controlId="startDate">
-                        <Form.Label className={styles.customerLabel}>Ngày bắt đầu</Form.Label>
-                        <Form.Control
-                            className={styles.customerControl}
-                            type="date"
-                            value={startDate}
-                            onChange={(e) => setStartDate(e.target.value)}
-                        />
-                    </Form.Group>
-                    <Form.Group controlId="endDate" className="mt-3">
-                        <Form.Label className={styles.customerLabel}>Ngày kết thúc</Form.Label>
-                        <Form.Control
-                            className={styles.customerControl}
-                            type="date"
-                            value={endDate}
-                            onChange={(e) => setEndDate(e.target.value)}
-                        />
-                    </Form.Group>
-                    <div className={styles.btn}>
-                        <Button className={`mt-2 ${styles.customerBtn}`} variant="primary" onClick={handleExport}>
-                            Xuất file
-                        </Button>
-                    </div>
-                </Modal.Body>
-                {/* <Modal.Footer>
-                    <Button variant="secondary" onClick={() => setShowExportModal(false)}>
-                        Hủy
-                    </Button>
-                    <Button variant="primary" onClick={handleExport}>
-                        Xuất file
-                    </Button>
-                </Modal.Footer> */}
-            </Modal>
         </div>
     );
 };

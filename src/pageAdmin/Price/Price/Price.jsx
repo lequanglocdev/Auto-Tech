@@ -375,7 +375,7 @@ const Price = ({ data = [] }) => {
                                                 <td className={styles.tableBodyTd}>
                                                     {item?.vehicle_type_id?.vehicle_type_name}
                                                 </td>
-                                                <td className={styles.tableBodyTd}>{item?.price}</td>
+                                                <td className={styles.tableBodyTd}>{item?.price.toLocaleString('vi-VN')}</td>
                                                 <td className={styles.tableBodyTd}>
                                                     <label className={styles.switch}>
                                                         <input
