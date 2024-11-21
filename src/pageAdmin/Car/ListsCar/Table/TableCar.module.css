@@ -9,6 +9,11 @@
   margin-top: auto;
   margin-bottom: 0;
 }
+.dataTableHead{
+  background-color: #3498db !important;
+  color: #ffff !important;
+  text-transform: uppercase;
+}
 .dataTableItemAction {
   display: flex;
   justify-content: center;

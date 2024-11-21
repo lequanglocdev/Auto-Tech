@@ -315,12 +315,12 @@ const BookedModal = ({ show, handleClose, slotId, onUpdateSlot }) => {
                                             <Table>
                                                 <thead>
                                                     <tr>
-                                                        <th className={styles.dataTableHead}>Mã dịch vụ</th>
-                                                        <th className={styles.dataTableHead}>Tên dịch vụ</th>
-                                                        <th className={styles.dataTableHead}>Loại xe</th>
-                                                        <th className={styles.dataTableHead}>Thời gian</th>
-                                                        <th className={styles.dataTableHead}>Giá</th>
-                                                        <th className={styles.dataTableHead}>Hành động</th>
+                                                        <th className={styles.dataTableHeadTH}>Mã dịch vụ</th>
+                                                        <th className={styles.dataTableHeadTH}>Tên dịch vụ</th>
+                                                        <th className={styles.dataTableHeadTH}>Loại xe</th>
+                                                        <th className={styles.dataTableHeadTH}>Thời gian</th>
+                                                        <th className={styles.dataTableHeadTH}>Giá</th>
+                                                        <th className={styles.dataTableHeadTH}>Hành động</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>

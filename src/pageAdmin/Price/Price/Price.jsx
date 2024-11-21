@@ -291,7 +291,7 @@ const Price = ({ data = [] }) => {
                         <Accordion.Header className={styles.appointmentCardText}>
                             <Table className={styles.tableHeader}>
                                 <tbody>
-                                    <tr>
+                                    <tr className={styles.dataTablepriceDataHeaderTr}>
                                         <td className={styles.dataTablepriceDataHeader}>
                                             {priceDataHeader.price_list_name}
                                         </td>

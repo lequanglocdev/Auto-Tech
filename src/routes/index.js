@@ -24,6 +24,7 @@ import AppointmentCompleted from '@/pageAdmin/AppointmentCompleted/AppointmentCo
 import Invoice from '@/pageAdmin/Invoice/Invoice';
 import Statistical from '@/pageAdmin/Statistical/Statistical';
 import TestCompoment from '@/pageAdmin/Promotions/ListPromotions/Promotion/Promotion';
+import StatisticalPromotion from '@/pageAdmin/StatisticalPromotion/StatisticalPromotion';
 
 
 export const publicRoute = [
@@ -72,4 +73,5 @@ export const privateRoute = [
 
     { path: '/test', component: TestCompoment },
     { path: '/statistical', component: Statistical },
+    { path: '/statistic-promotion', component: StatisticalPromotion },
 ];

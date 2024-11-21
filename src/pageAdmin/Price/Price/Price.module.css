@@ -1,6 +1,6 @@
 .dataTableHead {
     width: 10%;
-    background-color: #3498db !important;
+    /* background-color: #3498db !important; */
     font-size: 1.4rem !important;
     font-weight: bold !important;
     text-transform: uppercase;
@@ -15,9 +15,12 @@
 .dataTablepriceDataHeader {
     width: 10%;
     text-align: center !important;
-    /* font-weight: 500; */
+
     color: #333;
     background-color: transparent !important ;
+}
+.dataTablepriceDataHeaderTr:hover{
+    background-color: transparent !important;
 }
 .dataTableHead, .dataTablepriceDataHeader {
     text-align: center; /* Căn giữa nội dung */

@@ -25,7 +25,7 @@ import EditPromotionDetailModal from '../../EditPromotionDetailModal/EditPromoti
 import ConfirmDeleteModalDetail from '../../ConfirmDeleteModalDetail/ConfirmDeleteModalDetail';
 import AddPromotionLine from '../AddPromotionLine/AddPromotionLine';
 import AddPromotionDetail from '../AddPromotionDetail/AddPromotionDetail';
-import { Form } from 'react-bootstrap';
+import { Form, Table } from 'react-bootstrap';
 const TestComponent = () => {
     const { FaPen, FaTrash, FaEye, FaPlusCircle } = icons;
 
@@ -521,7 +521,7 @@ const TestComponent = () => {
                 </div>
             </div>
             <div className={styles.tableWrapperTb}>
-                <table border="1" cellPadding="10" cellSpacing="0" className={styles.tableWrapper}>
+                <table  border="1" cellPadding="10" cellSpacing="0" className={styles.tableWrapper}>
                     <thead>
                         <tr>
                             <th className={styles.tableHeadTh}>Mã khuyến mãi</th>

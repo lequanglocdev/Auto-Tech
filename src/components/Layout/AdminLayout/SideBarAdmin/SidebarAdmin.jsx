@@ -69,7 +69,13 @@ const SidebarAdmin = ({ isVisible, onSelectMenu }) => {
         {
             title: 'Thống kê',
             icon: FaRegChartBar,
-            path:'/statistical'
+            // path:'/statistical'
+
+            items: [
+                { title: 'Doanh thu', path: '/statistical' },
+                { title: 'Chương trình khuyến mãi', path: '/statistic-promotion' },
+               
+            ]
         },
       
     ];
@@ -135,8 +141,11 @@ const SidebarAdmin = ({ isVisible, onSelectMenu }) => {
                                     className={styles.menuItem}
                                     key={itemIndex}
                                     onClick={() => handleMenuClick(item, index)}
+                                    style={{
+                                        color: selectedMenu === `${index}-${itemIndex}` ? '#e02f33' : '#333',
+                                    }}
                                 >
-                                    <p className={styles.menuItemText}>{item}</p>
+                                    <p className={styles.menuItemText}>{item.title}</p>
                                 </li>
                             ))}
                         </ul>

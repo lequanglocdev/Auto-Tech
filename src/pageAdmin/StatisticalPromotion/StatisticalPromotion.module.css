@@ -74,7 +74,6 @@
 
 .statisticalBody {
     margin-top: 40px;
-    /* padding: 0px 20px; */
 }
 .statisticalBodyForm {
     display: flex;
@@ -92,16 +91,7 @@
     font-weight: bold;
 }
 
-.statisticalBodyChart {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-.chartContainer {
-    width: 400px;
-    height: 300px;
-    margin-left: 20px;
-}
+
 
 .selectContainer {
     display: flex;
@@ -152,7 +142,7 @@
 
 /* _______________________ */
 
-.statisticalDate{
+.statisticalDate {
     margin-top: 20px;
     padding: 0 10px;
     display: flex;
@@ -161,30 +151,28 @@
     gap: 10px;
 }
 
-.headTable{
+.headTable {
     text-align: center;
 }
-.headTable h4{
+.headTable h4 {
     text-transform: uppercase;
     font-size: 1.6rem;
     font-weight: 500;
 }
-.headeTableDate{
+.headeTableDate {
     margin-top: 10px;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    justify-content: flex-start;
     align-items: center;
-    gap: 40px;
     font-size: 1.5rem;
-
 }
 
-.bodyTableDateTh{
+.bodyTableDateTh {
     font-size: 1.4rem;
-
 }
 
-.bodyTableDateTd{
+.bodyTableDateTd {
     font-size: 1.4rem;
 }
 
@@ -209,6 +197,7 @@ thead th {
     box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1); /* Tạo bóng để nổi bật */
     color: #fff !important;
     text-transform: uppercase;
+    font-size: 1.4rem;
 }
 
 tbody tr:nth-child(even) {
@@ -221,7 +210,7 @@ tbody tr:hover {
 
 
 .scrollableTableBody {
- /* Đảm bảo tbody có thể cuộn */
+    /* Đảm bảo tbody có thể cuộn */
     max-height: 400px; /* Giới hạn chiều cao của phần thân bảng */
     overflow-y: auto; /* Hiển thị thanh cuộn dọc */
 }
@@ -230,13 +219,15 @@ tbody tr:hover {
     width: 100%; /* Đảm bảo bảng chiếm toàn bộ chiều rộng */
 }
 
-.scrollableTable th, .scrollableTable td {
+.scrollableTable th,
+.scrollableTable td {
     width: 100%; /* Hoặc kích thước phù hợp cho cột */
     text-align: center;
     padding: 8px; /* Khoảng cách trong các ô */
 }
 
-.scrollableTable thead, .scrollableTable tbody {
+.scrollableTable thead,
+.scrollableTable tbody {
     display: block;
 }
 
