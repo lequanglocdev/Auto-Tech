@@ -321,7 +321,7 @@ const Dashboard = () => {
                                     <div className={styles.wrapperSlot} key={slot?.slot_id}>
                                         <div className={styles.slotHeaderCompleted}>
                                             <p className={styles.slotHeaderCompletedText}>Khu vực chăm sóc</p>
-                                            <p className={styles.slotHeaderCompletedText}>Đang xử lý</p>
+                                            <p className={styles.slotHeaderCompletedText}>{slot?.slot?.status === "booked" ? "Đang xử lý " : ""}</p>
                                         </div>
                                         <div className={styles.slotBody}>
                                             <p className={styles.slotBodyText}>

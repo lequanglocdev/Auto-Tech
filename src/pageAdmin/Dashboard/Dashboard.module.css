@@ -304,3 +304,7 @@
     background-color: #44acf2;
   }
   
+  .disabled {
+    opacity: 0.5;
+    pointer-events: none; /* Ngăn không cho click */
+}

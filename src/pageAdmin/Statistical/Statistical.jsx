@@ -38,6 +38,45 @@ const Statistical = () => {
         ],
     });
 
+    const [appointmentSummary, setAppointmentSummary] = useState({
+        appointmentsCount: 0,
+        totalRevenue: 0,
+    });
+
+    const fetchAppointmentSummary = async (month, year) => {
+        try {
+            const response = await getStatisticAppointmentTotal(month, year); // API trả về appointmentsCount và totalRevenue
+            console.log("tông sô lich ",response)
+            setAppointmentSummary({
+                appointmentsCount: response?.appointmentsCount || 0,
+                totalRevenue: response?.totalRevenue || 0,
+            });
+        } catch (error) {
+            console.error('Lỗi khi lấy thống kê tổng:', error);
+            toast.error('Không thể tải dữ liệu tổng quan');
+        }
+    };
+
+    useEffect(() => {
+        const today = new Date();
+        const currentMonth = today.getMonth() + 1; // Vì getMonth() trả về 0-11
+        const currentYear = today.getFullYear();
+
+        fetchAppointmentSummary(currentMonth, currentYear);
+    }, []);
+
+    const pieChartData = {
+        labels: ['Tổng số cuộc hẹn', 'Tổng doanh thu'],
+        datasets: [
+            {
+                label: 'Thống kê',
+                data: [appointmentSummary.appointmentsCount, appointmentSummary.totalRevenue],
+                backgroundColor: ['rgba(75, 192, 192, 0.6)', 'rgba(255, 99, 132, 0.6)'],
+                borderColor: ['rgba(75, 192, 192, 1)', 'rgba(255, 99, 132, 1)'],
+                borderWidth: 1,
+            },
+        ],
+    };
     const fetchRevenueData = async () => {
         if (!startDate || !endDate) {
             toast.error('Vui lòng chọn ngày bắt đầu và ngày kết thúc');
@@ -155,9 +194,20 @@ const Statistical = () => {
             <div className={styles.statisticalBody}>
                 <div className={styles.statisticalBodyChart}>
                     <div className={styles.chartContainer}>
-                        <Bar className={styles.barChart} data={chartData} options={{ responsive: true, maintainAspectRatio: false }} />
+                        <Bar
+                            className={styles.barChart}
+                            data={chartData}
+                            options={{ responsive: true, maintainAspectRatio: false }}
+                        />
                     </div>
-                    <div></div>
+                    <div className={styles.chartContainer}>
+                        {/* Biểu đồ tròn */}
+                        <Pie
+                            className={styles.pieChart}
+                            data={pieChartData}
+                            options={{ responsive: true, maintainAspectRatio: false }}
+                        />
+                    </div>
                 </div>
 
                 <div className={styles.headTable}>

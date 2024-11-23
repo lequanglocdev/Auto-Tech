@@ -74,7 +74,7 @@
   height: 20px;
   border-radius: 10px;
   background: linear-gradient(#6cb1df, #3498db)0
-              9px/100% 4px no-repeat,
+              9px/0% 4px no-repeat,
               linear-gradient(#ddd,#ddd)0 9px/
               100% 4px no-repeat ;
   transition: background-size 0.5s ease;
