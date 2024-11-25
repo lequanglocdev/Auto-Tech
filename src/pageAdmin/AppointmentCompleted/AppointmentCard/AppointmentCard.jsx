@@ -214,7 +214,7 @@ const AppointmentCard = ({ appointment, updateAppointment, isLatest }) => {
                     </p>
                 </div>
                 <div>
-                    {appointment?.invoice && appointment?.invoice?.status !== 'paid' && (
+                    {appointment?.invoice && (
                         <>
                             <p className={styles.appointmentCardText}>
                                 <strong>Tổng giá dịch vụ:</strong>{' '}

@@ -52,12 +52,20 @@ const StatisticalPromotion = () => {
                 const response = await getAllTableStatisticPromotion(startDate, endDate);
                 const decodedData = new TextDecoder().decode(response); // Decode array buffer
                 const parsedData = JSON.parse(decodedData);
-                console.log('Final Data:', parsedData);
-                setStatisticsData(parsedData || []);
+        
+                // Đảm bảo dữ liệu là mảng
+                if (Array.isArray(parsedData)) {
+                    setStatisticsData(parsedData);
+                } else {
+                    toast.error('Không có dữ liệu', parsedData);
+                    setStatisticsData([]); // Gán giá trị mặc định
+                }
             } catch (error) {
-                console.error('Lỗi khi lấy dữ liệu:', error);
+                toast.error('Lỗi khi lấy dữ liệu:', error);
+                setStatisticsData([]); // Gán giá trị mặc định khi lỗi xảy ra
             }
         };
+        
 
         fetchStatistics();
     }, [startDate, endDate]);
