@@ -80,7 +80,9 @@ const ProgressModal = ({ show, onClose, appointmentDetail }) => {
 
                         {/* Tiến trình thực hiện */}
                         <div className={styles.bodyData}>
-                            <h4 className={styles.InfoHeadingServices}>Tiến trình thực hiện {Math.floor(progress)}% </h4>
+                            <h4 className={styles.InfoHeadingServices}>
+                                Tiến trình thực hiện {Math.floor(progress)}%{' '}
+                            </h4>
                             {appointmentDetail?.services && appointmentDetail?.services.length > 0 ? (
                                 <div
                                     className={styles.serviceItemBody}
@@ -105,31 +107,35 @@ const ProgressModal = ({ show, onClose, appointmentDetail }) => {
                                         </strong>
                                     </p>
 
-                                    {appointmentDetail.services.map((service, index) => (
-                                        <div key={index} className={styles.serviceItem}>
-                                            <p
-                                                // className={
-                                                //     progress >= (index + 1) * (100 / appointmentDetail.services.length)
-                                                //         ? styles.completed
-                                                //         : ''
-                                                // }
-                                            >
-                                                <span
-                                                    className={
-                                                        progress >=
-                                                        (index + 1) * (100 / appointmentDetail.services.length)
-                                                            ? `${styles.step} ${styles.completed}`
-                                                            : styles.step
-                                                    }
-                                                >
-                                                    <FaBriefcase size={20} />
-                                                </span>
-                                                <strong>
-                                                    {service?.name} <br /> Thời gian: {service?.time_required} phút{' '}
-                                                </strong>
-                                            </p>
-                                        </div>
-                                    ))}
+                                    {appointmentDetail.services.map((service, index) => {
+                                        // Kiểm tra giá trị progress và ngưỡng
+                                        // console.log('Progress:', progress);
+                                        // console.log('Index:', index);
+                                        // console.log(
+                                        //     'Threshold:',
+                                        //     (index + 1) * (100 / appointmentDetail.services.length),
+                                        // );
+                                        return (
+                                            <div key={index} className={styles.serviceItem}>
+                                                <p   className={
+                                                            progress >=
+                                                            (index + 1) * (100 / appointmentDetail.services.length)
+                                                                ? `${styles.step} ${styles.completed}`
+                                                                : styles.step
+                                                        }>
+                                                    <span
+                                                      className={styles.step}
+                                                    >
+                                                        <FaBriefcase size={20} />
+                                                    </span>
+                                                    <strong>
+                                                        {service?.name} <br /> Thời gian: {service?.time_required} phút{' '}
+                                                    </strong>
+                                                </p>
+                                            </div>
+                                        );
+                                    })}
+
                                     <p className={styles.completed}>
                                         <span className={styles.step}>
                                             <FaCheck size={20} />

@@ -112,13 +112,13 @@
 }
 
 .serviceItemBody .completed .step{
-  background-color: #3498db;
-  color: #ffff;
+  background-color: #3498db !important;
+  color: #ffff !important;
 }
 
 .serviceItemBody .completed .step2{
-  background-color: #3498db;
-  color: #0000;
+  background-color: #3498db !important;
+  color: #0000 !important;
 }
 
 .footer{
