@@ -228,8 +228,19 @@ const getAllTableStatisticPromotion = (startDate, endDate) => {
     return axios.get(URL_API,{ responseType: 'arraybuffer' });
 };
 
+const getAllTableStatisticRefundPay = (startDate, endDate) => {
+    const URL_API = `/api/statistics/serviceRevenue?start_date=${startDate}&end_date=${endDate}`;
+    return axios.get(URL_API,{ responseType: 'arraybuffer' });
+};
+
+
 const getExportStatisticPromotion = (startDate, endDate) => {
     const URL_API = `/api/statistics/exportPromotion?start_date=${startDate}&end_date=${endDate}`;
+    return axios.get(URL_API, { responseType: 'arraybuffer' });
+};
+
+const getExportStatisticReturnInvoice = (startDate, endDate) => {
+    const URL_API = `/api/statistics/all/exportReturnInvoice?start_date=${startDate}&end_date=${endDate}`;
     return axios.get(URL_API, { responseType: 'arraybuffer' });
 };
 
@@ -621,6 +632,8 @@ export {
     getAllTableStatistic,
     getAllTableStatisticPromotion,
     getExportStatisticPromotion,
+    getAllTableStatisticRefundPay,
+    getExportStatisticReturnInvoice,
     deleteUserApi,
     deleteEmployeeApi,
     deleteRankApi,

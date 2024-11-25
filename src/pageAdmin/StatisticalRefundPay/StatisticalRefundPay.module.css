@@ -1,0 +1,237 @@
+.createRank {
+  width: 100%;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.statisticalHeader {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 0 10px;
+  gap: 40px;
+  padding-left: 20px;
+}
+
+.statisticalHeaderItem {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  padding: 6px 10px;
+  width: 250px;
+}
+
+.statisticalHeaderIcon {
+  font-size: 3rem;
+  font-weight: 500;
+  color: #e74c3c;
+}
+
+.statisticalHeaderText {
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: var(--text-third);
+  margin-bottom: 0;
+}
+
+.statisticalHeaderExportIcon {
+  font-size: 2rem;
+  font-weight: 500;
+  color: #fff;
+}
+
+.export {
+  display: flex;
+  justify-content: flex-end;
+  padding: 8px 20px;
+}
+
+.statisticalHeaderExport {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  padding: 6px 10px;
+  width: 180px;
+  background-color: #167cdc;
+  border-radius: 6px;
+  cursor: pointer;
+  color: #fff;
+}
+
+.statisticalHeaderExport:hover {
+  background-color: #309dea;
+}
+
+.statisticalHeaderExportText {
+  font-size: 1.4rem;
+  margin-bottom: 0;
+}
+
+.statisticalBody {
+  margin-top: 40px;
+}
+.statisticalBodyForm {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.formSelect {
+  width: 400px !important;
+  height: 40px !important;
+}
+
+.statisticalBodyFormText {
+  font-size: 1.4rem;
+  font-weight: bold;
+}
+
+
+
+.selectContainer {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  margin-top: 40px;
+  padding-left: 20px;
+}
+
+.selectContainerForm {
+  width: 250px !important;
+  height: 40px !important;
+}
+
+.customerTitle {
+  font-size: 1.8rem !important;
+  color: #3498db !important;
+}
+
+.customerLabel {
+  font-size: 1.6rem !important;
+}
+
+.customerControl {
+  font-size: 1.4rem !important;
+}
+
+.customerLabel,
+.customerControl {
+  color: var(--text-third) !important;
+}
+
+.customerGroup {
+  flex: 1;
+}
+
+.btn {
+  display: flex !important;
+  justify-content: flex-end !important;
+  align-items: center;
+}
+
+.customerBtn {
+  width: 100px;
+  height: 34px;
+  font-size: 1.6rem !important;
+}
+
+/* _______________________ */
+
+.statisticalDate {
+  margin-top: 20px;
+  padding: 0 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.headTable {
+  text-align: center;
+}
+.headTable h4 {
+  text-transform: uppercase;
+  font-size: 1.6rem;
+  font-weight: 500;
+}
+.headeTableDate {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  font-size: 1.5rem;
+}
+
+.bodyTableDateTh {
+  font-size: 1.4rem;
+}
+
+.bodyTableDateTd {
+  font-size: 1.4rem;
+}
+
+.tableContainer {
+  position: relative;
+  max-height: 400px; /* Chiều cao tối đa của bảng */
+  overflow-y: auto; /* Kích hoạt thanh cuộn dọc */
+  border: 1px solid #ddd;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+  table-layout: fixed; /* Đảm bảo các cột cố định kích thước */
+}
+
+thead th {
+  position: sticky; /* Giữ cố định phần header */
+  top: 0; /* Đặt ở vị trí trên cùng */
+  z-index: 2; /* Đảm bảo nó nằm trên các phần khác */
+  background-color: #40a5e8 !important; /* Màu nền cho header */
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1); /* Tạo bóng để nổi bật */
+  color: #fff !important;
+  text-transform: uppercase;
+  font-size: 1.4rem;
+}
+
+tbody tr:nth-child(even) {
+  background-color: #f9f9f9; /* Màu nền xen kẽ cho các dòng */
+}
+
+tbody tr:hover {
+  background-color: #f1f1f1; /* Hiệu ứng hover cho dòng */
+}
+
+
+.scrollableTableBody {
+  /* Đảm bảo tbody có thể cuộn */
+  max-height: 400px; /* Giới hạn chiều cao của phần thân bảng */
+  overflow-y: auto; /* Hiển thị thanh cuộn dọc */
+}
+
+.scrollableTable {
+  width: 100%; /* Đảm bảo bảng chiếm toàn bộ chiều rộng */
+}
+
+.scrollableTable th,
+.scrollableTable td {
+  width: 100%; /* Hoặc kích thước phù hợp cho cột */
+  text-align: center;
+  padding: 8px; /* Khoảng cách trong các ô */
+}
+
+.scrollableTable thead,
+.scrollableTable tbody {
+  display: block;
+}
+
+.scrollableTable thead {
+  background-color: #f4f4f4; /* Màu nền của header */
+  z-index: 1; /* Đảm bảo header luôn hiển thị trên body */
+}

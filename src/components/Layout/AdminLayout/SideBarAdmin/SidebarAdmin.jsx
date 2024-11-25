@@ -74,7 +74,7 @@ const SidebarAdmin = ({ isVisible, onSelectMenu }) => {
             items: [
                 { title: 'Doanh thu', path: '/statistical' },
                 { title: 'Chương trình khuyến mãi', path: '/statistic-promotion' },
-               
+                {title: 'Hóa đơn trả',path:"/statistic-refund"}
             ]
         },
       
