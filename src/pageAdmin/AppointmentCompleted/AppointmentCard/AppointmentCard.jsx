@@ -159,7 +159,14 @@ const AppointmentCard = ({ appointment, updateAppointment, isLatest }) => {
                 toast.success('Đã trả hóa đơn thành công!');
                 setShowRefundModal(false); // Đóng modal sau khi refund thành công
                 setDisabled(true);
-                updateAppointment({ ...appointment, invoice: { ...appointment?.invoice, status: 'refunded' } });
+                updateAppointment({
+                    ...appointment,
+                    invoice: {
+                        ...appointment?.invoice,
+                        status: 'back', // Chọn trạng thái chính là 'back'
+                        previousStatus: 'refunded', // Lưu trạng thái trước đó nếu cần
+                    },
+                });
             } catch (error) {
                 toast.error('Trả hóa đơn thất bại: ' + (error?.response?.msg || error.message));
             }

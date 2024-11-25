@@ -6,7 +6,7 @@ import styles from './ProgressModal.module.css'; // CSS module
 const ProgressModal = ({ show, onClose, appointmentDetail }) => {
     const [totalTime, setTotalTime] = useState(0);
     const [progress, setProgress] = useState(0); // Phần trăm tiến trình
-
+  
     useEffect(() => {
         if (appointmentDetail) {
             let totalMinutes = 0;
@@ -80,7 +80,7 @@ const ProgressModal = ({ show, onClose, appointmentDetail }) => {
 
                         {/* Tiến trình thực hiện */}
                         <div className={styles.bodyData}>
-                            <h4 className={styles.InfoHeadingServices}>Tiến trình thực hiện {Math.floor(progress)}%</h4>
+                            <h4 className={styles.InfoHeadingServices}>Tiến trình thực hiện </h4>
                             {appointmentDetail?.services && appointmentDetail?.services.length > 0 ? (
                                 <div
                                     className={styles.serviceItemBody}
@@ -107,7 +107,13 @@ const ProgressModal = ({ show, onClose, appointmentDetail }) => {
 
                                     {appointmentDetail.services.map((service, index) => (
                                         <div key={index} className={styles.serviceItem}>
-                                            <p className={progress >= (index + 1) * (100 / appointmentDetail.services.length) ? styles.completed : ""}>
+                                            <p
+                                                className={
+                                                    progress >= (index + 1) * (100 / appointmentDetail.services.length)
+                                                        ? styles.completed
+                                                        : ''
+                                                }
+                                            >
                                                 <span className={styles.step}>
                                                     <FaBriefcase size={20} />
                                                 </span>
@@ -117,7 +123,7 @@ const ProgressModal = ({ show, onClose, appointmentDetail }) => {
                                             </p>
                                         </div>
                                     ))}
-                                    <p  className={styles.completed}>
+                                    <p className={styles.completed}>
                                         <span className={styles.step}>
                                             <FaCheck size={20} />
                                         </span>

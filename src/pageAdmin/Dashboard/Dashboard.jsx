@@ -44,6 +44,8 @@ const Dashboard = () => {
     const [showCancelModal, setShowCancelModal] = useState(false);
     const [selectedAppointmentId, setSelectedAppointmentId] = useState(null);
 
+    const [isProcessing, setIsProcessing] = useState(false);
+
     const statusMapping = {
         scheduled: 'Đã lên lịch hẹn',
         waiting: 'Đang xử lý',
