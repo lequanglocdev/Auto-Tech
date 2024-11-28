@@ -67,6 +67,7 @@
 }
 
 .serviceItemBody{
+  margin: 40px 0;
   display: flex;
   justify-content: space-around;
   align-items: center;
@@ -127,4 +128,23 @@
 
 .bodyData{
   padding-bottom: 40px;
+  height: 200px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  justify-content: center;
+
+}
+
+
+.confirmButton{
+  position: absolute;
+  top: 50%;
+  /* left: 44%; */
+  border: none;
+  outline: none;
+  background-color: #3498db;
+  color: #ffff;
+  font-size: 1.3rem;
+  border-radius: 4px;
 }

@@ -584,6 +584,11 @@ const putPriceDetailApi = (price) => {
     return axios.put(URL_API, price);
 };
 
+const putAppointmentService = (service) => {
+    const URL_API = `/api/appointments/service/${service._id}`;
+    return axios.put(URL_API, service);
+};
+
 const findCustomerApi = (query) => {
     const URL_API = `/api/users/find?${query}`;
     return axios.get(URL_API);
@@ -683,6 +688,7 @@ export {
     putActivePromotionHeader,
     putActivePromotionLine,
     putActivePromotionDetail,
+    putAppointmentService,
     findCustomerApi,
     findPromotionApi,
     getStatisticAppointmentTotal,

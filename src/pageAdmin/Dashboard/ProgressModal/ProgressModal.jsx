@@ -2,45 +2,100 @@ import { useState, useEffect } from 'react';
 import { Modal, ProgressBar } from 'react-bootstrap';
 import { FaCheck, FaRegCalendarAlt, FaBriefcase } from 'react-icons/fa'; // Import biểu tượng
 import styles from './ProgressModal.module.css'; // CSS module
+import { putAppointmentService } from '@/utils/api';
 
 const ProgressModal = ({ show, onClose, appointmentDetail }) => {
     const [totalTime, setTotalTime] = useState(0);
     const [progress, setProgress] = useState(0); // Phần trăm tiến trình
 
+    const [isPaused, setIsPaused] = useState(false); // Dừng tiến trình chờ xác nhận
+    const [currentServiceIndex, setCurrentServiceIndex] = useState(0); // Dịch vụ hiện tại
+    const [remainingTime, setRemainingTime] = useState(totalTime); // Thời gian còn lại dự kiến
+
     useEffect(() => {
         if (appointmentDetail) {
-            let totalMinutes = 0;
-
-            // Tính tổng thời gian của các dịch vụ
-            appointmentDetail.services?.forEach((service) => {
-                totalMinutes += service.time_required;
-            });
-
-            setTotalTime(totalMinutes); // Lưu tổng thời gian của các dịch vụ
+            const startTime = new Date(appointmentDetail?.slot_id?.updated_at).getTime();
+            const now = Date.now();
+            const elapsedMinutes = Math.floor((now - startTime) / 60000);
+    
+            let completedServices = 0;
+            let remainingMinutes = totalTime;
+    
+            for (const service of appointmentDetail.services || []) {
+                if (elapsedMinutes >= service.time_required) {
+                    completedServices++;
+                    remainingMinutes -= service.time_required;
+                } else {
+                    break;
+                }
+            }
+    
+            setCurrentServiceIndex(completedServices);
+            setRemainingTime(remainingMinutes);
+            setProgress(Math.min((elapsedMinutes / totalTime) * 100, 100));
         }
     }, [appointmentDetail]);
+    
 
-    useEffect(() => {
-        if (appointmentDetail && totalTime > 0) {
-            const startTime = new Date(appointmentDetail?.slot_id?.updated_at).getTime(); // Thời gian bắt đầu
-            const endTime = startTime + totalTime * 60000; // Thời gian kết thúc (tính bằng ms)
+ useEffect(() => {
+    if (appointmentDetail && remainingTime > 0 && !isPaused) {
+        const startTime = new Date(appointmentDetail?.slot_id?.updated_at).getTime();
 
-            const interval = setInterval(() => {
-                const now = Date.now();
-                const elapsedTime = now - startTime;
-                const percentage = Math.min((elapsedTime / (endTime - startTime)) * 100, 100); // Tính % tiến trình
+        const interval = setInterval(() => {
+            const now = Date.now();
+            const elapsedTime = Math.floor((now - startTime) / 60000); // Thời gian đã trôi qua
 
-                setProgress(percentage); // Cập nhật % tiến trình
+            let completedServices = 0;
+            let totalElapsedMinutes = elapsedTime;
 
-                if (percentage >= 100) {
-                    clearInterval(interval); // Dừng cập nhật khi hoàn thành
+            for (let i = 0; i < appointmentDetail.services.length; i++) {
+                const serviceTime = appointmentDetail.services[i].time_required;
+                if (totalElapsedMinutes >= serviceTime) {
+                    completedServices++;
+                    totalElapsedMinutes -= serviceTime;
+                } else {
+                    break;
                 }
-            }, 1000); // Cập nhật mỗi giây
+            }
 
-            return () => clearInterval(interval); // Xóa interval khi component unmount
+            if (completedServices > currentServiceIndex) {
+                setIsPaused(true); // Dừng tiến trình khi đến dịch vụ tiếp theo
+                setCurrentServiceIndex(completedServices); // Cập nhật dịch vụ hiện tại
+                clearInterval(interval);
+            } else {
+                const progressPercent = Math.min((elapsedTime / totalTime) * 100, 100);
+                setProgress(progressPercent);
+                setRemainingTime(totalTime - elapsedTime);
+            }
+        }, 1000); // Cập nhật mỗi giây
+
+        return () => clearInterval(interval);
+    }
+}, [appointmentDetail, totalTime, remainingTime, isPaused, currentServiceIndex]);
+
+
+
+    const handleConfirm = async (service, index) => {
+        try {
+            const response = await putAppointmentService(service); // Gọi API
+            console.log("response",response)
+            if (response.data?.appointmentService?.is_done) {
+                const elapsedMinutes = Math.floor(
+                    (new Date(response.data.appointmentService.time_completed) -
+                        new Date(appointmentDetail?.slot_id?.updated_at)) /
+                        60000,
+                );
+
+                // Cập nhật thời gian còn lại
+                const newRemainingTime = remainingTime - service.time_required + elapsedMinutes;
+
+                setRemainingTime(newRemainingTime); // Lưu lại thời gian còn lại
+                setIsPaused(false); // Tiếp tục tiến trình
+            }
+        } catch (error) {
+            console.error('Lỗi khi xác nhận dịch vụ:', error);
         }
-    }, [appointmentDetail, totalTime]);
-
+    };
     const getFormattedTime = (startDate, minutesToAdd) => {
         const start = new Date(startDate);
         const end = new Date(start.getTime() + minutesToAdd * 60000); // Thêm phút vào thời gian tiếp nhận
@@ -79,10 +134,8 @@ const ProgressModal = ({ show, onClose, appointmentDetail }) => {
                         <hr />
 
                         {/* Tiến trình thực hiện */}
+                        <h4 className={styles.InfoHeadingServices}>Tiến trình thực hiện {Math.floor(progress)}% </h4>
                         <div className={styles.bodyData}>
-                            <h4 className={styles.InfoHeadingServices}>
-                                Tiến trình thực hiện {Math.floor(progress)}%{' '}
-                            </h4>
                             {appointmentDetail?.services && appointmentDetail?.services.length > 0 ? (
                                 <div
                                     className={styles.serviceItemBody}
@@ -108,30 +161,38 @@ const ProgressModal = ({ show, onClose, appointmentDetail }) => {
                                     </p>
 
                                     {appointmentDetail.services.map((service, index) => {
-                                        // Kiểm tra giá trị progress và ngưỡng
-                                        // console.log('Progress:', progress);
-                                        // console.log('Index:', index);
-                                        // console.log(
-                                        //     'Threshold:',
-                                        //     (index + 1) * (100 / appointmentDetail.services.length),
-                                        // );
+                                        const isCurrentService = index === currentServiceIndex && isPaused && remainingTime > 0; // Dịch vụ đang chờ xác nhận
+                                        const isCompleted = index < currentServiceIndex;
+                               
+                                        console.log({
+                                            isPaused,
+                                            currentServiceIndex,
+                                            index,
+                                            isCurrentService: index === currentServiceIndex && isPaused && remainingTime > 0,
+                                        });
                                         return (
-                                            <div key={index} className={styles.serviceItem}>
-                                                <p   className={
-                                                            progress >=
-                                                            (index + 1) * (100 / appointmentDetail.services.length)
-                                                                ? `${styles.step} ${styles.completed}`
-                                                                : styles.step
-                                                        }>
-                                                    <span
-                                                      className={styles.step}
-                                                    >
+                                            <div key={service._id || index} className={styles.serviceItem}>
+                                                <p
+                                                    className={
+                                                        isCompleted ? `${styles.step} ${styles.completed}` : styles.step
+                                                    }
+                                                >
+                                                    <span className={styles.step}>
                                                         <FaBriefcase size={20} />
                                                     </span>
-                                                    <strong>
+                                                    <strong className={styles.serviceName}>
                                                         {service?.name} <br /> Thời gian: {service?.time_required} phút{' '}
                                                     </strong>
                                                 </p>
+
+                                                {isCurrentService && (
+                                                    <button
+                                                        onClick={() => handleConfirm(service, index)}
+                                                        className={styles.confirmButton}
+                                                    >
+                                                        Xác nhận dịch vụ
+                                                    </button>
+                                                )}
                                             </div>
                                         );
                                     })}
@@ -142,7 +203,10 @@ const ProgressModal = ({ show, onClose, appointmentDetail }) => {
                                         </span>
                                         <strong>
                                             Thời gian ước tính hoàn thành:{' '}
-                                            {getFormattedTime(appointmentDetail?.slot_id?.updated_at, totalTime)}
+                                            {getFormattedTime(
+                                                appointmentDetail?.slot_id?.updated_at,
+                                                totalTime - remainingTime,
+                                            )}
                                         </strong>
                                     </p>
                                 </div>

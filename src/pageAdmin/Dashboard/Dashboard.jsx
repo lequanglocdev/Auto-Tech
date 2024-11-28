@@ -301,7 +301,7 @@ const Dashboard = () => {
                                     <div className={styles.wrapperSlot} key={slot.slot_id}>
                                         <div className={styles.slotHeader}>
                                             <p className={styles.slotCardHeaderTextLeft}>Khu vực chăm sóc</p>
-                                            <p className={styles.availableStatus}>Trống</p>
+                                            <p className={styles.availableStatus}>Nhận xe</p>
                                         </div>
                                         <div className={styles.slotBody}>
                                             <p className={styles.slotBodyText}></p>
