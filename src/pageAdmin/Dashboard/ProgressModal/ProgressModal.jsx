@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
-import { Modal, ProgressBar } from 'react-bootstrap';
+import { useState, useEffect, useRef } from 'react';
+import { Modal } from 'react-bootstrap';
 import { FaCheck, FaRegCalendarAlt, FaBriefcase } from 'react-icons/fa'; // Import biểu tượng
 import styles from './ProgressModal.module.css'; // CSS module
 import { putAppointmentService } from '@/utils/api';
@@ -12,19 +12,49 @@ const ProgressModal = ({ show, onClose, appointmentDetail }) => {
     const [currentServiceIndex, setCurrentServiceIndex] = useState(0); // Dịch vụ hiện tại
     const [remainingTime, setRemainingTime] = useState(totalTime); // Thời gian còn lại dự kiến
 
-    
+    const isPausedRef = useRef(false);
     useEffect(() => {
-        // Tính tổng thời gian từ các dịch vụ
+        isPausedRef.current = isPaused;
+    }, [isPaused]);
+
+    useEffect(() => {
         if (appointmentDetail) {
+            // Tính tổng thời gian các dịch vụ
             const total = appointmentDetail.services.reduce((acc, service) => acc + service.time_required, 0);
             setTotalTime(total);
-            setRemainingTime(total);
+    
+            // Lấy thời gian bắt đầu
+            const startTime = new Date(appointmentDetail?.slot_id?.updated_at).getTime();
+            const now = Date.now();
+            const elapsedTime = Math.floor((now - startTime) / 60000); // Thời gian đã trôi qua
+    
+            // Tính toán lại dịch vụ đã hoàn thành
+            let completedServices = 0;
+            let totalElapsedMinutes = elapsedTime;
+    
+            for (let i = 0; i < appointmentDetail.services.length; i++) {
+                const serviceTime = appointmentDetail.services[i].time_required;
+                if (totalElapsedMinutes >= serviceTime) {
+                    completedServices++;
+                    totalElapsedMinutes -= serviceTime;
+                } else {
+                    break;
+                }
+            }
+    
+            // Cập nhật trạng thái
+            setCurrentServiceIndex(completedServices); // Dịch vụ hiện tại
+            setRemainingTime(total - elapsedTime); // Thời gian còn lại
+            setProgress(Math.min((elapsedTime / total) * 100, 100)); // Phần trăm tiến trình
+            setIsPaused(completedServices > 0); // Dừng nếu đã có dịch vụ hoàn thành
         }
     }, [appointmentDetail]);
     
 
     useEffect(() => {
-        if (appointmentDetail && remainingTime > 0 && !isPaused) {
+        if (appointmentDetail && remainingTime > 0) {
+            if (isPaused) return; // Không tiếp tục nếu đang tạm dừng
+    
             const startTime = new Date(appointmentDetail?.slot_id?.updated_at).getTime();
     
             const interval = setInterval(() => {
@@ -45,9 +75,9 @@ const ProgressModal = ({ show, onClose, appointmentDetail }) => {
                 }
     
                 if (completedServices > currentServiceIndex) {
-                    setIsPaused(true); // Dừng tiến trình khi đến dịch vụ tiếp theo
+                    setIsPaused(true); // Dừng tiến trình
                     setCurrentServiceIndex(completedServices); // Cập nhật dịch vụ hiện tại
-                    clearInterval(interval);
+                    clearInterval(interval); // Dừng interval
                 } else {
                     const progressPercent = Math.min((elapsedTime / totalTime) * 100, 100);
                     setProgress(progressPercent);
@@ -55,30 +85,26 @@ const ProgressModal = ({ show, onClose, appointmentDetail }) => {
                 }
             }, 1000); // Cập nhật mỗi giây
     
-            return () => clearInterval(interval);
+            return () => clearInterval(interval); // Dọn dẹp interval
         }
     }, [appointmentDetail, totalTime, remainingTime, isPaused, currentServiceIndex]);
     
-
-
     const handleConfirm = async (appServiceId) => {
         try {
             const response = await putAppointmentService(appServiceId); // Gọi API
-            console.log("response",response)
             if (response.data?.appointmentService?.is_done) {
-                const now = Date.now();
-                const elapsedMinutes = Math.floor(
-                    (now - new Date(appointmentDetail.slot_id?.updated_at).getTime()) / 60000
-                );
-
-                const newRemainingTime = remainingTime - appServiceId.time_required + elapsedMinutes;
-                setRemainingTime(newRemainingTime);
-                setIsPaused(false);
+                setIsPaused(false); // Tiếp tục tiến trình sau khi xác nhận
             }
         } catch (error) {
             console.error('Lỗi khi xác nhận dịch vụ:', error);
         }
     };
+    
+    const isCurrentService = (index) => {
+        return index === currentServiceIndex && isPaused && remainingTime > 0;
+    };
+    
+    
     const getFormattedTime = (startDate, minutesToAdd) => {
         const start = new Date(startDate);
         const end = new Date(start.getTime() + minutesToAdd * 60000); // Thêm phút vào thời gian tiếp nhận
@@ -144,7 +170,7 @@ const ProgressModal = ({ show, onClose, appointmentDetail }) => {
                                     </p>
 
                                     {appointmentDetail.services.map((service, index) => {
-                                        const isCurrentService = index === currentServiceIndex && isPaused && remainingTime > 0; // Dịch vụ đang chờ xác nhận
+                                       
                                         const isCompleted = index < currentServiceIndex;
                                
                                         console.log({
@@ -168,7 +194,7 @@ const ProgressModal = ({ show, onClose, appointmentDetail }) => {
                                                     </strong>
                                                 </p>
 
-                                                {isCurrentService && (
+                                                {isCurrentService(index) && (
                                                     <button
                                                         onClick={() => handleConfirm(service.appServiceId)}
                                                         className={styles.confirmButton}
@@ -198,19 +224,7 @@ const ProgressModal = ({ show, onClose, appointmentDetail }) => {
                             )}
                         </div>
 
-                        {/* Thanh tiến trình */}
-                        {/* <div className={styles.progressContainer}>
-                            <h5>Tiến trình: {Math.floor(progress)}%</h5>
-                            <ProgressBar
-                                now={progress}
-                                label={`${Math.floor(progress)}%`}
-                                striped
-                                variant="success"
-                                className={styles.progressBar}
-                            />
-                        </div> */}
-
-                        {/* Tổng giá tiền */}
+    
                         <div className={styles.totalCost}>
                             <h4 className={styles.InfoTextTotal}>
                                 Tổng giá tiền: {appointmentDetail?.total_cost.toLocaleString()} đ
