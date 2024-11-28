@@ -584,9 +584,9 @@ const putPriceDetailApi = (price) => {
     return axios.put(URL_API, price);
 };
 
-const putAppointmentService = (service) => {
-    const URL_API = `/api/appointments/service/${service._id}`;
-    return axios.put(URL_API, service);
+const putAppointmentService = (appServiceId) => {
+    const URL_API = `/api/appointments/service/${appServiceId}`;
+    return axios.put(URL_API);
 };
 
 const findCustomerApi = (query) => {

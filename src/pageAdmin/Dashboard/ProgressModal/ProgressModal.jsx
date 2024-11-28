@@ -12,85 +12,68 @@ const ProgressModal = ({ show, onClose, appointmentDetail }) => {
     const [currentServiceIndex, setCurrentServiceIndex] = useState(0); // Dịch vụ hiện tại
     const [remainingTime, setRemainingTime] = useState(totalTime); // Thời gian còn lại dự kiến
 
+    
     useEffect(() => {
+        // Tính tổng thời gian từ các dịch vụ
         if (appointmentDetail) {
-            const startTime = new Date(appointmentDetail?.slot_id?.updated_at).getTime();
-            const now = Date.now();
-            const elapsedMinutes = Math.floor((now - startTime) / 60000);
-    
-            let completedServices = 0;
-            let remainingMinutes = totalTime;
-    
-            for (const service of appointmentDetail.services || []) {
-                if (elapsedMinutes >= service.time_required) {
-                    completedServices++;
-                    remainingMinutes -= service.time_required;
-                } else {
-                    break;
-                }
-            }
-    
-            setCurrentServiceIndex(completedServices);
-            setRemainingTime(remainingMinutes);
-            setProgress(Math.min((elapsedMinutes / totalTime) * 100, 100));
+            const total = appointmentDetail.services.reduce((acc, service) => acc + service.time_required, 0);
+            setTotalTime(total);
+            setRemainingTime(total);
         }
     }, [appointmentDetail]);
     
 
- useEffect(() => {
-    if (appointmentDetail && remainingTime > 0 && !isPaused) {
-        const startTime = new Date(appointmentDetail?.slot_id?.updated_at).getTime();
-
-        const interval = setInterval(() => {
-            const now = Date.now();
-            const elapsedTime = Math.floor((now - startTime) / 60000); // Thời gian đã trôi qua
-
-            let completedServices = 0;
-            let totalElapsedMinutes = elapsedTime;
-
-            for (let i = 0; i < appointmentDetail.services.length; i++) {
-                const serviceTime = appointmentDetail.services[i].time_required;
-                if (totalElapsedMinutes >= serviceTime) {
-                    completedServices++;
-                    totalElapsedMinutes -= serviceTime;
-                } else {
-                    break;
+    useEffect(() => {
+        if (appointmentDetail && remainingTime > 0 && !isPaused) {
+            const startTime = new Date(appointmentDetail?.slot_id?.updated_at).getTime();
+    
+            const interval = setInterval(() => {
+                const now = Date.now();
+                const elapsedTime = Math.floor((now - startTime) / 60000); // Thời gian đã trôi qua
+    
+                let completedServices = 0;
+                let totalElapsedMinutes = elapsedTime;
+    
+                for (let i = 0; i < appointmentDetail.services.length; i++) {
+                    const serviceTime = appointmentDetail.services[i].time_required;
+                    if (totalElapsedMinutes >= serviceTime) {
+                        completedServices++;
+                        totalElapsedMinutes -= serviceTime;
+                    } else {
+                        break;
+                    }
                 }
-            }
+    
+                if (completedServices > currentServiceIndex) {
+                    setIsPaused(true); // Dừng tiến trình khi đến dịch vụ tiếp theo
+                    setCurrentServiceIndex(completedServices); // Cập nhật dịch vụ hiện tại
+                    clearInterval(interval);
+                } else {
+                    const progressPercent = Math.min((elapsedTime / totalTime) * 100, 100);
+                    setProgress(progressPercent);
+                    setRemainingTime(totalTime - elapsedTime);
+                }
+            }, 1000); // Cập nhật mỗi giây
+    
+            return () => clearInterval(interval);
+        }
+    }, [appointmentDetail, totalTime, remainingTime, isPaused, currentServiceIndex]);
+    
 
-            if (completedServices > currentServiceIndex) {
-                setIsPaused(true); // Dừng tiến trình khi đến dịch vụ tiếp theo
-                setCurrentServiceIndex(completedServices); // Cập nhật dịch vụ hiện tại
-                clearInterval(interval);
-            } else {
-                const progressPercent = Math.min((elapsedTime / totalTime) * 100, 100);
-                setProgress(progressPercent);
-                setRemainingTime(totalTime - elapsedTime);
-            }
-        }, 1000); // Cập nhật mỗi giây
 
-        return () => clearInterval(interval);
-    }
-}, [appointmentDetail, totalTime, remainingTime, isPaused, currentServiceIndex]);
-
-
-
-    const handleConfirm = async (service, index) => {
+    const handleConfirm = async (appServiceId) => {
         try {
-            const response = await putAppointmentService(service); // Gọi API
+            const response = await putAppointmentService(appServiceId); // Gọi API
             console.log("response",response)
             if (response.data?.appointmentService?.is_done) {
+                const now = Date.now();
                 const elapsedMinutes = Math.floor(
-                    (new Date(response.data.appointmentService.time_completed) -
-                        new Date(appointmentDetail?.slot_id?.updated_at)) /
-                        60000,
+                    (now - new Date(appointmentDetail.slot_id?.updated_at).getTime()) / 60000
                 );
 
-                // Cập nhật thời gian còn lại
-                const newRemainingTime = remainingTime - service.time_required + elapsedMinutes;
-
-                setRemainingTime(newRemainingTime); // Lưu lại thời gian còn lại
-                setIsPaused(false); // Tiếp tục tiến trình
+                const newRemainingTime = remainingTime - appServiceId.time_required + elapsedMinutes;
+                setRemainingTime(newRemainingTime);
+                setIsPaused(false);
             }
         } catch (error) {
             console.error('Lỗi khi xác nhận dịch vụ:', error);
@@ -187,7 +170,7 @@ const ProgressModal = ({ show, onClose, appointmentDetail }) => {
 
                                                 {isCurrentService && (
                                                     <button
-                                                        onClick={() => handleConfirm(service, index)}
+                                                        onClick={() => handleConfirm(service.appServiceId)}
                                                         className={styles.confirmButton}
                                                     >
                                                         Xác nhận dịch vụ
