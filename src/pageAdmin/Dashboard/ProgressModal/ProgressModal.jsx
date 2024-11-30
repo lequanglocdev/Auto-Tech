@@ -3,113 +3,51 @@ import { Modal } from 'react-bootstrap';
 import { FaCheck, FaRegCalendarAlt, FaBriefcase } from 'react-icons/fa'; // Import biểu tượng
 import styles from './ProgressModal.module.css'; // CSS module
 import { putAppointmentService } from '@/utils/api';
-
+import { toast } from 'react-toastify';
 const ProgressModal = ({ show, onClose, appointmentDetail }) => {
-    const [totalTime, setTotalTime] = useState(0);
-    const [progress, setProgress] = useState(0); // Phần trăm tiến trình
-
-    const [isPaused, setIsPaused] = useState(false); // Dừng tiến trình chờ xác nhận
-    const [currentServiceIndex, setCurrentServiceIndex] = useState(0); // Dịch vụ hiện tại
-    const [remainingTime, setRemainingTime] = useState(totalTime); // Thời gian còn lại dự kiến
-
-    const isPausedRef = useRef(false);
-    useEffect(() => {
-        isPausedRef.current = isPaused;
-    }, [isPaused]);
+    const [currentStep, setCurrentStep] = useState(0); // Theo dõi bước hiện tại
+    const [updatedAppointmentDetail, setUpdatedAppointmentDetail] = useState(appointmentDetail); // Quản lý trạng thái chi tiết cuộc hẹn
 
     useEffect(() => {
-        if (appointmentDetail) {
-            // Tính tổng thời gian các dịch vụ
-            const total = appointmentDetail.services.reduce((acc, service) => acc + service.time_required, 0);
-            setTotalTime(total);
-    
-            // Lấy thời gian bắt đầu
-            const startTime = new Date(appointmentDetail?.slot_id?.updated_at).getTime();
-            const now = Date.now();
-            const elapsedTime = Math.floor((now - startTime) / 60000); // Thời gian đã trôi qua
-    
-            // Tính toán lại dịch vụ đã hoàn thành
-            let completedServices = 0;
-            let totalElapsedMinutes = elapsedTime;
-    
-            for (let i = 0; i < appointmentDetail.services.length; i++) {
-                const serviceTime = appointmentDetail.services[i].time_required;
-                if (totalElapsedMinutes >= serviceTime) {
-                    completedServices++;
-                    totalElapsedMinutes -= serviceTime;
-                } else {
-                    break;
-                }
-            }
-    
-            // Cập nhật trạng thái
-            setCurrentServiceIndex(completedServices); // Dịch vụ hiện tại
-            setRemainingTime(total - elapsedTime); // Thời gian còn lại
-            setProgress(Math.min((elapsedTime / total) * 100, 100)); // Phần trăm tiến trình
-            setIsPaused(completedServices > 0); // Dừng nếu đã có dịch vụ hoàn thành
+        if (appointmentDetail?.services?.length > 0) {
+            setCurrentStep(0); // Reset lại bước khi mở modal
+            setUpdatedAppointmentDetail(appointmentDetail); // Cập nhật chi tiết cuộc hẹn
         }
     }, [appointmentDetail]);
-    
 
-    useEffect(() => {
-        if (appointmentDetail && remainingTime > 0) {
-            if (isPaused) return; // Không tiếp tục nếu đang tạm dừng
-    
-            const startTime = new Date(appointmentDetail?.slot_id?.updated_at).getTime();
-    
-            const interval = setInterval(() => {
-                const now = Date.now();
-                const elapsedTime = Math.floor((now - startTime) / 60000); // Thời gian đã trôi qua
-    
-                let completedServices = 0;
-                let totalElapsedMinutes = elapsedTime;
-    
-                for (let i = 0; i < appointmentDetail.services.length; i++) {
-                    const serviceTime = appointmentDetail.services[i].time_required;
-                    if (totalElapsedMinutes >= serviceTime) {
-                        completedServices++;
-                        totalElapsedMinutes -= serviceTime;
-                    } else {
-                        break;
-                    }
-                }
-    
-                if (completedServices > currentServiceIndex) {
-                    setIsPaused(true); // Dừng tiến trình
-                    setCurrentServiceIndex(completedServices); // Cập nhật dịch vụ hiện tại
-                    clearInterval(interval); // Dừng interval
-                } else {
-                    const progressPercent = Math.min((elapsedTime / totalTime) * 100, 100);
-                    setProgress(progressPercent);
-                    setRemainingTime(totalTime - elapsedTime);
-                }
-            }, 1000); // Cập nhật mỗi giây
-    
-            return () => clearInterval(interval); // Dọn dẹp interval
+    const calculateEstimatedCompletionTime = () => {
+        const startTime = new Date(updatedAppointmentDetail?.slot_id?.updated_at);
+        const totalServiceTime = updatedAppointmentDetail?.services.reduce((total, service) => {
+            return total + (service.time_required || 0); // Cộng thời gian của mỗi dịch vụ
+        }, 0);
+
+        // Thêm thời gian của tất cả dịch vụ vào thời gian tiếp nhận
+        const estimatedCompletionTime = new Date(startTime.getTime() + totalServiceTime * 60000); // Chuyển phút sang mili giây
+
+        return estimatedCompletionTime;
+    };
+
+  const handleConfirmService = async (serviceId, index) => {
+    try {
+        const response = await putAppointmentService(serviceId); // Gọi API cập nhật trạng thái
+        if (response?.appointmentService?.is_done) {
+            toast.success('Cập nhật trạng thái thành công!');
+
+            // Cập nhật trạng thái của dịch vụ trong danh sách
+            setUpdatedAppointmentDetail((prev) => {
+                const updatedServices = [...prev.services];
+                updatedServices[index].is_done = true; // Đánh dấu dịch vụ đã hoàn thành
+                return { ...prev, services: updatedServices };
+            });
+
+            setCurrentStep(index + 1); // Chuyển đến bước tiếp theo
         }
-    }, [appointmentDetail, totalTime, remainingTime, isPaused, currentServiceIndex]);
-    
-    const handleConfirm = async (appServiceId) => {
-        try {
-            const response = await putAppointmentService(appServiceId); // Gọi API
-            if (response.data?.appointmentService?.is_done) {
-                setIsPaused(false); // Tiếp tục tiến trình sau khi xác nhận
-            }
-        } catch (error) {
-            console.error('Lỗi khi xác nhận dịch vụ:', error);
-        }
-    };
-    
-    const isCurrentService = (index) => {
-        return index === currentServiceIndex && isPaused && remainingTime > 0;
-    };
-    
-    
-    const getFormattedTime = (startDate, minutesToAdd) => {
-        const start = new Date(startDate);
-        const end = new Date(start.getTime() + minutesToAdd * 60000); // Thêm phút vào thời gian tiếp nhận
-        return end.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit', hour12: false });
-    };
+    } catch (error) {
+        toast.error('Cập nhật trạng thái thất bại!');
+        console.error(error);
+    }
+};
+
 
     return (
         <Modal centered show={show} onHide={onClose} size="lg" className={styles.modalSize}>
@@ -117,48 +55,51 @@ const ProgressModal = ({ show, onClose, appointmentDetail }) => {
                 <Modal.Title className={styles.customerTitle}>Thông tin chi tiết cuộc hẹn</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                {appointmentDetail ? (
+                {updatedAppointmentDetail ? (
                     <div>
                         {/* Thông tin khách hàng */}
                         <div className={styles.InfoCustomer}>
                             <div>
                                 <h4 className={styles.InfoHeading}>Thông tin khách hàng</h4>
-                                <p className={styles.InfoText}>Tên: {appointmentDetail?.customer_id?.name}</p>
+                                <p className={styles.InfoText}>Tên: {updatedAppointmentDetail?.customer_id?.name}</p>
                                 <p className={styles.InfoText}>
-                                    Số điện thoại: {appointmentDetail?.customer_id?.phone_number}
+                                    Số điện thoại: {updatedAppointmentDetail?.customer_id?.phone_number}
                                 </p>
-                                <p className={styles.InfoText}>Email: {appointmentDetail?.customer_id?.email}</p>
-                                <p className={styles.InfoText}>Địa chỉ: {appointmentDetail?.customer_id?.address}</p>
+                                <p className={styles.InfoText}>Email: {updatedAppointmentDetail?.customer_id?.email}</p>
+                                <p className={styles.InfoText}>
+                                    Địa chỉ: {updatedAppointmentDetail?.customer_id?.address}
+                                </p>
                             </div>
                             <div>
                                 <h4 className={styles.InfoHeading}>Thông tin xe của khách</h4>
                                 <p className={styles.InfoText}>
-                                    Biển số: {appointmentDetail?.vehicle_id?.license_plate}
+                                    Biển số: {updatedAppointmentDetail?.vehicle_id?.license_plate}
                                 </p>
-                                <p className={styles.InfoText}>Tên xe: {appointmentDetail?.vehicle_id?.manufacturer}</p>
-                                <p className={styles.InfoText}>Dòng xe: {appointmentDetail?.vehicle_id?.model}</p>
-                                <p className={styles.InfoText}>Màu sắc: {appointmentDetail?.vehicle_id?.color}</p>
+                                <p className={styles.InfoText}>
+                                    Tên xe: {updatedAppointmentDetail?.vehicle_id?.manufacturer}
+                                </p>
+                                <p className={styles.InfoText}>
+                                    Dòng xe: {updatedAppointmentDetail?.vehicle_id?.model}
+                                </p>
+                                <p className={styles.InfoText}>
+                                    Màu sắc: {updatedAppointmentDetail?.vehicle_id?.color}
+                                </p>
                             </div>
                         </div>
                         <hr />
 
                         {/* Tiến trình thực hiện */}
-                        <h4 className={styles.InfoHeadingServices}>Tiến trình thực hiện {Math.floor(progress)}% </h4>
+                        <h4 className={styles.InfoHeadingServices}>Tiến trình thực hiện </h4>
                         <div className={styles.bodyData}>
-                            {appointmentDetail?.services && appointmentDetail?.services.length > 0 ? (
-                                <div
-                                    className={styles.serviceItemBody}
-                                    style={{
-                                        backgroundSize: `${progress}% 4px, 100% 4px`, // % đã hoàn thành và toàn bộ chiều dài thanh
-                                    }}
-                                >
+                            {updatedAppointmentDetail?.services && updatedAppointmentDetail?.services.length > 0 ? (
+                                <div className={styles.serviceItemBody}>
                                     <p className={styles.completed}>
                                         <span className={styles.step}>
                                             <FaRegCalendarAlt size={20} />
                                         </span>
-                                        <strong>
+                                        <strong className={styles.serviceName}>
                                             Thời gian tiếp nhận: <br />
-                                            {new Date(appointmentDetail?.slot_id?.updated_at).toLocaleTimeString(
+                                            {new Date(updatedAppointmentDetail?.slot_id?.updated_at).toLocaleTimeString(
                                                 'en-GB',
                                                 {
                                                     hour: '2-digit',
@@ -169,53 +110,45 @@ const ProgressModal = ({ show, onClose, appointmentDetail }) => {
                                         </strong>
                                     </p>
 
-                                    {appointmentDetail.services.map((service, index) => {
-                                       
-                                        const isCompleted = index < currentServiceIndex;
-                               
-                                        console.log({
-                                            isPaused,
-                                            currentServiceIndex,
-                                            index,
-                                            isCurrentService: index === currentServiceIndex && isPaused && remainingTime > 0,
-                                        });
-                                        return (
-                                            <div key={service._id || index} className={styles.serviceItem}>
-                                                <p
-                                                    className={
-                                                        isCompleted ? `${styles.step} ${styles.completed}` : styles.step
-                                                    }
-                                                >
-                                                    <span className={styles.step}>
-                                                        <FaBriefcase size={20} />
-                                                    </span>
-                                                    <strong className={styles.serviceName}>
-                                                        {service?.name} <br /> Thời gian: {service?.time_required} phút{' '}
-                                                    </strong>
-                                                </p>
-
-                                                {isCurrentService(index) && (
+                                    {updatedAppointmentDetail?.services?.map((service, index) => (
+                                        <div
+                                            key={service._id || index}
+                                            className={`${styles.serviceItem} ${
+                                                service.is_done ? styles.completed : ''
+                                            }`}
+                                        >
+                                            <p>
+                                                <span className={styles.step}>
+                                                    <FaBriefcase size={20} />
+                                                </span>
+                                                <strong className={styles.serviceName}>
+                                                    {service?.name} <br />
+                                                    Thời gian: {service?.time_required} phút
+                                                </strong>
+                                                {index === currentStep && !service.is_done && (
                                                     <button
-                                                        onClick={() => handleConfirm(service.appServiceId)}
                                                         className={styles.confirmButton}
+                                                        onClick={() =>
+                                                            handleConfirmService(service.appServiceId, index)
+                                                        }
                                                     >
-                                                        Xác nhận dịch vụ
+                                                        Xác nhận
                                                     </button>
                                                 )}
-                                            </div>
-                                        );
-                                    })}
-
+                                            </p>
+                                        </div>
+                                    ))}
                                     <p className={styles.completed}>
                                         <span className={styles.step}>
                                             <FaCheck size={20} />
                                         </span>
                                         <strong>
-                                            Thời gian ước tính hoàn thành:{' '}
-                                            {getFormattedTime(
-                                                appointmentDetail?.slot_id?.updated_at,
-                                                totalTime - remainingTime,
-                                            )}
+                                            Thời gian ước tính hoàn thành:
+                                            {calculateEstimatedCompletionTime().toLocaleTimeString('en-GB', {
+                                                hour: '2-digit',
+                                                minute: '2-digit',
+                                                hour12: false,
+                                            })}
                                         </strong>
                                     </p>
                                 </div>
@@ -224,10 +157,9 @@ const ProgressModal = ({ show, onClose, appointmentDetail }) => {
                             )}
                         </div>
 
-    
                         <div className={styles.totalCost}>
                             <h4 className={styles.InfoTextTotal}>
-                                Tổng giá tiền: {appointmentDetail?.total_cost.toLocaleString()} đ
+                                Tổng giá tiền: {updatedAppointmentDetail?.total_cost.toLocaleString()} đ
                             </h4>
                         </div>
                     </div>

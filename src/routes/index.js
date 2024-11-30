@@ -27,7 +27,6 @@ import TestCompoment from '@/pageAdmin/Promotions/ListPromotions/Promotion/Promo
 import StatisticalPromotion from '@/pageAdmin/StatisticalPromotion/StatisticalPromotion';
 import StatisticalRefundPay from '@/pageAdmin/StatisticalRefundPay/StatisticalRefundPay';
 
-
 export const publicRoute = [
     { path: '/', component: Home },
     { path: '/auth', component: Auth, layout: null },
@@ -75,5 +74,6 @@ export const privateRoute = [
     { path: '/test', component: TestCompoment },
     { path: '/statistical', component: Statistical },
     { path: '/statistic-promotion', component: StatisticalPromotion },
-    {path:'/statistic-refund',component:StatisticalRefundPay}
+    {path:'/statistic-refund',component:StatisticalRefundPay},
+
 ];
