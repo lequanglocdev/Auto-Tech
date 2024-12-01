@@ -16,6 +16,21 @@ const ProgressModal = ({ show, onClose, appointmentDetail }) => {
         }
     }, [appointmentDetail]);
 
+
+    useEffect(() => {
+        if (updatedAppointmentDetail?.services && updatedAppointmentDetail?.services.length > 0) {
+            const totalServices = updatedAppointmentDetail.services.length;
+            const completedServices = updatedAppointmentDetail.services.filter(service => service.is_done).length;
+    
+            // Tính toán lại tiến trình
+            const initialProgress = (completedServices / totalServices) * 85 + 15; // Tiến trình từ 15% đến 100%
+            setProgress(initialProgress);
+    
+            // Xác định bước hiện tại
+            setCurrentStep(completedServices);
+        }
+    }, [updatedAppointmentDetail?.services]);
+
     const calculateEstimatedCompletionTime = () => {
         const startTime = new Date(updatedAppointmentDetail?.slot_id?.updated_at);
         const totalServiceTime = updatedAppointmentDetail?.services.reduce((total, service) => {
