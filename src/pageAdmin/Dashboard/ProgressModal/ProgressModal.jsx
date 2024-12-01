@@ -7,11 +7,12 @@ import { toast } from 'react-toastify';
 const ProgressModal = ({ show, onClose, appointmentDetail }) => {
     const [currentStep, setCurrentStep] = useState(0); // Theo dõi bước hiện tại
     const [updatedAppointmentDetail, setUpdatedAppointmentDetail] = useState(appointmentDetail); // Quản lý trạng thái chi tiết cuộc hẹn
-
+    const [progress, setProgress] = useState(15); // Bắt đầu từ 15%
     useEffect(() => {
         if (appointmentDetail?.services?.length > 0) {
             setCurrentStep(0); // Reset lại bước khi mở modal
             setUpdatedAppointmentDetail(appointmentDetail); // Cập nhật chi tiết cuộc hẹn
+            setProgress(15);
         }
     }, [appointmentDetail]);
 
@@ -27,27 +28,28 @@ const ProgressModal = ({ show, onClose, appointmentDetail }) => {
         return estimatedCompletionTime;
     };
 
-  const handleConfirmService = async (serviceId, index) => {
-    try {
-        const response = await putAppointmentService(serviceId); // Gọi API cập nhật trạng thái
-        if (response?.appointmentService?.is_done) {
-            toast.success('Cập nhật trạng thái thành công!');
+    const handleConfirmService = async (serviceId, index) => {
+        try {
+            const response = await putAppointmentService(serviceId); // Gọi API cập nhật trạng thái
+            if (response?.appointmentService?.is_done) {
+                toast.success('Cập nhật trạng thái thành công!');
 
-            // Cập nhật trạng thái của dịch vụ trong danh sách
-            setUpdatedAppointmentDetail((prev) => {
-                const updatedServices = [...prev.services];
-                updatedServices[index].is_done = true; // Đánh dấu dịch vụ đã hoàn thành
-                return { ...prev, services: updatedServices };
-            });
-
-            setCurrentStep(index + 1); // Chuyển đến bước tiếp theo
+                // Cập nhật trạng thái của dịch vụ trong danh sách
+                setUpdatedAppointmentDetail((prev) => {
+                    const updatedServices = [...prev.services];
+                    updatedServices[index].is_done = true; // Đánh dấu dịch vụ đã hoàn thành
+                    return { ...prev, services: updatedServices };
+                });
+                const totalServices = updatedAppointmentDetail?.services?.length || 1;
+                const newProgress = ((index + 1) / totalServices) * 85 + 15; // Từ 15% đến 100%
+                setProgress(newProgress);
+                setCurrentStep(index + 1); // Chuyển đến bước tiếp theo
+            }
+        } catch (error) {
+            toast.error('Cập nhật trạng thái thất bại!');
+            console.error(error);
         }
-    } catch (error) {
-        toast.error('Cập nhật trạng thái thất bại!');
-        console.error(error);
-    }
-};
-
+    };
 
     return (
         <Modal centered show={show} onHide={onClose} size="lg" className={styles.modalSize}>
@@ -92,7 +94,12 @@ const ProgressModal = ({ show, onClose, appointmentDetail }) => {
                         <h4 className={styles.InfoHeadingServices}>Tiến trình thực hiện </h4>
                         <div className={styles.bodyData}>
                             {updatedAppointmentDetail?.services && updatedAppointmentDetail?.services.length > 0 ? (
-                                <div className={styles.serviceItemBody}>
+                                <div
+                                    className={styles.serviceItemBody}
+                                    style={{
+                                        backgroundSize: `${progress}% 100%`,
+                                    }}
+                                >
                                     <p className={styles.completed}>
                                         <span className={styles.step}>
                                             <FaRegCalendarAlt size={20} />

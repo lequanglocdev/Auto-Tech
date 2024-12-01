@@ -317,9 +317,10 @@ const BookedModal = ({ show, handleClose, slotId, onUpdateSlot }) => {
                                                     <tr>
                                                         <th className={styles.dataTableHeadTH}>Mã dịch vụ</th>
                                                         <th className={styles.dataTableHeadTH}>Tên dịch vụ</th>
+                                                        
                                                         <th className={styles.dataTableHeadTH}>Loại xe</th>
                                                         <th className={styles.dataTableHeadTH}>Thời gian</th>
-                                                        <th className={styles.dataTableHeadTH}>Giá</th>
+                                                        <th className={styles.dataTableHeadTH}>Giá cả</th>
                                                         <th className={styles.dataTableHeadTH}>Hành động</th>
                                                     </tr>
                                                 </thead>
@@ -375,11 +376,11 @@ const BookedModal = ({ show, handleClose, slotId, onUpdateSlot }) => {
                                     <Table>
                                         <thead>
                                             <tr>
-                                                <th className={styles.dataTableHead}>Mã dịch vụ</th>
-                                                <th className={styles.dataTableHead}>Tên dịch vụ</th>
-                                                <th className={styles.dataTableHead}>Thời gian</th>
-                                                <th className={styles.dataTableHead}>Giá</th>
-                                                <th className={styles.dataTableHead}>Chọn</th>
+                                                <th className={styles.dataTableHeadTh}>Mã dịch vụ</th>
+                                                <th className={styles.dataTableHeadTh}>Tên dịch vụ</th>
+                                                <th className={styles.dataTableHeadTh}>Thời gian</th>
+                                                <th className={styles.dataTableHeadTh}>Giá</th>
+                                                <th className={styles.dataTableHeadTh}>Chọn</th>
                                             </tr>
                                         </thead>
                                         <tbody>
