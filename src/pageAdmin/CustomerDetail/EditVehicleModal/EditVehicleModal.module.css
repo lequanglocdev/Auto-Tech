@@ -3,16 +3,16 @@
     color: #3498db !important;
 }
 
-.customerLabel {
+.vehicleLabel {
     font-size: 1.6rem !important;
 }
 
-.customerControl {
+.vehicleControl {
     font-size: 1.4rem !important;
 }
 
-.customerLabel,
-.customerControl {
+.vehicleLabel,
+.vehicleControl {
     color: var(--text-third) !important;
 }
 

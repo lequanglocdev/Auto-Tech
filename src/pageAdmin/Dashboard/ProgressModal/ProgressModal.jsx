@@ -4,7 +4,7 @@ import { FaCheck, FaRegCalendarAlt, FaBriefcase } from 'react-icons/fa'; // Impo
 import styles from './ProgressModal.module.css'; // CSS module
 import { putAppointmentService } from '@/utils/api';
 import { toast } from 'react-toastify';
-const ProgressModal = ({ show, onClose, appointmentDetail }) => {
+const ProgressModal = ({ show, onClose, appointmentDetail,   }) => {
     const [currentStep, setCurrentStep] = useState(0); // Theo dõi bước hiện tại
     const [updatedAppointmentDetail, setUpdatedAppointmentDetail] = useState(appointmentDetail); // Quản lý trạng thái chi tiết cuộc hẹn
     const [progress, setProgress] = useState(15); // Bắt đầu từ 15%
@@ -16,6 +16,7 @@ const ProgressModal = ({ show, onClose, appointmentDetail }) => {
         }
     }, [appointmentDetail]);
 
+    
 
     useEffect(() => {
         if (updatedAppointmentDetail?.services && updatedAppointmentDetail?.services.length > 0) {
@@ -46,9 +47,11 @@ const ProgressModal = ({ show, onClose, appointmentDetail }) => {
     const handleConfirmService = async (serviceId, index) => {
         try {
             const response = await putAppointmentService(serviceId); // Gọi API cập nhật trạng thái
+            const updatedServices = [...updatedAppointmentDetail.services];
             if (response?.appointmentService?.is_done) {
                 toast.success('Cập nhật trạng thái thành công!');
 
+                // onProgressUpdate(updatedServices);
                 // Cập nhật trạng thái của dịch vụ trong danh sách
                 setUpdatedAppointmentDetail((prev) => {
                     const updatedServices = [...prev.services];

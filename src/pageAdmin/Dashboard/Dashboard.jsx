@@ -120,6 +120,8 @@ const Dashboard = () => {
         }
     };
 
+
+
     const handleSearchCalender = async () => {
         try {
             const response = await getAppointmentsforDate(searchDate);
@@ -285,6 +287,7 @@ const Dashboard = () => {
         return <div>Lỗi: {error}</div>;
     }
 
+    
     return (
         <div className={styles.dasboardWraper}>
             <div className={styles.dashboarHeader}>

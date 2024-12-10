@@ -63,6 +63,8 @@ const AppointmentCompleted = () => {
         });
     };
 
+    
+
     const handleFilterChange = () => {
         let filtered = appointments;
 
@@ -108,7 +110,7 @@ const AppointmentCompleted = () => {
     }
 
     // Phân loại các cuộc hẹn dựa trên `invoice`
-    const appointmentsWithInvoice = filteredAppointments.filter((appointment) => appointment?.invoice !== null);
+  const appointmentsWithInvoice = filteredAppointments.filter((appointment) => appointment?.invoice !== null);
     const appointmentsWithoutInvoice = filteredAppointments.filter((appointment) => appointment?.invoice === null);
     // console.log("Ko có null",appointmentsWithoutInvoice)
 
@@ -164,7 +166,7 @@ const AppointmentCompleted = () => {
 
                     <button
                         type="button"
-                        className={styles.resetButton} // Thêm class CSS nếu cần
+                        className={styles.resetButton} 
                         onClick={() => {
                             setFilterDate(''); // Xóa giá trị filterDate
                             setFilteredAppointments(appointments); // Reset danh sách hiển thị

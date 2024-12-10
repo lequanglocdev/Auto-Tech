@@ -271,145 +271,151 @@ const Price = ({ data = [] }) => {
     return (
         <div>
             <Accordion defaultActiveKey="0">
-                <Table className={styles.tableHeader}>
-                    <thead>
-                        <tr>
-                            <th className={styles.dataTableHead}>Tên bảng giá </th>
-                            <th className={styles.dataTableHead}>Ngày bắt đầu</th>
-                            <th className={styles.dataTableHead}>Ngày kết thúc</th>
-                            <th className={styles.dataTableHead}>Trạng thái</th>
-                            <th className={styles.dataTableHead}>Tác vụ</th>
-                        </tr>
-                    </thead>
-                </Table>
-                {priceData?.map((priceDataHeader, index) => (
-                    <Accordion.Item
-                        key={priceDataHeader._id}
-                        eventKey={index.toString()}
-                        onClick={() => setPriceId(priceDataHeader._id)} // Set the selected priceId
-                    >
-                        <Accordion.Header className={styles.appointmentCardText}>
-                            <Table className={styles.tableHeader}>
-                                <tbody>
-                                    <tr className={styles.dataTablepriceDataHeaderTr}>
-                                        <td className={styles.dataTablepriceDataHeader}>
-                                            {priceDataHeader.price_list_name}
-                                        </td>
-                                        <td className={styles.dataTablepriceDataHeader}>
-                                            {new Date(priceDataHeader.start_date).toLocaleString('vi-VN', {
-                                                year: 'numeric',
-                                                month: '2-digit',
-                                                day: '2-digit',
-                                            })}
-                                        </td>
-                                        <td className={styles.dataTablepriceDataHeader}>
-                                            {new Date(priceDataHeader.end_date).toLocaleString('vi-VN', {
-                                                year: 'numeric',
-                                                month: '2-digit',
-                                                day: '2-digit',
-                                            })}
-                                        </td>
-
-                                        <td className={styles.dataTablepriceDataHeader}>
-                                            <label className={styles.switch}>
-                                                <input
-                                                    type="checkbox"
-                                                    checked={activeStatus[index]} // Sử dụng state để kiểm soát giá trị
-                                                    onChange={() => {
-                                                        const newStatus = [...activeStatus];
-                                                        newStatus[index] = !newStatus[index]; // Đổi trạng thái
-                                                        setActiveStatus(newStatus);
-                                                        handleToggleActive(priceDataHeader);
-                                                    }}
-                                                />
-                                                <span className={`${styles.slider} ${styles.round}`}></span>
-                                            </label>
-                                        </td>
-
-                                        <td className={styles.dataTablepriceDataHeader}>
-                                            <div className={styles.dataTableIcon}>
-                                                <FaPen
-                                                    className={styles.iconActionPen}
-                                                    onClick={(e) => {
-                                                        e.stopPropagation();
-                                                        handleEditPriceHeader(priceDataHeader);
-                                                    }}
-                                                />
-                                                <FaTrash
-                                                    className={styles.iconActionTrash}
-                                                    onClick={(e) => {
-                                                        e.stopPropagation();
-                                                        handleDeletePrice(priceDataHeader);
-                                                    }}
-                                                />
-                                                <FaPlusCircle
-                                                    className={styles.iconActionAdd}
-                                                    onClick={(e) => {
-                                                        e.stopPropagation();
-                                                        handleAddPriceLine(priceDataHeader);
-                                                    }}
-                                                />
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </Table>
-                        </Accordion.Header>
-                        <Accordion.Body>
-                            <div className={styles.scrollTable}>
-                                <Table className={styles.tableBody}>
-                                    <thead>
-                                        <tr>
-                                            <th className={styles.tableBodyTh}>Tên dịch vụ</th>
-                                            <th className={styles.tableBodyTh}>Loại xe</th>
-                                            <th className={styles.tableBodyTh}>Giá</th>
-                                            <th className={styles.tableBodyTh}>Trạng thái</th>
-                                            <th className={styles.tableBodyTh}>Tác vụ</th>
-                                        </tr>
-                                    </thead>
-
+                <div className={styles.scrollTable}>
+                    <Table className={styles.tableHeader}>
+                        <thead>
+                            <tr>
+                                <th className={styles.dataTableHead}>Tên bảng giá </th>
+                                <th className={styles.dataTableHead}>Ngày bắt đầu</th>
+                                <th className={styles.dataTableHead}>Ngày kết thúc</th>
+                                <th className={styles.dataTableHead}>Trạng thái</th>
+                                <th className={styles.dataTableHead}>Tác vụ</th>
+                            </tr>
+                        </thead>
+                    </Table>
+                    {priceData?.map((priceDataHeader, index) => (
+                        <Accordion.Item
+                            key={priceDataHeader._id}
+                            eventKey={index.toString()}
+                            onClick={() => setPriceId(priceDataHeader._id)} // Set the selected priceId
+                        >
+                            <Accordion.Header className={styles.appointmentCardText}>
+                                <Table className={styles.tableHeader}>
                                     <tbody>
-                                        {priceDetail.map((item, indexDetail) => (
-                                            <tr key={item?._id}>
-                                                <td className={styles.tableBodyTd}>{item?.service_id?.name}</td>
-                                                <td className={styles.tableBodyTd}>
-                                                    {item?.vehicle_type_id?.vehicle_type_name}
-                                                </td>
-                                                <td className={styles.tableBodyTd}>{item?.price.toLocaleString('vi-VN')}</td>
-                                                <td className={styles.tableBodyTd}>
-                                                    <label className={styles.switch}>
-                                                        <input
-                                                            type="checkbox"
-                                                            checked={activeStatusDetail[indexDetail] ?? false} // Đảm bảo giá trị mặc định là false nếu `activeStatusDetail[index]` chưa tồn tại
-                                                            onChange={() => handleToggleActiveDetail(item, indexDetail)} // Truyền item và index vào hàm
-                                                        />
-                                                        <span className={`${styles.slider} ${styles.round}`}></span>
-                                                    </label>
-                                                </td>
-                                                <td className={styles.tableBodyIcon}>
+                                        <tr className={styles.dataTablepriceDataHeaderTr}>
+                                            <td className={styles.dataTablepriceDataHeader}>
+                                                {priceDataHeader.price_list_name}
+                                            </td>
+                                            <td className={styles.dataTablepriceDataHeader}>
+                                                {new Date(priceDataHeader.start_date).toLocaleString('vi-VN', {
+                                                    year: 'numeric',
+                                                    month: '2-digit',
+                                                    day: '2-digit',
+                                                })}
+                                            </td>
+                                            <td className={styles.dataTablepriceDataHeader}>
+                                                {new Date(priceDataHeader.end_date).toLocaleString('vi-VN', {
+                                                    year: 'numeric',
+                                                    month: '2-digit',
+                                                    day: '2-digit',
+                                                })}
+                                            </td>
+
+                                            <td className={styles.dataTablepriceDataHeader}>
+                                                <label className={styles.switch}>
+                                                    <input
+                                                        type="checkbox"
+                                                        checked={activeStatus[index]} // Sử dụng state để kiểm soát giá trị
+                                                        onChange={() => {
+                                                            const newStatus = [...activeStatus];
+                                                            newStatus[index] = !newStatus[index]; // Đổi trạng thái
+                                                            setActiveStatus(newStatus);
+                                                            handleToggleActive(priceDataHeader);
+                                                        }}
+                                                    />
+                                                    <span className={`${styles.slider} ${styles.round}`}></span>
+                                                </label>
+                                            </td>
+
+                                            <td className={styles.dataTablepriceDataHeader}>
+                                                <div className={styles.dataTableIcon}>
                                                     <FaPen
                                                         className={styles.iconActionPen}
                                                         onClick={(e) => {
                                                             e.stopPropagation();
-                                                            handleEditPriceDetail(item);
+                                                            handleEditPriceHeader(priceDataHeader);
                                                         }}
                                                     />
                                                     <FaTrash
                                                         className={styles.iconActionTrash}
                                                         onClick={(e) => {
                                                             e.stopPropagation();
-                                                            handleDeletePriceDetail(item);
+                                                            handleDeletePrice(priceDataHeader);
                                                         }}
                                                     />
-                                                </td>
-                                            </tr>
-                                        ))}
+                                                    <FaPlusCircle
+                                                        className={styles.iconActionAdd}
+                                                        onClick={(e) => {
+                                                            e.stopPropagation();
+                                                            handleAddPriceLine(priceDataHeader);
+                                                        }}
+                                                    />
+                                                </div>
+                                            </td>
+                                        </tr>
                                     </tbody>
                                 </Table>
-                            </div>
-                        </Accordion.Body>
-                    </Accordion.Item>
-                ))}
+                            </Accordion.Header>
+                            <Accordion.Body>
+                                <div className={styles.scrollTable}>
+                                    <Table className={styles.tableBody}>
+                                        <thead>
+                                            <tr>
+                                                <th className={styles.tableBodyTh}>Tên dịch vụ</th>
+                                                <th className={styles.tableBodyTh}>Loại xe</th>
+                                                <th className={styles.tableBodyTh}>Giá</th>
+                                                <th className={styles.tableBodyTh}>Trạng thái</th>
+                                                <th className={styles.tableBodyTh}>Tác vụ</th>
+                                            </tr>
+                                        </thead>
+
+                                        <tbody>
+                                            {priceDetail.map((item, indexDetail) => (
+                                                <tr key={item?._id}>
+                                                    <td className={styles.tableBodyTd}>{item?.service_id?.name}</td>
+                                                    <td className={styles.tableBodyTd}>
+                                                        {item?.vehicle_type_id?.vehicle_type_name}
+                                                    </td>
+                                                    <td className={styles.tableBodyTd}>
+                                                        {item?.price.toLocaleString('vi-VN')}
+                                                    </td>
+                                                    <td className={styles.tableBodyTd}>
+                                                        <label className={styles.switch}>
+                                                            <input
+                                                                type="checkbox"
+                                                                checked={activeStatusDetail[indexDetail] ?? false} // Đảm bảo giá trị mặc định là false nếu `activeStatusDetail[index]` chưa tồn tại
+                                                                onChange={() =>
+                                                                    handleToggleActiveDetail(item, indexDetail)
+                                                                } // Truyền item và index vào hàm
+                                                            />
+                                                            <span className={`${styles.slider} ${styles.round}`}></span>
+                                                        </label>
+                                                    </td>
+                                                    <td className={styles.tableBodyIcon}>
+                                                        <FaPen
+                                                            className={styles.iconActionPen}
+                                                            onClick={(e) => {
+                                                                e.stopPropagation();
+                                                                handleEditPriceDetail(item);
+                                                            }}
+                                                        />
+                                                        <FaTrash
+                                                            className={styles.iconActionTrash}
+                                                            onClick={(e) => {
+                                                                e.stopPropagation();
+                                                                handleDeletePriceDetail(item);
+                                                            }}
+                                                        />
+                                                    </td>
+                                                </tr>
+                                            ))}
+                                        </tbody>
+                                    </Table>
+                                </div>
+                            </Accordion.Body>
+                        </Accordion.Item>
+                    ))}
+                </div>
             </Accordion>
 
             <EditPriceModal

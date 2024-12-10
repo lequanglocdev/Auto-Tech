@@ -84,7 +84,7 @@ const AddVehicleModal = ({ show, onClose, customerId, onSave }) => {
     return (
         <Modal show={show} size='lg' onHide={onClose} centered>
             <Modal.Header closeButton>
-                <Modal.Title className={styles.modalTitle}>Thêm xe mới</Modal.Title>
+                <Modal.Title className={styles.modalTitle}>Thêm xe mới cho khách hàng</Modal.Title>
             </Modal.Header>
             <Modal.Body>
                 <Form>

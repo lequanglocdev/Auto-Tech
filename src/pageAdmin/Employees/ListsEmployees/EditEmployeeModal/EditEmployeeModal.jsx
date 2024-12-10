@@ -33,7 +33,7 @@ const EditEmployeeModal = ({ user, show, onHide, onUpdate }) => {
     return (
         <Modal show={show} onHide={onHide} size="lg" centered>
             <Modal.Header closeButton>
-                <Modal.Title className={styles.employeeTitle}>Chỉnh sửa thông tin nhân viên</Modal.Title>
+                <Modal.Title className={styles.employeeTitle}>Cập nhật thông tin nhân viên</Modal.Title>
             </Modal.Header>
             <Modal.Body>
                 {user ? (

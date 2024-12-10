@@ -153,3 +153,8 @@ input:checked + .slider:before {
     scrollbar-width: thin; /* Độ rộng của thanh cuộn */
     scrollbar-color: #888 #f1f1f1; /* Màu của thanh kéo và track */
 }
+
+.scrollTable {
+    max-height: 500px; /* Giới hạn chiều cao tối đa */
+    overflow-y: auto; /* Kích hoạt cuộn dọc */
+  }

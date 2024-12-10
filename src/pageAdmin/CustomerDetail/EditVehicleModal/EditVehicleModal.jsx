@@ -36,7 +36,7 @@ const EditVehicleModal = ({ vehicle, show, onHide, onUpdate }) => {
     return (
         <Modal show={show} onHide={onHide} size="lg" centered>
             <Modal.Header closeButton>
-                <Modal.Title className={styles.customerTitle}>Chỉnh sửa thông tin xe</Modal.Title>
+                <Modal.Title className={styles.customerTitle}>Cập nhật thông tin xe</Modal.Title>
             </Modal.Header>
             <Modal.Body>
                 {vehicle ? (

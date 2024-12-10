@@ -29,7 +29,7 @@ const EditServicesModal = ({ service, show, onHide, onUpdate }) => {
     return (
         <Modal show={show} onHide={onHide} size="lg" centered>
             <Modal.Header closeButton>
-                <Modal.Title className={styles.customerTitle}>Chỉnh sửa thông tin dịch vụ</Modal.Title>
+                <Modal.Title className={styles.customerTitle}>Cập nhật thông tin dịch vụ</Modal.Title>
             </Modal.Header>
             <Modal.Body>
                 {service ? (

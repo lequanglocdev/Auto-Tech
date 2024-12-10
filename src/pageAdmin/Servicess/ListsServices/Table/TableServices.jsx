@@ -10,16 +10,16 @@ const TableServices = ({ data = [], itemsPerPage }) => {
     const { FaEye, FaPen, FaTrash } = icons;
 
     const [currentPage, setCurrentPage] = useState(1);
-    const totalPages = Math.ceil(data.length / itemsPerPage);
     const startIndex = (currentPage - 1) * itemsPerPage;
-
+    
     const [modalShow, setModalShow] = useState(false);
     const [editModalShow, setEditModalShow] = useState(false);
     const [confirmDeleteModalShow, setConfirmDeleteModalShow] = useState(false);
-
+    
     const [selectedUser, setSelectedUser] = useState(null);
     const [serviceToDelete, setServiceToDelete] = useState(null);
     const [service, setServices] = useState(data);
+    const totalPages = Math.ceil(service.length / itemsPerPage);
     const currentData = service.slice(startIndex, startIndex + itemsPerPage);
     const handlePageChange = (pageNumber) => {
         setCurrentPage(pageNumber);
@@ -36,6 +36,9 @@ const TableServices = ({ data = [], itemsPerPage }) => {
                 await deleteServiceApi(serviceToDelete);
                 console.log('Xóa thành công:', serviceToDelete);
                 setServices((prev) => prev.filter((emp) => emp._id !== serviceToDelete._id));
+                if (currentPage > totalPages) {
+                    setCurrentPage(totalPages > 0 ? totalPages : 1); 
+                }
             } catch (error) {
                 console.error('Lỗi khi xóa nhân viên:', error);
             } finally {

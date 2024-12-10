@@ -243,50 +243,49 @@
     font-weight: bold;
 }
 
-.appointmentResultsBodyText{
+.appointmentResultsBodyText {
     font-size: 1.3rem;
     color: var(--text-third);
-    padding: 4px 12px ;
+    padding: 4px 12px;
     font-weight: 400;
 }
 
 .customerTitle {
     font-size: 1.6rem !important;
     color: #3498db !important;
-  }
-  
-  .InfoCustomer{
+}
+
+.InfoCustomer {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 0 10px;
-  
-  }
-  
-  .InfoHeading{
+}
+
+.InfoHeading {
     font-size: 1.5rem;
     color: var(--text-third);
     font-style: italic;
-  }
-  
-  .InfoHeadingServices{
+}
+
+.InfoHeadingServices {
     font-size: 1.5rem;
     color: var(--text-third);
     font-style: italic;
     padding-left: 10px;
-  }
-  .InfoText{
+}
+.InfoText {
     font-size: 1.4rem;
     color: var(--text-third);
-  }
-  
-  .InfoTextTotal{
+}
+
+.InfoTextTotal {
     font-size: 1.4rem;
     color: #e74c3c;
     padding-left: 10px;
-  }
-  
-  .slotCardFooterCalender{
+}
+
+.slotCardFooterCalender {
     height: 40px;
     background-color: #3498db;
     display: flex;
@@ -298,13 +297,19 @@
     color: #fff;
     font-weight: 400;
     cursor: pointer;
-  }
-  
-  .slotCardFooterCalender:hover{
+}
+
+.slotCardFooterCalender:hover {
     background-color: #44acf2;
-  }
-  
-  .disabled {
+}
+
+.disabled {
     opacity: 0.5;
     pointer-events: none; /* Ngăn không cho click */
+}
+
+.slotCardFooterView.disabled {
+    pointer-events: none;
+    opacity: 0.5;
+    cursor: not-allowed;
 }

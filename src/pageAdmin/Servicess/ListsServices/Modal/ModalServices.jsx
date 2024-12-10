@@ -6,7 +6,7 @@ const ModalServices = ({ services, ...props }) => {
     return (
         <Modal {...props} size="lg" aria-labelledby="contained-modal-title-vcenter" centered>
             <Modal.Header className={styles.rankHeader}  closeButton>
-                <Modal.Title className={styles.rankTitle} id="contained-modal-title-vcenter">Thông tin khách hàng</Modal.Title>
+                <Modal.Title className={styles.rankTitle} id="contained-modal-title-vcenter">Thông tin dịch vụ</Modal.Title>
             </Modal.Header>
             <Modal.Body>
                 {services ? (

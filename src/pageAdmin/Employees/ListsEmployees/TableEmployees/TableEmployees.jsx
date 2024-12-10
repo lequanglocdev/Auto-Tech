@@ -73,9 +73,9 @@ const TableEmployees = ({ data = [], itemsPerPage }) => {
             <Table striped bordered hover className={styles.dataTable}>
                 <thead>
                     <tr className="">
-                        <th className={styles.dataTableHead}>Name</th>
+                        <th className={styles.dataTableHead}>Họ tên</th>
                         <th className={styles.dataTableHead}>Email</th>
-                        <th className={styles.dataTableHead}>Phone</th>
+                        <th className={styles.dataTableHead}>Số điện thoại</th>
                         <th className={styles.dataTableHead}>Tác vụ</th>
                     </tr>
                 </thead>

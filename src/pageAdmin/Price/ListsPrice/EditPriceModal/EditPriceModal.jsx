@@ -67,7 +67,7 @@ const EditPriceModal = ({ priceId, show, onHide, onUpdate }) => {
     return (
         <Modal show={show} onHide={onHide} size="lg" centered>
             <Modal.Header closeButton>
-                <Modal.Title className={styles.customerTitle}>Chỉnh sửa bảng giá</Modal.Title>
+                <Modal.Title className={styles.customerTitle}>Cập nhật bảng giá</Modal.Title>
             </Modal.Header>
             <Modal.Body>
                 {priceId ? (

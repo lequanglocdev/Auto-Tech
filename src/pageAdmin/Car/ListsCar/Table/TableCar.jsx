@@ -10,17 +10,17 @@ const TableCar = ({ data = [], itemsPerPage }) => {
     const { FaPen, FaTrash } = icons;
 
     const [currentPage, setCurrentPage] = useState(1);
-    const totalPages = Math.ceil(data.length / itemsPerPage);
     const startIndex = (currentPage - 1) * itemsPerPage;
-
+    
     const [editModalShow, setEditModalShow] = useState(false);
     const [confirmDeleteModalShow, setConfirmDeleteModalShow] = useState(false);
-
+    
     const [selectedCar, setSelectedCar] = useState(null);
     const [carToDelete, setCarToDelete] = useState(null);
-
+    
     const [car, setCar] = useState(data);
     const currentData = car.slice(startIndex, startIndex + itemsPerPage);
+    const totalPages = Math.ceil(car.length / itemsPerPage);
 
     const handlePageChange = (pageNumber) => {
         setCurrentPage(pageNumber);
@@ -36,6 +36,9 @@ const TableCar = ({ data = [], itemsPerPage }) => {
             try {
                 await deleteCarApi(carToDelete);
                 setCar((prev) => prev.filter((emp) => emp?._id !== carToDelete?._id));
+                if (currentPage > totalPages) {
+                    setCurrentPage(totalPages > 0 ? totalPages : 1); 
+                }
             } catch (error) {
                 console.log(error);
             } finally {

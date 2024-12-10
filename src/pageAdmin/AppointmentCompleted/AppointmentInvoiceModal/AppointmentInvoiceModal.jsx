@@ -1,8 +1,14 @@
 import React from 'react';
-import { Modal, Table } from 'react-bootstrap';
+import { Modal, Spinner, Table, Button } from 'react-bootstrap';
 import styles from './AppointmentInvoiceModal.module.css';
 
-const AppointmentInvoiceModal = ({ show, handleClose, invoiceDetails }) => {
+const AppointmentInvoiceModal = ({
+    show,
+    handleClose,
+    invoiceDetails,
+    handlePaymentInvoiceBill,
+    handlePaymentCashInvoiceBill,
+}) => {
     return (
         <Modal show={show} onHide={handleClose} centered>
             <Modal.Header closeButton>
@@ -22,7 +28,7 @@ const AppointmentInvoiceModal = ({ show, handleClose, invoiceDetails }) => {
                                 <p>
                                     <strong>Thu ngân:</strong> Lê Thành Dương
                                 </p>
-                              
+
                                 <Table striped bordered hover>
                                     <thead>
                                         <tr>
@@ -71,14 +77,27 @@ const AppointmentInvoiceModal = ({ show, handleClose, invoiceDetails }) => {
                     </div>
                 )}
             </Modal.Body>
-            {/* <Modal.Footer>
-                <Button variant="primary" onClick={handlePayment}>
-                    Thanh toán
+            <Modal.Footer>
+                {/* Nút thanh toán tiền mặt */}
+                <Button
+                    variant="success"
+                    onClick={() => {
+                        console.log('Gọi handlePaymentCashInvoiceBill từ modal');
+                        handlePaymentCashInvoiceBill();
+                    }}
+                >
+                    Thanh toán tiền mặt
                 </Button>
+
+                {/* Nút thanh toán chuyển khoản */}
+                <Button variant="primary" onClick={handlePaymentInvoiceBill}>
+                    Thanh toán chuyển khoản
+                </Button>
+
                 <Button variant="secondary" onClick={handleClose}>
                     Đóng
                 </Button>
-            </Modal.Footer> */}
+            </Modal.Footer>
         </Modal>
     );
 };

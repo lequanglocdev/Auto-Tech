@@ -10,16 +10,16 @@ const TableCustomer = ({ data = [], itemsPerPage }) => {
     const { FaPen, FaTrash } = icons;
     const navigate = useNavigate();
     const [currentPage, setCurrentPage] = useState(1);
-    const totalPages = Math.ceil(data.length / itemsPerPage);
     const startIndex = (currentPage - 1) * itemsPerPage;
-
+    
     const [editModalShow, setEditModalShow] = useState(false);
     const [confirmDeleteModalShow, setConfirmDeleteModalShow] = useState(false);
-
+    
     const [selectedUser, setSelectedUser] = useState(null);
     const [customerToDelete, setCustomerToDelete] = useState(null);
-
+    
     const [customer, setCustomer] = useState(data);
+    const totalPages = Math.ceil(customer.length / itemsPerPage);
     const currentData = customer.slice(startIndex, startIndex + itemsPerPage);
 
     const [searchQuery, setSearchQuery] = useState("");
@@ -61,6 +61,9 @@ const TableCustomer = ({ data = [], itemsPerPage }) => {
                 await deleteUserApi(customerToDelete);
                 console.log('Xóa thành công:', customerToDelete);
                 setCustomer((prev) => prev.filter((emp) => emp?._id !== customerToDelete?._id));
+                if (currentPage > totalPages) {
+                    setCurrentPage(totalPages > 0 ? totalPages : 1); 
+                }
             } catch (error) {
                 console.error('Lỗi khi xóa nhân viên:', error);
             } finally {
@@ -110,9 +113,9 @@ const TableCustomer = ({ data = [], itemsPerPage }) => {
             <Table bordered className={styles.dataTable}>
                 <thead>
                     <tr className="">
-                        <th className={styles.dataTableHead}>Name</th>
+                        <th className={styles.dataTableHead}>Họ tên</th>
                         <th className={styles.dataTableHead}>Email</th>
-                        <th className={styles.dataTableHead}>Phone</th>
+                        <th className={styles.dataTableHead}>Số điện thoại</th>
                         <th className={styles.dataTableHead}>Đia chỉ</th>
                         <th className={styles.dataTableHead}>Tác vụ</th>
                     </tr>
