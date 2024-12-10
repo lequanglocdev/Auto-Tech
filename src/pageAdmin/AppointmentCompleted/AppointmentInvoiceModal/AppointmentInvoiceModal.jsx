@@ -77,27 +77,7 @@ const AppointmentInvoiceModal = ({
                     </div>
                 )}
             </Modal.Body>
-            <Modal.Footer>
-                {/* Nút thanh toán tiền mặt */}
-                <Button
-                    variant="success"
-                    onClick={() => {
-                        console.log('Gọi handlePaymentCashInvoiceBill từ modal');
-                        handlePaymentCashInvoiceBill();
-                    }}
-                >
-                    Thanh toán tiền mặt
-                </Button>
-
-                {/* Nút thanh toán chuyển khoản */}
-                <Button variant="primary" onClick={handlePaymentInvoiceBill}>
-                    Thanh toán chuyển khoản
-                </Button>
-
-                <Button variant="secondary" onClick={handleClose}>
-                    Đóng
-                </Button>
-            </Modal.Footer>
+            
         </Modal>
     );
 };
