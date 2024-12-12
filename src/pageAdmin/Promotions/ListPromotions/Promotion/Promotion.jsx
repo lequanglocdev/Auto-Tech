@@ -41,7 +41,7 @@ const TestComponent = () => {
     const [confirmDeleteModalShow, setConfirmDeleteModalShow] = useState(false);
 
     // LINE
-    const [activeStatusLine, setActiveStatusLine] = useState('');
+    const [activeStatusLine, setActiveStatusLine] = useState([]);
     const [selectedPromotionLine, setSelectedPromotionLine] = useState(null);
     const [editPromotionLineModalShow, setEditPromotionLineModalShow] = useState(false);
     const [selectedPromotionHeader, setSelectedPromotionHeader] = useState({});
@@ -63,7 +63,7 @@ const TestComponent = () => {
                 const response = await getPromotionApi(); // Thay đổi đường dẫn API nếu cần
                 const promotionsWithLines = response.map((header) => ({
                     ...header,
-                    lines: header.lines || [], // Nếu không có lines, khởi tạo thành mảng rỗng
+                    lines: header?.lines || [], // Nếu không có lines, khởi tạo thành mảng rỗng
                 }));
                 setPromotions(promotionsWithLines);
                 setActiveStatusHeader(promotionsWithLines.map((item) => item?.is_active || false)); // Cập nhật trạng thái ban đầu
@@ -84,7 +84,7 @@ const TestComponent = () => {
                 setPromotions((prevPromotions) => {
                     return prevPromotions.map((header) => {
                         if (header?._id === headerId) {
-                            return { ...header, lines: response.promotionLines };
+                            return { ...header, lines: response?.promotionLines };
                         }
                         return header;
                     });
@@ -108,37 +108,55 @@ const TestComponent = () => {
 
     // Toggle Active header
 
-    const handleToggleActiveHeader = async (promotionHeader, index) => {
-        console.log('Đang gọi API để cập nhật trạng thái:', promotionHeader);
-
+    const handleToggleActiveHeader = async (promotionHeader) => {
         try {
-            const initialStatus = promotionHeader.is_active;
-            const updatedItem = { ...promotionHeader, is_active: !promotionHeader?.is_active };
-
-            const response = await putActivePromotionHeader(promotionHeader?._id, updatedItem?.is_active);
-            console.log('Phản hồi từ API:', response.promotionHeader.is_active);
-            // Log phản hồi từ API
-            // console.log('Phản hồi từ API:', response);
-            console.log('Trạng thái ban đầu:', initialStatus);
-            console.log('Trạng thái mới:', updatedItem?.is_active);
-            if (response) {
-                setPromotions((prev) =>
-                    prev.map((p) =>
-                        p?._id === promotionHeader?._id ? { ...p, is_active: updatedItem?.is_active } : p,
-                    ),
-                );
-                setActiveStatusHeader((prev) => {
-                    const newStatus = [...prev];
-                    newStatus[index] = !newStatus[index]; // Đổi trạng thái
-                    return newStatus;
-                });
-                toast.success('Cập nhật trạng thái thành công!'); // Sử dụng toast
+            // Lưu trạng thái ban đầu
+            const currentStatus = promotionHeader?.is_active;
+            const updatedStatus = !currentStatus;
+    
+            // Tạm thời cập nhật giao diện (Optimistic UI)
+            setPromotions((prev) =>
+                prev.map((p) =>
+                    p?._id === promotionHeader?._id
+                        ? { ...p, is_active: updatedStatus }
+                        : p,
+                ),
+            );
+    
+            // Gọi API để cập nhật
+            const response = await putActivePromotionHeader(promotionHeader?._id, updatedStatus);
+    
+            // Kiểm tra phản hồi từ API
+            if (response?.promotionHeader?.is_active !== updatedStatus) {
+                throw new Error('Trạng thái không được cập nhật chính xác từ API');
             }
+    
+            // Cập nhật lại giao diện dựa trên phản hồi từ API
+            setPromotions((prev) =>
+                prev.map((p) =>
+                    p?._id === promotionHeader?._id
+                        ? { ...p, is_active: response.promotionHeader?.is_active }
+                        : p,
+                ),
+            );
+    
+            toast.success('Cập nhật trạng thái thành công!');
         } catch (error) {
             console.error('Lỗi khi cập nhật trạng thái:', error);
-            toast.error('Đã xảy ra lỗi khi cập nhật trạng thái. Vui lòng thử lại sau.'); // Sử dụng toast
+    
+            // Nếu có lỗi, khôi phục trạng thái ban đầu
+            setPromotions((prev) =>
+                prev.map((p) =>
+                    p?._id === promotionHeader?._id
+                        ? { ...p, is_active: promotionHeader?.is_active }
+                        : p,
+                ),
+            );
+    
+          //  toast.error('Đã xảy ra lỗi khi cập nhật trạng thái. Vui lòng thử lại.');
         }
     };
+    
     // Eidt header
     const handleEditHeader = (promotionHeader) => {
         setSelectedPromotion(promotionHeader);
@@ -185,7 +203,7 @@ const TestComponent = () => {
             }
         } catch (error) {
             console.error('Lỗi khi xóa chương trình khuyến mãi:', error);
-            toast.error(error.response.data.msg); // Hiển thị thông báo lỗi
+            toast.error(error.response?.data?.msg); // Hiển thị thông báo lỗi
         } finally {
             setConfirmDeleteModalShow(false); // Đóng modal xác nhận xóa
         }
@@ -217,8 +235,8 @@ const TestComponent = () => {
                 // Thêm dòng khuyến mãi mới vào promotion header tương ứng
                 setPromotions((prevPromotions) =>
                     prevPromotions.map((header) =>
-                        header._id === selectedPromotion?._id
-                            ? { ...header, lines: [...header.lines, newPromotionLine] }
+                        header?._id === selectedPromotion?._id
+                            ? { ...header, lines: [...header?.lines, newPromotionLine] }
                             : header,
                     ),
                 );
@@ -235,19 +253,24 @@ const TestComponent = () => {
         }
     };
     const handleToggleActiveLine = async (promotionLine, index) => {
+        const newActiveStatus = !activeStatusLine[index];
         try {
-            const updatedItem = { ...promotionLine, is_active: !promotionLine?.is_active };
+            //const updatedItem = { ...promotionLine, is_active: !promotionLine?.is_active };
 
-            const response = await putActivePromotionLine(promotionLine?._id, updatedItem?.is_active);
+            const response = await putActivePromotionLine(promotionLine?._id, newActiveStatus);
 
             if (response) {
                 setPromotions((prev) =>
-                    prev.map((p) => (p?._id === promotionLine?._id ? { ...p, is_active: updatedItem?.is_active } : p)),
+                    prev.map((p) => (p?._id === promotionLine?._id ? { ...p, is_active: newActiveStatus } : p)),
                 );
 
-                const newActiveStatus = [...activeStatusLine];
-                newActiveStatus[index] = updatedItem?.is_active; // Chỉ cập nhật trạng thái của dòng hiện tại
-                setActiveStatusLine(newActiveStatus); // Cập nhật state với trạng thái mới
+                // const newActiveStatus = [...activeStatusLine];
+                // newActiveStatus[index] = updatedItem?.is_active; // Chỉ cập nhật trạng thái của dòng hiện tại
+                setActiveStatusLine((prevStatus) => {
+                    const updatedStatus = [...prevStatus];
+                    updatedStatus[index] = newActiveStatus;
+                    return updatedStatus;
+                }); // Cập nhật state với trạng thái mới
 
                 toast.success(response.msg);
             }
@@ -255,8 +278,8 @@ const TestComponent = () => {
             console.error('Lỗi khi cập nhật trạng thái:', error);
 
             // Kiểm tra và in ra lỗi từ response nếu có
-            if (error.response && error.response.data && error.response.data.msg) {
-                toast.error(error.response.data.msg);
+            if (error.response && error.response?.data && error.response?.data?.msg) {
+                toast.error(error.response?.data?.msg);
             } else {
                 toast.error('Bạn không có quyền thực hiện hành động này');
             }
@@ -277,13 +300,13 @@ const TestComponent = () => {
 
                 setPromotions((prevPromotions) =>
                     prevPromotions.map((header) => {
-                        if (header?._id === updatedPromotionLine.promotion_header_id) {
+                        if (header?._id === updatedPromotionLine?.promotion_header_id) {
                             // Tìm header tương ứng
                             return {
                                 ...header,
-                                lines: header.lines.map(
+                                lines: header?.lines.map(
                                     (line) =>
-                                        line._id === updatedPromotionLine._id
+                                        line?._id === updatedPromotionLine?._id
                                             ? { ...line, ...updatedPromotionLine }
                                             : line, // Cập nhật dòng cụ thể
                                 ),
@@ -314,11 +337,11 @@ const TestComponent = () => {
                 // Cập nhật state 'promotions' để xóa dòng khuyến mãi
                 setPromotions((prevPromotions) =>
                     prevPromotions.map((header) => {
-                        if (header._id === selectedPromotionHeader?.promotion_header_id) {
+                        if (header?._id === selectedPromotionHeader?.promotion_header_id) {
                             // Tìm header tương ứng
                             return {
                                 ...header,
-                                lines: header.lines.filter((line) => line._id !== selectedPromotionHeader?._id), // Xóa dòng cụ thể
+                                lines: header?.lines.filter((line) => line?._id !== selectedPromotionHeader?._id), // Xóa dòng cụ thể
                             };
                         }
                         return header; // Trả lại các header khác không thay đổi
@@ -384,7 +407,7 @@ const TestComponent = () => {
             setPromotions((prevPromotions) =>
                 prevPromotions.map((header) => ({
                     ...header,
-                    lines: header.lines.map((line) => ({
+                    lines: header?.lines.map((line) => ({
                         ...line,
                         promotionDetails: line.promotionDetails.map((detail) =>
                             detail?._id === updatedDetail?._id ? updatedDetail : detail,
@@ -413,10 +436,10 @@ const TestComponent = () => {
             setPromotions((prevPromotions) =>
                 prevPromotions.map((header) => ({
                     ...header,
-                    lines: header.lines.map((line) => ({
+                    lines: header?.lines.map((line) => ({
                         ...line,
                         promotionDetails: line.promotionDetails.filter(
-                            (detail) => detail._id !== selectedPromotionDetail,
+                            (detail) => detail?._id !== selectedPromotionDetail,
                         ),
                     })),
                 })),
@@ -447,11 +470,11 @@ const TestComponent = () => {
         // Cập nhật promotions
         setPromotions((prevPromotions) => {
             return prevPromotions.map((header) => {
-                if (header._id === selectedPromotionLine.promotion_header_id) {
+                if (header?._id === selectedPromotionLine.promotion_header_id) {
                     return {
                         ...header,
                         lines: header.lines.map((line) => {
-                            if (line._id === selectedPromotionLine._id) {
+                            if (line?._id === selectedPromotionLine?._id) {
                                 return {
                                     ...line,
                                     promotionDetails: [...(line.promotionDetails || []), newDetail.promotionDetail],
@@ -560,7 +583,7 @@ const TestComponent = () => {
                                             <label className={styles.switch}>
                                                 <input
                                                     type="checkbox"
-                                                    checked={activeStatusHeader[index]}
+                                                    checked={header?.is_active}
                                                     onChange={() => {
                                                         const newStatus = [...activeStatusHeader];
                                                         newStatus[index] = !newStatus[index];
@@ -659,14 +682,14 @@ const TestComponent = () => {
                                                                             <label className={styles.switch}>
                                                                                 <input
                                                                                     type="checkbox"
-                                                                                    checked={activeStatusHeader[index]}
+                                                                                    checked={activeStatusLine[index] ?? false}
                                                                                     onChange={() => {
-                                                                                        const newStatus = [
-                                                                                            ...activeStatusLine,
-                                                                                        ];
-                                                                                        newStatus[index] =
-                                                                                            !newStatus[index]; // Đổi trạng thái
-                                                                                        setActiveStatusLine(newStatus);
+                                                                                        // const newStatus = [
+                                                                                        //     ...activeStatusLine,
+                                                                                        // ];
+                                                                                        // newStatus[index] =
+                                                                                        //     !newStatus[index]; 
+                                                                                        // setActiveStatusLine(newStatus);
                                                                                         handleToggleActiveLine(
                                                                                             line,
                                                                                             index,

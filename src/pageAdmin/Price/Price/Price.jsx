@@ -26,7 +26,7 @@ const Price = ({ data = [] }) => {
 
     //toggle
     const [activeStatus, setActiveStatus] = useState(priceData?.map((item) => item?.is_active || false));
-    const [activeStatusDetail, setActiveStatusDetail] = useState({});
+    const [activeStatusDetail, setActiveStatusDetail] = useState([]);
     // const [activeStatusDetail, setActiveStatusDetail] = useState(priceData?.map((item) => item?.is_active || false));
     const [priceId, setPriceId] = useState(null); // State to hold the selected price ID
     const [priceDetail, setPriceDetail] = useState([]);
@@ -129,14 +129,14 @@ const Price = ({ data = [] }) => {
         try {
             const updatedItem = { ...priceDataHeader, is_active: !priceDataHeader.is_active };
 
-            const response = await putActivePriceApi(priceDataHeader._id, updatedItem.is_active);
+            const response = await putActivePriceApi(priceDataHeader?._id, updatedItem.is_active);
 
             // Log phản hồi từ API
             // console.log('Phản hồi từ API:', response);
 
             if (response) {
                 setPriceData((prev) =>
-                    prev.map((p) => (p._id === priceDataHeader._id ? { ...p, is_active: updatedItem.is_active } : p)),
+                    prev.map((p) => (p?._id === priceDataHeader?._id ? { ...p, is_active: updatedItem.is_active } : p)),
                 );
                 toast.success('Cập nhật trạng thái thành công!'); // Sử dụng toast
             }
@@ -153,30 +153,38 @@ const Price = ({ data = [] }) => {
     }, [priceDetail]);
 
     // Toggle function for each detail item
-    const handleToggleActiveDetail = async (item, index) => {
-        const newActiveStatus = !activeStatusDetail[index];
+    const handleToggleActiveDetail = async (item, indexDetail) => {
+        const newActiveStatus = !activeStatusDetail[indexDetail];
         console.log('Current is_active status before updating:', newActiveStatus);
 
         try {
-            const response = await putActivePriceDetailApi(item._id, newActiveStatus);
+            //  const updatedItem = { ...priceDataHeader, is_active: !priceDataHeader.is_active };
+            const response = await putActivePriceDetailApi(item?._id, newActiveStatus);
 
             if (response) {
                 // Update `priceDetail` để phản ánh sự thay đổi trong `is_active`
-                setPriceDetail((prev) => prev.map((p, i) => (i === index ? { ...p, is_active: newActiveStatus } : p)));
+                setPriceDetail((prev) =>
+                    prev.map((p, i) => (p?._id === indexDetail?._id ? { ...p, is_active: newActiveStatus } : p)),
+                );
 
                 // Cập nhật `activeStatusDetail` để phản ánh trạng thái mới
                 setActiveStatusDetail((prevStatus) => {
                     const updatedStatus = [...prevStatus];
-                    updatedStatus[index] = newActiveStatus;
+                    updatedStatus[indexDetail] = newActiveStatus;
                     return updatedStatus;
                 });
 
-                console.log('Updated is_active status:', newActiveStatus);
-                toast.success('Cập nhật trạng thái thành công!');
+                toast.success(response.msg);
             }
         } catch (error) {
             console.error('Lỗi khi cập nhật trạng thái:', error);
-            toast.error('Đã xảy ra lỗi khi cập nhật trạng thái. Vui lòng thử lại sau.');
+
+            // Kiểm tra và in ra lỗi từ response nếu có
+            if (error.response && error.response?.data && error.response?.data?.msg) {
+                toast.error(error.response?.data?.msg);
+            } else {
+                toast.error('Bạn không có quyền thực hiện hành động này');
+            }
         }
     };
 
@@ -216,8 +224,8 @@ const Price = ({ data = [] }) => {
             toast.warn('Dữ liệu dịch vụ hoặc phương tiện chưa sẵn sàng.');
             return; // Không thực hiện gì nếu dữ liệu chưa sẵn sàng
         }
-        const service = services.find((item) => item._id === priceLine?.service_id);
-        const vehicle = vehicles.find((item) => item._id === priceLine?.vehicle_type_id);
+        const service = services.find((item) => item?._id === priceLine?.service_id);
+        const vehicle = vehicles.find((item) => item?._id === priceLine?.vehicle_type_id);
 
         const updatedPriceDetail = {
             ...priceLine,
@@ -239,7 +247,7 @@ const Price = ({ data = [] }) => {
 
     const handleUpdatePriceDetail = (updatedPrice) => {
         setPriceDetail((prevDetails) =>
-            prevDetails.map((item) => (item._id === updatedPrice._id ? { ...item, ...updatedPrice } : item)),
+            prevDetails.map((item) => (item?._id === updatedPrice?._id ? { ...item, ...updatedPrice } : item)),
         );
         setEditModalShow(false);
     };
@@ -256,7 +264,7 @@ const Price = ({ data = [] }) => {
                 await deletePriceDetailApi(priceDetailToDelete);
 
                 // Cập nhật lại priceDetail để không hiển thị giá đã bị xóa
-                setPriceDetail((prev) => prev.filter((item) => item._id !== priceDetailToDelete._id));
+                setPriceDetail((prev) => prev.filter((item) => item?._id !== priceDetailToDelete?._id));
                 toast.success('Xóa bảng giá thành công!'); // Thông báo thành công
             } catch (error) {
                 console.error('Error deleting price detail:', error);
@@ -285,9 +293,9 @@ const Price = ({ data = [] }) => {
                     </Table>
                     {priceData?.map((priceDataHeader, index) => (
                         <Accordion.Item
-                            key={priceDataHeader._id}
+                            key={priceDataHeader?._id}
                             eventKey={index.toString()}
-                            onClick={() => setPriceId(priceDataHeader._id)} // Set the selected priceId
+                            onClick={() => setPriceId(priceDataHeader?._id)} // Set the selected priceId
                         >
                             <Accordion.Header className={styles.appointmentCardText}>
                                 <Table className={styles.tableHeader}>
