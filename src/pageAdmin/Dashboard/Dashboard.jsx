@@ -119,7 +119,9 @@ const Dashboard = () => {
             );
         }
     };
-
+    useEffect(() => {
+        updateWithoutSlot(); // Gọi API để lấy lại dữ liệu lịch hẹn
+    }, [withoutSlot]); 
 
 
     const handleSearchCalender = async () => {
