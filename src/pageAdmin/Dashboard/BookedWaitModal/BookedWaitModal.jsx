@@ -133,10 +133,10 @@ const BookedWaitModal = ({ show, handleClose, onUpdateWithoutSlot }) => {
             return;
         }
 
-        const serviceIds = selectedServices.map((service) => service.priceline_id); // Giả sử bạn lấy danh sách ID dịch vụ từ servicePrice
+        const serviceIds = selectedServices.map((service) => service?.priceline_id); // Giả sử bạn lấy danh sách ID dịch vụ từ servicePrice
 
         try {
-            const response = await createAppointmentsWithoutSlot(selectedVehicle._id, serviceIds, appointmentDatetime);
+            const response = await createAppointmentsWithoutSlot(selectedVehicle?._id, serviceIds, appointmentDatetime);
             toast.success('Lịch hẹn đã được tạo:', response);
             onUpdateWithoutSlot();
             // Có thể thêm logic để thông báo thành công hoặc đóng modal
@@ -207,10 +207,10 @@ const BookedWaitModal = ({ show, handleClose, onUpdateWithoutSlot }) => {
                                             {customerData.vehicles.map((vehicle) => (
                                                 <div key={vehicle?._id}>
                                                     <p className={styles.customerText}>
-                                                        Tên xe: {vehicle.manufacturer}{' '}
+                                                        Tên xe: {vehicle?.manufacturer}{' '}
                                                     </p>
                                                     <p className={styles.customerText}>
-                                                        Biển số: {vehicle.license_plate}
+                                                        Biển số: {vehicle?.license_plate}
                                                     </p>
                                                     <p className={styles.customerText}>
                                                         Loại xe: {vehicle?.vehicle_type_id?.vehicle_type_name}{' '}
@@ -289,7 +289,7 @@ const BookedWaitModal = ({ show, handleClose, onUpdateWithoutSlot }) => {
                                         </thead>
                                         <tbody>
                                             {servicePrice.map((service) => (
-                                                <tr key={service.priceline_id}>
+                                                <tr key={service?.priceline_id}>
                                                     <td className={styles.dataTableItem}>{service?.service_code}</td>
                                                     <td className={styles.dataTableItem}>{service?.service}</td>
                                                     <td className={styles.dataTableItem}>{service?.vehicle_type}</td>
@@ -299,7 +299,7 @@ const BookedWaitModal = ({ show, handleClose, onUpdateWithoutSlot }) => {
                                                     <td className={styles.dataTableItem}>{service?.price} VNĐ</td>
                                                     <td className={styles.dataTableIcon}>
                                                         {selectedServices.some(
-                                                            (s) => s.priceline_id === service.priceline_id,
+                                                            (s) => s?.priceline_id === service?.priceline_id,
                                                         ) ? (
                                                             <FaTrash
                                                                 onClick={() => handleAddOrRemoveService(service)}
