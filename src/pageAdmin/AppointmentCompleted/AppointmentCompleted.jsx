@@ -20,7 +20,7 @@ const AppointmentCompleted = () => {
 
     useEffect(() => {
         handleFilterChange();
-    }, [filterStatus, searchPhone, filterDate]);
+    }, [filterStatus, searchPhone, filterDate,appointments]);
 
     useEffect(() => {
         const fetchAppointments = async () => {
@@ -62,8 +62,6 @@ const AppointmentCompleted = () => {
             return [updatedAppointment, ...filteredAppointments];
         });
     };
-
-    
 
     const handleFilterChange = () => {
         let filtered = appointments;
@@ -108,6 +106,7 @@ const AppointmentCompleted = () => {
             </div>
         );
     }
+
 
     // Phân loại các cuộc hẹn dựa trên `invoice`
   const appointmentsWithInvoice = filteredAppointments.filter((appointment) => appointment?.invoice !== null);
