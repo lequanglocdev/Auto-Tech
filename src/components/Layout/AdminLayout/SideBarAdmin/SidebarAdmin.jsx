@@ -3,7 +3,7 @@ import styles from './SidebarAdmin.module.css';
 import icons from '@/utils/icon';
 import { useNavigate } from 'react-router-dom';
 
-const SidebarAdmin = ({ isVisible, onSelectMenu }) => {
+const SidebarAdmin = ({ isVisible }) => {
     const {
         IoIosArrowForward,
         IoIosArrowDown,
@@ -14,7 +14,6 @@ const SidebarAdmin = ({ isVisible, onSelectMenu }) => {
         FaCalendarAlt,
         MdHomeRepairService,
         IoTicket,
-        FaMoneyBillTrendUp,
         FaRegChartBar,
         IoPricetag,
     } = icons;
@@ -23,28 +22,22 @@ const SidebarAdmin = ({ isVisible, onSelectMenu }) => {
         {
             title: 'Tổng quan',
             icon: MdDashboard,
-            path:'/admin'
+            path: '/admin',
         },
         {
             title: 'Quản lý nhân viên',
             icon: FaUser,
-            path: '/employees'
+            path: '/employees',
         },
         {
             title: 'Quản lý khách hàng',
             icon: FaUsers,
-            path: '/customer'
+            path: '/customer',
         },
-        // {
-        //     title: 'Quản lý hạng của khách hàng',
-        //     icon: FaRankingStar,
-        //     path: '/rank'
-           
-        // },
         {
             title: 'Quản lý loại xe ',
             icon: FaCar,
-            path: '/car'
+            path: '/car',
         },
         {
             title: 'Lịch hoàn thành',
@@ -54,30 +47,27 @@ const SidebarAdmin = ({ isVisible, onSelectMenu }) => {
         {
             title: 'Quản lý dịch vụ',
             icon: MdHomeRepairService,
-            path: '/service'
+            path: '/service',
         },
         {
             title: 'Quản lý chương trình khuyến mãi',
             icon: IoTicket,
-            path: '/promotion'
+            path: '/promotion',
         },
         {
             title: 'Quản lý bảng giá ',
             icon: IoPricetag,
-            path: '/prices'
+            path: '/prices',
         },
         {
             title: 'Thống kê',
             icon: FaRegChartBar,
-            // path:'/statistical'
-
             items: [
                 { title: 'Doanh thu', path: '/statistical' },
                 { title: 'Chương trình khuyến mãi', path: '/statistic-promotion' },
-                {title: 'Hóa đơn trả',path:"/statistic-refund"}
-            ]
+                { title: 'Hóa đơn trả', path: '/statistic-refund' },
+            ],
         },
-      
     ];
 
     const [openMenuIndex, setOpenMenuIndex] = useState(null);
@@ -89,18 +79,12 @@ const SidebarAdmin = ({ isVisible, onSelectMenu }) => {
 
     const handleMenuClick = (item, index) => {
         setSelectedMenu(index);
-
-        if(typeof item === 'string'){
-           
-            // if (item === 'Danh sách chi tiết bảng giá') {
-            //     navigate('/price/list');
-            // }
-        }else{
+        if (typeof item === 'string') {
+        } else {
             if (item.path) {
                 navigate(item.path);
             }
         }
-        
     };
 
     return (
@@ -121,13 +105,12 @@ const SidebarAdmin = ({ isVisible, onSelectMenu }) => {
                             }}
                         />
                         <p className={styles.menuHeaderText}>{menu.title}</p>
-                        {menu.items && (
-                            openMenuIndex === index ? (
+                        {menu.items &&
+                            (openMenuIndex === index ? (
                                 <IoIosArrowDown className={styles.menuIcon} />
                             ) : (
                                 <IoIosArrowForward className={styles.menuIcon} />
-                            )
-                        )}
+                            ))}
                     </div>
                     {menu.items && (
                         <ul
@@ -154,8 +137,6 @@ const SidebarAdmin = ({ isVisible, onSelectMenu }) => {
             ))}
         </div>
     );
-    
-    
 };
 
 export default SidebarAdmin;

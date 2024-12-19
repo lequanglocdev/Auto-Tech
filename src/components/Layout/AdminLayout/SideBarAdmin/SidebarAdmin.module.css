@@ -17,14 +17,6 @@
     transform: translateX(0);
 }
 
-.listGroupItem {
-    height: 40px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 6px;
-}
-
 .menu {
     width: 250px;
     color: var(--text-third);
@@ -76,19 +68,4 @@
 
 .menuItem:hover .menuItemText {
     color: var(--text-second);
-}
-
-.menuHeader {
-    display: flex;
-    align-items: center;
-    cursor: pointer;
-}
-
-.menuIcon {
-    margin-right: 8px;
-    transition: color 0.3s ease;
-}
-
-.menuHeaderText {
-    transition: color 0.3s ease;
 }

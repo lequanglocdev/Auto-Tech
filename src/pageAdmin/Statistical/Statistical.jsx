@@ -200,14 +200,14 @@ const Statistical = () => {
                             options={{ responsive: true, maintainAspectRatio: false }}
                         />
                     </div>
-                    <div className={styles.chartContainer}>
-                        {/* Biểu đồ tròn */}
+                    {/* <div className={styles.chartContainer}>
+                        
                         <Pie
                             className={styles.pieChart}
                             data={pieChartData}
                             options={{ responsive: true, maintainAspectRatio: false }}
                         />
-                    </div>
+                    </div> */}
                 </div>
 
                 <div className={styles.headTable}>

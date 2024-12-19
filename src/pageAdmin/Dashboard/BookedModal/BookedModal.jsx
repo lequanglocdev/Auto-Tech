@@ -192,7 +192,7 @@ const BookedModal = ({ show, handleClose, slotId, onUpdateSlot }) => {
     return (
         <Modal size="lg" show={show} onHide={handleClose} backdrop="static" keyboard={false}>
             <Modal.Header className={styles.modalHeader} closeButton>
-                <Modal.Title>Đặt lịch</Modal.Title>
+                <Modal.Title>Đặt dịch vụ</Modal.Title>
             </Modal.Header>
             <Modal.Body className={styles.modalBody}>
                 <Form>
