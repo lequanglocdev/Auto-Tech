@@ -61,7 +61,7 @@ const EmployeesDetail = () => {
                     <strong>Số điện thoại:</strong> {employee.phone_number}
                 </p>
                 <p className={styles.employeeDetailTextDes}>
-                    <strong>Chức vụ:</strong> {employee.role}
+                    <strong>Chức vụ:</strong> {employee.role === "manager" ? "Quản lý": ""}
                 </p>
                
             </div>

@@ -50,9 +50,9 @@ const useCreateEmployeeForm = () => {
             try {
                 await registerManagerApi(
                     formData.employeeCode,
+                    formData.employeeName,
                     formData.password,
                     formData.email,
-                    formData.employeeName,
                     formData.phone,
                     formData.role,
                 );

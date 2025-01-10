@@ -68,16 +68,6 @@ const EditEmployeeModal = ({ user, show, onHide, onUpdate }) => {
                                 onChange={handleChange}
                             />
                         </Form.Group>
-                        <Form.Group className={styles.employeeGroup} controlId="role">
-                            <Form.Label className={styles.employeeLabel}>Vai trò</Form.Label>
-                            <Form.Control
-                                className={styles.employeeControl}
-                                type="text"
-                                name="role"
-                                value={formData.role}
-                                onChange={handleChange}
-                            />
-                        </Form.Group>
                         <div className={styles.btn}>
                             <Button className={`mt-2 ${styles.employeeBtn}`} variant="primary" type="submit">
                                 Cập nhật

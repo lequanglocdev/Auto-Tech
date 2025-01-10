@@ -1,5 +1,5 @@
 .navbar {
-    height: 60px;
+    height: 80px;
     transition: all 0.3s ease-in-out;
     position: relative;
 }
@@ -24,11 +24,8 @@
 
 .navLogo {
     width: 160px;
-    height: 160px;
-    object-fit: cover;
-    overflow: hidden;
-    position: relative;
-    top:-16px;
+    height: 140px;
+    object-fit: contain;
 }
 
 .navText {

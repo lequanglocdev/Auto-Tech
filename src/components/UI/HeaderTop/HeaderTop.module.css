@@ -5,6 +5,7 @@
     display: flex;
     justify-content: space-around;
     align-items: center;
+    padding: 0 4px;
 }
 
 .calender,
@@ -36,15 +37,5 @@
 @media (max-width: 768px) {
     .headerTop {
         height: auto;
-        display: block;
-    }
-
-    .calender,
-    .phone,
-    .info {
-        display: flex;
-        justify-content: flex-start;
-        margin-bottom: 10px;
-        padding: 0 10px;
     }
 }

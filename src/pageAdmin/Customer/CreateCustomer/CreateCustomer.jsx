@@ -142,8 +142,7 @@ const CreateCustomer = () => {
                         Xác nhận
                     </Button>
                 </Modal.Footer>
-            </Modal>
-          
+            </Modal>   
         </div>
     );
 };

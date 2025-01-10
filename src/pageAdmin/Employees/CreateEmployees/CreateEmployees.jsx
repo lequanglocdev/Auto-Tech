@@ -32,7 +32,7 @@ const CreateEmployees = () => {
             </div>
             <div className={styles.createEmployeesBody}>
                 <Form onSubmit={handleSubmit}>
-                    <Form.Group className="mb-3" controlId="employeeCode">
+                     <Form.Group className="mb-3" controlId="employeeCode">
                         <Form.Label className={styles.labelText}>Mã nhân viên</Form.Label>
                         <Form.Control
                             type="text"
@@ -44,7 +44,7 @@ const CreateEmployees = () => {
                             isInvalid={!!errors.employeeCode}
                         />
                         <Form.Control.Feedback className={styles.errorFeeback} type="invalid">{errors.employeeCode}</Form.Control.Feedback>
-                    </Form.Group>
+                    </Form.Group> 
 
                     <Form.Group className="mb-3" controlId="employeeName">
                         <Form.Label className={styles.labelText}>Tên nhân viên</Form.Label>
@@ -115,7 +115,8 @@ const CreateEmployees = () => {
                     </button>
                 </Form>
             </div>
-            <Modal show={showOtpModal} onHide={() => setShowOtpModal(false)}>
+            {/* Show submit OTP */}
+            <Modal centered show={showOtpModal} onHide={() => setShowOtpModal(false)}>
                 <Modal.Header closeButton>
                     <Modal.Title>Nhập mã OTP</Modal.Title>
                 </Modal.Header>
