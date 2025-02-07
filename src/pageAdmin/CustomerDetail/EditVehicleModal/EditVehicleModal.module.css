@@ -1,6 +1,6 @@
 .customerTitle {
     font-size: 1.8rem !important;
-    color: #3498db !important;
+    color: var( --blue-background) !important;
 }
 
 .vehicleLabel {
@@ -24,6 +24,12 @@
     display: flex !important;
     justify-content: flex-end !important;
     align-items: center;
+}
+
+.vehicleBtn {
+    width: 100px;
+    height: 36px;
+    font-size: 1.6rem !important;
 }
 
 .customerBtn {

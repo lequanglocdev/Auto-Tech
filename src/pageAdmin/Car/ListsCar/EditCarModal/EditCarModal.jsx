@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Modal, Form } from 'react-bootstrap';
 import styles from './EditCarModal.module.css';
+
 const EditCarModal = ({ car, show, onHide, onUpdate }) => {
     const [formData, setFormData] = useState({
         vehicle_type_name: '',
@@ -24,6 +25,7 @@ const EditCarModal = ({ car, show, onHide, onUpdate }) => {
         e.preventDefault();
         onUpdate({ ...car, ...formData });
     };
+
     return (
         <Modal show={show} onHide={onHide} size="lg" centered>
             <Modal.Header closeButton>

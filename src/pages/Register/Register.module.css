@@ -1,6 +1,6 @@
 .register {
     height: 100vh;
-    background-image: url('../../../public/backgroundAuth.png');
+    background-image: url('../../assets/backgroundAuth.png');
     background-size: cover;
     background-position: center;
     display: flex;
@@ -85,7 +85,14 @@
     justify-content: space-between;
     align-items: center;
     padding: 10px 6px;
+}
+
+.registerFooter span{
     font-size: 1.4rem;
+    color: var(--text-primary);
+    font-weight: 500;
+    cursor: pointer;
+   text-decoration: underline;
 }
 
 .spinnerOverlay {

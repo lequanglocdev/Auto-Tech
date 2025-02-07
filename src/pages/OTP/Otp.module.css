@@ -1,6 +1,6 @@
 .otp {
   height: 100vh;
-  background-image: url('../../../public/backgroundAuth.png');
+  background-image: url('../../assets/backgroundAuth.png');
   background-size: cover;
   background-position: center;
   display: flex;

@@ -5,10 +5,10 @@ import icons from '@/utils/icon';
 import { Button, Form, Modal } from 'react-bootstrap';
 import useCreateCustomerForm from './hooks/useCreateCustomerForm';
 import { useNavigate } from 'react-router-dom';
+
 const CreateCustomer = () => {
     const navigate = useNavigate();
     const { FaPlusCircle, MdArrowBackIos } = icons;
-
     const {
         formData,
         errors,

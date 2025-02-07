@@ -8,13 +8,14 @@ import { useRegisterForm, usePasswordToggle } from './hooks/useRegisterForm';
 import { registerCustomerApi } from '@/utils/api';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
+import logo from '../../assets/logo.png';
+
 const Register = () => {
     const { FaRegUser, IoMdEye, IoMdEyeOff, FaMailBulk, FaPhone, FaLocationDot } = icons;
     const { formData, setFormData, errorMessage, handleInputChange, validateForm } = useRegisterForm();
     const [showPassword, togglePasswordVisibility] = usePasswordToggle();
     const [isLoading, setIsLoading] = useState(false);
-    const naviagte = useNavigate();
-
+    const navigate = useNavigate();
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (validateForm()) {
@@ -40,10 +41,10 @@ const Register = () => {
                 });
 
                 setTimeout(() => {
-                    naviagte('/otp', { state: { email: formData.email } });
+                    navigate('/otp', { state: { email: formData.email } });
                 }, 4000);
             } catch (error) {
-                toast.error('Đăng ký thất bại. Vui lòng thử lại!', { autoClose: 3000 });
+                toast.error('Vui lòng nhập email mới & mật khẩu lớn hơn 6 ký tư', { autoClose: 3000 });
                 setFormData({
                     username: '',
                     name: '',
@@ -57,6 +58,13 @@ const Register = () => {
             }
         }
     };
+    const handleAuth = () => {
+        navigate('/auth');
+    };
+    const handleLogin = () => {
+        navigate('/login');
+    };
+    
     return (
         <div className={styles.register}>
             {isLoading && (
@@ -68,7 +76,7 @@ const Register = () => {
             )}
             <div className={styles.registerContainer}>
                 <div className={styles.registerImage}>
-                    <img src="./logo.png" alt="Logo" />
+                    <img src={logo} alt="Logo" />
                 </div>
                 <div className={styles.registerForm}>
                     <p>Đăng ký</p>
@@ -170,8 +178,8 @@ const Register = () => {
                         </Button>
                     </Form>
                     <div className={styles.registerFooter}>
-                        <a href="/auth">Quay lại</a>
-                        <a href="/login">Đăng nhập</a>
+                        <span onClick={handleAuth}>Quay lại</span>
+                        <span onClick={handleLogin}>Đăng nhập</span>
                     </div>
                 </div>
             </div>

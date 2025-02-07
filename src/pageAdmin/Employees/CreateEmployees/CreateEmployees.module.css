@@ -7,12 +7,13 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
-.createEmployeesIcon{
+.createEmployeesIcon {
     font-size: 3rem;
     padding: 4px;
     font-weight: bold;
     cursor: pointer;
 }
+
 .createEmployeesBody {
     margin-top: 20px;
     padding: 0 20px;
@@ -41,15 +42,43 @@
     font-size: bold;
     margin-top: 50px;
 }
+
 .btnAdd:hover {
-    background-color: #74b9ff; 
+    background-color: #74b9ff;
 }
 
 .btnAdd:active {
-    background-color: #0652a0; 
+    background-color: #0652a0;
     transform: scale(0.98);
 }
-.errorFeeback{
+
+.customerTitle {
+    font-size: 1.6rem !important;
+    color: var(--blue-background) !important;
+}
+
+.customerLabel {
+    font-size: 1.4rem !important;
+}
+
+.customerControl {
+    font-size: 1.3rem !important;
+}
+
+.customerLabel,
+.customerControl {
+    color: var(--text-third) !important;
+}
+
+.customerGroup {
+    padding: 6px;
+}
+
+.btn {
+    padding: 6px 12px !important;
+    font-size: 1.3rem !important;
+}
+
+.errorFeeback {
     font-size: 1.2rem !important;
-  }
-  
+}

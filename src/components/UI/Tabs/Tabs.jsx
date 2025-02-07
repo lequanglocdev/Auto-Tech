@@ -1,35 +1,34 @@
-// Tabs.js
 import React, { useState } from 'react';
-import './Tabs.module.css'; // Import CSS file
+import styles from './Tabs.module.css';
 
 const Tabs = ({ tabs }) => {
-    const [activeTab, setActiveTab] = useState(tabs[0].eventKey); // Mặc định chọn tab đầu tiên
-
+    const [activeTab, setActiveTab] = useState(tabs[0].eventKey); 
     const handleTabClick = (eventKey) => {
         setActiveTab(eventKey);
     };
 
     return (
-        <div className="tabs">
-            <ul className="tab-list">
+        <div className={styles.tabs}>
+            <ul className={styles.tabList}>
                 {tabs.map((tab) => (
                     <li
                         key={tab.eventKey}
-                        className={`tab-item ${activeTab === tab.eventKey ? 'active' : ''}`}
+                        className={`${styles.tabItem} ${activeTab === tab.eventKey ? styles.active : ''}`}
                         onClick={() => handleTabClick(tab.eventKey)}
                     >
                         {tab.title}
                     </li>
                 ))}
             </ul>
-            <div className="tab-content">
-                {tabs.map((tab) => (
-                    activeTab === tab.eventKey && (
-                        <div key={tab.eventKey} className="tab-panel">
-                            {tab.content}
-                        </div>
-                    )
-                ))}
+            <div className={styles.tabContent}>
+                {tabs.map(
+                    (tab) =>
+                        activeTab === tab.eventKey && (
+                            <div key={tab.eventKey} className={styles.tabPanel}>
+                                {tab?.content}
+                            </div>
+                        ),
+                )}
             </div>
         </div>
     );

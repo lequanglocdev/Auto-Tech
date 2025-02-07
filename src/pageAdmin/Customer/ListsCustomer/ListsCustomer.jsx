@@ -2,25 +2,22 @@ import React, { useEffect, useState } from 'react';
 import styles from './ListsCustomer.module.css';
 import Breadcrumb from '@/components/UI/Breadcrumb/Breadcrumb';
 import { toast } from 'react-toastify';
-
-import { findCustomerApi, getUserApi } from '@/utils/api';
+import { getUserApi } from '@/utils/api';
 import TableCustomer from './TableCustomer/TableCustomer';
 import CommonButton from '@/components/UI/CommonButton/CommonButton ';
 import { useNavigate } from 'react-router-dom';
 import icons from '@/utils/icon';
 import {  Spinner } from 'react-bootstrap';
+
 const ListsCustomer = () => {
     const navigate = useNavigate();
     const [userData, setUserData] = useState([]);
     const [loading, setLoading] = useState(true);
-
-  
     const { FaPlusCircle } = icons;
     useEffect(() => {
         const fetchData = async () => {
             try {
                 const response = await getUserApi();
-                // console.log('dataTable', response);
                 setUserData(response);
                 setLoading(false);
             } catch (error) {
@@ -61,17 +58,6 @@ const ListsCustomer = () => {
             </div>
             <div>
                 <div className={styles.listsCustomerButton}>
-                    {/* <div className={styles.formSearch}>
-                        <Form.Control
-                            type="text"
-                            placeholder="Tìm kiếm thông tin khách hàng"
-                            className={styles.formSearchInput}
-                            value={searchQuery}
-                            onChange={(e) => setSearchQuery(e.target.value)}
-                        />
-                        <button className={styles.formSearchBtn} onClick={handleSearch}>Tìm kiếm</button>
-                    </div> */}
-
                     <CommonButton onClick={handleAddCustomer} icon={FaPlusCircle} label="Thêm" />
                 </div>
                 <TableCustomer data={userData} itemsPerPage={5} />

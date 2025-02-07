@@ -12,6 +12,7 @@
     font-weight: bold;
     cursor: pointer;
 }
+
 .createCustomerBody {
     margin-top: 20px;
     padding: 0 20px;
@@ -40,6 +41,7 @@
     font-size: bold;
     margin-top: 50px;
 }
+
 .btnAdd:hover {
     background-color: #74b9ff;
 }
@@ -48,9 +50,10 @@
     background-color: #0652a0;
     transform: scale(0.98);
 }
+
 .customerTitle {
     font-size: 1.6rem !important;
-    color: #3498db !important;
+    color: var(--blue-background) !important;
 }
 
 .customerLabel {
@@ -60,6 +63,7 @@
 .customerControl {
     font-size: 1.3rem !important;
 }
+
 .customerLabel,
 .customerControl {
     color: var(--text-third) !important;
@@ -73,6 +77,7 @@
     padding: 6px 12px !important;
     font-size: 1.3rem !important;
 }
+
 .errorFeeback {
     font-size: 1.2rem !important;
 }

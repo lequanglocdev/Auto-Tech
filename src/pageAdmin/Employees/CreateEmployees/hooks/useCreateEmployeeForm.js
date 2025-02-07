@@ -5,9 +5,9 @@ import { toast } from 'react-toastify';
 const useCreateEmployeeForm = () => {
     const [formData, setFormData] = useState({
         employeeCode: '',
+        email: '',
         employeeName: '',
         password: '',
-        email: '',
         phone: '',
         role: 'manager',
     });
@@ -47,12 +47,13 @@ const useCreateEmployeeForm = () => {
         if (validateForm()) {
             setIsSubmitting(true);
             setSubmitError('');
+            console.log('Dữ liệu gửi', JSON.stringify(formData, null, 2));
             try {
                 await registerManagerApi(
                     formData.employeeCode,
+                    formData.email,
                     formData.employeeName,
                     formData.password,
-                    formData.email,
                     formData.phone,
                     formData.role,
                 );

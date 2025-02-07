@@ -7,30 +7,47 @@
     text-transform: uppercase;
 }
 
-.introBody h6{
-  margin-top: 20px;
-  font-size: 1.6rem;
-  color: var(--text-primary);
-  font-weight: bold;
+.introBody h6 {
+    margin-top: 20px;
+    font-size: 1.6rem;
+    color: var(--text-primary);
+    font-weight: bold;
 }
 
-.introBody p{
-  font-size: 1.4rem;
-  color: var(--text-primary);
-  font-style: italic;
-  font-weight: 200;
+.introBody p {
+    font-size: 1.4rem;
+    color: var(--text-primary);
+    font-style: italic;
+    font-weight: 200;
 }
 
-.introImg{
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
+.introWrapperImage {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-@media (max-width: 987px) {
-  .introImg{
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-  }
+.introImg {
+    width: 300px;
+    height: 200px;
+}
+
+@media (max-width: 900px) {
+    .introWrapperImage {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+    }
+    .introImg {
+        width: 150px;
+        height: 150px;
+    }
+}
+
+@media (max-width: 768px) {
+    .introImg {
+        width: 150px;
+        height: 150px;
+    }
 }

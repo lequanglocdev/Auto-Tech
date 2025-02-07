@@ -10,27 +10,16 @@ import {
     returnPayment,
 } from '@/utils/api';
 import { toast } from 'react-toastify';
-import { Button, Form, Modal, Spinner } from 'react-bootstrap';
+import { Button, Form, Modal } from 'react-bootstrap';
 
-const AppointmentCard = ({ appointment, updateAppointment, isLatest }) => {
+const AppointmentCard = ({ appointment, updateAppointment }) => {
     const [showInvoiceModal, setShowInvoiceModal] = useState(false);
-    const [invoiceId, setInvoiceId] = useState(null);
     const [invoiceDetails, setInvoiceDetails] = useState(null);
     const fixedEmployeeId = '6707e7ecd6e37f3cfa5e4ce8';
-
     const [showRefundModal, setShowRefundModal] = useState(false);
     const [refundNote, setRefundNote] = useState('');
-
     const [showPaymentModal, setShowPaymentModal] = useState(false);
     const [disabled, setDisabled] = useState(false);
-    // const [loading, setLoading] = useState({
-    //     createInvoice: false,
-    //     viewInvoice: false,
-    //     paymentInvoice: false,
-    //     cashPayment: false,
-    //     printInvoice: false,
-    //     refundInvoice: false,
-    // });
     const [isRefunded, setIsRefunded] = useState(appointment?.invoice?.status === 'refunded');
 
     useEffect(() => {
@@ -44,22 +33,14 @@ const AppointmentCard = ({ appointment, updateAppointment, isLatest }) => {
     }, [appointment?.invoice?.status]);
 
     const handlePaymentInvoice = async () => {
-        // console.log('Setting loading to true');
-        // setLoading((prev) => ({ ...prev, createInvoice: true })); // Bật trạng thái loading
-
         try {
-            // Gọi API để tạo hóa đơn
             const response = await createPaymentCustomer(appointment?._id, fixedEmployeeId);
             const invoiceId = response?.invoice?._id;
 
             if (!invoiceId) throw new Error('Không tìm thấy ID của hóa đơn.');
 
-            // Lưu invoiceId để sử dụng sau này (nếu cần)
-           // setInvoiceId(invoiceId);
-
             // Gọi API để lấy chi tiết hóa đơn
             const invoiceDetails = await getInvoiceDetails(invoiceId);
-            console.log('Invoice Details:', invoiceDetails);
             setInvoiceDetails(invoiceDetails); // Lưu thông tin hóa đơn vào state
 
             // Hiển thị modal
@@ -68,20 +49,19 @@ const AppointmentCard = ({ appointment, updateAppointment, isLatest }) => {
             // Hiển thị thông báo thành công
             setTimeout(() => {
                 toast.success('Hóa đơn đã được tạo thành công!');
-            }, 1000); // Hiển thị thông báo sau
-            // Cập nhật danh sách cuộc hẹn với hóa đơn mới tạo
+            }, 1000); 
             updateAppointment({ ...appointment, invoice: response?.invoice });
         } catch (error) {
-            console.error('Lỗi khi tạo hóa đơn:', error);
-            toast.error('Lỗi khi tạo hóa đơn');
-        } finally {
-            console.log('Setting loading to false');
-           // setLoading((prev) => ({ ...prev, createInvoice: false })); // Tắt trạng thái loading
+            if (error.response && error.response.data && error.response.data.msg) {
+                toast.error(error.response.data.msg);
+            } else {
+                toast.error('Có lỗi xảy ra khi cập nhật khách hàng!');
+            }
         }
     };
 
     const handleViewInvoice = async () => {
-       // setLoading((prev) => ({ ...prev, viewInvoice: true }));
+        // setLoading((prev) => ({ ...prev, viewInvoice: true }));
         const invoiceId = appointment?.invoice?._id;
         if (invoiceId) {
             try {
@@ -98,7 +78,7 @@ const AppointmentCard = ({ appointment, updateAppointment, isLatest }) => {
     };
 
     const handlePaymentInvoiceBill = async () => {
-      //  setLoading((prev) => ({ ...prev, paymentInvoice: true }));
+        //  setLoading((prev) => ({ ...prev, paymentInvoice: true }));
         const invoiceId = appointment?.invoice?._id;
         if (invoiceId) {
             try {
@@ -115,7 +95,7 @@ const AppointmentCard = ({ appointment, updateAppointment, isLatest }) => {
     };
 
     const handlePaymentCashInvoiceBill = async () => {
-      //  setLoading((prev) => ({ ...prev, cashPayment: true }));
+        //  setLoading((prev) => ({ ...prev, cashPayment: true }));
         const invoiceId = appointment?.invoice?._id;
         if (invoiceId) {
             try {
@@ -133,7 +113,7 @@ const AppointmentCard = ({ appointment, updateAppointment, isLatest }) => {
     };
 
     const handlePrint = async () => {
-   //     setLoading((prev) => ({ ...prev, printInvoice: true }));
+        //     setLoading((prev) => ({ ...prev, printInvoice: true }));
         const invoiceId = appointment?.invoice?._id;
         if (invoiceId) {
             try {
@@ -151,7 +131,7 @@ const AppointmentCard = ({ appointment, updateAppointment, isLatest }) => {
     };
 
     const handlePayBill = async () => {
-     //   setLoading((prev) => ({ ...prev, refundInvoice: true }));
+        //   setLoading((prev) => ({ ...prev, refundInvoice: true }));
         const invoiceId = appointment?.invoice?._id;
         if (invoiceId && refundNote) {
             try {

@@ -31,6 +31,7 @@
     font-size: 2rem;
     text-transform: uppercase;
 }
+
 .feedbackBody {
     display: flex !important;
     justify-content: center !important;
@@ -39,6 +40,7 @@
     height: 300px;
     margin-left: 40px;
     margin-top: auto;
+    cursor: pointer;
 }
 
 .feedbackContent{
@@ -52,6 +54,7 @@
     height: 100px;
     background-color: var(--text-second);
 }
+
 .feedbackContent::before{
     content: "";
     position: absolute;
@@ -83,4 +86,11 @@
     font-size: 1rem;
     color: var(--text-primary);
     font-style: italic;
+}
+
+.feedbackImagePeople{
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: contain;
 }

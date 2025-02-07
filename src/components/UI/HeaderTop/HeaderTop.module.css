@@ -23,7 +23,7 @@
     font-size: 1.6rem;
 }
 
-.info .icon{
+.info .icon {
     color: var(--text-primary);
     font-size: 1.8rem;
 }
@@ -37,5 +37,17 @@
 @media (max-width: 768px) {
     .headerTop {
         height: auto;
+    }
+
+    .calender .icon,
+    .phone .icon {
+        color: var(--text-second);
+        font-size: 3rem;
+    }
+
+    .calender span,
+    .phone span {
+        color: var(--text-primary);
+        font-size: 1.2rem;
     }
 }

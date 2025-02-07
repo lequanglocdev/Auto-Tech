@@ -8,6 +8,7 @@ import icons from '@/utils/icon';
 import { useNavigate } from 'react-router-dom';
 import CommonButton from '@/components/UI/CommonButton/CommonButton ';
 import { Spinner } from 'react-bootstrap';
+
 const ListsEmployees = () => {
     const navigate = useNavigate();
     const [employeeData, setEmployeeData] = useState([]);
@@ -18,7 +19,6 @@ const ListsEmployees = () => {
             setLoading(true);
             try {
                 const response = await geEmployeesApi();
-                console.log('dataTable', response);
                 setEmployeeData(response);
             } catch (error) {
                 if (error.response && error.response.status === 401) {
@@ -30,10 +30,10 @@ const ListsEmployees = () => {
                 setLoading(false);
             }
         };
-    
+
         fetchData();
     }, []);
-    
+
     const handleAddEmploy = () => {
         navigate('/addEmployy');
     };
@@ -49,6 +49,7 @@ const ListsEmployees = () => {
             </div>
         );
     }
+
     return (
         <div>
             <div className={styles.listsEmployees}>
@@ -56,13 +57,8 @@ const ListsEmployees = () => {
             </div>
             <div className={styles.listsEmployeesBody}>
                 <div className={styles.listsEmployeesButton}>
-                    <CommonButton
-                        onClick={handleAddEmploy}
-                        icon={FaPlusCircle}
-                        label="Thêm"
-                    />
+                    <CommonButton onClick={handleAddEmploy} icon={FaPlusCircle} label="Thêm" />
                 </div>
-
                 <TableEmployees data={employeeData} itemsPerPage={5} />
             </div>
         </div>

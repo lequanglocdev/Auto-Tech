@@ -1,17 +1,15 @@
 import React, { useContext } from 'react';
 import { Image, Container, Nav, Navbar } from 'react-bootstrap';
 import styles from './Header.module.css';
-import { useScroll } from '../hooks/useScroolTop';
 import icons from '@/utils/icon';
 import logo from '@/assets/logo.png';
 import { AuthContext } from '@/components/context/auth.context';
 import { useNavigate } from 'react-router-dom';
+
 const Header = () => {
-    const isScrolled = useScroll(50);
     const { FaRegUserCircle, IoMdLogOut } = icons;
     const { auth, setAuth } = useContext(AuthContext);
     const navigate = useNavigate();
-    console.log('>> Checkoutấdadadad', auth);
 
     const handleLogout = () => {
         localStorage.removeItem("access_token");
@@ -26,7 +24,7 @@ const Header = () => {
             bg="dark"
             variant="dark"
             expand="lg"
-            className={`${styles.navbar} ${isScrolled ? styles.navbarFixed : ''}`}
+            className={styles.navbar }
         >
             <Container>
                 <Navbar.Brand href="/" className={styles.navbarBrand}>

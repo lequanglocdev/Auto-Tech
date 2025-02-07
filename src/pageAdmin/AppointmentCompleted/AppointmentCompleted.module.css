@@ -1,63 +1,60 @@
 .appointmentHeader {
-  width: 100%;
-  height: 50px;
-  padding: 0 20px;
-  display: flex;
-  align-items: center;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    width: 100%;
+    height: 50px;
+    padding: 0 4px;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
-.appointmentBody{
-  margin-top: 40px;
+.appointmentBody {
+    margin-top: 40px;
 }
 
-.noInvoice{
-  width: 100%;
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  font-size: 1.6rem;
-  border-bottom: 1px solid #0000 ;
+.noInvoice {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    font-size: 1.6rem;
+    border-bottom: 1px solid #0000;
 }
 
-.filterContainer{
-  margin-top: 20px;
-  display: flex;
-  justify-content:space-between;
-  align-items: center;
-  gap: 10px;
+.filterContainer {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
 }
 
-.filterGroup{
-  flex: 1;
-
+.filterGroup {
+    flex: 1;
 }
 
-.filterLabel{
-  font-size: 1.4rem;
-  font-weight: 500;
+.filterLabel {
+    font-size: 1.4rem;
+    font-weight: 500;
 }
 
-.noResults{
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.noResults {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-.noResultsText{
-  font-size: 1.5rem;
-  font-weight: bold;
-  color: #e74c3c;
+.noResultsText {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #e74c3c;
 }
 
-.resetButton{
-  font-size: 1.4rem;
-  padding: 4px 10px;
-  border-radius: 6px;
-  border: none;
-  outline: none;
-  background-color: #3498db;
-  color: #fff;
+.resetButton {
+    font-size: 1.4rem;
+    padding: 4px 10px;
+    border-radius: 6px;
+    border: none;
+    outline: none;
+    background-color: #3498db;
+    color: #fff;
 }
-
-

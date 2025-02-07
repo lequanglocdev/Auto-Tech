@@ -1,14 +1,11 @@
-.rankHeader{
-  background-color: #3498db !important;
-}
-
 .rankTitle{
   font-size: 1.6rem !important;
-  color: var(--text-primary) !important;
+  color: var(--blue-background) !important;
+  font-weight: 500;
 }
 
 .btn{
   width: 100px;
   height: 34px;
-  
+  font-size: 1.6rem !important;
 }

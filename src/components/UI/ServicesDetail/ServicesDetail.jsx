@@ -4,11 +4,12 @@ import { services } from '@/utils/data';
 import { Button, Container } from 'react-bootstrap';
 import styles from './ServicesDetail.module.css';
 import icons from '@/utils/icon';
-const ServicesDetail = () => {
-    const { serviceId } = useParams();
-    const service = services.find((s) => s.id === parseInt(serviceId));
+import { generateSlug } from '@/utils/slug';
 
-    const [openQuestion, setOpenQuestion] = useState(null); // Theo dõi câu hỏi nào đang mở
+const ServicesDetail = () => {
+   const { slug } = useParams();
+   const service = services.find((s) => generateSlug(s.title) === slug);
+    const [openQuestion, setOpenQuestion] = useState(null);
     const { FaPlus, IoMdRemove } = icons;
 
     if (!service) {
@@ -88,7 +89,7 @@ const ServicesDetail = () => {
                                         {item.text}
                                         {openQuestion === item.id && (
                                             <>
-                                                <br /> {/* Thêm dòng mới */}
+                                                <br />
                                                 {item.description}
                                             </>
                                         )}

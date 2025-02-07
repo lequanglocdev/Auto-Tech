@@ -2,12 +2,13 @@ import React from 'react';
 import styles from './Otp.module.css';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-
 import { verifyOtpApi } from '@/utils/api';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { useOTP } from './hooks/otpForm';
 import icons from '@/utils/icon';
+import logo from '../../assets/logo.png';
+
 const Otp = () => {
     const { FaMailBulk, FaLock } = icons;
     const { formData, setFormData, errorMessage, handleInputChange, validateForm } = useOTP();
@@ -42,12 +43,12 @@ const Otp = () => {
             }
         }
     };
-
+    
     return (
         <div className={styles.otp}>
             <div className={styles.otpContainer}>
                 <div className={styles.otpImage}>
-                    <img src="./logo.png" alt="Logo" />
+                    <img src={logo} alt="Logo" />
                 </div>
                 <div className={styles.otpForm}>
                     <p>Xác thực OTP </p>

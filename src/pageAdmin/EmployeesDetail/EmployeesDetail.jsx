@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { Spinner } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
 import styles from './EmployeeDetail.module.css'
+
 const EmployeesDetail = () => {
     const { id } = useParams();
     const [employee, setEmployee] = useState(null);
@@ -41,7 +42,7 @@ const EmployeesDetail = () => {
     }
 
     if (!employee) {
-        return <div className="text-center mt-5">No customer data available.</div>;
+        return <div className="text-center mt-5">Không có dữ liệu khách hàng.</div>;
     }
 
     return (

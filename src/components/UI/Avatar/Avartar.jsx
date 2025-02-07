@@ -37,7 +37,7 @@ const Avartar = () => {
     return (
         <React.Fragment>
             <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
-                <Tooltip title="Account settings">
+                <Tooltip title="Đăng xuất" sx={{ '& .MuiTooltip-tooltip': { fontSize: 20 } }}>
                     <IconButton
                         onClick={handleClick}
                         size="small"
@@ -46,7 +46,7 @@ const Avartar = () => {
                         aria-haspopup="true"
                         aria-expanded={open ? 'true' : undefined}
                     >
-                        <Avatar sx={{ width: 32, height: 32 }}>
+                        <Avatar sx={{ width: 32, height: 32, backgroundColor: '#e74c3c' }}>
                             {auth.isAuthenticated && auth.user && auth.user.name ? auth.user.name[0] : 'A'}
                         </Avatar>
                     </IconButton>
@@ -97,7 +97,7 @@ const Avartar = () => {
                             <ListItemIcon>
                                 <Logout fontSize="large" />
                             </ListItemIcon>
-                            Logout
+                            Đăng xuất
                         </MenuItem>
                     </>
                 ) : (
@@ -105,7 +105,7 @@ const Avartar = () => {
                         <ListItemIcon>
                             <LoginIcon fontSize="large" />
                         </ListItemIcon>
-                        Login
+                        Đăng nhập
                     </MenuItem>
                 )}
             </Menu>

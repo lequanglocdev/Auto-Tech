@@ -14,58 +14,62 @@
     margin-top: 40px;
     display: flex;
     justify-content: center;
-    align-items: center;  
+    align-items: center;
 }
 
 .staffCard {
     width: 360px;
     height: 400px;
-    background-color:var( --grey-background);
+    background-color: var(--white-background);
     border-radius: 10px;
     text-align: center;
     margin: 0 10px;
     overflow: hidden;
 }
-.staffCard h2{
+
+.staffCard h2 {
     margin-top: 40px;
     font-size: 1.6rem;
     font-weight: bold;
 }
-.staffCard p{
-  font-size: 1.4rem;
-  font-style: italic;
-  font-weight: 400;
-}
-.cardImg{
-  width: 120px !important;
-  height: 120px;
-  overflow: hidden;
-  margin: 0 auto;
-  transform: translateY(25px);
-  border: 1px solid #f2726a ;
-  border-radius: 50% !important;
-  cursor: pointer;
-  transition: 0.2s;
-}
-.cardImg img{
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center;
+
+.staffCard p {
+    font-size: 1.4rem;
+    font-style: italic;
+    font-weight: 400;
 }
 
-.cardImg:hover{
-  width: 100% !important;
-  height: 100%;
-  border-radius: unset !important;
-  border: unset;
-  transform: unset;
+.cardImg {
+    width: 120px !important;
+    height: 120px;
+    overflow: hidden;
+    margin: 0 auto;
+    transform: translateY(25px);
+    border: 1px solid #f2726a;
+    border-radius: 50% !important;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.cardImg img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+.cardImg:hover {
+    width: 100% !important;
+    height: 100%;
+    border-radius: unset !important;
+    border: unset;
+    transform: unset;
 }
 
 @media (max-width: 987px) {
-  .staffBody {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-  }
+    .staffBody {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
 }

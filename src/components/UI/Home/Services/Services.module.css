@@ -45,6 +45,17 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    border-radius: 6px;
+}
+
+.servicesWhy:hover {
+    background-color: var(--white-background);
+}
+
+.servicesWhy:hover p {
+    font-size: 1.4rem;
+    color: var(--text-third);
+    font-style: italic;
 }
 
 .servicesWhy h6 {
@@ -60,7 +71,17 @@
 }
 
 @media (max-width: 987px) {
+    .services {
+        padding: 10px;
+    }
     .servicesImage {
         display: none;
+    }
+}
+
+@media (max-width: 768px) {
+    .servicesContent p {
+        font-size: 1.6rem;
+        text-align: center;
     }
 }

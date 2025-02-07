@@ -3,12 +3,12 @@ import Breadcrumb from '@/components/UI/Breadcrumb/Breadcrumb';
 import styles from './ListsCar.module.css';
 import { getCarApi } from '@/utils/api';
 import { toast } from 'react-toastify';
-
 import TableCar from './Table/TableCar';
 import { useNavigate } from 'react-router-dom';
 import icons from '@/utils/icon';
 import CommonButton from '@/components/UI/CommonButton/CommonButton ';
 import { Spinner } from 'react-bootstrap';
+
 const ListsCar = () => {
     const [userData, setUserData] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -26,7 +26,6 @@ const ListsCar = () => {
                 } else {
                     toast.error('Đã xảy ra lỗi khi lấy dữ liệu người dùng.');
                 }
-
                 setLoading(false);
             }
         };

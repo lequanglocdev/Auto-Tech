@@ -1,49 +1,49 @@
 import React from 'react';
 import { Container, Image } from 'react-bootstrap';
 import styles from './Services.module.css';
+import { motion } from 'framer-motion';
+import peopleImage from '../../../../assets/people.png'
+
 const Services = () => {
+    const fadeInService = {
+        hidden: { opacity: 0, x: -50 },
+        visible: { opacity: 1, x: 0, transition: { duration: 1 } },
+    };
+    
     return (
         <Container>
-            <div className={styles.services}>
-                <Image src="./people.png" className={styles.servicesImage} />
+            <motion.div className={styles.services} initial="hidden" whileInView="visible" variants={fadeInService}>
+                <Image src={peopleImage} className={styles.servicesImage} />
                 <div className={styles.servicesContent}>
                     <h4>Dịch vụ</h4>
                     <p>Tại sao bạn lại lựa chọn chúng tôi?</p>
                     <div className={styles.servicesCenter}>
-                        <div className={styles.servicesWhy}>
-                            <h6>Chuyên gia tận tâm</h6>
-                            <p>
-                                Đội ngũ kỹ thuật viên của chúng tôi với nhiều năm kinh nghiệm sẽ chăm sóc chiếc xe của
-                                bạn như chính xe của mình.
-                            </p>
-                        </div>
-
-                        <div className={styles.servicesWhy}>
-                            <h6>Công nghệ hiện đại:</h6>
-                            <p>
-                                Chúng tôi trang bị những thiết bị và công nghệ tiên tiến nhất để mang đến dịch vụ tốt
-                                nhất cho khách hàng.
-                            </p>
-                        </div>
-
-                        <div className={styles.servicesWhy}>
-                            <h6>Sản phẩm chất lượng cao</h6>
-                            <p>
-                                Đội ngũ kỹ thuật viên của chúng tôi với nhiều năm kinh nghiệm sẽ chăm sóc chiếc xe của
-                                bạn như chính xe của mình.
-                            </p>
-                        </div>
-
-                        <div className={styles.servicesWhy}>
-                            <h6>Giá cả cạnh tranh</h6>
-                            <p>
-                                Chúng tôi cam kết mang đến dịch vụ chất lượng cao với giá cả hợp lý, cạnh tranh trên thị
-                                trường.
-                            </p>
-                        </div>
+                        {[
+                            {
+                                title: 'Chuyên gia tận tâm',
+                                text: 'Đội ngũ kỹ thuật viên nhiều năm kinh nghiệm sẽ chăm sóc xe của bạn như chính xe của mình.',
+                            },
+                            {
+                                title: 'Công nghệ hiện đại',
+                                text: 'Trang bị thiết bị và công nghệ tiên tiến nhất để mang đến dịch vụ tốt nhất.',
+                            },
+                            {
+                                title: 'Sản phẩm chất lượng cao',
+                                text: 'Sử dụng các sản phẩm uy tín, đảm bảo an toàn và hiệu quả.',
+                            },
+                            {
+                                title: 'Giá cả cạnh tranh',
+                                text: 'Cam kết dịch vụ chất lượng với giá hợp lý, cạnh tranh trên thị trường.',
+                            },
+                        ].map((service, index) => (
+                            <div key={index} className={styles.servicesWhy} >
+                                <h6>{service.title}</h6>
+                                <p>{service.text}</p>
+                            </div>
+                        ))}
                     </div>
                 </div>
-            </div>
+            </motion.div>
         </Container>
     );
 };

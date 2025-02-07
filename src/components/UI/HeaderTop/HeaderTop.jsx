@@ -2,8 +2,10 @@ import React from 'react';
 import { Col, Row } from 'react-bootstrap';
 import styles from './HeaderTop.module.css';
 import icons from '@/utils/icon';
+
 const HeaderTop = () => {
     const { FaCalendarDays, FaPhoneAlt, FaFacebookSquare, FaSquareTwitter, FaGooglePlusSquare, FaLinkedin } = icons;
+   
     return (
         <Row className={styles.headerTop}>
             <Col className={styles.calender}>

@@ -9,14 +9,12 @@ import styles from './StatisticalRefundPay.module.css';
 
 const StatisticalRefundPay = () => {
     const { FaFileExport } = icons;
-
     const [showExportModal, setShowExportModal] = useState(false);
     const [startDate, setStartDate] = useState('');
     const [endDate, setEndDate] = useState('');
     const [statisticsData, setStatisticsData] = useState([]);
     const [currentPage, setCurrentPage] = useState(1); // Trạng thái hiện tại của trang
     const [itemsPerPage] = useState(5); // Số lượng bản ghi trên mỗi trang
-
     const totalPages = Math.ceil(statisticsData.length / itemsPerPage); // Tính tổng số trang
 
     // Hàm xử lý thay đổi trang
@@ -81,10 +79,7 @@ const StatisticalRefundPay = () => {
     return (
         <div className={styles.statisticalWrapper}>
             <div className={styles.createRank}>
-                <Breadcrumb
-                    items={['Quản lý thống kê hóa đơn trả']}
-                    activeItem="Quản lý thống kê hóa đơn trả"
-                />
+                <Breadcrumb items={['Quản lý thống kê hóa đơn trả']} activeItem="Quản lý thống kê hóa đơn trả" />
             </div>
             <div className={styles.statisticalDate}>
                 <Form.Group className={styles.customerGroup} controlId="startDate">
@@ -154,25 +149,38 @@ const StatisticalRefundPay = () => {
                                 return (
                                     <React.Fragment key={item.invoice_id}>
                                         <tr>
-                                            <td className={styles.bodyTableDateTd} rowSpan={item.services.length + 1}>{index + 1}</td>
-                                            <td className={styles.bodyTableDateTd} rowSpan={item.services.length + 1}>{item.purchase_code}</td>
+                                            <td className={styles.bodyTableDateTd} rowSpan={item.services.length + 1}>
+                                                {index + 1}
+                                            </td>
+                                            <td className={styles.bodyTableDateTd} rowSpan={item.services.length + 1}>
+                                                {item.purchase_code}
+                                            </td>
                                             <td className={styles.bodyTableDateTd} rowSpan={item.services.length + 1}>
                                                 {new Date(item.created_at).toLocaleDateString()}
                                             </td>
-                                            <td className={styles.bodyTableDateTd} rowSpan={item.services.length + 1}>{item.return_code}</td>
+                                            <td className={styles.bodyTableDateTd} rowSpan={item.services.length + 1}>
+                                                {item.return_code}
+                                            </td>
                                             <td className={styles.bodyTableDateTd} rowSpan={item.services.length + 1}>
                                                 {new Date(item.updated_at).toLocaleDateString()}
                                             </td>
-                                            <td className={styles.bodyTableDateTd} rowSpan={item.services.length + 1}>{item.customer_name}</td>
+                                            <td className={styles.bodyTableDateTd} rowSpan={item.services.length + 1}>
+                                                {item.customer_name}
+                                            </td>
                                         </tr>
                                         {item.services.map((service, serviceIndex) => {
                                             return (
                                                 <tr key={`${item.invoice_id}-service-${serviceIndex}`}>
                                                     {serviceIndex === 0 ? (
                                                         <>
-                                                            <td className={styles.bodyTableDateTd}>{service.service_code}</td>
-                                                            <td className={styles.bodyTableDateTd}>{service.service_name}</td>
-                                                            <td className={styles.bodyTableDateTd}>{1}</td> {/* Assuming quantity is 1 for simplicity */}
+                                                            <td className={styles.bodyTableDateTd}>
+                                                                {service.service_code}
+                                                            </td>
+                                                            <td className={styles.bodyTableDateTd}>
+                                                                {service.service_name}
+                                                            </td>
+                                                            <td className={styles.bodyTableDateTd}>{1}</td>{' '}
+                                                            {/* Assuming quantity is 1 for simplicity */}
                                                             <td className={styles.bodyTableDateTd}>
                                                                 {service.price_before_discount.toLocaleString('vi-VN')}
                                                             </td>

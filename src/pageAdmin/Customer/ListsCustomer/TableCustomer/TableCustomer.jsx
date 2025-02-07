@@ -6,23 +6,25 @@ import { deleteUserApi, findCustomerApi, putCustomerApi } from '@/utils/api';
 import EditCustomerModal from '../EditCustomerModal/EditCustomerModal';
 import ConfirmDeleteModal from '../ConfirmDeleteModal/ConfirmDeleteModal';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+
 const TableCustomer = ({ data = [], itemsPerPage }) => {
     const { FaPen, FaTrash } = icons;
     const navigate = useNavigate();
     const [currentPage, setCurrentPage] = useState(1);
     const startIndex = (currentPage - 1) * itemsPerPage;
-    
+
     const [editModalShow, setEditModalShow] = useState(false);
     const [confirmDeleteModalShow, setConfirmDeleteModalShow] = useState(false);
-    
+
     const [selectedUser, setSelectedUser] = useState(null);
     const [customerToDelete, setCustomerToDelete] = useState(null);
-    
+
     const [customer, setCustomer] = useState(data);
     const totalPages = Math.ceil(customer.length / itemsPerPage);
     const currentData = customer.slice(startIndex, startIndex + itemsPerPage);
 
-    const [searchQuery, setSearchQuery] = useState("");
+    const [searchQuery, setSearchQuery] = useState('');
     const handlePageChange = (pageNumber) => {
         setCurrentPage(pageNumber);
     };
@@ -32,24 +34,19 @@ const TableCustomer = ({ data = [], itemsPerPage }) => {
             const queryParam = searchQuery.trim();
             const isPhoneNumber = /^[0-9]+$/.test(queryParam);
             const queryString = isPhoneNumber ? `phone_number=${queryParam}` : `email=${queryParam}`;
-    
             const response = await findCustomerApi(queryString);
-            console.log('Dữ liệu trả về từ API:', response); // Kiểm tra dữ liệu
-    
-            // Cập nhật state với customer
             if (response.customer) {
-                setCustomer([response.customer]); // Chuyển customer thành mảng
-                setCurrentPage(1); // Đặt lại trang về 1
+                setCustomer([response.customer]);
+                setCurrentPage(1);
             } else {
                 console.error('Không tìm thấy thông tin khách hàng');
-                setCustomer([]); // Nếu không tìm thấy, đặt customer là mảng rỗng
+                setCustomer([]);
             }
         } catch (error) {
             console.error('Lỗi khi tìm kiếm khách hàng:', error);
         }
     };
-    
-    
+
     const handleDeleteUser = (user) => {
         setCustomerToDelete(user);
         setConfirmDeleteModalShow(true);
@@ -59,10 +56,10 @@ const TableCustomer = ({ data = [], itemsPerPage }) => {
         if (customerToDelete) {
             try {
                 await deleteUserApi(customerToDelete);
-                console.log('Xóa thành công:', customerToDelete);
+                toast.success('Xóa thành công');
                 setCustomer((prev) => prev.filter((emp) => emp?._id !== customerToDelete?._id));
                 if (currentPage > totalPages) {
-                    setCurrentPage(totalPages > 0 ? totalPages : 1); 
+                    setCurrentPage(totalPages > 0 ? totalPages : 1);
                 }
             } catch (error) {
                 console.error('Lỗi khi xóa nhân viên:', error);
@@ -80,6 +77,7 @@ const TableCustomer = ({ data = [], itemsPerPage }) => {
         setSelectedUser(user);
         setEditModalShow(true);
     };
+
     const handleUpdateCustomer = async (updatedCustomer) => {
         try {
             const response = await putCustomerApi(updatedCustomer);
@@ -87,7 +85,7 @@ const TableCustomer = ({ data = [], itemsPerPage }) => {
                 setCustomer((prev) =>
                     prev.map((cust) => (cust?._id === updatedCustomer?._id ? { ...cust, ...updatedCustomer } : cust)),
                 );
-
+                toast.success('Cập nhật thành công');
                 setEditModalShow(false);
             }
         } catch (error) {
@@ -101,7 +99,7 @@ const TableCustomer = ({ data = [], itemsPerPage }) => {
                 <Form.Control
                     className={styles.searchFormInput}
                     type="text"
-                    size='lg'
+                    size="lg"
                     placeholder="Nhập từ khóa tìm kiếm"
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}

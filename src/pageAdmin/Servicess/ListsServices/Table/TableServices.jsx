@@ -2,20 +2,22 @@ import React, { useState } from 'react';
 import { Table, Pagination } from 'react-bootstrap';
 import icons from '@/utils/icon';
 import styles from './TableServices.module.css';
-import { deleteServiceApi, deleteUserApi, getDetailServices, putServiceApi } from '@/utils/api';
+import { deleteServiceApi, getDetailServices, putServiceApi } from '@/utils/api';
 import ModalServices from '../Modal/ModalServices';
 import EditServicesModal from '../EditServicesModal/EditServicesModal';
 import ConfirmDeleteModal from '../ConfirmDeleteModal/ConfirmDeleteModal';
+import { toast } from 'react-toastify';
+
 const TableServices = ({ data = [], itemsPerPage }) => {
     const { FaEye, FaPen, FaTrash } = icons;
 
     const [currentPage, setCurrentPage] = useState(1);
     const startIndex = (currentPage - 1) * itemsPerPage;
-    
+
     const [modalShow, setModalShow] = useState(false);
     const [editModalShow, setEditModalShow] = useState(false);
     const [confirmDeleteModalShow, setConfirmDeleteModalShow] = useState(false);
-    
+
     const [selectedUser, setSelectedUser] = useState(null);
     const [serviceToDelete, setServiceToDelete] = useState(null);
     const [service, setServices] = useState(data);
@@ -37,10 +39,14 @@ const TableServices = ({ data = [], itemsPerPage }) => {
                 console.log('Xóa thành công:', serviceToDelete);
                 setServices((prev) => prev.filter((emp) => emp._id !== serviceToDelete._id));
                 if (currentPage > totalPages) {
-                    setCurrentPage(totalPages > 0 ? totalPages : 1); 
+                    setCurrentPage(totalPages > 0 ? totalPages : 1);
                 }
             } catch (error) {
-                console.error('Lỗi khi xóa nhân viên:', error);
+                if (error.response && error.response.data && error.response.data.msg) {
+                    toast.error(error.response.data.msg); 
+                } else {
+                    toast.error('Có lỗi xảy ra khi cập nhật khách hàng!'); 
+                }
             } finally {
                 setConfirmDeleteModalShow(false);
                 setServiceToDelete(null);
@@ -69,16 +75,17 @@ const TableServices = ({ data = [], itemsPerPage }) => {
             const response = await putServiceApi(updatedService);
             if (response) {
                 console.log('Cập nhật thành công:', response);
-
-                // Cập nhật danh sách customer với thông tin mới
                 setServices((prev) =>
-                    prev.map((cust) => (cust._id === updatedService._id ? { ...cust, ...updatedService } : cust)),
+                    prev.map((cust) => (cust?._id === updatedService?._id ? { ...cust, ...updatedService } : cust)),
                 );
-
                 setEditModalShow(false);
             }
         } catch (error) {
-            console.error('Lỗi khi cập nhật khách hàng:', error);
+            if (error.response && error.response.data && error.response.data.msg) {
+                toast.error(error.response.data.msg); // Hiển thị thông báo lỗi từ API
+            } else {
+                toast.error('Có lỗi xảy ra khi cập nhật khách hàng!'); // Thông báo chung nếu không có msg từ API
+            }
         }
     };
 
@@ -91,7 +98,7 @@ const TableServices = ({ data = [], itemsPerPage }) => {
                         <th className={styles.dataTableHead}>Tên dịch vụ</th>
                         <th className={styles.dataTableHead}>Mô tả</th>
                         <th className={styles.dataTableHead}>Thời gian hoàn thành</th>
-                        <th className={styles.dataTableHead}>Hành động</th>
+                        <th className={styles.dataTableHead}>Tác vụ</th>
                     </tr>
                 </thead>
                 <tbody>

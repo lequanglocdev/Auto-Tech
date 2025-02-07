@@ -9,7 +9,6 @@ import styles from './StatisticalPromotion.module.css';
 
 const StatisticalPromotion = () => {
     const { FaFileExport } = icons;
-
     const [showExportModal, setShowExportModal] = useState(false);
     const [startDate, setStartDate] = useState('');
     const [endDate, setEndDate] = useState('');
@@ -52,20 +51,19 @@ const StatisticalPromotion = () => {
                 const response = await getAllTableStatisticPromotion(startDate, endDate);
                 const decodedData = new TextDecoder().decode(response); // Decode array buffer
                 const parsedData = JSON.parse(decodedData);
-        
+
                 // Đảm bảo dữ liệu là mảng
                 if (Array.isArray(parsedData)) {
                     setStatisticsData(parsedData);
                 } else {
-                  //  toast.error('Không có dữ liệu', parsedData);
+                    //  toast.error('Không có dữ liệu', parsedData);
                     setStatisticsData([]); // Gán giá trị mặc định
                 }
             } catch (error) {
-               // toast.error('Lỗi khi lấy dữ liệu:', error);
+                // toast.error('Lỗi khi lấy dữ liệu:', error);
                 setStatisticsData([]); // Gán giá trị mặc định khi lỗi xảy ra
             }
         };
-        
 
         fetchStatistics();
     }, [startDate, endDate]);
@@ -142,14 +140,20 @@ const StatisticalPromotion = () => {
                                     <tr key={item.promotion_line_id}>
                                         <td className={styles.bodyTableDateTd}>{item.promotion_code}</td>
                                         <td className={styles.bodyTableDateTd}>{item.promotion_header_name}</td>
-                                        <td className={styles.bodyTableDateTd}>{new Date(item.start_date).toLocaleDateString()}</td>
-                                        <td className={styles.bodyTableDateTd}>{new Date(item.end_date).toLocaleDateString()}</td>
-                                        <td className={styles.bodyTableDateTd}>{item.total_value.toLocaleString('vi-VN')}</td>
+                                        <td className={styles.bodyTableDateTd}>
+                                            {new Date(item.start_date).toLocaleDateString()}
+                                        </td>
+                                        <td className={styles.bodyTableDateTd}>
+                                            {new Date(item.end_date).toLocaleDateString()}
+                                        </td>
+                                        <td className={styles.bodyTableDateTd}>
+                                            {item.total_value.toLocaleString('vi-VN')}
+                                        </td>
                                     </tr>
                                 );
                             })}
                             <tr>
-                                <td  colSpan={4} className={styles.bodyTableDateTd}>
+                                <td colSpan={4} className={styles.bodyTableDateTd}>
                                     <b>Tổng số tiền chiết khấu</b>
                                 </td>
                                 <td className={styles.bodyTableDateTd}>

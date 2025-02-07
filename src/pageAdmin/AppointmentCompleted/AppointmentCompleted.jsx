@@ -109,7 +109,6 @@ const AppointmentCompleted = () => {
 
 
     // Phân loại các cuộc hẹn dựa trên `invoice`
-  const appointmentsWithInvoice = filteredAppointments.filter((appointment) => appointment?.invoice !== null);
     const appointmentsWithoutInvoice = filteredAppointments.filter((appointment) => appointment?.invoice === null);
     // console.log("Ko có null",appointmentsWithoutInvoice)
 
@@ -124,13 +123,12 @@ const AppointmentCompleted = () => {
             <div>
                 <div className={styles.filterContainer}>
                     <Form.Group controlId="filterStatus" className={styles.filterGroup}>
-                        {/* <Form.Label className={styles.filterLabel}>Lọc trạng thái</Form.Label> */}
                         <Form.Select
                             size="lg"
                             as="select"
                             value={filterStatus}
                             onChange={(e) => {
-                                setFilterStatus(e.target.value); // Cập nhật trạng thái `filterStatus`
+                                setFilterStatus(e.target.value); 
                             }}
                         >
                             <option value="">Tất cả</option>
@@ -142,7 +140,6 @@ const AppointmentCompleted = () => {
                     </Form.Group>
 
                     <Form.Group controlId="searchPhone" className={styles.filterGroup}>
-                        {/* <Form.Label className={styles.filterLabel}>Tìm theo số điện thoại</Form.Label> */}
                         <Form.Control
                             size="lg"
                             type="text"
@@ -152,9 +149,7 @@ const AppointmentCompleted = () => {
                         />
                     </Form.Group>
 
-                    {/* Lọc theo ngày */}
                     <Form.Group controlId="filterDate" className={styles.filterGroup}>
-                        {/* <Form.Label className={styles.filterLabel}>Lọc theo ngày</Form.Label> */}
                         <Form.Control
                             type="date"
                             size="lg"
@@ -167,8 +162,8 @@ const AppointmentCompleted = () => {
                         type="button"
                         className={styles.resetButton} 
                         onClick={() => {
-                            setFilterDate(''); // Xóa giá trị filterDate
-                            setFilteredAppointments(appointments); // Reset danh sách hiển thị
+                            setFilterDate(''); 
+                            setFilteredAppointments(appointments); 
                         }}
                     >
                         Xóa bộ lọc

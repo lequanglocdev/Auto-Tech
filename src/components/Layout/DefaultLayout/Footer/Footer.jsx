@@ -3,6 +3,7 @@ import { Container } from 'react-bootstrap';
 import styles from './Footer.module.css';
 import icons from '@/utils/icon';
 import logo from '@/assets/logo.png';
+
 const Footer = () => {
     const {
         FaFacebookSquare,
@@ -19,7 +20,7 @@ const Footer = () => {
             <Container>
                 <div className={styles.footerContent}>
                     <div className={styles.footerLeft}>
-                        <img src={logo} alt="" width={200} height={200} />
+                        <img src={logo} alt="logo" width={200} height={200} />
                         <p>
                             Với L&K TECH, niềm đam mê xe hơi của bạn sẽ được thỏa mãn trọn vẹn. Chúng tôi không chỉ là
                             một nhà cung cấp dịch vụ, mà còn là những người bạn đồng hành cùng bạn khám phá thế giới của

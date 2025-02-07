@@ -1,12 +1,13 @@
-
 .modalHeader {
-    background-color: #3498db !important;
-    color: #fff;
-    font-size: 1.4rem;
+    background-color: var(--blue-background) !important;
+    color: var(--text-primary);
+    font-size: 1.6rem;
 }
-.modalBody{
-  background-color: #e3dede;
+
+.modalBody {
+    background-color: #e3dede;
 }
+
 .customer {
     display: flex;
     justify-content: space-between;
@@ -14,30 +15,15 @@
     margin-top: 20px;
 }
 
-.formCustomer {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 20px;
-}
 .labelForm {
-    font-size: 1.3rem;
+    font-size: 1.4rem;
     font-weight: 500;
 }
 
 .customerText {
-    font-size: 1.3rem;
+    font-size: 1.4rem;
 }
-.customerBtn {
-    width: 80px;
-    height: 30px;
-    border-radius: 6px;
-    border: none;
-    outline: none;
-    font-size: 1.3rem;
-    background-color: #3498db;
-    color: #fff;
-}
+
 .car {
     margin-top: 10px;
     display: flex;
@@ -47,18 +33,21 @@
 }
 
 .carBtn {
+    width: 100%;
     border: none;
     outline: none;
-    background-color: #3498db;
+    background-color: var(--blue-background);
     padding: 4px 10px;
     border-radius: 10px;
     font-size: 1.3rem;
     color: #fff;
     text-align: center;
 }
+
 .carBtn:hover {
     background-color: #52a5dc;
 }
+
 .dataTableItem,
 .dataTableHead {
     font-size: 1.3rem;
@@ -68,21 +57,19 @@
     margin-bottom: 0;
 }
 
-.dataTableIcon{
-  font-size: 1.4rem;
-  cursor: pointer;
-  text-align: center;
+.dataTableIcon {
+    font-size: 1.4rem;
+    cursor: pointer;
+    text-align: center;
 }
-
-
 
 .errorText,
-.totalText{
-  color:#e74c3c;
-  font-weight: 500;
+.totalText {
+    color: #e74c3c;
+    font-weight: 500;
 }
 
-.validate{
+.validate {
     text-align: center;
     font-size: 1.2rem;
     color: #e74c3c;
@@ -90,20 +77,20 @@
     margin-top: 10px;
 }
 
-.btnSubmit{
-  margin: 10px 0px;
-  width: 100%;
-  height: 34px;
-  border-radius: 10px;
-  border: none;
-  outline: none;
-  background-color: #3498db;
-  color: #fff;
-  font-size: 1.4rem;
-  font-weight: 500;
+.btnSubmit {
+    margin: 10px 0px;
+    width: 100%;
+    height: 34px;
+    border-radius: 10px;
+    border: none;
+    outline: none;
+    background-color: var(--blue-background);
+    color: #fff;
+    font-size: 1.4rem;
+    font-weight: 500;
 }
 
-.scroolSelect{
+.scroolSelect {
     max-height: 200px !important;
     overflow-y: auto !important;
 }

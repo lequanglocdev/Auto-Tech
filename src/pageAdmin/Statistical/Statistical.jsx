@@ -1,21 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import icons from '@/utils/icon';
-import { Bar, Pie } from 'react-chartjs-2';
+import { Bar } from 'react-chartjs-2';
 import {
     getAllTableStatistic,
     getExportStatistic,
-    getExportStatisticMY,
     getRevenueStatistics,
     getStatisticAppointmentTotal,
 } from '@/utils/api';
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, ArcElement, Tooltip, Legend } from 'chart.js';
-import { Button, Form, Modal, Table } from 'react-bootstrap';
+import { Form, Table } from 'react-bootstrap';
 import Breadcrumb from '@/components/UI/Breadcrumb/Breadcrumb';
 import { toast } from 'react-toastify';
-import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import styles from './Statistical.module.css';
-
 ChartJS.register(CategoryScale, LinearScale, BarElement, ArcElement, Tooltip, Legend);
 
 const Statistical = () => {

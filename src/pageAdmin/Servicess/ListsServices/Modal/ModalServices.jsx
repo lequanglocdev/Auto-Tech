@@ -1,12 +1,15 @@
 import React from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-import styles from './ModalServices.module.css'
+import styles from './ModalServices.module.css';
+
 const ModalServices = ({ services, ...props }) => {
     return (
         <Modal {...props} size="lg" aria-labelledby="contained-modal-title-vcenter" centered>
-            <Modal.Header className={styles.rankHeader}  closeButton>
-                <Modal.Title className={styles.rankTitle} id="contained-modal-title-vcenter">Thông tin dịch vụ</Modal.Title>
+            <Modal.Header className={styles.rankHeader} closeButton>
+                <Modal.Title className={styles.rankTitle} id="contained-modal-title-vcenter">
+                    Thông tin dịch vụ
+                </Modal.Title>
             </Modal.Header>
             <Modal.Body>
                 {services ? (
@@ -20,7 +23,9 @@ const ModalServices = ({ services, ...props }) => {
                 )}
             </Modal.Body>
             <Modal.Footer>
-                <Button className={styles.btn} onClick={props.onHide}>Close</Button>
+                <Button className={styles.btn} onClick={props.onHide}>
+                    Đóng
+                </Button>
             </Modal.Footer>
         </Modal>
     );

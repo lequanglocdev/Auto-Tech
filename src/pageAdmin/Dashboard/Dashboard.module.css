@@ -4,6 +4,7 @@
     display: flex;
     align-items: center;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    padding:0 10px;
 }
 
 .dasboardBody {
@@ -21,8 +22,8 @@
 .dasboardBodyEmpty {
     flex: 2;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-    max-height: 800px; /* Thiết lập chiều cao tối đa */
-    overflow-y: auto; /* Thêm thanh cuộn dọc khi nội dung vượt quá chiều cao */
+    max-height: 800px; 
+    overflow-y: auto;
 }
 
 .dasboardBodyEmpty h4,
@@ -40,20 +41,14 @@
     flex: 1;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
     padding: 4px;
-    max-height: 800px; /* Thiết lập chiều cao tối đa */
-    overflow-y: auto; /* Thêm thanh cuộn dọc khi nội dung vượt quá chiều cao */
+    max-height: 800px; 
+    overflow-y: auto;
 }
 
 .dasboardBodyCompleted {
     flex: 1;
 }
 
-.noSlotsMessage {
-    font-size: 1.4rem;
-    text-align: center;
-}
-
-/* _______________ */
 .slot {
     display: flex;
     justify-content: center;
@@ -61,17 +56,17 @@
     flex-wrap: wrap;
     margin-top: 20px;
 }
+
 .wrapperSlot {
     width: 350px;
     height: 200px;
     margin-bottom: 20px;
     display: flex;
+    justify-content: center;
     flex-direction: column;
     margin-left: 20px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
+    border-radius: var(--border-radius);
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    background-color: #fff;
 }
 
 .slotHeader {
@@ -79,22 +74,17 @@
     height: 40px;
     padding: 0 10px;
     display: flex;
+    align-items: center;
     justify-content: space-between;
     border-top-left-radius: 8px;
     border-top-right-radius: 8px;
-    align-items: center;
     background-image: linear-gradient(to right, rgb(29, 162, 86), rgb(72, 212, 131));
 }
 
 .slotCardHeaderTextLeft {
     font-size: 1.6rem;
     font-weight: bold;
-    color: var(--text-primary) !important;
-}
-.bookedStatus {
-    color: red !important;
-    font-size: 1.4rem;
-    font-weight: bold;
+    color: var(--text-primary)
 }
 
 .availableStatus {
@@ -138,12 +128,14 @@
     background-color: #f39c12;
     border-bottom-left-radius: 4px;
 }
+
 .slotCardFooterDelete {
     background-color: #e74c3c;
     flex: 1;
 }
+
 .slotCardFooterBook {
-    background-color: #3498db;
+    background-color: var(--blue-background);
 }
 
 .slotCardFooterBook:hover {
@@ -156,27 +148,6 @@
 
 .slotCardFooterDelete:hover {
     background-color: #ee4f3d;
-}
-
-.calendar {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-}
-
-.calendarForm {
-    flex: 1;
-}
-
-.calendarBtn {
-    border: none;
-    outline: none;
-    background-color: #3498db;
-    font-size: 1.3rem;
-    color: #ecf0f1;
-    border-radius: 6px;
-    padding: 6px;
 }
 
 .slotArrive {
@@ -204,112 +175,4 @@
     font-size: 1.6rem;
     font-weight: bold;
     margin-bottom: 0;
-}
-
-.slotFooterCompleted {
-    background-color: #f79f1f;
-}
-
-.dasboardBodyCalenderHeader {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 20px;
-    margin-bottom: 20px;
-}
-.appointmentResults {
-    margin-bottom: 20px;
-    padding: 16px;
-}
-.appointmentResultsBody {
-    margin-bottom: 20px;
-    border: 1px solid #ccc;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-}
-.appointmentResultsHeader {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-radius: 4px;
-    padding: 0 20px;
-    height: 30px;
-    background-image: linear-gradient(to right, rgb(29, 162, 86), rgb(72, 212, 131));
-}
-
-.appointmentResultsText {
-    font-size: 1.4rem;
-    color: #fff;
-    margin-bottom: 0;
-    font-weight: bold;
-}
-
-.appointmentResultsBodyText {
-    font-size: 1.3rem;
-    color: var(--text-third);
-    padding: 4px 12px;
-    font-weight: 400;
-}
-
-.customerTitle {
-    font-size: 1.6rem !important;
-    color: #3498db !important;
-}
-
-.InfoCustomer {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 10px;
-}
-
-.InfoHeading {
-    font-size: 1.5rem;
-    color: var(--text-third);
-    font-style: italic;
-}
-
-.InfoHeadingServices {
-    font-size: 1.5rem;
-    color: var(--text-third);
-    font-style: italic;
-    padding-left: 10px;
-}
-.InfoText {
-    font-size: 1.4rem;
-    color: var(--text-third);
-}
-
-.InfoTextTotal {
-    font-size: 1.4rem;
-    color: #e74c3c;
-    padding-left: 10px;
-}
-
-.slotCardFooterCalender {
-    height: 40px;
-    background-color: #3498db;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-bottom-left-radius: 4px;
-    border-bottom-right-radius: 4px;
-    font-size: 1.8rem;
-    color: #fff;
-    font-weight: 400;
-    cursor: pointer;
-}
-
-.slotCardFooterCalender:hover {
-    background-color: #44acf2;
-}
-
-.disabled {
-    opacity: 0.5;
-    pointer-events: none; /* Ngăn không cho click */
-}
-
-.slotCardFooterView.disabled {
-    pointer-events: none;
-    opacity: 0.5;
-    cursor: not-allowed;
 }

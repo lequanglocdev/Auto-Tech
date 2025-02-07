@@ -8,11 +8,9 @@ import { AuthWrapper } from '@/components/context/auth.context';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 root.render(
-    <React.StrictMode>
-        <AuthWrapper>
-            <GlobalStyles>
-                <App />
-            </GlobalStyles>
-        </AuthWrapper>
-    </React.StrictMode>,
+    <AuthWrapper>
+        <GlobalStyles>
+            <App />
+        </GlobalStyles>
+    </AuthWrapper>,
 );

@@ -1,9 +1,15 @@
 import React from 'react';
 import { Container } from 'react-bootstrap';
 import styles from './Staff.module.css';
+import staff from "../../../../assets/staff/staff1.jpg"
+import staff2 from "../../../../assets/staff/staff2.webp"
+import staff3 from "../../../../assets/staff/staff3.jpg"
+import staff4 from '../../../../assets/staff/staff4.jpg'
+
 const Staff = () => {
+    
     return (
-        <Container id='gara'>
+        <Container id="gara">
             <div className={styles.staffContent}>
                 <div className={styles.staffHead}>
                     <h4>Nhân viên kỹ thuật chuyên nghiệp</h4>
@@ -11,7 +17,7 @@ const Staff = () => {
                 <div className={styles.staffBody}>
                     <div className={styles.staffCard}>
                         <div className={styles.cardImg}>
-                            <img src="./staff1.jpg" alt="staff" />
+                            <img src={staff} alt="staff" />
                         </div>
                         <h2>Nguyên Văn Hùng</h2>
                         <p>Kỹ thuật viên chăm sóc xe</p>
@@ -22,7 +28,7 @@ const Staff = () => {
                     </div>
                     <div className={styles.staffCard}>
                         <div className={styles.cardImg}>
-                            <img src="./staff2.webp" alt="staff" />
+                            <img src={staff2} alt="staff" />
                         </div>
                         <h2>Trần Minh Tâm </h2>
                         <p>Kỹ thuật viên bảo dưỡng </p>
@@ -33,7 +39,7 @@ const Staff = () => {
                     </div>
                     <div className={styles.staffCard}>
                         <div className={styles.cardImg}>
-                            <img src="./staff3.jpg" alt="staff" />
+                            <img src={staff3} alt="staff" />
                         </div>
                         <h2>Lê Quốc Bảo </h2>
                         <p>Nhân viên bảo dưỡng</p>
@@ -44,7 +50,7 @@ const Staff = () => {
                     </div>
                     <div className={styles.staffCard}>
                         <div className={styles.cardImg}>
-                            <img src="./staff4.jpg" alt="staff" />
+                            <img src={staff4} alt="staff" />
                         </div>
                         <h2>Nguyễn Văn Long</h2>
                         <p>Nhân viên tư vấn</p>

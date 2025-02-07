@@ -10,7 +10,7 @@ import { AuthContext } from '@/components/context/auth.context';
 import { useNavigate } from 'react-router-dom';
 import { FaMailBulk } from 'react-icons/fa';
 import { toast } from 'react-toastify';
-
+import logo from '../../assets/logo.png';
 
 const Login = () => {
     const { IoMdEye, IoMdEyeOff } = icons;
@@ -19,7 +19,6 @@ const Login = () => {
     const [isLoading, setIsLoading] = useState(false);
     const { setAuth } = useContext(AuthContext);
     const navigate = useNavigate();
-
     const handleSubmitButon = async (e) => {
         e.preventDefault();
         if (validateForm()) {
@@ -56,11 +55,19 @@ const Login = () => {
                     toast.error('Đã xảy ra lỗi, vui lòng thử lại.', { autoClose: 3000 });
                 }
             } finally {
-                setIsLoading(false); 
+                setIsLoading(false);
             }
         }
     };
 
+    const handleAuth = () => {
+        navigate('/auth');
+    };
+
+    const handleRegister = () => {
+        navigate('/register');
+    };
+    
     return (
         <div className={styles.login}>
             {isLoading && (
@@ -72,7 +79,7 @@ const Login = () => {
             )}
             <div className={styles.loginContainer}>
                 <div className={styles.loginImage}>
-                    <img src="./logo.png" alt="Logo" />
+                    <img src={logo} alt="Logo" />
                 </div>
                 <div className={styles.loginForm}>
                     <p>Đăng nhập </p>
@@ -115,10 +122,9 @@ const Login = () => {
                         </Button>
                     </Form>
                     <div className={styles.loginFooter}>
-                        <a href="/auth">Quay lại</a>
-                        <a href="/register">Đăng ký</a>
+                        <span onClick={handleAuth}>Quay lại</span>
+                        <span onClick={handleRegister}>Đăng ký</span>
                     </div>
-            
                 </div>
             </div>
         </div>

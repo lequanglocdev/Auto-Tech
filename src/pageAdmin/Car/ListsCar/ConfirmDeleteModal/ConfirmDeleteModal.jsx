@@ -1,7 +1,8 @@
 import React from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-import styles from './ConfirmDeleteModal.module.css'
+import styles from './ConfirmDeleteModal.module.css';
+
 const ConfirmDeleteModal = ({ show, onHide, onConfirm }) => {
     return (
         <Modal show={show} onHide={onHide} centered>

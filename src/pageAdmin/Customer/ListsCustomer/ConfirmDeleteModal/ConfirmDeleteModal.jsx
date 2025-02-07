@@ -1,7 +1,8 @@
 import React from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-import styles from './ConfirmDeleteModal.module.css'
+import styles from './ConfirmDeleteModal.module.css';
+
 const ConfirmDeleteModal = ({ show, onHide, onConfirm }) => {
     return (
         <Modal show={show} onHide={onHide} centered>
@@ -12,8 +13,12 @@ const ConfirmDeleteModal = ({ show, onHide, onConfirm }) => {
                 <p>Bạn muốn xóa khách hàng này không?</p>
             </Modal.Body>
             <Modal.Footer>
-                <Button variant="secondary" className={styles.customerBtn} onClick={onHide}>Hủy</Button>
-                <Button variant="danger" className={styles.customerBtn} onClick={onConfirm}>Xóa</Button>
+                <Button variant="secondary" className={styles.customerBtn} onClick={onHide}>
+                    Hủy
+                </Button>
+                <Button variant="danger" className={styles.customerBtn} onClick={onConfirm}>
+                    Xóa
+                </Button>
             </Modal.Footer>
         </Modal>
     );

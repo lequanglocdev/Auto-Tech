@@ -11,11 +11,8 @@ const AddVehicleModal = ({ show, onClose, customerId, onSave }) => {
     const [model, setModel] = useState('');
     const [year, setYear] = useState('');
     const [color, setColor] = useState('');
-    
-    // State để lưu trữ lỗi
     const [errors, setErrors] = useState({});
 
-    // Fetch vehicle types when the modal is shown
     useEffect(() => {
         if (show) {
             getCarApi()

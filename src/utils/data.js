@@ -2,8 +2,8 @@ export const services = [
     {
         id: 1,
         bannerServices: require('../assets/services/service1.jpg'),
-        defaultImage: './services1.png',
-        hoverImage: './services1_1.png',
+        defaultImage: require('../assets/icons/services1.png'),
+        hoverImage: require('../assets/icons/services1_1.png'),
         title: 'Dịch vụ vệ sinh nội thất',
         benefit: 'vệ sinh nội thất',
         benefitImage: require('../assets/benafit/benafit.png'),
@@ -120,8 +120,8 @@ export const services = [
     {
         id: 2,
         bannerServices: require('../assets/services/service2.jpg'),
-        defaultImage: './services2.png',
-        hoverImage: './services2_2.png',
+        defaultImage: require('../assets/icons/services2.png'),
+        hoverImage: require('../assets/icons/services2_2.png'),
         title: 'Dịch vụ đánh bóng xe',
         benefit: 'đánh bóng xe',
         benefitImage: require('../assets/benafit/benafit2.png'),
@@ -220,8 +220,8 @@ export const services = [
     {
         id: 3,
         bannerServices: require('../assets/services/service3.jpg'),
-        defaultImage: './services3.png',
-        hoverImage: './services3_3.png',
+        defaultImage: require('../assets/icons/services3.png'),
+        hoverImage: require('../assets/icons/services3_3.png'),
         title: 'Dịch vụ dán PPF ô tô',
         benefit: 'dán PPF',
         benefitImage: require('../assets/benafit/benafit3.png'),
@@ -310,8 +310,8 @@ export const services = [
     {
         id: 4,
         bannerServices: require('../assets/services/service4.jpg'),
-        defaultImage: './services4.png',
-        hoverImage: './services4_4.png',
+        defaultImage: require('../assets/icons/services4.png'),
+        hoverImage: require('../assets/icons/services4_4.png'),
         title: 'Dịch vụ phủ ceramic',
         benefit: 'phủ ceramic',
         benefitImage: require('../assets/benafit/benafit4.png'),
@@ -404,8 +404,8 @@ export const services = [
     {
         id: 5,
         bannerServices: require('../assets/services/service5.jpg'),
-        defaultImage: './services5.png',
-        hoverImage: './services5_5.png',
+        defaultImage: require('../assets/icons/services5.png'),
+        hoverImage: require('../assets/icons/services5_5.png'),
         title: 'Dịch vụ dán phim cách nhiệt APEAX',
         benefit: 'dán phim cách nhiệt APEAX',
         benefitImage: require('../assets/benafit/benafit5.png'),
@@ -504,8 +504,8 @@ export const services = [
     {
         id: 6,
         bannerServices: require('../assets/services/service6.jpg'),
-        defaultImage: './services6.png',
-        hoverImage: './services6_6.png',
+        defaultImage: require('../assets/icons/services6.png'),
+        hoverImage: require('../assets/icons/services6_6.png'),
         title: 'Dịch vụ phủ gầm',
         benefitImage: require('../assets/benafit/benafit6.png'),
         benefit: 'phủ gầm',
@@ -593,8 +593,8 @@ export const services = [
     {
         id: 7,
         bannerServices: require('../assets/services/service7.jpg'),
-        defaultImage: './services7.png',
-        hoverImage: './services7_7.png',
+        defaultImage: require('../assets/icons/services7.png'),
+        hoverImage: require('../assets/icons/services7_7.png'),
         title: 'Dịch vụ vệ sinh khoang máy',
         benefit: 'vệ sinh khoang máy',
         benefitImage: require('../assets/benafit/benafit7.png'),
@@ -707,8 +707,8 @@ export const services = [
     {
         id: 8,
         bannerServices: require('../assets/services/service8.jpg'),
-        defaultImage: './services8.png',
-        hoverImage: './services8_8.png',
+        defaultImage: require('../assets/icons/services8.png'),
+        hoverImage: require('../assets/icons/services8_8.png'),
         title: 'Dịch vụ kiểm tra chẩn đoán',
         benefit: 'kiểm tra chẩn đoán sự cố điện',
         benefitImage: require('../assets/benafit/benafit8.png'),
@@ -823,8 +823,8 @@ export const services = [
     {
         id: 9,
         bannerServices: require('../assets/services/service9.jpg'),
-        defaultImage: './services9.png',
-        hoverImage: './services9_9.png',
+        defaultImage: require('../assets/icons/services9.png'),
+        hoverImage: require('../assets/icons/services9_9.png'),
         title: 'Dịch vụ thay dầu nhớt',
         benefit: 'thay dầu nhớt',
         benefitImage: require('../assets/benafit/benafit9.png'),
@@ -845,16 +845,19 @@ export const services = [
                     'Thay dầu nhớt đúng hạn giúp duy trì lớp bảo vệ giữa các chi tiết động cơ, ngăn ngừa sự hao mòn và hư hỏng sớm, kéo dài tuổi thọ của xe.',
             },
             {
-                benefitHead:"Giảm thiểu khí thải",
-                benefixDescription:'Dầu nhớt sạch giúp động cơ hoạt động hiệu quả hơn, giảm lượng nhiên liệu chưa cháy hết và hạn chế lượng khí thải độc hại ra môi trường.'
+                benefitHead: 'Giảm thiểu khí thải',
+                benefixDescription:
+                    'Dầu nhớt sạch giúp động cơ hoạt động hiệu quả hơn, giảm lượng nhiên liệu chưa cháy hết và hạn chế lượng khí thải độc hại ra môi trường.',
             },
             {
-                benefitHead:" Hỗ trợ hệ thống làm mát:",
-                benefixDescription:'Dầu nhớt không chỉ bôi trơn mà còn có vai trò giúp làm mát động cơ. Khi dầu nhớt mới và sạch, khả năng làm mát của động cơ được duy trì, giảm nguy cơ quá nhiệt.'
+                benefitHead: ' Hỗ trợ hệ thống làm mát:',
+                benefixDescription:
+                    'Dầu nhớt không chỉ bôi trơn mà còn có vai trò giúp làm mát động cơ. Khi dầu nhớt mới và sạch, khả năng làm mát của động cơ được duy trì, giảm nguy cơ quá nhiệt.',
             },
             {
-                benefitHead:"Tiết kiệm chi phí sửa chữa",
-                benefixDescription:'Thay dầu nhớt định kỳ là một biện pháp bảo dưỡng cơ bản nhưng quan trọng, giúp phát hiện và ngăn ngừa các vấn đề tiềm ẩn trong động cơ, giảm nguy cơ phải sửa chữa tốn kém trong tương lai.'
+                benefitHead: 'Tiết kiệm chi phí sửa chữa',
+                benefixDescription:
+                    'Thay dầu nhớt định kỳ là một biện pháp bảo dưỡng cơ bản nhưng quan trọng, giúp phát hiện và ngăn ngừa các vấn đề tiềm ẩn trong động cơ, giảm nguy cơ phải sửa chữa tốn kém trong tương lai.',
             },
         ],
         step: [
@@ -925,8 +928,8 @@ export const services = [
     {
         id: 10,
         bannerServices: require('../assets/services/service10.jpg'),
-        defaultImage: './services10.png',
-        hoverImage: './services10_10.png',
+        defaultImage: require('../assets/icons/services10.png'),
+        hoverImage: require('../assets/icons/services10_10.png'),
         title: 'Dịch vụ rửa xe',
         benefit: 'rửa xe',
         benefitImage: require('../assets/benafit/benafit10.png'),
@@ -1029,8 +1032,8 @@ export const services = [
     {
         id: 11,
         bannerServices: require('../assets/services/service11.jpg'),
-        defaultImage: './services11.png',
-        hoverImage: './services11_11.png',
+        defaultImage: require('../assets/icons/services11.png'),
+        hoverImage: require('../assets/icons/services11_11.png'),
         title: 'Dịch vụ bảo dưỡng nhanh',
         benefit: 'bảo dưỡng nhanh',
         benefitImage: require('../assets/benafit/benafit11.png'),
@@ -1136,8 +1139,8 @@ Vì vậy, bạn nên chọn và tham khảo những cơ sở trung tâm uy tín
     {
         id: 12,
         bannerServices: require('../assets/services/service12.jpg'),
-        defaultImage: './services12.png',
-        hoverImage: './services12_12.png',
+        defaultImage: require('../assets/icons/services12.png'),
+        hoverImage: require('../assets/icons/services12_12.png'),
         title: 'Dịch vụ độ màn hình android',
         benefit: 'độ màn hình android',
         benefitImage: require('../assets/benafit/benafit12.png'),
@@ -1237,8 +1240,8 @@ Vì vậy, bạn nên chọn và tham khảo những cơ sở trung tâm uy tín
     {
         id: 13,
         bannerServices: require('../assets/services/service13.jpg'),
-        defaultImage: './services13.png',
-        hoverImage: './services13_13.png',
+        defaultImage: require('../assets/icons/services13.png'),
+        hoverImage: require('../assets/icons/services13_13.png'),
         title: 'Dịch vụ camera hành trình',
         benefit: 'camera hành trình',
         benefitImage: require('../assets/benafit/benafit13.png'),
@@ -1330,7 +1333,7 @@ Vì vậy, bạn nên chọn và tham khảo những cơ sở trung tâm uy tín
 export const blogData = [
     {
         id: 1,
-        image: './blog1.png',
+        image: require('../assets/sidebar/blog1.jpg'),
         author: 'Admin',
         date: '01/09/2024',
         comments: '3 comments',
@@ -1339,7 +1342,7 @@ export const blogData = [
     },
     {
         id: 2,
-        image: './blog1.png',
+        image: require('../assets/sidebar/blog2.jpg'),
         author: 'User123',
         date: '02/09/2024',
         comments: '5 comments',
@@ -1348,7 +1351,7 @@ export const blogData = [
     },
     {
         id: 3,
-        image: './blog1.png',
+        image: require('../assets/sidebar/blog3.jpg'),
         author: 'Guest',
         date: '03/09/2024',
         comments: '10 comments',

@@ -2,26 +2,22 @@ import React, { useState } from 'react';
 import { Table, Pagination } from 'react-bootstrap';
 import icons from '@/utils/icon';
 import styles from './TableCar.module.css';
-import { deleteCarApi, deleteUserApi, putCarApi } from '@/utils/api';
+import { deleteCarApi, putCarApi } from '@/utils/api';
 import EditCarModal from '../EditCarModal/EditCarModal';
 import ConfirmDeleteModal from '../ConfirmDeleteModal/ConfirmDeleteModal';
-import {  toast } from 'react-toastify';
+import { toast } from 'react-toastify';
+
 const TableCar = ({ data = [], itemsPerPage }) => {
     const { FaPen, FaTrash } = icons;
-
     const [currentPage, setCurrentPage] = useState(1);
     const startIndex = (currentPage - 1) * itemsPerPage;
-    
     const [editModalShow, setEditModalShow] = useState(false);
     const [confirmDeleteModalShow, setConfirmDeleteModalShow] = useState(false);
-    
     const [selectedCar, setSelectedCar] = useState(null);
     const [carToDelete, setCarToDelete] = useState(null);
-    
     const [car, setCar] = useState(data);
     const currentData = car.slice(startIndex, startIndex + itemsPerPage);
     const totalPages = Math.ceil(car.length / itemsPerPage);
-
     const handlePageChange = (pageNumber) => {
         setCurrentPage(pageNumber);
     };
@@ -35,9 +31,10 @@ const TableCar = ({ data = [], itemsPerPage }) => {
         if (carToDelete) {
             try {
                 await deleteCarApi(carToDelete);
+                toast.success('Xóa thành công');
                 setCar((prev) => prev.filter((emp) => emp?._id !== carToDelete?._id));
                 if (currentPage > totalPages) {
-                    setCurrentPage(totalPages > 0 ? totalPages : 1); 
+                    setCurrentPage(totalPages > 0 ? totalPages : 1);
                 }
             } catch (error) {
                 console.log(error);
@@ -57,37 +54,22 @@ const TableCar = ({ data = [], itemsPerPage }) => {
         try {
             const response = await putCarApi(updatedCar);
             if (response) {
-                setCar((prev) => prev.map((cust) => (cust?._id === updatedCar?._id ? { ...cust, ...updatedCar } : cust)));
+                setCar((prev) =>
+                    prev.map((cust) => (cust?._id === updatedCar?._id ? { ...cust, ...updatedCar } : cust)),
+                );
                 setEditModalShow(false);
             }
+            toast.success('Cập nhật thành công');
         } catch (error) {
             if (error.response) {
                 const errorMessage = error.response.data || 'Đã xảy ra lỗi khi cập nhật';
-                console.error('Lỗi:', errorMessage);
-
-                toast.error(errorMessage, {
-                    position: 'top-right',
-                    autoClose: 3000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                });
+                toast.error(errorMessage);
             } else {
-                console.error('Lỗi không xác định:', error);
-                toast.error('Đã xảy ra lỗi không xác định. Vui lòng thử lại sau.', {
-                    position: 'top-right',
-                    autoClose: 3000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                });
+                toast.error('Đã xảy ra lỗi không xác định. Vui lòng thử lại sau.');
             }
         }
     };
+    
     return (
         <div className={styles.dataTableWrapper}>
             <Table striped bordered hover className={styles.dataTable}>
@@ -95,7 +77,7 @@ const TableCar = ({ data = [], itemsPerPage }) => {
                     <tr className="">
                         <th className={styles.dataTableHead}>Loại xe</th>
                         <th className={styles.dataTableHead}>mô tả</th>
-                        <th className={styles.dataTableHead}>Hành động</th>
+                        <th className={styles.dataTableHead}>Tác vụ</th>
                     </tr>
                 </thead>
                 <tbody>

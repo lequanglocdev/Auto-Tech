@@ -5,7 +5,6 @@ import { Form } from 'react-bootstrap';
 import { createCarApi } from '@/utils/api';
 import icons from '@/utils/icon';
 import { toast } from 'react-toastify';
-
 import { useNavigate } from 'react-router-dom';
 
 const CreateCar = () => {
@@ -39,8 +38,7 @@ const CreateCar = () => {
         if (!validateForm()) return; 
 
         try {
-            const response = await createCarApi(vehicleTypeName, description);
-            // console.log('>>> API Response:', response);
+            await createCarApi(vehicleTypeName, description);
             toast.success('Xe đã được thêm thành công!');
             setVehicleTypeName('');
             setDescription('');

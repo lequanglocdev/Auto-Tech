@@ -76,6 +76,7 @@
     margin-top: 40px;
     /* padding: 0px 20px; */
 }
+
 .statisticalBodyForm {
     display: flex;
     align-items: center;
@@ -97,6 +98,7 @@
     justify-content: space-between;
     align-items: center;
 }
+
 .chartContainer {
     width: 100%;
     height: 300px;
@@ -151,8 +153,6 @@
     font-size: 1.6rem !important;
 }
 
-/* _______________________ */
-
 .statisticalDate{
     margin-top: 20px;
     padding: 0 10px;
@@ -165,11 +165,13 @@
 .headTable{
     text-align: center;
 }
+
 .headTable h4{
     text-transform: uppercase;
     font-size: 1.6rem;
     font-weight: 500;
 }
+
 .headeTableDate{
     margin-top: 10px;
     display: flex;

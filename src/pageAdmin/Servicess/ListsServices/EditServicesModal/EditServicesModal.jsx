@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Modal, Form } from 'react-bootstrap';
 import styles from './EditServicesModal.module.css';
+
 const EditServicesModal = ({ service, show, onHide, onUpdate }) => {
     const [formData, setFormData] = useState({
         service_code: '',
@@ -26,8 +27,18 @@ const EditServicesModal = ({ service, show, onHide, onUpdate }) => {
         e.preventDefault();
         onUpdate({ ...service, ...formData });
     };
+
+    const handleClose = () => {
+        setFormData({
+            service_code: service?.service_code || '',
+            name: service?.name || '',
+            description: service?.description || '',
+        });
+        onHide();
+    };
+
     return (
-        <Modal show={show} onHide={onHide} size="lg" centered>
+        <Modal show={show} onHide={handleClose} size="lg" centered>
             <Modal.Header closeButton>
                 <Modal.Title className={styles.customerTitle}>Cập nhật thông tin dịch vụ</Modal.Title>
             </Modal.Header>

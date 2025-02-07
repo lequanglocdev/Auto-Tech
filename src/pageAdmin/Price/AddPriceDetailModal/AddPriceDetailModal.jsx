@@ -40,7 +40,7 @@ const AddPriceDetailModal = ({ show, onHide, priceId, onUpdatePriceDetail, servi
             onHide();
         } catch (error) {
             console.error('Error creating price line:', error.response?.data?.msg || error.message);
-            toast.error(error.response?.data?.msg || 'Đã xảy ra lỗi');
+            toast.error(error.response?.data?.msg);
         }
     };
 

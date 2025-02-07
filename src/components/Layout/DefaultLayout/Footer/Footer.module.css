@@ -4,14 +4,14 @@
     border-top: 4px solid var(--text-second);
 }
 
-.footerContent{
+.footerContent {
     width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
-.footerLeft, 
+.footerLeft,
 .footerCenter {
     flex: 1;
     margin: 0 20px;
@@ -63,7 +63,7 @@
         flex-wrap: wrap;
         justify-content: center;
     }
-    .footerLeft, 
+    .footerLeft,
     .footerCenter {
         flex: 1 1 100%;
         text-align: center;

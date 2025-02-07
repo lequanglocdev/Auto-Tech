@@ -75,6 +75,7 @@
 .statisticalBody {
     margin-top: 40px;
 }
+
 .statisticalBodyForm {
     display: flex;
     align-items: center;
@@ -90,8 +91,6 @@
     font-size: 1.4rem;
     font-weight: bold;
 }
-
-
 
 .selectContainer {
     display: flex;
@@ -140,8 +139,6 @@
     font-size: 1.6rem !important;
 }
 
-/* _______________________ */
-
 .statisticalDate {
     margin-top: 20px;
     padding: 0 10px;
@@ -154,11 +151,13 @@
 .headTable {
     text-align: center;
 }
+
 .headTable h4 {
     text-transform: uppercase;
     font-size: 1.6rem;
     font-weight: 500;
 }
+
 .headeTableDate {
     margin-top: 10px;
     display: flex;

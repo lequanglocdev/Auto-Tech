@@ -27,7 +27,7 @@
 .btnAdd {
   outline: none;
   border: none;
-  background-color: #0984e3;
+  background-color: var(--blue-background);
   width: 200px;
   height: 30px;
   border-radius: 6px;
@@ -40,6 +40,7 @@
   font-size: bold;
   margin-top: 50px;
 }
+
 .btnAdd:hover {
   background-color: #74b9ff; 
 }

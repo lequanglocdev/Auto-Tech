@@ -1,17 +1,18 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import { Modal } from 'react-bootstrap';
-import { FaCheck, FaRegCalendarAlt, FaBriefcase } from 'react-icons/fa'; // Import biểu tượng
-import styles from './ProgressModal.module.css'; // CSS module
+import { FaCheck, FaRegCalendarAlt, FaBriefcase } from 'react-icons/fa'; 
+import styles from './ProgressModal.module.css';
 import { putAppointmentService } from '@/utils/api';
 import { toast } from 'react-toastify';
-const ProgressModal = ({ show, onClose, appointmentDetail,   }) => {
-    const [currentStep, setCurrentStep] = useState(0); // Theo dõi bước hiện tại
-    const [updatedAppointmentDetail, setUpdatedAppointmentDetail] = useState(appointmentDetail); // Quản lý trạng thái chi tiết cuộc hẹn
-    const [progress, setProgress] = useState(15); // Bắt đầu từ 15%
+
+const ProgressModal = ({ show, onClose, appointmentDetail}) => {
+    const [currentStep, setCurrentStep] = useState(0); 
+    const [updatedAppointmentDetail, setUpdatedAppointmentDetail] = useState(appointmentDetail); 
+    const [progress, setProgress] = useState(15);
     useEffect(() => {
         if (appointmentDetail?.services?.length > 0) {
-            setCurrentStep(0); // Reset lại bước khi mở modal
-            setUpdatedAppointmentDetail(appointmentDetail); // Cập nhật chi tiết cuộc hẹn
+            setCurrentStep(0); 
+            setUpdatedAppointmentDetail(appointmentDetail);
             setProgress(15);
         }
     }, [appointmentDetail]);
@@ -70,6 +71,7 @@ const ProgressModal = ({ show, onClose, appointmentDetail,   }) => {
     };
 
     return (
+        
         <Modal centered show={show} onHide={onClose} size="lg" className={styles.modalSize}>
             <Modal.Header closeButton>
                 <Modal.Title className={styles.customerTitle}>Thông tin chi tiết cuộc hẹn</Modal.Title>
@@ -77,31 +79,30 @@ const ProgressModal = ({ show, onClose, appointmentDetail,   }) => {
             <Modal.Body>
                 {updatedAppointmentDetail ? (
                     <div>
-                        {/* Thông tin khách hàng */}
-                        <div className={styles.InfoCustomer}>
+                        <div className={styles.infoCustomer}>
                             <div>
-                                <h4 className={styles.InfoHeading}>Thông tin khách hàng</h4>
-                                <p className={styles.InfoText}>Tên: {updatedAppointmentDetail?.customer_id?.name}</p>
-                                <p className={styles.InfoText}>
+                                <h4 className={styles.infoHeading}>Thông tin khách hàng</h4>
+                                <p className={styles.infoText}>Tên: {updatedAppointmentDetail?.customer_id?.name}</p>
+                                <p className={styles.infoText}>
                                     Số điện thoại: {updatedAppointmentDetail?.customer_id?.phone_number}
                                 </p>
-                                <p className={styles.InfoText}>Email: {updatedAppointmentDetail?.customer_id?.email}</p>
-                                <p className={styles.InfoText}>
+                                <p className={styles.infoText}>Email: {updatedAppointmentDetail?.customer_id?.email}</p>
+                                <p className={styles.infoText}>
                                     Địa chỉ: {updatedAppointmentDetail?.customer_id?.address}
                                 </p>
                             </div>
                             <div>
-                                <h4 className={styles.InfoHeading}>Thông tin xe của khách</h4>
-                                <p className={styles.InfoText}>
+                                <h4 className={styles.infoHeading}>Thông tin xe của khách</h4>
+                                <p className={styles.infoText}>
                                     Biển số: {updatedAppointmentDetail?.vehicle_id?.license_plate}
                                 </p>
-                                <p className={styles.InfoText}>
+                                <p className={styles.infoText}>
                                     Tên xe: {updatedAppointmentDetail?.vehicle_id?.manufacturer}
                                 </p>
-                                <p className={styles.InfoText}>
+                                <p className={styles.infoText}>
                                     Dòng xe: {updatedAppointmentDetail?.vehicle_id?.model}
                                 </p>
-                                <p className={styles.InfoText}>
+                                <p className={styles.infoText}>
                                     Màu sắc: {updatedAppointmentDetail?.vehicle_id?.color}
                                 </p>
                             </div>
@@ -109,7 +110,7 @@ const ProgressModal = ({ show, onClose, appointmentDetail,   }) => {
                         <hr />
 
                         {/* Tiến trình thực hiện */}
-                        <h4 className={styles.InfoHeadingServices}>Tiến trình thực hiện </h4>
+                        <h4 className={styles.infoHeadingServices}>Tiến trình thực hiện </h4>
                         <div className={styles.bodyData}>
                             {updatedAppointmentDetail?.services && updatedAppointmentDetail?.services.length > 0 ? (
                                 <div
@@ -183,7 +184,7 @@ const ProgressModal = ({ show, onClose, appointmentDetail,   }) => {
                         </div>
 
                         <div className={styles.totalCost}>
-                            <h4 className={styles.InfoTextTotal}>
+                            <h4 className={styles.infoTextTotal}>
                                 Tổng giá tiền: {updatedAppointmentDetail?.total_cost.toLocaleString()} đ
                             </h4>
                         </div>

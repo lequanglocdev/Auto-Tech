@@ -8,7 +8,6 @@ import {  toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 const CreatePrice = () => {
     const navigate = useNavigate();
-
     const [priceName, setPriceName] = useState('');
     const [startDate, setStartDate] = useState('');
     const [endDate, setEndDate] = useState('');
@@ -57,7 +56,7 @@ const CreatePrice = () => {
             setStartDate('');
             setEndDate('');
         } catch (error) {
-            toast.error('Lỗi nhập dữ liệu');
+            toast.error('Lỗi máy chủ');
         }
     };
 

@@ -68,7 +68,7 @@
     transition: opacity 0.3s ease;
 }
 
-.serviceText{
+.serviceText {
     text-align: center;
 }
 
@@ -84,4 +84,13 @@
     cursor: pointer;
     background-color: var(--text-primary);
     color: var(--text-second);
+}
+
+@media (max-width: 987px) {
+}
+
+@media (max-width: 768px) {
+    .careServices p {
+        text-align: center;
+    }
 }

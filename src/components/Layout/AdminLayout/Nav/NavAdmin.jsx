@@ -4,6 +4,7 @@ import styles from './NavAdmin.module.css';
 import logo from '@/assets/logoAdmin.png';
 import Avartar from '@/components/UI/Avatar/Avartar';
 import { useNavigate } from 'react-router-dom';
+
 const NavAdmin = ({ Toggle }) => {
     const {HiMiniBars3CenterLeft, HiMiniBars3 } = icons;
     const naviagte = useNavigate()
@@ -15,6 +16,7 @@ const NavAdmin = ({ Toggle }) => {
     const handlePageAdmin = () =>{
         naviagte('/admin')
     }
+    
     return (
         <div className={styles.navAdmin}>
             <div className={styles.navAdminLeft} onClick={handlePageAdmin}>

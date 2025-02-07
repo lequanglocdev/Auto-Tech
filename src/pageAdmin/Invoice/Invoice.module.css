@@ -16,7 +16,8 @@
     font-weight: bold;
     text-align: center;
 }
-.invoiceBody {
+
+/* .invoiceBody {
     padding: 20px;
     display: flex;
     justify-content: center;
@@ -31,7 +32,7 @@
 
 .invoiceEmploySelect {
     flex: 1;
-}
+} */
 
 .invoiceBtn {
     margin-top: 40px;
@@ -75,20 +76,23 @@
     margin-bottom: 40px;
     margin-right: 40px;
 }
+
 .dataTablePrint{
     text-align: right;
     margin-bottom: 40px;
     margin-right: 20px;
 }
+
 .btn {
     border-radius: 6px;
     padding: 6px 20px;
     border: none;
     outline: none;
-    background-color: #3498db;
+    background-color: var(--blue-background);
     font-size: 1.4rem;
-    color: #fff;
+    color: var(--text-primary);
 }
+
 .btnPrint {
     border-radius: 6px;
     padding: 6px 20px;
@@ -96,11 +100,13 @@
     outline: none;
     background-color: #db3439;
     font-size: 1.4rem;
-    color: #fff;
+    color: var(--text-primary);
 }
+
 .btnPrint:hover{
     background-color: #e45358;
 }
+
 .btn:hover {
     background-color: #4eaeee;
 }

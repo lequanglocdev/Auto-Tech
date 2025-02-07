@@ -1,6 +1,7 @@
 .dataTableWrapper {
     margin-top: 10px;
 }
+
 .dataTableItem,
 .dataTableHead {
     font-size: 1.4rem;
@@ -10,11 +11,13 @@
     margin-bottom: 0;
     cursor: pointer;
 }
+
 .dataTableHead{
-    background-color: #3498db !important;
-    color: #ffff !important;
+    background-color: var(--blue-background) !important;
+    color: var( --text-primary) !important;
     text-transform: uppercase;
 }
+
 .dataTableItemAction {
     display: flex;
     justify-content: center;
@@ -33,6 +36,7 @@
     align-items: center;
     color: #e84393;
 }
+
 .dataTableIconPen {
     padding: 6px;
     width: 30px;
@@ -70,5 +74,5 @@
 }
 
 .btn{
-    font-size: 1.4rem !important    ;
+    font-size: 1.4rem !important;
 }

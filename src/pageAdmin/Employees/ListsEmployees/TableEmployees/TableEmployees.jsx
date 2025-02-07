@@ -6,6 +6,7 @@ import EditEmployeeModal from '../EditEmployeeModal/EditEmployeeModal';
 import ConfirmDeleteModal from '../ConfirmDeleteModal/ConfirmDeleteModal';
 import { deleteEmployeeApi, putEmployeeApi } from '@/utils/api';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 const TableEmployees = ({ data = [], itemsPerPage }) => {
     const { FaPen, FaTrash } = icons;
@@ -35,7 +36,7 @@ const TableEmployees = ({ data = [], itemsPerPage }) => {
         if (employeeToDelete) {
             try {
                 await deleteEmployeeApi(employeeToDelete);
-                console.log('Xóa thành công:', employeeToDelete);
+                toast.success('Xóa thành công');
                 setEmployees((prev) => prev.filter((emp) => emp._id !== employeeToDelete._id));
             } catch (error) {
                 console.error('Lỗi khi xóa nhân viên:', error);
@@ -57,8 +58,8 @@ const TableEmployees = ({ data = [], itemsPerPage }) => {
 
     const handleUpdateEmployee = async (updatedEmployee) => {
         try {
-            const response = await putEmployeeApi(updatedEmployee);
-            console.log('Cập nhật thành công:', response);
+           await putEmployeeApi(updatedEmployee);
+            toast.success('Cập nhật thành công');
             setEditModalShow(false);
             setEmployees((prevEmployees) =>
                 prevEmployees.map((emp) => (emp._id === updatedEmployee._id ? updatedEmployee : emp)),
@@ -81,10 +82,10 @@ const TableEmployees = ({ data = [], itemsPerPage }) => {
                 </thead>
                 <tbody>
                     {currentData.map((item, index) => (
-                        <tr key={item._id} onClick={() => handleShowUserDetail(item)}>
-                            <td className={styles.dataTableItem}>{item.name}</td>
-                            <td className={styles.dataTableItem}>{item.email}</td>
-                            <td className={styles.dataTableItem}>{item.phone_number}</td>
+                        <tr key={item?._id} onClick={() => handleShowUserDetail(item)}>
+                            <td className={styles.dataTableItem}>{item?.name}</td>
+                            <td className={styles.dataTableItem}>{item?.email}</td>
+                            <td className={styles.dataTableItem}>{item?.phone_number}</td>
                             <td className={styles.dataTableItemAction}>
                                 <div
                                     className={styles.dataTableIconPen}
@@ -109,7 +110,6 @@ const TableEmployees = ({ data = [], itemsPerPage }) => {
                     ))}
                 </tbody>
             </Table>
-
             {employees.length > 5 && (
                 <Pagination size="lg" className={styles.pagination}>
                     <Pagination.First onClick={() => handlePageChange(1)} disabled={currentPage === 1} />

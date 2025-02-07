@@ -131,7 +131,7 @@ const CustomerDetailPage = () => {
 
     const handleUpdateCustomer = async (updatedVehicle) => {
         try {
-            const response = await putVehicleForCustomer(id, updatedVehicle?._id, updatedVehicle); // id là customerId, updatedVehicle._id là vehicleId
+            const response = await putVehicleForCustomer(id, updatedVehicle?._id, updatedVehicle); 
 
             if (response) {
                 // Cập nhật lại danh sách xe của khách hàng nếu cập nhật thành công
@@ -142,7 +142,7 @@ const CustomerDetailPage = () => {
                 );
 
                 setEditModalShow(false);
-                toast.success('Cập nhật xe thành công!');
+                toast.success('Cập nhật xe thành công');
             }
         } catch (error) {
             console.error('Lỗi khi cập nhật xe cho khách hàng:', error);
@@ -257,7 +257,7 @@ const CustomerDetailPage = () => {
                                         <th>Model</th>
                                         <th>Năm sản xuất</th>
                                         <th>Màu sắc</th>
-                                        <th>Hành động</th>
+                                        <th>Tác vụ</th>
                                     </tr>
                                 </thead>
                                 <tbody>

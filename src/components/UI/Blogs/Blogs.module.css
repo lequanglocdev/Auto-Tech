@@ -1,67 +1,84 @@
-.blogHead h4{
-  margin-top: 40px;
-  text-align: center;
-  color: var(--text-second);
-  font-size: 2rem;
-  font-weight: bold;
-  text-transform: uppercase;
+.blogHead h4 {
+    margin-top: 40px;
+    text-align: center;
+    color: var(--text-second);
+    font-size: 2rem;
+    font-weight: bold;
+    text-transform: uppercase;
 }
 
-.blogBody{
-  margin-top: 20px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap:10px;
-}
-.blogCard{
-  width: 300px;
-  height: 400px;
-  background-color: var(--grey-background);
-  border-radius: var(--border-radius);
+.blogBody {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    gap: 10px;
 }
 
-.blogImage{
-  width: 100%;
-  height: 250px;
-  object-fit: cover;
+.blogCard {
+    width: 300px;
+    min-height: 400px;
+    background-color: var(--white-background);
+    border-radius: var(--border-radius);
+    overflow: hidden;
 }
 
-.blogInfo{
-  margin-top: 20px;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
+.blogImage {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
 }
 
-.blogUser{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
+.blogInfo {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 0 4px;
 }
 
-.blogUser p{
-  margin-bottom: 0;
-  font-size: 1.4rem;
-  color: var(--text-third);
+.blogUser {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
 }
 
-.blogUserIcon{
-  font-size: 1.4rem;
-  color: var(--text-second);
+.blogUser p {
+    margin-bottom: 0;
+    font-size: 1.4rem;
+    color: var(--text-third);
 }
 
-
-.blogContent p{
-  text-align: center;
-  font-size: 1.2rem;
-  color: var(--text-third);
+.blogUserIcon {
+    font-size: 1.4rem;
+    color: var(--text-second);
 }
+
+.blogContent {
+    padding: 6px;
+}
+
+.blogContent p {
+    text-align: center;
+    font-size: 1.4rem;
+    color: var(--text-third);
+}
+
+.blogContentRead {
+    display: flex;
+    justify-content: flex-end;
+    font-size: 1.4rem;
+    font-weight: 500;
+    color: var(--text-second);
+    text-decoration: underline;
+    cursor: pointer;
+}
+
 @media (max-width: 987px) {
-  .blogBody {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-  }
+    .blogBody {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
 }

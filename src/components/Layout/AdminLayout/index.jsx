@@ -4,6 +4,7 @@ import styles from './AdminLayout.module.css';
 import NavAdmin from './Nav/NavAdmin';
 import SidebarAdmin from './SideBarAdmin/SidebarAdmin';
 import { AuthContext } from '@/components/context/auth.context';
+
 const AdminLayout = ({ children }) => {
     const { auth } = useContext(AuthContext); 
     const isAuthenticated = auth.user?.role === "admin" || auth.user?.role === "employee";

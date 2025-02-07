@@ -25,7 +25,7 @@
     width: 100%;
     display: flex;
     justify-content: space-around;
-    align-items: center; 
+    align-items: center;
 }
 
 .bodyText {
@@ -36,7 +36,41 @@
 }
 
 .bodyText span {
-    font-size: 1.6rem;
+    font-size: 2rem;
     color: var(--text-primary);
-    font-weight: bold;
+    font-weight: 400;
+}
+
+.specificationWrapperImage {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 4px;
+}
+
+.specificationImage {
+    width: 476px;
+    height: 425px;
+    object-fit: contain;
+}
+
+@media (max-width: 987px) {
+    .specificationImage {
+        width: 250px;
+        height: 200px;
+        object-fit: contain;
+    }
+}
+
+@media (max-width: 768px) {
+    .specificationContent {
+        flex-direction: row;
+        height: auto;
+        gap: 6px;
+    }
+    .specificationBody {
+        display: flex;
+        flex-direction: column;
+    }
 }

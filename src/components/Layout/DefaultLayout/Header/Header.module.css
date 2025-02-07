@@ -33,6 +33,7 @@
     font-size: 1.5rem !important;
     font-weight: bold !important;
 }
+
 .navIcon {
     margin-left: 20px;
 }
@@ -42,9 +43,6 @@
 }
 
 @media (max-width: 768px) {
-    .navbar {
-        height: auto;
-    }
     .navIcon {
         margin-left: 0px;
     }

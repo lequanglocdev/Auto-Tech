@@ -14,9 +14,7 @@ import { CreateEmployees, ListsEmployees } from '@/pageAdmin/Employees/index';
 import { CreateCar, ListsCar } from '@/pageAdmin/Car/index';
 import { CreateService, ListsService } from '@/pageAdmin/Servicess/index';
 import { CreatePromotion, ListsPromotion } from '@/pageAdmin/Promotions/index';
-
 import { CreatePrice, ListsPrice, ListDetailPrice } from '@/pageAdmin/Price/index';
-
 import CustomerDetailPage from '@/pageAdmin/CustomerDetail/CustomerDetailPage';
 import PriceDetailPage from '@/pageAdmin/PriceDetail/PriceDetailPage';
 import EmployeesDetail from '@/pageAdmin/EmployeesDetail/EmployeesDetail';
@@ -31,11 +29,11 @@ export const publicRoute = [
     { path: '/', component: Home },
     { path: '/auth', component: Auth, layout: null },
     { path: '/login', component: Login, layout: null },
-   
+
     { path: '/register', component: Register, layout: null },
     { path: '/otp', component: Otp, layout: null },
     { path: '/services', component: CareServices },
-    { path: '/services/:serviceId', component: ServicesDetail },
+    { path: '/services/:slug', component: ServicesDetail },
     { path: '/intro', component: Intro },
     { path: '/blog', component: Blogs },
 ];

@@ -11,7 +11,7 @@ const registerAdminApi = (username, email, password) => {
     return axios.post(URL_API, data);
 };
 
-const registerManagerApi = (username, password, email, name, phone_number, roleEmployee) => {
+const registerManagerApi = (username, email, name, password, phone_number, roleEmployee) => {
     const URL_API = '/api/employees/register';
     const data = {
         username,
@@ -21,7 +21,6 @@ const registerManagerApi = (username, password, email, name, phone_number, roleE
         phone_number,
         roleEmployee,
     };
-    // console.log('Sending data:', data);
     return axios.post(URL_API, data);
 };
 
@@ -225,14 +224,13 @@ const getAllTableStatistic = (startDate, endDate) => {
 
 const getAllTableStatisticPromotion = (startDate, endDate) => {
     const URL_API = `/api/statistics/getAll/promotion?start_date=${startDate}&end_date=${endDate}`;
-    return axios.get(URL_API,{ responseType: 'arraybuffer' });
+    return axios.get(URL_API, { responseType: 'arraybuffer' });
 };
 
 const getAllTableStatisticRefundPay = (startDate, endDate) => {
     const URL_API = `/api/statistics/serviceRevenue?start_date=${startDate}&end_date=${endDate}`;
-    return axios.get(URL_API,{ responseType: 'arraybuffer' });
+    return axios.get(URL_API, { responseType: 'arraybuffer' });
 };
-
 
 const getExportStatisticPromotion = (startDate, endDate) => {
     const URL_API = `/api/statistics/exportPromotion?start_date=${startDate}&end_date=${endDate}`;
@@ -486,18 +484,18 @@ const returnPayment = (invoiceId, note) => {
     const URL_API = `/api/payments/refundInvoice`;
     const data = {
         invoiceId: invoiceId,
-        note: note
+        note: note,
     };
     return axios.post(URL_API, data);
 };
 
-const cashPayment = (invoiceId,) =>{
+const cashPayment = (invoiceId) => {
     const URL_API = `/api/payments/paylive/${invoiceId}`;
     const data = {
-        invoiceId: invoiceId
-    }
+        invoiceId: invoiceId,
+    };
     return axios.post(URL_API, data);
-}
+};
 
 const putEmployeeApi = (user) => {
     const URL_API = `/api/employees/${user._id}`;

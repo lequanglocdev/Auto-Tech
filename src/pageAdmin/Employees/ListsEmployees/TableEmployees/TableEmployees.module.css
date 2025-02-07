@@ -1,6 +1,7 @@
 .dataTableWrapper {
     margin-top: 10px;
 }
+
 .dataTableItem,
 .dataTableHead {
     font-size: 1.4rem;
@@ -10,11 +11,13 @@
     margin-bottom: 0;
     cursor: pointer;
 }
+
 .dataTableHead {
-    background-color: #3498db !important;
-    color: #ffff !important;
+    background-color: var( --blue-background) !important;
+    color: var(--text-primary) !important;
     text-transform: uppercase;
 }
+
 .dataTableItemAction {
     display: flex;
     justify-content: center;
@@ -34,6 +37,7 @@
     background-color: #cb3ce733;
     color: #e84393;
 }
+
 .dataTableIconPen {
     width: 30px;
     height: 30px;
@@ -41,7 +45,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    /* background-color: #1a9f5333; */
     color: #55efc4;
 }
 
@@ -52,6 +55,5 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    /* background-color: #f1113333; */
     color: #c0392b;
 }

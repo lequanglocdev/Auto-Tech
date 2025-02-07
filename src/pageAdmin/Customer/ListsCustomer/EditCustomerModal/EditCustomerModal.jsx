@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Modal, Form } from 'react-bootstrap';
 import styles from './EditCustomerModal.module.css';
+
 const EditCustomerModal = ({ user, show, onHide, onUpdate }) => {
     const [formData, setFormData] = useState({
         username: '',
@@ -30,6 +31,7 @@ const EditCustomerModal = ({ user, show, onHide, onUpdate }) => {
         e.preventDefault();
         onUpdate({ ...user, ...formData });
     };
+    
     return (
         <Modal show={show} onHide={onHide} size="lg" centered>
             <Modal.Header closeButton>

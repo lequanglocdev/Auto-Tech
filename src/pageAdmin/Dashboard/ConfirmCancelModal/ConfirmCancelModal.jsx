@@ -2,7 +2,9 @@ import React from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import styles from './ConfirmCancelModal.module.css'
+
 const ConfirmCancelModal = ({ show, onHide, onConfirm }) => {
+
     return (
         <Modal show={show} onHide={onHide} centered>
             <Modal.Header closeButton>
